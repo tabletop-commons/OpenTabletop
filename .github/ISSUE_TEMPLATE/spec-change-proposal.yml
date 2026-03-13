@@ -1,0 +1,87 @@
+name: Spec Change Proposal
+description: Propose a change to the OpenAPI specification
+title: "[Spec]: "
+labels: ["spec-change", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose changes to the OpenTabletop API specification.
+        For larger changes, consider writing a full RFC via the Discussions tab.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A brief summary of the proposed specification change.
+      placeholder: Summarize the change...
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-endpoints
+    attributes:
+      label: Affected Endpoints / Schemas
+      description: List the endpoints, schemas, or parameters that would be affected.
+      placeholder: |
+        - `GET /games/{id}`
+        - `Game` schema
+        - `pagination` parameters
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change needed? What problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-changes
+    attributes:
+      label: Proposed Changes (OpenAPI YAML diff)
+      description: Show the proposed changes as an OpenAPI YAML diff where possible.
+      render: yaml
+      placeholder: |
+        # Example:
+        # paths:
+        #   /games/{id}:
+        #     get:
+        #       parameters:
+        #         - name: include
+        #           in: query
+        #           schema:
+        #             type: string
+    validations:
+      required: true
+
+  - type: textarea
+    id: backwards-compatibility
+    attributes:
+      label: Backwards Compatibility Assessment
+      description: Will this change break existing clients? If so, describe the impact and migration path.
+      placeholder: |
+        - Is this additive (new fields/endpoints) or breaking?
+        - What is the migration path for existing clients?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: adr-required
+    attributes:
+      label: ADR Required
+      description: Does this change require an Architecture Decision Record?
+      options:
+        - "Yes"
+        - "No"
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, related issues, or references.

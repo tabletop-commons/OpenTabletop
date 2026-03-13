@@ -1,0 +1,97 @@
+DesignerFilter:
+  name: designer
+  in: query
+  required: false
+  description: >-
+    Filter by designer slug. Returns games designed by the specified person.
+  schema:
+    type: string
+  example: "r-eric-reuss"
+
+PublisherFilter:
+  name: publisher
+  in: query
+  required: false
+  description: >-
+    Filter by publisher slug. Returns games published by the specified company.
+  schema:
+    type: string
+  example: "greater-than-games"
+
+FamilyFilter:
+  name: family
+  in: query
+  required: false
+  description: >-
+    Filter by game family slug. Returns games that belong to the specified
+    family (see GameFamily schema).
+  schema:
+    type: string
+  example: "spirit-island"
+
+CategoryFilter:
+  name: category
+  in: query
+  required: false
+  description: >-
+    Filter by single category slug. For multi-category OR filtering, use
+    the 'categories' parameter instead.
+  schema:
+    type: string
+  example: "strategy"
+
+YearMin:
+  name: year_min
+  in: query
+  required: false
+  description: >-
+    Earliest publication year (inclusive). Returns games published in or
+    after this year.
+  schema:
+    type: integer
+  example: 2015
+
+YearMax:
+  name: year_max
+  in: query
+  required: false
+  description: >-
+    Latest publication year (inclusive). Returns games published in or
+    before this year.
+  schema:
+    type: integer
+  example: 2025
+
+TypeFilter:
+  name: type
+  in: query
+  required: false
+  description: >-
+    Filter by game type discriminator. See ADR-0006 for the unified game
+    entity design.
+  schema:
+    type: string
+    enum:
+      - base_game
+      - expansion
+      - standalone_expansion
+      - promo
+      - accessory
+      - fan_expansion
+  example: "base_game"
+
+ModeFilter:
+  name: mode
+  in: query
+  required: false
+  description: >-
+    Filter by primary play mode.
+  schema:
+    type: string
+    enum:
+      - cooperative
+      - competitive
+      - solo
+      - team
+      - mixed
+  example: "cooperative"

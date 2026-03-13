@@ -1,0 +1,29 @@
+Artist:
+  type: object
+  description: >-
+    An artist credited for artwork on one or more games. Covers box art,
+    card illustrations, board design, and other visual contributions.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913f6b-7a8c-7d9e-bf0a-2b3c4d5e6f7a"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "jason-rainville"
+    name:
+      type: string
+      description: Full display name.
+      example: "Jason Rainville"
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games this artist is credited on.
+      example: 12

@@ -1,0 +1,25 @@
+name: Validate OpenAPI Spec
+
+on:
+  pull_request:
+    paths:
+      - "spec/**"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint OpenAPI spec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run Spectral lint
+        run: npx --yes @stoplight/spectral-cli lint spec/openapi.yaml --fail-severity warn

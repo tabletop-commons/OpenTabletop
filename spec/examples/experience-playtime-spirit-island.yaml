@@ -1,0 +1,42 @@
+summary: Spirit Island experience-adjusted playtime
+description: >-
+  Experience playtime profile for Spirit Island, showing how play time
+  varies dramatically based on player familiarity. First-time players
+  take ~57% longer than experienced players, reflecting the game's
+  complex spirit powers, innate ability tracks, and multi-phase turn
+  structure. Expert players who have internalized the decision trees
+  play ~24% faster than the experienced baseline.
+value:
+  game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  levels:
+    - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      experience_level: "first_play"
+      median_minutes: 165
+      min_minutes: 120
+      max_minutes: 240
+      total_reports: 342
+    - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      experience_level: "learning"
+      median_minutes: 135
+      min_minutes: 100
+      max_minutes: 180
+      total_reports: 518
+    - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      experience_level: "experienced"
+      median_minutes: 105
+      min_minutes: 75
+      max_minutes: 150
+      total_reports: 1204
+    - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      experience_level: "expert"
+      median_minutes: 80
+      min_minutes: 60
+      max_minutes: 110
+      total_reports: 287
+  multipliers:
+    first_play: 1.57
+    learning: 1.29
+    experienced: 1.0
+    expert: 0.76
+  sufficient_data: true
+  total_reports: 2351

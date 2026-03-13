@@ -1,0 +1,38 @@
+Designer:
+  type: object
+  description: >-
+    A game designer credited for designing one or more games. Designers
+    are identified by UUIDv7 with URL slugs for human-friendly links.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "r-eric-reuss"
+    name:
+      type: string
+      description: Full display name.
+      example: "R. Eric Reuss"
+    description:
+      type: string
+      description: Brief biography or notes about the designer.
+      example: >-
+        American board game designer best known for Spirit Island. Known
+        for designing deeply thematic cooperative games with asymmetric
+        player powers.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games credited to this designer.
+      example: 4
+    _links:
+      $ref: '_common.yaml#/Links'

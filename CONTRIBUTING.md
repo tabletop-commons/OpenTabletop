@@ -1,0 +1,78 @@
+# Contributing to OpenTabletop
+
+Thank you for your interest in contributing to OpenTabletop. This document explains how to participate.
+
+## Types of Contributions
+
+### Spec Changes (RFC Process)
+
+Changes to the OpenAPI specification require a formal RFC:
+
+1. **Open a Discussion** using the RFC template in GitHub Discussions
+2. **Write an RFC** describing the change, motivation, and alternatives considered
+3. **Community discussion** period (minimum 7 days)
+4. **Steering committee vote** for acceptance
+5. **Implementation**: submit a PR with the spec change, a reference implementation update, and at least one SDK update
+
+Spec changes that also require a new ADR should use the `/create-adr` Claude skill or follow the MADR 4.0.0 template in `docs/src/adr/`.
+
+### Data Corrections
+
+To correct or add board game data:
+
+1. Open an issue using the **Data Correction** template
+2. Provide source references (BGG link, publisher page, etc.)
+3. A maintainer will verify and merge
+
+### Code Contributions
+
+For reference server or SDK changes:
+
+1. Fork the repository
+2. Create a feature branch from `main`
+3. Make your changes with tests
+4. Submit a pull request using the PR template
+5. Ensure CI passes (spec validation, tests, linting)
+
+## Development Setup
+
+### Prerequisites
+
+- [Rust](https://rustup.rs/) (for reference server and Rust SDK)
+- [Python 3.11+](https://python.org/) (for Python SDK)
+- [Node.js 20+](https://nodejs.org/) (for JavaScript SDK and spec tooling)
+- [mdbook](https://rust-lang.github.io/mdBook/) (for documentation)
+- [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid) (for diagrams)
+
+### Building Documentation
+
+```sh
+mdbook serve docs/
+```
+
+### Validating the OpenAPI Spec
+
+```sh
+npx @stoplight/spectral-cli lint spec/openapi.yaml
+```
+
+## Coding Standards
+
+- Spec files: YAML, 2-space indent, PascalCase for schema names, kebab-case for paths
+- Rust: `cargo fmt` and `cargo clippy`
+- Python: `ruff` for linting and formatting
+- JavaScript/TypeScript: `eslint` and `prettier`
+
+## Commit Messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat(spec): add player count poll endpoint
+fix(sdk-python): correct pagination cursor handling
+docs(adr): add ADR-0034 for webhook support
+```
+
+## Code of Conduct
+
+This project follows the [Contributor Covenant v2.1](CODE_OF_CONDUCT.md). Please read it before participating.

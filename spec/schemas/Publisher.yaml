@@ -1,0 +1,47 @@
+Publisher:
+  type: object
+  description: >-
+    A game publisher responsible for producing and distributing one or more
+    games. Publishers are identified by UUIDv7 with URL slugs.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "greater-than-games"
+    name:
+      type: string
+      description: Full display name of the publisher.
+      example: "Greater Than Games"
+    description:
+      type: string
+      description: Brief description or notes about the publisher.
+      example: >-
+        Independent board game publisher known for Spirit Island, Sentinels
+        of the Multiverse, and other thematic games.
+    country:
+      type: string
+      description: Country where the publisher is headquartered (ISO 3166-1 alpha-2).
+      pattern: '^[A-Z]{2}$'
+      example: "US"
+    website:
+      type: string
+      format: uri
+      description: The publisher's official website URL.
+      example: "https://www.greaterthangames.com"
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games published by this publisher.
+      example: 47
+    _links:
+      $ref: '_common.yaml#/Links'

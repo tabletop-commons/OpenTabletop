@@ -1,0 +1,91 @@
+summary: Samurai — edition deltas across printings
+description: >-
+  Demonstrates edition-level property deltas for Samurai, a classic
+  tile-placement area-majority game by Reiner Knizia. The original 1998
+  Hans im Gluck edition serves as the canonical baseline. The 2015 Fantasy
+  Flight Games reprint has upgraded components and revised rules, resulting
+  in a slightly lower perceived weight. This example shows the full editions
+  response with embedded deltas as returned by
+  GET /games/samurai/editions?include=deltas. See ADR-0035 for the edition
+  delta model.
+value:
+  game_id: "01910000-0003-7000-8000-000000000000"
+  canonical_edition_id: "01910000-0003-7001-8000-000000000001"
+  editions:
+    - id: "01910000-0003-7001-8000-000000000001"
+      game_id: "01910000-0003-7000-8000-000000000000"
+      name: "Samurai (Original Edition)"
+      year_published: 1998
+      publisher_id: "0191a100-1111-7000-8000-000000000001"
+      language: "de"
+      notes: >-
+        Original Hans im Gluck German edition with Rio Grande Games English
+        distribution. The game that established Reiner Knizia's tile-laying
+        trilogy alongside Tigris & Euphrates and Through the Desert. Features
+        the classic smaller board and original tile artwork.
+    - id: "019324a1-b7c3-7d4e-8f5a-6b7c8d9e0f1a"
+      game_id: "01910000-0003-7000-8000-000000000000"
+      name: "Samurai (Fantasy Flight Games Edition)"
+      year_published: 2015
+      publisher_id: "0191a100-2222-7000-8000-000000000002"
+      language: "en"
+      notes: >-
+        Complete redesign with larger board, improved components, and revised
+        rulebook with clearer examples. Part of FFG's Eurogame Classics
+        reprint line. Widely considered the definitive English-language
+        edition.
+    - id: "019324a1-c8d4-7e5f-9a6b-7c8d9e0f1a2b"
+      game_id: "01910000-0003-7000-8000-000000000000"
+      name: "Samurai (Japanese Edition)"
+      year_published: 2016
+      publisher_id: "0191a100-3333-7000-8000-000000000003"
+      language: "ja"
+      notes: >-
+        Japanese localization based on the 2015 FFG edition components with
+        Japanese-language rules and box. Published by Hobby Japan.
+  _embedded:
+    deltas:
+      - edition_id: "019324a1-b7c3-7d4e-8f5a-6b7c8d9e0f1a"
+        game_id: "01910000-0003-7000-8000-000000000000"
+        min_players_delta: 0
+        max_players_delta: 0
+        weight_delta: -0.15
+        playtime_min_delta: 0
+        playtime_max_delta: -5
+        best_at_delta: [3]
+        rules_changes: >-
+          Revised rules with clearer tile-placement examples and diagrams.
+          Added official variant for quicker two-player games with a reduced
+          map. Scoring clarification for Buddha figures — explicitly states
+          that ties on a figure type result in no one claiming that type.
+        component_changes: >-
+          Larger game board (roughly 30% bigger) with improved graphic design
+          and better contrast for island regions. Thicker cardboard tiles
+          replacing the original thinner stock. Updated artwork by Franz
+          Vohwinkel. Plastic figure inserts for Buddhas, Rice Paddies, and
+          High Helmets replacing the original flat tokens. Included plastic
+          insert for component organization.
+        description: >-
+          The 2015 Fantasy Flight Games reprint of Samurai features upgraded
+          components, a larger board, and revised rules with improved clarity.
+          The gameplay is essentially identical to the 1998 original but the
+          improved rules presentation and component quality slightly reduce
+          the perceived complexity weight by approximately 0.15 points. The
+          official two-player variant also slightly reduces maximum playtime.
+      - edition_id: "019324a1-c8d4-7e5f-9a6b-7c8d9e0f1a2b"
+        game_id: "01910000-0003-7000-8000-000000000000"
+        min_players_delta: 0
+        max_players_delta: 0
+        weight_delta: -0.15
+        playtime_min_delta: 0
+        playtime_max_delta: -5
+        rules_changes: >-
+          Same revised rules as the 2015 FFG edition, translated to Japanese.
+          Includes the two-player variant and scoring clarifications.
+        component_changes: >-
+          Identical components to the 2015 FFG edition with Japanese-language
+          rulebook and box art. Same larger board and upgraded tile quality.
+        description: >-
+          Japanese localization of the 2015 FFG reprint. Shares the same
+          component and rules improvements, resulting in identical property
+          deltas. Published by Hobby Japan for the Japanese market.

@@ -1,0 +1,61 @@
+ExperiencePlaytimePoll:
+  type: object
+  description: >-
+    Community-reported playtime data for a single experience level bucket.
+    Each entry captures the median reported playtime and percentile range
+    for a given experience level, along with the number of contributing
+    reports. See ADR-0034 for the design rationale.
+  required:
+    - game_id
+    - experience_level
+    - median_minutes
+    - total_reports
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this poll data belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    experience_level:
+      type: string
+      description: >-
+        The experience level bucket. first_play means everyone at the table
+        is new to the game. learning means 1-3 prior plays, still referencing
+        rules frequently. experienced means 4+ plays, knows the rules well
+        (this is the baseline). expert means optimized play with minimal
+        downtime.
+      enum:
+        - first_play
+        - learning
+        - experienced
+        - expert
+      example: "first_play"
+    median_minutes:
+      type: integer
+      minimum: 0
+      description: >-
+        Median reported play time in minutes for this experience level.
+        Derived from community play log submissions that include a
+        self-reported experience level.
+      example: 165
+    min_minutes:
+      type: integer
+      minimum: 0
+      description: >-
+        10th percentile reported play time for this experience level.
+        Represents the lower bound for most plays at this experience level.
+      example: 120
+    max_minutes:
+      type: integer
+      minimum: 0
+      description: >-
+        90th percentile reported play time for this experience level.
+        Represents the upper bound for most plays at this experience level.
+      example: 240
+    total_reports:
+      type: integer
+      minimum: 0
+      description: >-
+        Number of play reports contributing to this experience level bucket.
+        Higher counts indicate more reliable statistical values.
+      example: 342

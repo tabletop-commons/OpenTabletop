@@ -1,0 +1,34 @@
+Sort:
+  name: sort
+  in: query
+  required: false
+  description: >-
+    Field to sort results by. Available sort fields vary by endpoint;
+    see the specific endpoint documentation. Defaults to 'name' for
+    list endpoints and 'rating' for search.
+  schema:
+    type: string
+    enum:
+      - name
+      - weight
+      - rating
+      - year_published
+      - community_playtime_median
+      - best_at_distance
+    default: "name"
+  example: "rating"
+
+Order:
+  name: order
+  in: query
+  required: false
+  description: >-
+    Sort direction. 'asc' for ascending (A-Z, lowest first), 'desc' for
+    descending (Z-A, highest first).
+  schema:
+    type: string
+    enum:
+      - asc
+      - desc
+    default: "asc"
+  example: "desc"

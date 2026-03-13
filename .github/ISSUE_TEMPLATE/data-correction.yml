@@ -1,0 +1,67 @@
+name: Data Correction
+description: Report incorrect board game data that needs correction
+title: "[Data]: "
+labels: ["data-correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to report incorrect board game data. Please provide a reliable source for the correction.
+
+  - type: input
+    id: game-name
+    attributes:
+      label: Game Name
+      description: The name of the board game with incorrect data.
+      placeholder: e.g., Catan
+    validations:
+      required: true
+
+  - type: input
+    id: game-id
+    attributes:
+      label: Game ID / Slug
+      description: The game's ID or URL slug, if known.
+      placeholder: e.g., catan or 01234567-89ab-cdef-0123-456789abcdef
+
+  - type: input
+    id: field
+    attributes:
+      label: Field to Correct
+      description: Which field or attribute contains the incorrect data?
+      placeholder: e.g., min_players, designer, year_published
+    validations:
+      required: true
+
+  - type: input
+    id: current-value
+    attributes:
+      label: Current Value
+      description: The current (incorrect) value.
+      placeholder: e.g., 3
+    validations:
+      required: true
+
+  - type: input
+    id: correct-value
+    attributes:
+      label: Correct Value
+      description: The correct value it should be changed to.
+      placeholder: e.g., 2
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source Reference (URL)
+      description: A URL to a reliable source confirming the correct value (e.g., publisher's website, BGG page).
+      placeholder: https://boardgamegeek.com/boardgame/13/catan
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information about this data correction.

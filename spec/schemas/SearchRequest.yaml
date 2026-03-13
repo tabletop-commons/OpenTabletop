@@ -1,0 +1,297 @@
+SearchRequest:
+  type: object
+  description: >-
+    Request body for POST /games/search. Provides a structured filter
+    object for complex queries that exceed what query parameters can
+    comfortably express. All filter fields are optional; omitted fields
+    apply no constraint for that dimension.
+  properties:
+    filters:
+      $ref: '#/SearchFilters'
+    sort:
+      type: string
+      description: Sort field for results.
+      enum:
+        - name
+        - weight
+        - rating
+        - year_published
+        - community_playtime_median
+        - best_at_distance
+      default: "rating"
+      example: "weight"
+    order:
+      type: string
+      description: Sort direction.
+      enum:
+        - asc
+        - desc
+      default: "desc"
+      example: "asc"
+    limit:
+      type: integer
+      description: Maximum number of results per page.
+      minimum: 1
+      maximum: 100
+      default: 25
+      example: 25
+    cursor:
+      type: string
+      description: Opaque cursor for fetching the next page.
+      nullable: true
+      example: null
+    include:
+      type: array
+      description: Related resources to embed in each result.
+      items:
+        type: string
+        enum:
+          - mechanics
+          - categories
+          - themes
+          - designers
+          - publishers
+          - expansions
+          - editions
+          - effective_properties
+          - experience_playtime
+      example:
+        - mechanics
+        - designers
+
+SearchFilters:
+  type: object
+  description: >-
+    Structured filter object for the search endpoint. Each field
+    corresponds to a filter dimension from Pillar 2.
+  properties:
+    players:
+      $ref: '#/PlayerFilter'
+    playtime:
+      $ref: '#/PlaytimeFilter'
+    weight:
+      $ref: '#/WeightFilter'
+    mode:
+      type: string
+      description: Filter by play mode.
+      enum:
+        - cooperative
+        - competitive
+        - solo
+        - team
+        - mixed
+      example: "cooperative"
+    type:
+      type: string
+      description: Filter by game type.
+      enum:
+        - base_game
+        - expansion
+        - standalone_expansion
+        - promo
+        - accessory
+        - fan_expansion
+      example: "base_game"
+    mechanics:
+      $ref: '#/MechanicFilter'
+    theme:
+      $ref: '#/ThemeFilter'
+    designer:
+      type: string
+      description: Filter by designer slug.
+      example: "r-eric-reuss"
+    publisher:
+      type: string
+      description: Filter by publisher slug.
+      example: "greater-than-games"
+    family:
+      type: string
+      description: Filter by game family slug.
+      example: "spirit-island"
+    category:
+      type: string
+      description: Filter by category slug.
+      example: "strategy"
+    year:
+      $ref: '#/YearFilter'
+    edition:
+      type: string
+      description: >-
+        Slug of the edition to use when effective=true. Composes with
+        expansion resolution — the edition provides the base that
+        expansions then modify.
+    effective:
+      type: boolean
+      description: >-
+        When true, filter against expansion-modified effective properties
+        instead of base game properties.
+      default: false
+      example: true
+
+PlayerFilter:
+  type: object
+  description: Player count filter constraints.
+  properties:
+    min:
+      type: integer
+      minimum: 1
+      description: Minimum player count the game must support.
+      example: 2
+    max:
+      type: integer
+      minimum: 1
+      description: Maximum player count the game must support.
+      example: 4
+    exact:
+      type: integer
+      minimum: 1
+      description: >-
+        Exact player count. Equivalent to setting min and max to the same
+        value. When provided, min and max are ignored.
+      example: 3
+    best_at:
+      type: integer
+      minimum: 1
+      description: >-
+        Player count where the game should be rated "best". Uses community
+        poll data from ADR-0010.
+      example: 2
+    recommended_at:
+      type: integer
+      minimum: 1
+      description: >-
+        Player count where the game should be at least "recommended" (best
+        or recommended votes exceed not_recommended).
+      example: 3
+
+PlaytimeFilter:
+  type: object
+  description: Play time filter constraints.
+  properties:
+    min:
+      type: integer
+      minimum: 0
+      description: Minimum play time in minutes.
+      example: 60
+    max:
+      type: integer
+      minimum: 0
+      description: Maximum play time in minutes.
+      example: 120
+    community_min:
+      type: integer
+      minimum: 0
+      description: Community-reported minimum play time in minutes.
+      example: 45
+    community_max:
+      type: integer
+      minimum: 0
+      description: Community-reported maximum play time in minutes.
+      example: 150
+    source:
+      type: string
+      description: Which playtime values to filter on.
+      enum:
+        - publisher
+        - community
+      example: "community"
+    experience:
+      type: string
+      description: >-
+        Adjust playtime filtering for the specified experience level.
+        When set, game playtime values are adjusted using experience-level
+        multipliers before comparison. For example, playtime max=120 with
+        experience=first_play will find games whose FIRST PLAY time is
+        under 120 minutes — meaning their experienced-play time is roughly
+        80 minutes. Composes with source and effective mode. See ADR-0034.
+      enum:
+        - first_play
+        - learning
+        - experienced
+        - expert
+      example: "first_play"
+
+WeightFilter:
+  type: object
+  description: Complexity weight filter constraints.
+  properties:
+    min:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      description: Minimum weight (complexity) on a 1.0-5.0 scale.
+      example: 2.0
+    max:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      description: Maximum weight (complexity) on a 1.0-5.0 scale.
+      example: 3.5
+
+MechanicFilter:
+  type: object
+  description: >-
+    Mechanic filter with three modes: any (OR), all (AND), and not (exclude).
+    Uses slugs from the controlled vocabulary.
+  properties:
+    any:
+      type: array
+      description: >-
+        Match games having at least one of these mechanics (OR logic).
+      items:
+        type: string
+      example:
+        - "deck-building"
+        - "hand-management"
+    all:
+      type: array
+      description: >-
+        Match games having all of these mechanics (AND logic).
+      items:
+        type: string
+      example:
+        - "cooperative-play"
+        - "variable-player-powers"
+    not:
+      type: array
+      description: >-
+        Exclude games having any of these mechanics (NOT logic).
+      items:
+        type: string
+      example:
+        - "roll-and-move"
+
+ThemeFilter:
+  type: object
+  description: Theme filter with include and exclude modes.
+  properties:
+    include:
+      type: array
+      description: Match games having at least one of these themes.
+      items:
+        type: string
+      example:
+        - "fantasy"
+        - "mythology"
+    not:
+      type: array
+      description: Exclude games having any of these themes.
+      items:
+        type: string
+      example:
+        - "horror"
+
+YearFilter:
+  type: object
+  description: Publication year filter constraints.
+  properties:
+    min:
+      type: integer
+      description: Earliest publication year (inclusive).
+      example: 2015
+    max:
+      type: integer
+      description: Latest publication year (inclusive).
+      example: 2025

@@ -1,0 +1,118 @@
+list:
+  get:
+    operationId: listDesigners
+    summary: List all designers
+    description: >-
+      Returns a paginated list of game designers. Each designer includes
+      a count of their games and hypermedia links to their game list.
+    tags:
+      - People
+    parameters:
+      - $ref: '../parameters/sorting.yaml#/Sort'
+      - $ref: '../parameters/sorting.yaml#/Order'
+      - $ref: '../parameters/pagination.yaml#/Cursor'
+      - $ref: '../parameters/pagination.yaml#/Limit'
+    responses:
+      "200":
+        description: Paginated list of designers.
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '../schemas/Designer.yaml#/Designer'
+            example:
+              data:
+                - id: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+                  slug: "r-eric-reuss"
+                  name: "R. Eric Reuss"
+                  description: >-
+                    American board game designer best known for Spirit Island.
+                  game_count: 4
+                  _links:
+                    self:
+                      href: "/designers/r-eric-reuss"
+                    games:
+                      href: "/games?designer=r-eric-reuss"
+                      title: "Games by R. Eric Reuss"
+                - id: "01913d4f-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+                  slug: "uwe-rosenberg"
+                  name: "Uwe Rosenberg"
+                  description: >-
+                    German board game designer known for Agricola, Caverna,
+                    and Le Havre.
+                  game_count: 32
+                  _links:
+                    self:
+                      href: "/designers/uwe-rosenberg"
+                    games:
+                      href: "/games?designer=uwe-rosenberg"
+                      title: "Games by Uwe Rosenberg"
+              meta:
+                total: 8432
+                limit: 25
+                has_more: true
+                next_cursor: "eyJpZCI6IjAxOTEzZDRmLTZmN2ItN2M4ZC1hZTlmLTFhMmIzYzRkNWU2ZiJ9"
+              _links:
+                self:
+                  href: "/designers?limit=25"
+                next:
+                  href: "/designers?limit=25&cursor=eyJpZCI6IjAxOTEzZDRmLTZmN2ItN2M4ZC1hZTlmLTFhMmIzYzRkNWU2ZiJ9"
+
+detail:
+  get:
+    operationId: getDesigner
+    summary: Get a designer by ID or slug
+    description: >-
+      Returns a single designer by their UUIDv7 or URL slug, including
+      hypermedia links to their game list.
+    tags:
+      - People
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The designer's UUIDv7 or URL slug.
+        schema:
+          type: string
+        examples:
+          uuid:
+            summary: UUIDv7 identifier
+            value: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+          slug:
+            summary: URL slug
+            value: "r-eric-reuss"
+    responses:
+      "200":
+        description: The designer resource with hypermedia links.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/Designer.yaml#/Designer'
+            example:
+              id: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+              slug: "r-eric-reuss"
+              name: "R. Eric Reuss"
+              description: >-
+                American board game designer best known for Spirit Island.
+                Known for designing deeply thematic cooperative games with
+                asymmetric player powers.
+              game_count: 4
+              _links:
+                self:
+                  href: "/designers/r-eric-reuss"
+                  title: "R. Eric Reuss"
+                games:
+                  href: "/games?designer=r-eric-reuss"
+                  title: "Games by R. Eric Reuss"
+      "404":
+        description: No designer found with the given ID or slug.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

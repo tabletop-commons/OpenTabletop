@@ -1,0 +1,62 @@
+get:
+  operationId: listMechanics
+  summary: List all mechanics
+  description: >-
+    Returns a paginated list of all game mechanics from the controlled
+    vocabulary (see ADR-0009). Each mechanic includes its canonical slug,
+    display name, description, and a count of games tagged with it.
+  tags:
+    - Taxonomy
+  parameters:
+    - $ref: '../parameters/sorting.yaml#/Sort'
+    - $ref: '../parameters/sorting.yaml#/Order'
+    - $ref: '../parameters/pagination.yaml#/Cursor'
+    - $ref: '../parameters/pagination.yaml#/Limit'
+  responses:
+    "200":
+      description: Paginated list of mechanics.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../schemas/Mechanic.yaml#/Mechanic'
+          example:
+            data:
+              - id: "01913a1c-2b3d-7e4f-8a5b-6c7d8e9f0a1b"
+                slug: "deck-building"
+                name: "Deck Building"
+                description: >-
+                  Players construct a personal deck of cards during play,
+                  purchasing new cards from a shared market.
+                game_count: 1247
+              - id: "01913a1c-3c4e-7f5a-9b6c-7d8e9f0a1b2c"
+                slug: "worker-placement"
+                name: "Worker Placement"
+                description: >-
+                  Players take turns placing tokens on shared action spaces
+                  to perform actions, with each space typically usable by
+                  only one player per round.
+                game_count: 2103
+              - id: "01913a1c-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+                slug: "cooperative-play"
+                name: "Cooperative Play"
+                description: >-
+                  Players work together toward a common objective rather
+                  than competing against each other.
+                game_count: 1856
+            meta:
+              total: 187
+              limit: 25
+              has_more: true
+              next_cursor: "eyJpZCI6IjAxOTEzYTFjLTRkNWYtN2E2Yi04YzdkLTllMGYxYTJiM2M0ZCJ9"
+            _links:
+              self:
+                href: "/mechanics?limit=25"
+              next:
+                href: "/mechanics?limit=25&cursor=eyJpZCI6IjAxOTEzYTFjLTRkNWYtN2E2Yi04YzdkLTllMGYxYTJiM2M0ZCJ9"

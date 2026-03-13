@@ -1,0 +1,64 @@
+name: ADR Check
+
+on:
+  pull_request:
+    paths:
+      - "docs/src/adr/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate ADR format and numbering
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate ADR frontmatter
+        run: |
+          exit_code=0
+          for file in docs/src/adr/[0-9]*.md; do
+            [ -f "$file" ] || continue
+            basename=$(basename "$file")
+
+            # Check for required frontmatter fields: status and date
+            if ! head -20 "$file" | grep -qi "^.*status[[:space:]]*:"; then
+              echo "::error file=${file}::Missing required 'status' field in ${basename}"
+              exit_code=1
+            fi
+            if ! head -20 "$file" | grep -qi "^.*date[[:space:]]*:"; then
+              echo "::error file=${file}::Missing required 'date' field in ${basename}"
+              exit_code=1
+            fi
+          done
+          exit $exit_code
+
+      - name: Verify sequential numbering
+        run: |
+          exit_code=0
+          expected=1
+          for file in $(ls docs/src/adr/[0-9]*.md 2>/dev/null | sort); do
+            basename=$(basename "$file")
+            num=$(echo "$basename" | grep -oP '^\d+' | sed 's/^0*//')
+            if [ "$num" != "$expected" ]; then
+              echo "::error file=${file}::Expected ADR number ${expected}, but found ${num} in ${basename}"
+              exit_code=1
+            fi
+            expected=$((expected + 1))
+          done
+          exit $exit_code
+
+      - name: Check index.md is up to date
+        run: |
+          exit_code=0
+          for file in docs/src/adr/[0-9]*.md; do
+            [ -f "$file" ] || continue
+            basename=$(basename "$file")
+            if ! grep -q "$basename" docs/src/adr/index.md 2>/dev/null; then
+              echo "::error file=docs/src/adr/index.md::ADR ${basename} is not listed in index.md"
+              exit_code=1
+            fi
+          done
+          exit $exit_code

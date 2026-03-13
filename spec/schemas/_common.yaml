@@ -1,0 +1,58 @@
+UUID:
+  type: string
+  format: uuid
+  description: >-
+    UUIDv7 identifier. Time-ordered for index locality, globally unique
+    without central coordination. See ADR-0008.
+  example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+
+Slug:
+  type: string
+  description: >-
+    URL-friendly identifier. Lowercase alphanumeric with hyphens. Used in
+    human-readable URLs like /games/spirit-island. See ADR-0008.
+  pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+  minLength: 1
+  maxLength: 200
+  example: "spirit-island"
+
+Timestamp:
+  type: string
+  format: date-time
+  description: ISO 8601 timestamp in UTC (RFC 3339 format).
+  example: "2026-01-15T10:30:00Z"
+
+Links:
+  type: object
+  description: >-
+    HAL-style hypermedia links. Each key is a link relation name and the
+    value contains the href and optional title.
+  additionalProperties:
+    $ref: '#/Link'
+  example:
+    self:
+      href: "/games/spirit-island"
+      title: "Spirit Island"
+    expansions:
+      href: "/games/spirit-island/expansions"
+      title: "Expansions for Spirit Island"
+
+Link:
+  type: object
+  description: A single HAL-style hypermedia link.
+  required:
+    - href
+  properties:
+    href:
+      type: string
+      description: The URI or URI template for this link.
+      example: "/games/spirit-island"
+    title:
+      type: string
+      description: Human-readable label for the link.
+      example: "Spirit Island"
+    templated:
+      type: boolean
+      description: Whether the href is a URI template (RFC 6570).
+      default: false

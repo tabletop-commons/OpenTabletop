@@ -1,0 +1,110 @@
+get:
+  operationId: listGameExpansions
+  summary: List expansions for a game
+  description: >-
+    Returns a paginated list of expansions, promos, and standalone expansions
+    associated with the specified base game. Results include all game types
+    that extend the base game: expansion, promo, and standalone_expansion.
+    The parent game itself is not included in the results.
+  tags:
+    - Games
+    - Expansions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: >-
+        The base game's UUIDv7 or URL slug. Both formats are accepted.
+      schema:
+        type: string
+      examples:
+        uuid:
+          summary: UUIDv7 identifier
+          value: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+        slug:
+          summary: URL slug
+          value: "spirit-island"
+    - name: type
+      in: query
+      required: false
+      description: >-
+        Filter by expansion type. When omitted, all expansion types are
+        returned (expansion, promo, standalone_expansion).
+      schema:
+        type: string
+        enum:
+          - expansion
+          - promo
+          - standalone_expansion
+    - $ref: '../parameters/sorting.yaml#/Sort'
+    - $ref: '../parameters/sorting.yaml#/Order'
+    - $ref: '../parameters/pagination.yaml#/Cursor'
+    - $ref: '../parameters/pagination.yaml#/Limit'
+    - $ref: '../parameters/include.yaml#/Include'
+  responses:
+    "200":
+      description: >-
+        Paginated list of expansion-type games for the specified base game.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../schemas/Game.yaml#/Game'
+          example:
+            data:
+              - id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+                slug: "spirit-island-branch-and-claw"
+                name: "Spirit Island: Branch & Claw"
+                type: "expansion"
+                parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                year_published: 2017
+                min_players: 1
+                max_players: 4
+                weight: 3.95
+                average_rating: 8.52
+                mode: "cooperative"
+                status: "active"
+                _links:
+                  self:
+                    href: "/games/spirit-island-branch-and-claw"
+                  parent:
+                    href: "/games/spirit-island"
+                    title: "Spirit Island"
+              - id: "01912f4c-9b3c-7d4e-af5a-1b2c3d4e5f6a"
+                slug: "spirit-island-jagged-earth"
+                name: "Spirit Island: Jagged Earth"
+                type: "expansion"
+                parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                year_published: 2020
+                min_players: 1
+                max_players: 6
+                weight: 4.18
+                average_rating: 8.78
+                mode: "cooperative"
+                status: "active"
+                _links:
+                  self:
+                    href: "/games/spirit-island-jagged-earth"
+                  parent:
+                    href: "/games/spirit-island"
+                    title: "Spirit Island"
+            meta:
+              total: 4
+              limit: 25
+              has_more: false
+              next_cursor: null
+            _links:
+              self:
+                href: "/games/spirit-island/expansions?limit=25"
+    "404":
+      description: No game found with the given ID or slug.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

@@ -1,0 +1,145 @@
+get:
+  operationId: getGameEditions
+  summary: List editions of a game
+  description: >-
+    Returns all known editions (printings, reprints, localized releases) of
+    a specific game. Each edition includes publishing metadata. Use
+    `?include=deltas` to embed structured property deltas that describe how
+    each edition differs from the canonical (baseline) edition. The canonical
+    edition has no delta — it defines the baseline values. See ADR-0035 for
+    the edition delta model.
+  tags:
+    - Games
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: >-
+        The game identifier. Accepts either a UUIDv7 or a URL slug
+        (e.g., "samurai").
+      schema:
+        type: string
+      example: "samurai"
+    - name: include
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of related resources to embed. Use "deltas"
+        to include structured EditionDelta data for each non-canonical
+        edition.
+      schema:
+        type: string
+        enum:
+          - deltas
+      example: "deltas"
+  responses:
+    "200":
+      description: List of editions for the game.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              game_id:
+                type: string
+                format: uuid
+                description: The UUIDv7 of the game.
+              canonical_edition_id:
+                type: string
+                format: uuid
+                description: >-
+                  The UUIDv7 of the canonical (baseline) edition. All
+                  edition deltas are relative to this edition's properties.
+              editions:
+                type: array
+                items:
+                  $ref: '../schemas/GameEdition.yaml#/GameEdition'
+              _embedded:
+                type: object
+                description: >-
+                  Present when `?include=deltas` is specified. Contains
+                  edition delta data keyed by edition ID.
+                properties:
+                  deltas:
+                    type: array
+                    items:
+                      $ref: '../schemas/EditionDelta.yaml#/EditionDelta'
+          example:
+            game_id: "01910000-0003-7000-8000-000000000000"
+            canonical_edition_id: "01910000-0003-7001-8000-000000000001"
+            editions:
+              - id: "01910000-0003-7001-8000-000000000001"
+                game_id: "01910000-0003-7000-8000-000000000000"
+                name: "Samurai (Original Edition)"
+                year_published: 1998
+                publisher_id: "0191a100-1111-7000-8000-000000000001"
+                language: "de"
+                notes: >-
+                  Original Hans im Gluck German edition with Rio Grande
+                  Games English distribution. Established the classic
+                  tile-placement area-majority design.
+              - id: "019324a1-b7c3-7d4e-8f5a-6b7c8d9e0f1a"
+                game_id: "01910000-0003-7000-8000-000000000000"
+                name: "Samurai (Fantasy Flight Games Edition)"
+                year_published: 2015
+                publisher_id: "0191a100-2222-7000-8000-000000000002"
+                language: "en"
+                notes: >-
+                  Complete redesign with larger board, improved components,
+                  and revised rulebook. Part of FFG's Eurogame reprint line.
+              - id: "019324a1-c8d4-7e5f-9a6b-7c8d9e0f1a2b"
+                game_id: "01910000-0003-7000-8000-000000000000"
+                name: "Samurai (Japanese Edition)"
+                year_published: 2016
+                publisher_id: "0191a100-3333-7000-8000-000000000003"
+                language: "ja"
+                notes: >-
+                  Japanese localization based on the 2015 FFG edition
+                  components with Japanese-language rules and box.
+            _embedded:
+              deltas:
+                - edition_id: "019324a1-b7c3-7d4e-8f5a-6b7c8d9e0f1a"
+                  game_id: "01910000-0003-7000-8000-000000000000"
+                  min_players_delta: 0
+                  max_players_delta: 0
+                  weight_delta: -0.15
+                  playtime_min_delta: 0
+                  playtime_max_delta: -5
+                  best_at_delta: [3]
+                  rules_changes: >-
+                    Revised rules with clearer tile-placement examples.
+                    Added official variant for quicker two-player games.
+                    Scoring clarification for Buddha figures.
+                  component_changes: >-
+                    Larger game board with improved graphic design. Thicker
+                    cardboard tiles replacing the original thinner stock.
+                    Updated artwork by Franz Vohwinkel. Plastic figure
+                    inserts for better organization.
+                  description: >-
+                    The 2015 Fantasy Flight Games reprint features upgraded
+                    components, a larger board, and revised rules with
+                    improved clarity. The gameplay is essentially identical
+                    but the improved presentation slightly reduces perceived
+                    complexity.
+                - edition_id: "019324a1-c8d4-7e5f-9a6b-7c8d9e0f1a2b"
+                  game_id: "01910000-0003-7000-8000-000000000000"
+                  min_players_delta: 0
+                  max_players_delta: 0
+                  weight_delta: -0.15
+                  playtime_min_delta: 0
+                  playtime_max_delta: -5
+                  rules_changes: >-
+                    Same revised rules as the 2015 FFG edition, translated
+                    to Japanese.
+                  component_changes: >-
+                    Identical components to the 2015 FFG edition with
+                    Japanese-language rulebook and box art.
+                  description: >-
+                    Japanese localization of the 2015 FFG reprint. Shares
+                    the same component and rules improvements.
+    "404":
+      description: Game not found.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

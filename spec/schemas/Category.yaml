@@ -1,0 +1,37 @@
+Category:
+  type: object
+  description: >-
+    A game category from the controlled vocabulary (see ADR-0009). Categories
+    describe the broad genre or style of gameplay, such as Strategy, Party,
+    or Abstract. Categories are broader than mechanics and describe the
+    overall experience rather than specific interaction systems.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913b2d-3c4e-7f5a-9b6c-7d8e9f0a1b2c"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "strategy"
+    name:
+      type: string
+      description: Human-readable display name.
+      example: "Strategy"
+    description:
+      type: string
+      description: A concise explanation of what this category encompasses.
+      example: >-
+        Games where victory is primarily determined by player decisions
+        rather than luck, with deep tactical and strategic planning.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games tagged with this category.
+      example: 3421

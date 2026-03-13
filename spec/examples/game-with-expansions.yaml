@@ -1,0 +1,176 @@
+summary: Spirit Island with embedded expansions
+description: >-
+  Spirit Island base game with its expansions embedded via the
+  ?include=expansions parameter. Shows the base game with Branch & Claw
+  and Jagged Earth as nested expansion objects.
+value:
+  id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  slug: "spirit-island"
+  name: "Spirit Island"
+  sort_name: "spirit island"
+  type: "base_game"
+  parent_game_id: null
+  year_published: 2017
+  description_short: >-
+    A cooperative strategy game where spirits defend their island from
+    colonizing invaders using unique elemental powers.
+  min_players: 1
+  max_players: 4
+  min_playtime_minutes: 90
+  max_playtime_minutes: 120
+  community_playtime_median_minutes: 105
+  min_age: 13
+  weight: 3.86
+  average_rating: 8.34
+  bayes_rating: 8.21
+  rating_count: 28456
+  mode: "cooperative"
+  bgg_id: 162886
+  status: "active"
+  created_at: "2025-06-15T10:30:00Z"
+  updated_at: "2026-02-20T14:15:00Z"
+  expansions:
+    - id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+      slug: "spirit-island-branch-and-claw"
+      name: "Spirit Island: Branch & Claw"
+      sort_name: "spirit island branch and claw"
+      type: "expansion"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2017
+      description_short: >-
+        The first expansion for Spirit Island, adding Events, new spirits
+        (Sharp Fangs Behind the Leaves and Keeper of the Forbidden Wilds),
+        new power cards, and Tokens (Beasts, Wilds, Disease, Strife).
+      min_players: 1
+      max_players: 4
+      min_playtime_minutes: 90
+      max_playtime_minutes: 120
+      community_playtime_median_minutes: 115
+      min_age: 13
+      weight: 3.95
+      average_rating: 8.52
+      bayes_rating: 8.38
+      rating_count: 12034
+      mode: "cooperative"
+      bgg_id: 193065
+      status: "active"
+      created_at: "2025-06-15T10:35:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/spirit-island-branch-and-claw"
+          title: "Spirit Island: Branch & Claw"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
+    - id: "01912f4c-9b3c-7d4e-af5a-1b2c3d4e5f6a"
+      slug: "spirit-island-jagged-earth"
+      name: "Spirit Island: Jagged Earth"
+      sort_name: "spirit island jagged earth"
+      type: "expansion"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2020
+      description_short: >-
+        The second major expansion for Spirit Island, adding 10 new spirits,
+        new adversaries, new scenarios, Badlands tokens, and over 50 new
+        power cards. Increases the maximum player count to 6.
+      min_players: 1
+      max_players: 6
+      min_playtime_minutes: 90
+      max_playtime_minutes: 180
+      community_playtime_median_minutes: 130
+      min_age: 13
+      weight: 4.18
+      average_rating: 8.78
+      bayes_rating: 8.62
+      rating_count: 8921
+      mode: "cooperative"
+      bgg_id: 276735
+      status: "active"
+      created_at: "2025-06-15T10:40:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/spirit-island-jagged-earth"
+          title: "Spirit Island: Jagged Earth"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
+    - id: "01912f4c-ac4d-7e5f-ba6b-2c3d4e5f6a7b"
+      slug: "spirit-island-nature-incarnate"
+      name: "Spirit Island: Nature Incarnate"
+      sort_name: "spirit island nature incarnate"
+      type: "expansion"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2023
+      description_short: >-
+        The third major expansion for Spirit Island, adding 8 new spirits,
+        new adversaries, and new aspects for existing spirits.
+      min_players: 1
+      max_players: 6
+      min_playtime_minutes: 90
+      max_playtime_minutes: 180
+      community_playtime_median_minutes: 135
+      min_age: 13
+      weight: 4.25
+      average_rating: 8.85
+      bayes_rating: 8.55
+      rating_count: 4567
+      mode: "cooperative"
+      bgg_id: 371116
+      status: "active"
+      created_at: "2025-06-15T10:45:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/spirit-island-nature-incarnate"
+          title: "Spirit Island: Nature Incarnate"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
+    - id: "01912f4c-bd5e-7f6a-cb7c-3d4e5f6a7b8c"
+      slug: "horizons-of-spirit-island"
+      name: "Horizons of Spirit Island"
+      sort_name: "horizons of spirit island"
+      type: "standalone_expansion"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2022
+      description_short: >-
+        A standalone, introductory version of Spirit Island designed for
+        new players. Includes 5 new spirits with a gentler learning curve,
+        a double-sided game board, and streamlined rules.
+      min_players: 1
+      max_players: 3
+      min_playtime_minutes: 60
+      max_playtime_minutes: 90
+      community_playtime_median_minutes: 75
+      min_age: 10
+      weight: 3.12
+      average_rating: 7.82
+      bayes_rating: 7.58
+      rating_count: 3210
+      mode: "cooperative"
+      bgg_id: 367498
+      status: "active"
+      created_at: "2025-06-15T10:50:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/horizons-of-spirit-island"
+          title: "Horizons of Spirit Island"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
+  _links:
+    self:
+      href: "/games/spirit-island"
+      title: "Spirit Island"
+    expansions:
+      href: "/games/spirit-island/expansions"
+      title: "Expansions for Spirit Island"
+    effective_properties:
+      href: "/games/spirit-island/effective-properties"
+      title: "Effective properties"
+    relationships:
+      href: "/games/spirit-island/relationships"
+      title: "Game relationships"

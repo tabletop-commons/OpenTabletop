@@ -1,0 +1,50 @@
+ExportManifest:
+  type: object
+  description: >-
+    Metadata manifest returned in response headers for data export requests.
+    The body of an export response is the streamed data itself (JSONL or CSV),
+    while these fields appear as X-Export-* response headers and are also
+    included as the first line in JSONL exports for self-describing files.
+    Supports Pillar 3 (Statistical Foundation) for data science workflows.
+  required:
+    - format
+    - row_count
+    - schema_version
+    - generated_at
+  properties:
+    format:
+      type: string
+      description: >-
+        The export data format. JSONL (JSON Lines) provides one JSON object
+        per line for streaming parsers. CSV provides a traditional
+        comma-separated format with a header row.
+      enum:
+        - jsonl
+        - csv
+      example: "jsonl"
+    row_count:
+      type: integer
+      minimum: 0
+      description: Total number of data rows in the export (excluding headers).
+      example: 15234
+    schema_version:
+      type: string
+      description: >-
+        The version of the export schema, following SemVer. Consumers should
+        check this to handle schema evolution in their parsers.
+      example: "0.1.0"
+    generated_at:
+      type: string
+      format: date-time
+      description: UTC timestamp when the export was generated.
+      example: "2026-03-12T08:30:00Z"
+    filters_applied:
+      type: object
+      description: >-
+        Map of filter dimension to human-readable description, matching
+        the FilterSummary format. Empty object means no filters (full export).
+      additionalProperties:
+        type: string
+      example:
+        weight: "Weight between 2.5 and 4.0"
+        year: "Published 2015-2025"

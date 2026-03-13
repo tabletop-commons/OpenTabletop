@@ -1,0 +1,8 @@
+extends:
+  - "spectral:oas"
+
+# OpenAPI 3.1 uses $ref with sibling keywords in path items, which Spectral's
+# OAS 3.0-based oas3-schema rule flags as "unevaluated properties". This is a
+# known false positive for 3.1 specs.
+rules:
+  oas3-schema: off

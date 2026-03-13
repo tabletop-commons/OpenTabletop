@@ -1,0 +1,138 @@
+get:
+  operationId: listGames
+  summary: List games with filtering
+  description: >-
+    Returns a paginated list of games with support for rich multi-dimensional
+    filtering across player count, playtime, weight, mechanics, themes,
+    metadata, and more. All filter dimensions can be composed together with
+    AND semantics (each dimension narrows the result set). This endpoint
+    implements the core of Pillar 2: Filtering & Windowing.
+
+
+    When the `effective` parameter is true, numeric filters (player count,
+    playtime, weight) operate against expansion-modified effective properties
+    rather than base game values. See ADR-0007 for details.
+  tags:
+    - Games
+  parameters:
+    # Player count filters
+    - $ref: '../parameters/player-count-filters.yaml#/Players'
+    - $ref: '../parameters/player-count-filters.yaml#/PlayersMin'
+    - $ref: '../parameters/player-count-filters.yaml#/PlayersMax'
+    - $ref: '../parameters/player-count-filters.yaml#/BestAt'
+    - $ref: '../parameters/player-count-filters.yaml#/RecommendedAt'
+    # Playtime filters
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeMin'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeMax'
+    - $ref: '../parameters/playtime-filters.yaml#/CommunityPlaytimeMin'
+    - $ref: '../parameters/playtime-filters.yaml#/CommunityPlaytimeMax'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeSource'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeExperience'
+    # Weight filters
+    - $ref: '../parameters/weight-filters.yaml#/WeightMin'
+    - $ref: '../parameters/weight-filters.yaml#/WeightMax'
+    # Type and mode filters
+    - $ref: '../parameters/metadata-filters.yaml#/TypeFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/ModeFilter'
+    # Taxonomy filters
+    - $ref: '../parameters/taxonomy-filters.yaml#/Mechanics'
+    - $ref: '../parameters/taxonomy-filters.yaml#/MechanicsAll'
+    - $ref: '../parameters/taxonomy-filters.yaml#/MechanicsNot'
+    - $ref: '../parameters/taxonomy-filters.yaml#/Themes'
+    - $ref: '../parameters/taxonomy-filters.yaml#/ThemesNot'
+    # Metadata filters
+    - $ref: '../parameters/metadata-filters.yaml#/DesignerFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/PublisherFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/FamilyFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/CategoryFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/YearMin'
+    - $ref: '../parameters/metadata-filters.yaml#/YearMax'
+    # Effective mode
+    - $ref: '../parameters/player-count-filters.yaml#/Effective'
+    # Sorting
+    - $ref: '../parameters/sorting.yaml#/Sort'
+    - $ref: '../parameters/sorting.yaml#/Order'
+    # Pagination
+    - $ref: '../parameters/pagination.yaml#/Cursor'
+    - $ref: '../parameters/pagination.yaml#/Limit'
+    # Include
+    - $ref: '../parameters/include.yaml#/Include'
+  responses:
+    "200":
+      description: >-
+        A paginated list of games matching the applied filters. The meta
+        object includes a FilterSummary showing which filters were applied
+        and total counts.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../schemas/Game.yaml#/Game'
+          example:
+            data:
+              - id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                slug: "spirit-island"
+                name: "Spirit Island"
+                type: "base_game"
+                year_published: 2017
+                min_players: 1
+                max_players: 4
+                weight: 3.86
+                average_rating: 8.34
+                mode: "cooperative"
+                status: "active"
+                _links:
+                  self:
+                    href: "/games/spirit-island"
+                  expansions:
+                    href: "/games/spirit-island/expansions"
+            meta:
+              total: 42
+              limit: 25
+              has_more: true
+              next_cursor: "eyJpZCI6IjAxOTEyZjRjLTdlM2EtN2IxYS04YzVkLTlmMGUxYTJiM2M0ZCJ9"
+              filter_summary:
+                filters_applied:
+                  players: "Best at exactly 2 players"
+                  weight: "Weight between 2.0 and 4.0"
+                  mechanics: "Includes any of: cooperative-play"
+                total_matching: 42
+                total_unfiltered: 15234
+            _links:
+              self:
+                href: "/games?best_at=2&weight_min=2.0&weight_max=4.0&mechanics=cooperative-play&limit=25"
+              next:
+                href: "/games?best_at=2&weight_min=2.0&weight_max=4.0&mechanics=cooperative-play&limit=25&cursor=eyJpZCI6IjAxOTEyZjRjLTdlM2EtN2IxYS04YzVkLTlmMGUxYTJiM2M0ZCJ9"
+    "400":
+      description: >-
+        Invalid filter parameters. For example, players_min > players_max,
+        weight_min > weight_max, or an unrecognized sort field.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'
+          example:
+            type: "https://api.opentabletop.org/problems/validation-error"
+            title: "Validation Error"
+            status: 400
+            detail: "The 'players_min' parameter must be less than or equal to 'players_max'."
+            instance: "https://api.opentabletop.org/games?players_min=5&players_max=2"
+            errors:
+              - field: "players_min"
+                message: "Must be less than or equal to players_max (2)."
+                code: "invalid_range"
+    "422":
+      description: >-
+        Unprocessable filter value. The parameter syntax is valid but the
+        value is semantically invalid (e.g., a mechanic slug that does not
+        exist in the controlled vocabulary).
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

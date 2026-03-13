@@ -1,0 +1,208 @@
+search:
+  get:
+    operationId: searchAll
+    summary: Search across all entity types
+    description: >-
+      Full-text search across games, designers, publishers, and other
+      entities. Returns a mixed result set with type discriminators.
+      For structured game filtering, use GET /games or POST /games/search
+      instead.
+    tags:
+      - Search
+    parameters:
+      - name: q
+        in: query
+        required: true
+        description: >-
+          Search query string. Supports partial matching and common
+          misspellings. Minimum 2 characters.
+        schema:
+          type: string
+          minLength: 2
+        example: "spirit island"
+      - name: type
+        in: query
+        required: false
+        description: >-
+          Comma-separated list of entity types to search. When omitted,
+          all types are searched.
+        schema:
+          type: string
+        example: "game,designer"
+      - $ref: '../parameters/pagination.yaml#/Limit'
+      - $ref: '../parameters/pagination.yaml#/Cursor'
+    responses:
+      "200":
+        description: >-
+          Search results with mixed entity types. Each result includes
+          a result_type discriminator and the matched entity.
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '../schemas/SearchResult.yaml#/SearchResult'
+            example:
+              data:
+                - result_type: "game"
+                  score: 0.98
+                  game:
+                    id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                    slug: "spirit-island"
+                    name: "Spirit Island"
+                    type: "base_game"
+                    year_published: 2017
+                    _links:
+                      self:
+                        href: "/games/spirit-island"
+                - result_type: "game"
+                  score: 0.85
+                  game:
+                    id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+                    slug: "spirit-island-branch-and-claw"
+                    name: "Spirit Island: Branch & Claw"
+                    type: "expansion"
+                    year_published: 2017
+                    _links:
+                      self:
+                        href: "/games/spirit-island-branch-and-claw"
+                - result_type: "designer"
+                  score: 0.72
+                  designer:
+                    id: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+                    slug: "r-eric-reuss"
+                    name: "R. Eric Reuss"
+                    _links:
+                      self:
+                        href: "/designers/r-eric-reuss"
+              meta:
+                total: 3
+                limit: 25
+                has_more: false
+                next_cursor: null
+              _links:
+                self:
+                  href: "/search?q=spirit+island&limit=25"
+      "400":
+        description: Invalid search query (e.g., too short).
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'
+
+games_search:
+  post:
+    operationId: searchGames
+    summary: Search games with structured filters
+    description: >-
+      Advanced game search with a structured filter body. This endpoint
+      provides the same filtering capabilities as GET /games but accepts
+      a JSON request body for complex filter combinations that are unwieldy
+      as query parameters. Supports the same filter dimensions from
+      Pillar 2: player count, playtime, weight, mechanics (with any/all/not),
+      themes, metadata, and effective mode.
+    tags:
+      - Search
+      - Games
+    requestBody:
+      required: true
+      description: Structured search request with filters, sorting, and pagination.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/SearchRequest.yaml#/SearchRequest'
+          example:
+            filters:
+              players:
+                best_at: 2
+              weight:
+                min: 2.5
+                max: 4.0
+              mechanics:
+                all:
+                  - "cooperative-play"
+                  - "variable-player-powers"
+                not:
+                  - "roll-and-move"
+              mode: "cooperative"
+              year:
+                min: 2015
+            sort: "rating"
+            order: "desc"
+            limit: 25
+            include:
+              - mechanics
+              - designers
+    responses:
+      "200":
+        description: >-
+          Paginated list of games matching the structured filter criteria.
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '../schemas/Game.yaml#/Game'
+            example:
+              data:
+                - id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                  slug: "spirit-island"
+                  name: "Spirit Island"
+                  type: "base_game"
+                  year_published: 2017
+                  weight: 3.86
+                  average_rating: 8.34
+                  mode: "cooperative"
+                  mechanics:
+                    - slug: "cooperative-play"
+                      name: "Cooperative Play"
+                    - slug: "variable-player-powers"
+                      name: "Variable Player Powers"
+                    - slug: "hand-management"
+                      name: "Hand Management"
+                  designers:
+                    - slug: "r-eric-reuss"
+                      name: "R. Eric Reuss"
+                  _links:
+                    self:
+                      href: "/games/spirit-island"
+              meta:
+                total: 18
+                limit: 25
+                has_more: false
+                next_cursor: null
+                filter_summary:
+                  filters_applied:
+                    players: "Best at exactly 2 players"
+                    weight: "Weight between 2.5 and 4.0"
+                    mechanics: "Must have all: cooperative-play, variable-player-powers; must not have: roll-and-move"
+                    mode: "Cooperative"
+                    year: "Published 2015 or later"
+                  total_matching: 18
+                  total_unfiltered: 15234
+              _links:
+                self:
+                  href: "/games/search"
+      "400":
+        description: Invalid filter structure or values.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'
+      "422":
+        description: >-
+          Semantically invalid filters (e.g., unknown mechanic slugs).
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

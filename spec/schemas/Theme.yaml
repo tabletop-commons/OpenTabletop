@@ -1,0 +1,36 @@
+Theme:
+  type: object
+  description: >-
+    A thematic tag from the controlled vocabulary (see ADR-0009). Themes
+    describe the setting, narrative, or aesthetic of a game, such as
+    Fantasy, Sci-Fi, or Historical.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913c3e-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "fantasy"
+    name:
+      type: string
+      description: Human-readable display name.
+      example: "Fantasy"
+    description:
+      type: string
+      description: A concise explanation of this theme.
+      example: >-
+        Games set in fantastical worlds with magic, mythical creatures,
+        or otherworldly elements.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games tagged with this theme.
+      example: 2156

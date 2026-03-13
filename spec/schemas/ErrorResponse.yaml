@@ -1,0 +1,70 @@
+ErrorResponse:
+  type: object
+  description: >-
+    Error response following RFC 9457 (Problem Details for HTTP APIs).
+    Every error response from the API uses this envelope to provide
+    machine-readable error type URIs and human-readable detail messages.
+  required:
+    - type
+    - title
+    - status
+  properties:
+    type:
+      type: string
+      format: uri
+      description: >-
+        A URI reference that identifies the problem type. When dereferenced,
+        it provides human-readable documentation for the problem type.
+      example: "https://api.opentabletop.org/problems/validation-error"
+    title:
+      type: string
+      description: >-
+        A short, human-readable summary of the problem type. This should
+        not change from occurrence to occurrence of the same problem type.
+      example: "Validation Error"
+    status:
+      type: integer
+      description: The HTTP status code for this occurrence of the problem.
+      minimum: 100
+      maximum: 599
+      example: 422
+    detail:
+      type: string
+      description: >-
+        A human-readable explanation specific to this occurrence of the
+        problem. Unlike title, this may vary between occurrences.
+      example: "The 'players_min' parameter must be less than or equal to 'players_max'."
+    instance:
+      type: string
+      format: uri
+      description: >-
+        A URI reference that identifies the specific occurrence of the
+        problem. May be used for support ticket correlation.
+      example: "https://api.opentabletop.org/games?players_min=5&players_max=2"
+    errors:
+      type: array
+      description: >-
+        Detailed validation errors when the problem involves multiple
+        invalid fields or parameters.
+      items:
+        $ref: '#/ValidationError'
+
+ValidationError:
+  type: object
+  description: A single field-level validation error.
+  required:
+    - field
+    - message
+  properties:
+    field:
+      type: string
+      description: The field or parameter that caused the error. Uses dot notation for nested fields.
+      example: "filters.players.min"
+    message:
+      type: string
+      description: Human-readable description of what is wrong with this field.
+      example: "Must be a positive integer."
+    code:
+      type: string
+      description: Machine-readable error code for programmatic handling.
+      example: "invalid_range"

@@ -1,0 +1,339 @@
+openapi: 3.1.0
+
+info:
+  title: OpenTabletop API
+  version: 0.1.0
+  summary: An open specification for board game data — the MusicBrainz of tabletop gaming.
+  description: >-
+    The OpenTabletop API provides a comprehensive, open specification for
+    board game data interchange. Built on three pillars:
+
+
+    **Pillar 1: Standardized Data Model** — A unified game entity with type
+    discriminator (ADR-0006), combinatorial expansion property model (ADR-0007),
+    typed game relationships (ADR-0011), structured per-player-count polls
+    (ADR-0010), and controlled vocabulary taxonomy (ADR-0009). All entities use
+    UUIDv7 primary keys with human-friendly URL slugs (ADR-0008).
+
+
+    **Pillar 2: Filtering & Windowing** — Rich multi-dimensional filtering
+    across player count, playtime, weight, mechanics, themes, and metadata.
+    Filters compose with AND semantics. The `effective` mode filters against
+    expansion-modified properties using the three-tier resolution hierarchy.
+
+
+    **Pillar 3: Statistical Foundation** — Structured data export in JSONL and
+    CSV formats for data science workflows, with full filter support and
+    self-describing manifests.
+
+
+    This specification is the canonical source of truth. Implementations are
+    validated against it (ADR-0002). The spec is licensed under CC-BY-4.0;
+    code under Apache 2.0 (ADR-0003).
+  license:
+    name: Apache 2.0
+    identifier: Apache-2.0
+  contact:
+    name: OpenTabletop Project
+    url: https://github.com/tabletop-commons/opentabletop
+    email: maintainers@opentabletop.org
+  termsOfService: https://opentabletop.org/terms
+
+externalDocs:
+  description: >-
+    OpenTabletop Documentation — comprehensive mdbook documentation covering
+    the Three Pillars (Standardized Data Model, Filtering & Windowing,
+    Statistical Foundation), architecture decision records, API specification
+    details, and getting started guides.
+  url: https://tabletop-commons.github.io/opentabletop/
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+  - url: https://api.opentabletop.org
+    description: Production API (future)
+
+tags:
+  - name: Games
+    description: >-
+      Core game resources. Browse, filter, and retrieve board games, expansions,
+      and related products. The unified game entity (ADR-0006) means all game
+      types share the same endpoints and schema.
+  - name: Expansions
+    description: >-
+      Expansion-specific operations including listing expansions for a base game
+      and computing effective properties with the combinatorial expansion model
+      (ADR-0007).
+  - name: Taxonomy
+    description: >-
+      Controlled vocabulary resources: mechanics, categories, and themes. These
+      curated taxonomies (ADR-0009) enable precise, consistent filtering.
+  - name: People
+    description: >-
+      Designers, publishers, and other people/organizations associated with
+      games.
+  - name: Search
+    description: >-
+      Full-text search across all entity types and structured game search with
+      a filter body for complex queries.
+  - name: Statistics
+    description: >-
+      Statistical data endpoints including player count polls, experience-adjusted
+      playtime profiles, and weight distributions. These endpoints expose the raw
+      distributional data that powers Pillar 3 analysis.
+  - name: Export
+    description: >-
+      Bulk data export for statistical analysis and data science workflows
+      (Pillar 3). Supports JSONL and CSV formats with the same filter
+      dimensions as the games endpoint.
+
+paths:
+  /games:
+    $ref: 'paths/games.yaml'
+  /games/{id}:
+    $ref: 'paths/games-{id}.yaml'
+  /games/{id}/expansions:
+    $ref: 'paths/games-{id}-expansions.yaml'
+  /games/{id}/effective-properties:
+    $ref: 'paths/games-{id}-effective-properties.yaml'
+  /games/{id}/editions:
+    $ref: 'paths/games-{id}-editions.yaml'
+  /games/{id}/relationships:
+    $ref: 'paths/games-{id}-relationships.yaml'
+  /games/search:
+    $ref: 'paths/search.yaml#/games_search'
+  /mechanics:
+    $ref: 'paths/mechanics.yaml'
+  /categories:
+    $ref: 'paths/categories.yaml'
+  /designers:
+    $ref: 'paths/designers.yaml#/list'
+  /designers/{id}:
+    $ref: 'paths/designers.yaml#/detail'
+  /publishers:
+    $ref: 'paths/publishers.yaml#/list'
+  /publishers/{id}:
+    $ref: 'paths/publishers.yaml#/detail'
+  /search:
+    $ref: 'paths/search.yaml#/search'
+  /games/{id}/experience-playtime:
+    $ref: 'paths/games-{id}-experience-playtime.yaml'
+  /export/games:
+    $ref: 'paths/export.yaml'
+
+components:
+  schemas:
+    # Common types
+    UUID:
+      $ref: 'schemas/_common.yaml#/UUID'
+    Slug:
+      $ref: 'schemas/_common.yaml#/Slug'
+    Timestamp:
+      $ref: 'schemas/_common.yaml#/Timestamp'
+    Links:
+      $ref: 'schemas/_common.yaml#/Links'
+    Link:
+      $ref: 'schemas/_common.yaml#/Link'
+
+    # Core entities
+    Game:
+      $ref: 'schemas/Game.yaml#/Game'
+    GameRelationship:
+      $ref: 'schemas/GameRelationship.yaml#/GameRelationship'
+    RelationshipType:
+      $ref: 'schemas/GameRelationship.yaml#/RelationshipType'
+    GameMode:
+      $ref: 'schemas/GameMode.yaml#/GameMode'
+
+    # Expansion model
+    PropertyModification:
+      $ref: 'schemas/PropertyModification.yaml#/PropertyModification'
+    ExpansionCombination:
+      $ref: 'schemas/ExpansionCombination.yaml#/ExpansionCombination'
+    EffectiveProperties:
+      $ref: 'schemas/EffectiveProperties.yaml#/EffectiveProperties'
+    BaseProperties:
+      $ref: 'schemas/EffectiveProperties.yaml#/BaseProperties'
+    EffectivePropertyValues:
+      $ref: 'schemas/EffectiveProperties.yaml#/EffectivePropertyValues'
+    IndividualEffect:
+      $ref: 'schemas/EffectiveProperties.yaml#/IndividualEffect'
+
+    # Player count polling
+    PlayerCountPoll:
+      $ref: 'schemas/PlayerCountPoll.yaml#/PlayerCountPoll'
+
+    # Experience-adjusted playtime
+    ExperiencePlaytimePoll:
+      $ref: 'schemas/ExperiencePlaytimePoll.yaml#/ExperiencePlaytimePoll'
+    ExperiencePlaytimeProfile:
+      $ref: 'schemas/ExperiencePlaytimeProfile.yaml#/ExperiencePlaytimeProfile'
+
+    # Taxonomy
+    Mechanic:
+      $ref: 'schemas/Mechanic.yaml#/Mechanic'
+    Category:
+      $ref: 'schemas/Category.yaml#/Category'
+    Theme:
+      $ref: 'schemas/Theme.yaml#/Theme'
+
+    # People & organizations
+    Designer:
+      $ref: 'schemas/Designer.yaml#/Designer'
+    Publisher:
+      $ref: 'schemas/Publisher.yaml#/Publisher'
+    Artist:
+      $ref: 'schemas/Artist.yaml#/Artist'
+
+    # Families & editions
+    GameFamily:
+      $ref: 'schemas/GameFamily.yaml#/GameFamily'
+    GameEdition:
+      $ref: 'schemas/GameEdition.yaml#/GameEdition'
+    EditionDelta:
+      $ref: 'schemas/EditionDelta.yaml#/EditionDelta'
+
+    # Search
+    SearchResult:
+      $ref: 'schemas/SearchResult.yaml#/SearchResult'
+    SearchRequest:
+      $ref: 'schemas/SearchRequest.yaml#/SearchRequest'
+    SearchFilters:
+      $ref: 'schemas/SearchRequest.yaml#/SearchFilters'
+    PlayerFilter:
+      $ref: 'schemas/SearchRequest.yaml#/PlayerFilter'
+    PlaytimeFilter:
+      $ref: 'schemas/SearchRequest.yaml#/PlaytimeFilter'
+    WeightFilter:
+      $ref: 'schemas/SearchRequest.yaml#/WeightFilter'
+    MechanicFilter:
+      $ref: 'schemas/SearchRequest.yaml#/MechanicFilter'
+    ThemeFilter:
+      $ref: 'schemas/SearchRequest.yaml#/ThemeFilter'
+    YearFilter:
+      $ref: 'schemas/SearchRequest.yaml#/YearFilter'
+
+    # Response envelopes
+    PaginatedResponse:
+      $ref: 'schemas/PaginatedResponse.yaml#/PaginatedResponse'
+    PaginationMeta:
+      $ref: 'schemas/PaginatedResponse.yaml#/PaginationMeta'
+    PaginationLinks:
+      $ref: 'schemas/PaginatedResponse.yaml#/PaginationLinks'
+    FilterSummary:
+      $ref: 'schemas/FilterSummary.yaml#/FilterSummary'
+
+    # Export
+    ExportManifest:
+      $ref: 'schemas/ExportManifest.yaml#/ExportManifest'
+
+    # Error handling
+    ErrorResponse:
+      $ref: 'schemas/ErrorResponse.yaml#/ErrorResponse'
+    ValidationError:
+      $ref: 'schemas/ErrorResponse.yaml#/ValidationError'
+
+  parameters:
+    # Pagination
+    Cursor:
+      $ref: 'parameters/pagination.yaml#/Cursor'
+    Limit:
+      $ref: 'parameters/pagination.yaml#/Limit'
+
+    # Sorting
+    Sort:
+      $ref: 'parameters/sorting.yaml#/Sort'
+    Order:
+      $ref: 'parameters/sorting.yaml#/Order'
+
+    # Player count filters
+    Players:
+      $ref: 'parameters/player-count-filters.yaml#/Players'
+    PlayersMin:
+      $ref: 'parameters/player-count-filters.yaml#/PlayersMin'
+    PlayersMax:
+      $ref: 'parameters/player-count-filters.yaml#/PlayersMax'
+    BestAt:
+      $ref: 'parameters/player-count-filters.yaml#/BestAt'
+    RecommendedAt:
+      $ref: 'parameters/player-count-filters.yaml#/RecommendedAt'
+    Effective:
+      $ref: 'parameters/player-count-filters.yaml#/Effective'
+
+    # Playtime filters
+    PlaytimeMin:
+      $ref: 'parameters/playtime-filters.yaml#/PlaytimeMin'
+    PlaytimeMax:
+      $ref: 'parameters/playtime-filters.yaml#/PlaytimeMax'
+    CommunityPlaytimeMin:
+      $ref: 'parameters/playtime-filters.yaml#/CommunityPlaytimeMin'
+    CommunityPlaytimeMax:
+      $ref: 'parameters/playtime-filters.yaml#/CommunityPlaytimeMax'
+    PlaytimeSource:
+      $ref: 'parameters/playtime-filters.yaml#/PlaytimeSource'
+    PlaytimeExperience:
+      $ref: 'parameters/playtime-filters.yaml#/PlaytimeExperience'
+
+    # Weight filters
+    WeightMin:
+      $ref: 'parameters/weight-filters.yaml#/WeightMin'
+    WeightMax:
+      $ref: 'parameters/weight-filters.yaml#/WeightMax'
+    EffectiveWeight:
+      $ref: 'parameters/weight-filters.yaml#/EffectiveWeight'
+
+    # Taxonomy filters
+    Mechanics:
+      $ref: 'parameters/taxonomy-filters.yaml#/Mechanics'
+    MechanicsAll:
+      $ref: 'parameters/taxonomy-filters.yaml#/MechanicsAll'
+    MechanicsNot:
+      $ref: 'parameters/taxonomy-filters.yaml#/MechanicsNot'
+    Categories:
+      $ref: 'parameters/taxonomy-filters.yaml#/Categories'
+    Themes:
+      $ref: 'parameters/taxonomy-filters.yaml#/Themes'
+    ThemesNot:
+      $ref: 'parameters/taxonomy-filters.yaml#/ThemesNot'
+
+    # Metadata filters
+    DesignerFilter:
+      $ref: 'parameters/metadata-filters.yaml#/DesignerFilter'
+    PublisherFilter:
+      $ref: 'parameters/metadata-filters.yaml#/PublisherFilter'
+    FamilyFilter:
+      $ref: 'parameters/metadata-filters.yaml#/FamilyFilter'
+    CategoryFilter:
+      $ref: 'parameters/metadata-filters.yaml#/CategoryFilter'
+    YearMin:
+      $ref: 'parameters/metadata-filters.yaml#/YearMin'
+    YearMax:
+      $ref: 'parameters/metadata-filters.yaml#/YearMax'
+    TypeFilter:
+      $ref: 'parameters/metadata-filters.yaml#/TypeFilter'
+    ModeFilter:
+      $ref: 'parameters/metadata-filters.yaml#/ModeFilter'
+
+    # Include
+    Include:
+      $ref: 'parameters/include.yaml#/Include'
+
+    # Export
+    Format:
+      $ref: 'parameters/export-filters.yaml#/Format'
+
+  examples:
+    GameSpiritIsland:
+      $ref: 'examples/game-spirit-island.yaml'
+    GameWithExpansions:
+      $ref: 'examples/game-with-expansions.yaml'
+    EffectivePropertiesExample:
+      $ref: 'examples/effective-properties.yaml'
+    PlayerCountPollExample:
+      $ref: 'examples/player-count-poll.yaml'
+    RelationshipGraphExample:
+      $ref: 'examples/relationship-graph.yaml'
+    ExperiencePlaytimeSpiritIsland:
+      $ref: 'examples/experience-playtime-spirit-island.yaml'
+    EditionDeltaSamurai:
+      $ref: 'examples/edition-delta-samurai.yaml'

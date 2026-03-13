@@ -1,0 +1,173 @@
+summary: Spirit Island — complete game object
+description: >-
+  A fully populated Spirit Island game object demonstrating all fields.
+  Spirit Island is a cooperative strategy game by R. Eric Reuss where
+  players take on the roles of spirits defending an island from colonizers.
+value:
+  id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  slug: "spirit-island"
+  name: "Spirit Island"
+  sort_name: "spirit island"
+  type: "base_game"
+  parent_game_id: null
+  year_published: 2017
+  description: >-
+    In the most distant reaches of the world, magic still exists, and spirits
+    still inhabit the land. But now the great spirits of the wild places are
+    stirring as colonizers encroach ever further into the wilds. As a spirit,
+    you must grow in power, learn new ways to use your elemental gifts, and
+    work together with your fellow spirits and the native Dahan to drive the
+    invaders away.
+
+    Spirit Island is a complex and thematic cooperative game about defending
+    your island home from colonizing Invaders. Players are different spirits
+    of the land, each with their own unique elemental strengths, play style,
+    and approach to problem-solving. Every turn, players simultaneously choose
+    which of their power cards to play, paying energy to do so. Using powers
+    effectively requires understanding the tempo of the game and the synergies
+    between different spirits.
+  description_short: >-
+    A cooperative strategy game where 1-4 players take on the roles of
+    island spirits working together to drive away colonizing invaders
+    through unique elemental powers and strategic card play.
+  min_players: 1
+  max_players: 4
+  min_playtime_minutes: 90
+  max_playtime_minutes: 120
+  community_playtime_min_minutes: 75
+  community_playtime_max_minutes: 150
+  community_playtime_median_minutes: 105
+  min_age: 13
+  weight: 3.86
+  weight_votes: 1842
+  average_rating: 8.34
+  bayes_rating: 8.21
+  rating_count: 28456
+  mode: "cooperative"
+  image_url: "https://images.opentabletop.org/games/spirit-island/cover.jpg"
+  thumbnail_url: "https://images.opentabletop.org/games/spirit-island/thumb.jpg"
+  bgg_id: 162886
+  status: "active"
+  created_at: "2025-06-15T10:30:00Z"
+  updated_at: "2026-02-20T14:15:00Z"
+  mechanics:
+    - id: "01913a1c-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+      slug: "cooperative-play"
+      name: "Cooperative Play"
+      description: >-
+        Players work together toward a common objective rather than
+        competing against each other.
+      game_count: 1856
+    - id: "01913a1c-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+      slug: "variable-player-powers"
+      name: "Variable Player Powers"
+      description: >-
+        Each player has a unique set of abilities that differentiate their
+        capabilities and strategy from other players.
+      game_count: 2341
+    - id: "01913a1c-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+      slug: "hand-management"
+      name: "Hand Management"
+      description: >-
+        Players must carefully manage the cards in their hand, deciding
+        which to play, when, and in what combinations.
+      game_count: 3102
+    - id: "01913a1c-7a8c-7d9e-bf0a-2b3c4d5e6f7a"
+      slug: "area-majority"
+      name: "Area Majority"
+      description: >-
+        Control is determined by having the most tokens or units in a
+        specific region of the board.
+      game_count: 1534
+    - id: "01913a1c-8b9d-7eaf-c01b-3c4d5e6f7a8b"
+      slug: "modular-board"
+      name: "Modular Board"
+      description: >-
+        The game board is composed of multiple pieces that can be arranged
+        differently each game.
+      game_count: 987
+    - id: "01913a1c-9cae-7fba-d12c-4d5e6f7a8b9c"
+      slug: "simultaneous-action-selection"
+      name: "Simultaneous Action Selection"
+      description: >-
+        Players choose their actions at the same time and reveal
+        simultaneously.
+      game_count: 756
+  categories:
+    - id: "01913b2d-3c4e-7f5a-9b6c-7d8e9f0a1b2c"
+      slug: "strategy"
+      name: "Strategy"
+      description: >-
+        Games where victory is primarily determined by player decisions
+        rather than luck.
+      game_count: 3421
+    - id: "01913b2d-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+      slug: "thematic"
+      name: "Thematic"
+      description: >-
+        Games where theme and narrative are deeply integrated into the
+        gameplay experience.
+      game_count: 2834
+  themes:
+    - id: "01913c3e-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+      slug: "fantasy"
+      name: "Fantasy"
+      description: >-
+        Games set in fantastical worlds with magic, mythical creatures,
+        or otherworldly elements.
+      game_count: 2156
+    - id: "01913c3e-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+      slug: "mythology"
+      name: "Mythology"
+      description: >-
+        Games drawing on mythological traditions and spiritual narratives.
+      game_count: 478
+    - id: "01913c3e-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+      slug: "environmental"
+      name: "Environmental"
+      description: >-
+        Games centered on themes of nature, ecology, or environmental
+        stewardship.
+      game_count: 312
+  designers:
+    - id: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+      slug: "r-eric-reuss"
+      name: "R. Eric Reuss"
+      description: >-
+        American board game designer best known for Spirit Island. Known
+        for designing deeply thematic cooperative games with asymmetric
+        player powers.
+      game_count: 4
+      _links:
+        self:
+          href: "/designers/r-eric-reuss"
+        games:
+          href: "/games?designer=r-eric-reuss"
+  publishers:
+    - id: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+      slug: "greater-than-games"
+      name: "Greater Than Games"
+      description: >-
+        Independent board game publisher known for Spirit Island,
+        Sentinels of the Multiverse, and other thematic games.
+      country: "US"
+      website: "https://www.greaterthangames.com"
+      game_count: 47
+      _links:
+        self:
+          href: "/publishers/greater-than-games"
+        games:
+          href: "/games?publisher=greater-than-games"
+  _links:
+    self:
+      href: "/games/spirit-island"
+      title: "Spirit Island"
+    expansions:
+      href: "/games/spirit-island/expansions"
+      title: "Expansions for Spirit Island"
+    effective_properties:
+      href: "/games/spirit-island/effective-properties"
+      title: "Effective properties"
+    relationships:
+      href: "/games/spirit-island/relationships"
+      title: "Game relationships"

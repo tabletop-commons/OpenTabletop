@@ -1,0 +1,98 @@
+EditionDelta:
+  type: object
+  description: >-
+    Describes how a specific edition's properties differ from the canonical
+    (baseline) edition of a game. These are additive deltas applied on top of
+    the canonical edition's values. For example, a -0.15 weight_delta means
+    this edition is perceived as slightly lighter than the canonical printing.
+    Edition deltas are resolved before expansion deltas in the effective
+    properties pipeline. See ADR-0035 for the design rationale.
+  required:
+    - edition_id
+    - game_id
+  properties:
+    edition_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the edition this delta applies to.
+      example: "019324a1-b7c3-7d4e-8f5a-6b7c8d9e0f1a"
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this edition belongs to.
+      example: "01910000-0003-7000-8000-000000000000"
+    min_players_delta:
+      type: integer
+      description: >-
+        Change to the canonical edition's minimum player count. Negative
+        values are valid (e.g., an edition that drops solo play support).
+      default: 0
+      example: 0
+    max_players_delta:
+      type: integer
+      description: >-
+        Change to the canonical edition's maximum player count. For example,
+        a reprint that adds an official solo variant would have +0 min and
+        -0 or relevant delta here.
+      default: 0
+      example: 0
+    weight_delta:
+      type: number
+      format: float
+      description: >-
+        Change to the canonical edition's complexity weight. Negative values
+        mean this edition is perceived as lighter (e.g., due to improved
+        rules clarity or streamlined components).
+      default: 0.0
+      example: -0.15
+    playtime_min_delta:
+      type: integer
+      description: Change to the canonical edition's minimum playtime in minutes.
+      default: 0
+      example: 0
+    playtime_max_delta:
+      type: integer
+      description: Change to the canonical edition's maximum playtime in minutes.
+      default: 0
+      example: -5
+    best_at_delta:
+      type: array
+      description: >-
+        Player counts where this edition changes the "best at" experience.
+        These are absolute player count values, not deltas. When an edition
+        adds a new best player count (e.g., via an included solo variant),
+        it appears here.
+      items:
+        type: integer
+        minimum: 1
+      example: [3]
+    rules_changes:
+      type: string
+      description: >-
+        Human-readable summary of rule differences between this edition and
+        the canonical edition. Covers mechanical changes, clarifications,
+        and variant rules included or removed.
+      example: >-
+        Revised rules with clearer tile-placement examples. Added official
+        variant for quicker two-player games. Scoring clarification for
+        Buddha figures.
+    component_changes:
+      type: string
+      description: >-
+        Human-readable summary of component differences between this edition
+        and the canonical edition. Covers changes in materials, artwork,
+        board design, and physical quality.
+      example: >-
+        Larger game board with improved graphic design. Thicker cardboard
+        tiles replacing the original thinner stock. Updated artwork by
+        Franz Vohwinkel. Plastic figure inserts for better organization.
+    description:
+      type: string
+      description: >-
+        Overall human-readable description of what changed in this edition
+        compared to the canonical edition.
+      example: >-
+        The 2015 Fantasy Flight Games reprint of Samurai features upgraded
+        components, a larger board, and revised rules with improved clarity.
+        The gameplay is essentially identical but the improved presentation
+        slightly reduces perceived complexity.

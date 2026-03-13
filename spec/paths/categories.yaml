@@ -1,0 +1,61 @@
+get:
+  operationId: listCategories
+  summary: List all categories
+  description: >-
+    Returns a paginated list of all game categories from the controlled
+    vocabulary (see ADR-0009). Categories describe the broad genre or
+    style of gameplay.
+  tags:
+    - Taxonomy
+  parameters:
+    - $ref: '../parameters/sorting.yaml#/Sort'
+    - $ref: '../parameters/sorting.yaml#/Order'
+    - $ref: '../parameters/pagination.yaml#/Cursor'
+    - $ref: '../parameters/pagination.yaml#/Limit'
+  responses:
+    "200":
+      description: Paginated list of categories.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+              - type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '../schemas/Category.yaml#/Category'
+          example:
+            data:
+              - id: "01913b2d-3c4e-7f5a-9b6c-7d8e9f0a1b2c"
+                slug: "strategy"
+                name: "Strategy"
+                description: >-
+                  Games where victory is primarily determined by player
+                  decisions rather than luck.
+                game_count: 3421
+              - id: "01913b2d-4d5f-7a6b-8c7d-9e0f1a2b3c4d"
+                slug: "thematic"
+                name: "Thematic"
+                description: >-
+                  Games where theme and narrative are deeply integrated
+                  into the gameplay experience.
+                game_count: 2834
+              - id: "01913b2d-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+                slug: "party"
+                name: "Party"
+                description: >-
+                  Light, social games designed for larger groups with
+                  simple rules and quick play times.
+                game_count: 1567
+            meta:
+              total: 42
+              limit: 25
+              has_more: true
+              next_cursor: "eyJpZCI6IjAxOTEzYjJkLTVlNmEtN2I3Yy05ZDhlLTBmMWEyYjNjNGQ1ZSJ9"
+            _links:
+              self:
+                href: "/categories?limit=25"
+              next:
+                href: "/categories?limit=25&cursor=eyJpZCI6IjAxOTEzYjJkLTVlNmEtN2I3Yy05ZDhlLTBmMWEyYjNjNGQ1ZSJ9"

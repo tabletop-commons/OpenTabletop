@@ -1,0 +1,114 @@
+get:
+  operationId: getGameEffectiveProperties
+  summary: Get effective properties for a game with expansions
+  description: >-
+    Computes the effective gameplay properties when specified expansions are
+    combined with the base game. Follows the three-tier resolution hierarchy
+    from ADR-0007: (1) if an explicit ExpansionCombination record exists for
+    the exact set, use it; (2) otherwise sum individual expansion deltas;
+    (3) if no delta data exists, return base game properties only.
+
+
+    The response includes the base properties, effective properties,
+    combination_source indicating which tier was used, and individual_effects
+    showing each expansion's contribution independently.
+  tags:
+    - Games
+    - Expansions
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The base game's UUIDv7 or URL slug.
+      schema:
+        type: string
+      examples:
+        uuid:
+          summary: UUIDv7 identifier
+          value: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+        slug:
+          summary: URL slug
+          value: "spirit-island"
+    - name: edition
+      in: query
+      required: false
+      description: >-
+        Slug or UUID of the edition to use as the base for effective
+        properties. Applied before expansion resolution. Defaults to the
+        canonical edition if one exists.
+      schema:
+        type: string
+      example: "2015-ffg-reprint"
+    - name: with
+      in: query
+      required: false
+      description: >-
+        Comma-separated list of expansion slugs or UUIDv7s to include in
+        the effective property calculation. When omitted, returns base game
+        properties only (combination_source will be "base_only").
+      schema:
+        type: string
+      example: "spirit-island-branch-and-claw,spirit-island-jagged-earth"
+  responses:
+    "200":
+      description: >-
+        The effective properties after applying the specified expansions.
+        Includes base values, effective values, and the resolution source.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/EffectiveProperties.yaml#/EffectiveProperties'
+          example:
+            base:
+              min_players: 1
+              max_players: 4
+              min_playtime_minutes: 90
+              max_playtime_minutes: 120
+              weight: 3.86
+              best_at: [2]
+              recommended_at: [1, 3]
+            applied_expansions:
+              - "spirit-island-branch-and-claw"
+              - "spirit-island-jagged-earth"
+            effective:
+              min_players: 1
+              max_players: 6
+              min_playtime_minutes: 90
+              max_playtime_minutes: 180
+              weight: 4.12
+              best_at: [2, 3]
+              recommended_at: [1, 4, 5]
+            combination_source: "explicit"
+            individual_effects:
+              spirit-island-branch-and-claw:
+                max_players_delta: 2
+                weight_delta: 0.2
+                playtime_max_delta: 30
+                description: "Adds Events, two new spirits, and increases max players to 6."
+              spirit-island-jagged-earth:
+                max_players_delta: 2
+                weight_delta: 0.4
+                playtime_max_delta: 60
+                description: "Adds 10 new spirits, Badlands, and new event types."
+    "404":
+      description: >-
+        The base game was not found, or one or more specified expansion
+        slugs/IDs do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'
+          example:
+            type: "https://api.opentabletop.org/problems/not-found"
+            title: "Not Found"
+            status: 404
+            detail: "Expansion 'nonexistent-expansion' not found for game 'spirit-island'."
+            instance: "https://api.opentabletop.org/games/spirit-island/effective-properties?with=nonexistent-expansion"
+    "422":
+      description: >-
+        The specified expansions are not valid for this base game (e.g.,
+        an expansion that belongs to a different base game).
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

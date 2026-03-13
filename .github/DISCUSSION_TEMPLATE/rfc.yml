@@ -1,0 +1,69 @@
+title: "[RFC]: "
+labels: ["rfc"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose significant changes via an RFC (Request for Comments).
+        RFCs are discussed in Discussions before becoming formal spec changes.
+
+  - type: input
+    id: title
+    attributes:
+      label: RFC Title
+      description: A short, descriptive title for this RFC.
+      placeholder: e.g., Add game collection endpoints
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A one-paragraph summary of the proposal.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why should this change be made? What problems does it solve? What use cases does it support?
+    validations:
+      required: true
+
+  - type: textarea
+    id: detailed-design
+    attributes:
+      label: Detailed Design
+      description: |
+        Explain the design in enough detail for someone familiar with the project to understand and implement it.
+        Include API endpoints, request/response schemas, and example payloads where applicable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: What other designs or approaches were considered and why were they not chosen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: backwards-compatibility
+    attributes:
+      label: Backwards Compatibility
+      description: How does this proposal affect backwards compatibility? What is the migration path for existing clients?
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-plan
+    attributes:
+      label: Implementation Plan
+      description: |
+        How should this be implemented? Break down into phases or milestones if applicable.
+        Include spec changes, reference implementation work, SDK updates, and documentation.
+    validations:
+      required: true

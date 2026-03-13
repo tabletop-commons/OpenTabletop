@@ -1,0 +1,37 @@
+GameFamily:
+  type: object
+  description: >-
+    A family of related games that share a common brand, setting, or game
+    system. For example, the "Catan" family includes Catan, Catan: Seafarers,
+    Catan: Cities & Knights, and various spin-offs. Families are broader than
+    expansion relationships and group games that share a common identity.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "0191407c-8b9d-7eaf-c01b-3c4d5e6f7a8b"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "spirit-island"
+    name:
+      type: string
+      description: Display name of the game family.
+      example: "Spirit Island"
+    description:
+      type: string
+      description: Description of what unites the games in this family.
+      example: >-
+        All games set in the Spirit Island universe, including the base
+        game, its expansions, and the standalone Horizons of Spirit Island.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games in this family.
+      example: 5

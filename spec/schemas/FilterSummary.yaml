@@ -1,0 +1,33 @@
+FilterSummary:
+  type: object
+  description: >-
+    Summary of the filters applied to a list query. Included in response
+    metadata so clients can display active filters and total counts. The
+    filters_applied map uses dimension names as keys and human-readable
+    descriptions as values.
+  required:
+    - filters_applied
+    - total_matching
+    - total_unfiltered
+  properties:
+    filters_applied:
+      type: object
+      description: >-
+        Map of filter dimension name to a human-readable description of
+        the applied filter value.
+      additionalProperties:
+        type: string
+      example:
+        players: "Best at exactly 3 players"
+        weight: "Weight between 2.0 and 3.5"
+        mechanics: "Includes any of: deck-building, worker-placement"
+    total_matching:
+      type: integer
+      description: Total number of items matching all applied filters.
+      minimum: 0
+      example: 42
+    total_unfiltered:
+      type: integer
+      description: Total number of items with no filters applied.
+      minimum: 0
+      example: 15234

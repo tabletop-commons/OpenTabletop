@@ -1,0 +1,82 @@
+summary: Spirit Island relationship graph
+description: >-
+  The full family of Spirit Island game relationships demonstrating
+  typed directional edges from ADR-0011. Shows the base game's connections
+  to its expansions (Branch & Claw, Jagged Earth, Nature Incarnate) and
+  the standalone reimplementation (Horizons of Spirit Island).
+value:
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+    relationship_type: "expands"
+    metadata:
+      adds_components: true
+      standalone_playable: false
+      adds_spirits: 2
+      adds_power_cards: 22
+      notes: >-
+        First expansion. Adds Events deck, Beasts/Wilds/Disease/Strife
+        tokens, two new spirits, and new power cards.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/spirit-island-branch-and-claw"
+        title: "Spirit Island: Branch & Claw"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-9b3c-7d4e-af5a-1b2c3d4e5f6a"
+    relationship_type: "expands"
+    metadata:
+      adds_components: true
+      standalone_playable: false
+      adds_spirits: 10
+      adds_power_cards: 52
+      notes: >-
+        Second major expansion. Adds 10 new spirits, Badlands token type,
+        two new adversaries, new scenarios, and extensive new power cards.
+        Increases maximum player count to 6.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/spirit-island-jagged-earth"
+        title: "Spirit Island: Jagged Earth"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-ac4d-7e5f-ba6b-2c3d4e5f6a7b"
+    relationship_type: "expands"
+    metadata:
+      adds_components: true
+      standalone_playable: false
+      adds_spirits: 8
+      adds_power_cards: 36
+      notes: >-
+        Third major expansion. Adds 8 new spirits, new adversaries, and
+        new aspects for existing spirits that change their play style.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/spirit-island-nature-incarnate"
+        title: "Spirit Island: Nature Incarnate"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-bd5e-7f6a-cb7c-3d4e5f6a7b8c"
+    relationship_type: "reimplements"
+    metadata:
+      standalone_playable: true
+      simplified: true
+      target_audience: "new_players"
+      notes: >-
+        Horizons is a standalone, introductory version of Spirit Island
+        designed as a gateway for new players. It features 5 new spirits
+        with a gentler learning curve, a simplified double-sided board,
+        and streamlined rules. Components are compatible with the full
+        Spirit Island game and its expansions.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/horizons-of-spirit-island"
+        title: "Horizons of Spirit Island"

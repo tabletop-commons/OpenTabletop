@@ -1,0 +1,69 @@
+PropertyModification:
+  type: object
+  description: >-
+    Describes how a single expansion modifies the base game's properties. These
+    are additive deltas applied on top of the base game values. For example, a
+    +2 max_players_delta means the expansion adds 2 to the base game's max
+    player count. See ADR-0007 for the combinatorial expansion property model.
+  required:
+    - expansion_id
+    - base_game_id
+  properties:
+    expansion_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the expansion providing this modification.
+      example: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+    base_game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the base game being modified.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    min_players_delta:
+      type: integer
+      description: >-
+        Change to the base game's minimum player count. Negative values
+        are valid (e.g., an expansion that enables fewer players).
+      default: 0
+      example: 0
+    max_players_delta:
+      type: integer
+      description: Change to the base game's maximum player count.
+      default: 0
+      example: 2
+    weight_delta:
+      type: number
+      format: float
+      description: >-
+        Change to the base game's complexity weight. Positive values mean
+        the expansion increases complexity.
+      default: 0.0
+      example: 0.3
+    playtime_min_delta:
+      type: integer
+      description: Change to the base game's minimum playtime in minutes.
+      default: 0
+      example: 15
+    playtime_max_delta:
+      type: integer
+      description: Change to the base game's maximum playtime in minutes.
+      default: 0
+      example: 30
+    best_at_delta:
+      type: array
+      description: >-
+        Player counts where the expansion improves the "best at" experience.
+        These are absolute player count values, not deltas. When an expansion
+        adds a new best player count, it appears here.
+      items:
+        type: integer
+        minimum: 1
+      example: [5, 6]
+    description:
+      type: string
+      description: >-
+        Human-readable description of what this expansion changes about
+        the gameplay experience.
+      example: >-
+        Branch & Claw adds Events and two new spirits, increasing maximum
+        player count to 6 and adding event-driven gameplay.

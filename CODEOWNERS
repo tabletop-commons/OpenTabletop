@@ -1,0 +1,27 @@
+# OpenTabletop Code Owners
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Specification — requires spec maintainer review
+/spec/ @tabletop-commons/spec-maintainers
+
+# Documentation
+/docs/ @tabletop-commons/doc-maintainers
+
+# Architecture Decision Records — require steering committee review
+/docs/src/adr/ @tabletop-commons/steering-committee
+
+# Reference server
+/reference/ @tabletop-commons/server-maintainers
+
+# SDKs
+/sdks/rust/ @tabletop-commons/sdk-rust
+/sdks/python/ @tabletop-commons/sdk-python
+/sdks/javascript/ @tabletop-commons/sdk-javascript
+
+# CI/CD and infrastructure
+/.github/ @tabletop-commons/infra-maintainers
+
+# Project-wide files require core maintainer review
+/README.md @tabletop-commons/core-maintainers
+/CONTRIBUTING.md @tabletop-commons/core-maintainers
+/LICENSE @tabletop-commons/core-maintainers

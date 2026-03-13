@@ -1,0 +1,56 @@
+GameRelationship:
+  type: object
+  description: >-
+    A typed, directional relationship between two games. Relationships are
+    stored as edges in a dedicated table with JSONB metadata for type-specific
+    attributes. See ADR-0011 for the design rationale.
+  required:
+    - source_game_id
+    - target_game_id
+    - relationship_type
+  properties:
+    source_game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game on the "from" side of the relationship.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game on the "to" side of the relationship.
+      example: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+    relationship_type:
+      $ref: '#/RelationshipType'
+    metadata:
+      type: object
+      description: >-
+        Type-specific metadata stored as a flexible object. The schema of
+        this object varies by relationship_type. For example, an "expands"
+        relationship may include which components are added, while a
+        "reimplements" relationship may note the edition history.
+      additionalProperties: true
+      example:
+        adds_components: true
+        standalone_playable: false
+        notes: "Adds new spirits, power cards, and adversaries."
+    _links:
+      $ref: '_common.yaml#/Links'
+
+RelationshipType:
+  type: string
+  description: >-
+    The kind of relationship between two games.
+    - expands: target is an expansion/promo that adds content to source.
+    - reimplements: target is a new edition or reimplementation of source.
+    - contains: target is included within source (e.g., big box compilations).
+    - requires: target requires source to play (dependency).
+    - recommends: target is recommended as a companion to source.
+    - integrates_with: target can be mechanically combined with source.
+  enum:
+    - expands
+    - reimplements
+    - contains
+    - requires
+    - recommends
+    - integrates_with
+  example: "expands"

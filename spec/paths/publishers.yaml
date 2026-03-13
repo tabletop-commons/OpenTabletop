@@ -1,0 +1,122 @@
+list:
+  get:
+    operationId: listPublishers
+    summary: List all publishers
+    description: >-
+      Returns a paginated list of game publishers. Each publisher includes
+      country, website, game count, and hypermedia links.
+    tags:
+      - People
+    parameters:
+      - $ref: '../parameters/sorting.yaml#/Sort'
+      - $ref: '../parameters/sorting.yaml#/Order'
+      - $ref: '../parameters/pagination.yaml#/Cursor'
+      - $ref: '../parameters/pagination.yaml#/Limit'
+    responses:
+      "200":
+        description: Paginated list of publishers.
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '../schemas/PaginatedResponse.yaml#/PaginatedResponse'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '../schemas/Publisher.yaml#/Publisher'
+            example:
+              data:
+                - id: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+                  slug: "greater-than-games"
+                  name: "Greater Than Games"
+                  description: >-
+                    Independent board game publisher known for Spirit Island
+                    and Sentinels of the Multiverse.
+                  country: "US"
+                  website: "https://www.greaterthangames.com"
+                  game_count: 47
+                  _links:
+                    self:
+                      href: "/publishers/greater-than-games"
+                    games:
+                      href: "/games?publisher=greater-than-games"
+                      title: "Games by Greater Than Games"
+                - id: "01913e5a-7a8c-7d9e-bf0a-2b3c4d5e6f7a"
+                  slug: "stonemaier-games"
+                  name: "Stonemaier Games"
+                  description: >-
+                    Publisher known for Wingspan, Scythe, and Viticulture.
+                  country: "US"
+                  website: "https://stonemaiergames.com"
+                  game_count: 23
+                  _links:
+                    self:
+                      href: "/publishers/stonemaier-games"
+                    games:
+                      href: "/games?publisher=stonemaier-games"
+                      title: "Games by Stonemaier Games"
+              meta:
+                total: 4521
+                limit: 25
+                has_more: true
+                next_cursor: "eyJpZCI6IjAxOTEzZTVhLTdhOGMtN2Q5ZS1iZjBhLTJiM2M0ZDVlNmY3YSJ9"
+              _links:
+                self:
+                  href: "/publishers?limit=25"
+                next:
+                  href: "/publishers?limit=25&cursor=eyJpZCI6IjAxOTEzZTVhLTdhOGMtN2Q5ZS1iZjBhLTJiM2M0ZDVlNmY3YSJ9"
+
+detail:
+  get:
+    operationId: getPublisher
+    summary: Get a publisher by ID or slug
+    description: >-
+      Returns a single publisher by their UUIDv7 or URL slug.
+    tags:
+      - People
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The publisher's UUIDv7 or URL slug.
+        schema:
+          type: string
+        examples:
+          uuid:
+            summary: UUIDv7 identifier
+            value: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+          slug:
+            summary: URL slug
+            value: "greater-than-games"
+    responses:
+      "200":
+        description: The publisher resource with hypermedia links.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/Publisher.yaml#/Publisher'
+            example:
+              id: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+              slug: "greater-than-games"
+              name: "Greater Than Games"
+              description: >-
+                Independent board game publisher known for Spirit Island,
+                Sentinels of the Multiverse, and other thematic games.
+              country: "US"
+              website: "https://www.greaterthangames.com"
+              game_count: 47
+              _links:
+                self:
+                  href: "/publishers/greater-than-games"
+                  title: "Greater Than Games"
+                games:
+                  href: "/games?publisher=greater-than-games"
+                  title: "Games by Greater Than Games"
+      "404":
+        description: No publisher found with the given ID or slug.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

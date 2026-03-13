@@ -1,0 +1,73 @@
+ExperiencePlaytimeProfile:
+  type: object
+  description: >-
+    Aggregated experience-adjusted playtime profile for a game. Contains
+    per-experience-level median play times and derived multipliers relative
+    to the 'experienced' baseline. See ADR-0034. Only included when
+    requested via the include parameter (?include=experience_playtime) or
+    when accessing the dedicated experience-playtime endpoint.
+  required:
+    - game_id
+    - levels
+    - sufficient_data
+    - total_reports
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this profile belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    levels:
+      type: array
+      description: >-
+        Per-experience-level playtime data. Contains one entry for each
+        experience level that has sufficient data.
+      items:
+        $ref: 'ExperiencePlaytimePoll.yaml#/ExperiencePlaytimePoll'
+    multipliers:
+      type: object
+      description: >-
+        Derived multipliers relative to the 'experienced' level baseline.
+        Computed as median_minutes[level] / median_minutes[experienced].
+        Only present when all four levels have sufficient data. When absent,
+        consumers should use global default multipliers (first_play: 1.50,
+        learning: 1.25, experienced: 1.0, expert: 0.85).
+      properties:
+        first_play:
+          type: number
+          format: float
+          description: >-
+            Multiplier for first-time players relative to experienced players.
+          example: 1.57
+        learning:
+          type: number
+          format: float
+          description: >-
+            Multiplier for learning players (1-3 prior plays) relative to
+            experienced players.
+          example: 1.29
+        experienced:
+          type: number
+          format: float
+          description: Always 1.0 (the baseline).
+          example: 1.0
+        expert:
+          type: number
+          format: float
+          description: >-
+            Multiplier for expert players relative to experienced players.
+            Typically below 1.0.
+          example: 0.76
+    sufficient_data:
+      type: boolean
+      description: >-
+        Whether this profile has enough data points (minimum threshold per
+        level) to produce reliable game-specific multipliers. Games below
+        the threshold fall back to global default multipliers when used
+        for experience-adjusted filtering.
+      example: true
+    total_reports:
+      type: integer
+      minimum: 0
+      description: Sum of all reports across all experience levels.
+      example: 2351

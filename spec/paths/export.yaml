@@ -1,0 +1,105 @@
+get:
+  operationId: exportGames
+  summary: Export game data in bulk
+  description: >-
+    Exports game data as a streaming response in JSONL or CSV format.
+    Supports the same filter dimensions as GET /games, enabling filtered
+    exports for data science workflows. This endpoint is part of Pillar 3:
+    Statistical Foundation.
+
+
+    The response includes X-Export-* headers with manifest metadata
+    (format, row count, schema version, timestamp). For JSONL format, the
+    first line is a JSON manifest object. The remaining lines are one game
+    record per line.
+
+
+    For CSV format, the first row is the header row with column names.
+    Large exports may take several seconds; the response is streamed so
+    clients should read incrementally.
+  tags:
+    - Export
+  parameters:
+    - $ref: '../parameters/export-filters.yaml#/Format'
+    # Same filter dimensions as GET /games
+    - $ref: '../parameters/player-count-filters.yaml#/Players'
+    - $ref: '../parameters/player-count-filters.yaml#/PlayersMin'
+    - $ref: '../parameters/player-count-filters.yaml#/PlayersMax'
+    - $ref: '../parameters/player-count-filters.yaml#/BestAt'
+    - $ref: '../parameters/player-count-filters.yaml#/RecommendedAt'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeMin'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeMax'
+    - $ref: '../parameters/playtime-filters.yaml#/CommunityPlaytimeMin'
+    - $ref: '../parameters/playtime-filters.yaml#/CommunityPlaytimeMax'
+    - $ref: '../parameters/playtime-filters.yaml#/PlaytimeSource'
+    - $ref: '../parameters/weight-filters.yaml#/WeightMin'
+    - $ref: '../parameters/weight-filters.yaml#/WeightMax'
+    - $ref: '../parameters/metadata-filters.yaml#/TypeFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/ModeFilter'
+    - $ref: '../parameters/taxonomy-filters.yaml#/Mechanics'
+    - $ref: '../parameters/taxonomy-filters.yaml#/MechanicsAll'
+    - $ref: '../parameters/taxonomy-filters.yaml#/MechanicsNot'
+    - $ref: '../parameters/taxonomy-filters.yaml#/Themes'
+    - $ref: '../parameters/taxonomy-filters.yaml#/ThemesNot'
+    - $ref: '../parameters/metadata-filters.yaml#/DesignerFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/PublisherFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/FamilyFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/CategoryFilter'
+    - $ref: '../parameters/metadata-filters.yaml#/YearMin'
+    - $ref: '../parameters/metadata-filters.yaml#/YearMax'
+    - $ref: '../parameters/player-count-filters.yaml#/Effective'
+  responses:
+    "200":
+      description: >-
+        Streamed export data. Content-Type varies by format parameter.
+        Export metadata is available in X-Export-* response headers.
+      headers:
+        X-Export-Format:
+          description: The export format (jsonl or csv).
+          schema:
+            type: string
+            enum:
+              - jsonl
+              - csv
+        X-Export-Row-Count:
+          description: Total number of data rows.
+          schema:
+            type: integer
+        X-Export-Schema-Version:
+          description: The export schema version (SemVer).
+          schema:
+            type: string
+        X-Export-Generated-At:
+          description: UTC timestamp when the export was generated.
+          schema:
+            type: string
+            format: date-time
+        Content-Disposition:
+          description: Suggested filename for the download.
+          schema:
+            type: string
+      content:
+        application/jsonl:
+          schema:
+            type: string
+            description: >-
+              JSONL format: first line is the ExportManifest JSON object,
+              followed by one Game JSON object per line.
+          example: |
+            {"format":"jsonl","row_count":15234,"schema_version":"0.1.0","generated_at":"2026-03-12T08:30:00Z","filters_applied":{}}
+            {"id":"01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d","slug":"spirit-island","name":"Spirit Island","type":"base_game","year_published":2017,"min_players":1,"max_players":4,"weight":3.86,"average_rating":8.34}
+        text/csv:
+          schema:
+            type: string
+            description: >-
+              CSV format: first row is column headers, followed by one
+              game record per row.
+          example: |
+            id,slug,name,type,year_published,min_players,max_players,weight,average_rating
+            01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d,spirit-island,Spirit Island,base_game,2017,1,4,3.86,8.34
+    "400":
+      description: Invalid filter parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

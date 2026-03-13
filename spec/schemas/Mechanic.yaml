@@ -1,0 +1,39 @@
+Mechanic:
+  type: object
+  description: >-
+    A game mechanic from the controlled vocabulary (see ADR-0009). Mechanics
+    describe the core interaction systems players engage with, such as
+    deck building, worker placement, or area control. Each mechanic has a
+    canonical slug, display name, and optional description.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913a1c-2b3d-7e4f-8a5b-6c7d8e9f0a1b"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "deck-building"
+    name:
+      type: string
+      description: Human-readable display name.
+      example: "Deck Building"
+    description:
+      type: string
+      description: >-
+        A concise explanation of what this mechanic entails, helping users
+        understand unfamiliar terms.
+      example: >-
+        Players construct a personal deck of cards during play, purchasing
+        new cards from a shared market to improve their deck's capabilities.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games tagged with this mechanic.
+      example: 1247

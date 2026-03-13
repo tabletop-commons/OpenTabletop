@@ -1,0 +1,14 @@
+GameMode:
+  type: string
+  description: >-
+    The play mode of a board game, describing the primary interaction style
+    between players. Games may support multiple modes but are tagged with
+    their dominant one for filtering. The 'mixed' value indicates no single
+    mode dominates.
+  enum:
+    - cooperative
+    - competitive
+    - solo
+    - team
+    - mixed
+  example: "cooperative"

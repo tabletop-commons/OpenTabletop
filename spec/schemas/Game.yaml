@@ -1,0 +1,273 @@
+Game:
+  type: object
+  description: >-
+    A board game, expansion, promo, or other tabletop gaming product. All
+    game types share the same entity with a type discriminator (see ADR-0006).
+    Expansions link to their parent via parent_game_id. Games are identified
+    by UUIDv7 primary keys with human-friendly URL slugs (see ADR-0008).
+  required:
+    - id
+    - slug
+    - name
+    - type
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key. Time-ordered for index locality.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: >-
+        URL-friendly unique identifier. Used in paths like /games/spirit-island.
+        Slugs are immutable once assigned; collision handling appends a numeric
+        suffix (e.g., catan, catan-2).
+      example: "spirit-island"
+    name:
+      type: string
+      description: The display name of the game in its primary language.
+      example: "Spirit Island"
+    sort_name:
+      type: string
+      description: >-
+        Normalized name for alphabetical sorting. Strips leading articles
+        (the, a, an) and normalizes Unicode characters.
+      example: "spirit island"
+    type:
+      type: string
+      description: >-
+        The game type discriminator. All types share the same entity model.
+        See ADR-0006 for the unified game entity design rationale.
+      enum:
+        - base_game
+        - expansion
+        - standalone_expansion
+        - promo
+        - accessory
+        - fan_expansion
+      example: "base_game"
+    parent_game_id:
+      type: string
+      format: uuid
+      nullable: true
+      description: >-
+        For expansions and promos, the UUIDv7 of the base game this item
+        extends. Null for base games and standalone expansions.
+      example: null
+    year_published:
+      type: integer
+      description: The year the game was first published.
+      example: 2017
+    description:
+      type: string
+      description: Full-length description of the game, may contain markdown formatting.
+      example: >-
+        In the most distant reaches of the world, magic still exists, and
+        spirits still inhabit the land. As encroaching colonizers spread,
+        the spirits must band together to defend their island home.
+    description_short:
+      type: string
+      maxLength: 1000
+      description: >-
+        A brief summary of the game, suitable for card displays and search
+        results. Maximum 1000 characters with no markdown.
+      example: >-
+        A cooperative strategy game where spirits defend their island
+        from colonizing invaders using unique elemental powers.
+    min_players:
+      type: integer
+      minimum: 1
+      description: Minimum number of players (publisher-stated).
+      example: 1
+    max_players:
+      type: integer
+      minimum: 1
+      description: Maximum number of players (publisher-stated).
+      example: 4
+    min_playtime_minutes:
+      type: integer
+      minimum: 0
+      description: Minimum play time in minutes (publisher-stated).
+      example: 90
+    max_playtime_minutes:
+      type: integer
+      minimum: 0
+      description: Maximum play time in minutes (publisher-stated).
+      example: 120
+    community_playtime_min_minutes:
+      type: integer
+      minimum: 0
+      description: >-
+        Community-reported minimum play time in minutes. Derived from
+        aggregated play logs and polls.
+      example: 75
+    community_playtime_max_minutes:
+      type: integer
+      minimum: 0
+      description: Community-reported maximum play time in minutes.
+      example: 150
+    community_playtime_median_minutes:
+      type: integer
+      minimum: 0
+      description: >-
+        Community-reported median play time in minutes. This is the most
+        reliable single play-time estimate.
+      example: 105
+    min_age:
+      type: integer
+      minimum: 0
+      description: Recommended minimum age in years (publisher-stated).
+      example: 13
+    weight:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      description: >-
+        Community-rated complexity weight on a 1.0 (light) to 5.0 (heavy)
+        scale. Derived from user votes.
+      example: 3.86
+    weight_votes:
+      type: integer
+      minimum: 0
+      description: Number of community votes contributing to the weight score.
+      example: 1842
+    average_rating:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 10.0
+      description: Arithmetic mean of all user ratings on a 0-10 scale.
+      example: 8.34
+    bayes_rating:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 10.0
+      description: >-
+        Bayesian average rating that regresses toward the global mean. This
+        dampens the effect of low vote counts and is more reliable for ranking.
+      example: 8.21
+    rating_count:
+      type: integer
+      minimum: 0
+      description: Total number of user ratings.
+      example: 28456
+    mode:
+      type: string
+      description: >-
+        The primary play mode. Games may support multiple modes (e.g.,
+        competitive with a cooperative variant) but list their dominant one.
+      enum:
+        - cooperative
+        - competitive
+        - solo
+        - team
+        - mixed
+      example: "cooperative"
+    image_url:
+      type: string
+      format: uri
+      description: URL to the full-size box art or primary image.
+      example: "https://images.opentabletop.org/games/spirit-island/cover.jpg"
+    thumbnail_url:
+      type: string
+      format: uri
+      description: URL to a thumbnail-sized image (approximately 200x200).
+      example: "https://images.opentabletop.org/games/spirit-island/thumb.jpg"
+    bgg_id:
+      type: integer
+      nullable: true
+      description: >-
+        BoardGameGeek numeric ID for cross-referencing. Nullable for games
+        not present in BGG. Stored via the external references system
+        (see ADR-0008) but surfaced here for convenience.
+      example: 162886
+    canonical_edition_id:
+      type: string
+      format: uuid
+      nullable: true
+      description: >-
+        UUIDv7 of the canonical edition whose properties match this Game
+        entity's top-level values. Null if no editions are tracked.
+    status:
+      type: string
+      description: >-
+        Publication and data status. Active games are visible in search.
+        Pending games are awaiting review. Archived games have been
+        delisted or superseded.
+      enum:
+        - active
+        - pending
+        - archived
+      example: "active"
+    created_at:
+      type: string
+      format: date-time
+      description: When this record was first created (UTC).
+      example: "2025-06-15T10:30:00Z"
+    updated_at:
+      type: string
+      format: date-time
+      description: When this record was last modified (UTC).
+      example: "2026-02-20T14:15:00Z"
+    mechanics:
+      type: array
+      description: >-
+        Game mechanics from the controlled vocabulary (see ADR-0009).
+        Only included when requested via the include parameter.
+      items:
+        $ref: 'Mechanic.yaml#/Mechanic'
+    categories:
+      type: array
+      description: >-
+        Game categories from the controlled vocabulary.
+        Only included when requested via the include parameter.
+      items:
+        $ref: 'Category.yaml#/Category'
+    themes:
+      type: array
+      description: >-
+        Thematic tags from the controlled vocabulary.
+        Only included when requested via the include parameter.
+      items:
+        $ref: 'Theme.yaml#/Theme'
+    designers:
+      type: array
+      description: >-
+        Designers credited for this game.
+        Only included when requested via the include parameter.
+      items:
+        $ref: 'Designer.yaml#/Designer'
+    publishers:
+      type: array
+      description: >-
+        Publishers of this game.
+        Only included when requested via the include parameter.
+      items:
+        $ref: 'Publisher.yaml#/Publisher'
+    expansions:
+      type: array
+      description: >-
+        Expansions, promos, and standalone expansions for this game.
+        Only included when requested via the include parameter.
+      items:
+        $ref: '#/Game'
+    editions:
+      type: array
+      description: >-
+        Editions of this game. Only present when requested via the
+        include parameter (?include=editions).
+      items:
+        $ref: 'GameEdition.yaml#/GameEdition'
+    effective_properties:
+      $ref: 'EffectiveProperties.yaml#/EffectiveProperties'
+    experience_playtime:
+      $ref: 'ExperiencePlaytimeProfile.yaml#/ExperiencePlaytimeProfile'
+      description: >-
+        Experience-adjusted playtime profile with per-level median times
+        and derived multipliers. Only included when requested via the
+        include parameter (?include=experience_playtime). See ADR-0034.
+    _links:
+      $ref: '_common.yaml#/Links'

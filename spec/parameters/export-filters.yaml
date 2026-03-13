@@ -1,0 +1,16 @@
+Format:
+  name: format
+  in: query
+  required: false
+  description: >-
+    The data format for the export. JSONL (JSON Lines) provides one JSON
+    object per line, ideal for streaming parsers and data pipelines.
+    CSV provides a traditional comma-separated format with a header row,
+    compatible with spreadsheet software.
+  schema:
+    type: string
+    enum:
+      - jsonl
+      - csv
+    default: "jsonl"
+  example: "jsonl"

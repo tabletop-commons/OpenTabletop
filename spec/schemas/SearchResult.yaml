@@ -1,0 +1,39 @@
+SearchResult:
+  type: object
+  description: >-
+    A single search result with type discriminator and relevance score.
+    The result entity is included under the key matching its type (e.g.,
+    a game result has the entity under the "game" key).
+  required:
+    - result_type
+    - score
+  properties:
+    result_type:
+      type: string
+      description: The entity type of this result.
+      enum:
+        - game
+        - designer
+        - publisher
+        - mechanic
+        - category
+      example: "game"
+    score:
+      type: number
+      format: float
+      description: >-
+        Relevance score between 0.0 (no match) and 1.0 (exact match).
+        Results are sorted by score descending.
+      minimum: 0.0
+      maximum: 1.0
+      example: 0.98
+    game:
+      $ref: 'Game.yaml#/Game'
+    designer:
+      $ref: 'Designer.yaml#/Designer'
+    publisher:
+      $ref: 'Publisher.yaml#/Publisher'
+    mechanic:
+      $ref: 'Mechanic.yaml#/Mechanic'
+    category:
+      $ref: 'Category.yaml#/Category'

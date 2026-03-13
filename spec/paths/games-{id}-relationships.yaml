@@ -1,0 +1,95 @@
+get:
+  operationId: listGameRelationships
+  summary: List relationships for a game
+  description: >-
+    Returns all typed relationships for a game, where the game is either
+    the source or target of the relationship. Relationships are directional
+    edges with typed metadata (see ADR-0011). Use the type parameter to
+    filter by relationship kind.
+  tags:
+    - Games
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: The game's UUIDv7 or URL slug.
+      schema:
+        type: string
+      examples:
+        uuid:
+          summary: UUIDv7 identifier
+          value: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+        slug:
+          summary: URL slug
+          value: "spirit-island"
+    - name: type
+      in: query
+      required: false
+      description: >-
+        Filter by relationship type. When omitted, all relationship types
+        are returned.
+      schema:
+        type: string
+        enum:
+          - expands
+          - reimplements
+          - contains
+          - requires
+          - recommends
+          - integrates_with
+      example: "expands"
+  responses:
+    "200":
+      description: >-
+        Array of game relationships involving the specified game. Includes
+        relationships where the game is the source and where it is the target.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../schemas/GameRelationship.yaml#/GameRelationship'
+              _links:
+                $ref: '../schemas/_common.yaml#/Links'
+          example:
+            data:
+              - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                target_game_id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+                relationship_type: "expands"
+                metadata:
+                  adds_components: true
+                  notes: "Adds Events, two new spirits, and new power cards."
+                _links:
+                  source:
+                    href: "/games/spirit-island"
+                    title: "Spirit Island"
+                  target:
+                    href: "/games/spirit-island-branch-and-claw"
+                    title: "Spirit Island: Branch & Claw"
+              - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+                target_game_id: "01912f4c-9b3c-7d4e-af5a-1b2c3d4e5f6a"
+                relationship_type: "expands"
+                metadata:
+                  adds_components: true
+                  notes: "Adds 10 new spirits, Badlands, and new adversaries."
+                _links:
+                  source:
+                    href: "/games/spirit-island"
+                    title: "Spirit Island"
+                  target:
+                    href: "/games/spirit-island-jagged-earth"
+                    title: "Spirit Island: Jagged Earth"
+            _links:
+              self:
+                href: "/games/spirit-island/relationships"
+    "404":
+      description: No game found with the given ID or slug.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/ErrorResponse.yaml#/ErrorResponse'

@@ -1,0 +1,31 @@
+summary: Spirit Island player count poll data
+description: >-
+  Per-player-count voting data for Spirit Island showing community sentiment
+  at each supported player count. This demonstrates the structured poll model
+  from ADR-0010. The data shows Spirit Island is considered best at 2 players,
+  recommended at 1 and 3, and not recommended at 4 players.
+value:
+  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count: 1
+    best_votes: 40
+    recommended_votes: 320
+    not_recommended_votes: 440
+    total_votes: 800
+  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count: 2
+    best_votes: 520
+    recommended_votes: 240
+    not_recommended_votes: 40
+    total_votes: 800
+  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count: 3
+    best_votes: 160
+    recommended_votes: 400
+    not_recommended_votes: 240
+    total_votes: 800
+  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count: 4
+    best_votes: 80
+    recommended_votes: 240
+    not_recommended_votes: 480
+    total_votes: 800

@@ -1,0 +1,198 @@
+EffectiveProperties:
+  type: object
+  description: >-
+    The effective gameplay properties of a base game after applying one or more
+    expansions. Follows the three-tier resolution from ADR-0007: (1) explicit
+    ExpansionCombination if one exists for the exact set, (2) sum of individual
+    expansion deltas, or (3) base game properties only. The combination_source
+    field tells the client which tier produced the values.
+  required:
+    - base
+    - applied_expansions
+    - effective
+    - combination_source
+  properties:
+    base:
+      $ref: '#/BaseProperties'
+    applied_expansions:
+      type: array
+      description: >-
+        Slugs of the expansions that were applied to compute the effective
+        properties. Empty array means base game only.
+      items:
+        type: string
+      example:
+        - "branch-and-claw"
+        - "jagged-earth"
+    effective:
+      $ref: '#/EffectivePropertyValues'
+    combination_source:
+      type: string
+      description: >-
+        Which tier of the resolution hierarchy produced the effective values.
+        - explicit: An ExpansionCombination record exists for this exact set.
+        - computed: Values were derived by summing individual expansion deltas.
+        - base_only: No expansion data available; effective equals base.
+      enum:
+        - explicit
+        - computed
+        - base_only
+      example: "explicit"
+    edition_id:
+      type: string
+      format: uuid
+      nullable: true
+      description: >-
+        The edition used as the base for effective properties resolution.
+        Null if no edition was applied.
+    edition_source:
+      type: string
+      description: >-
+        How the edition was selected — explicit means user specified via
+        query param, canonical means the default canonical edition was used,
+        none means no edition data exists for this game.
+      enum:
+        - explicit
+        - canonical
+        - none
+    individual_effects:
+      type: object
+      description: >-
+        Map of expansion slug to the individual property modifications that
+        expansion contributes. Useful for understanding each expansion's
+        contribution independently.
+      additionalProperties:
+        $ref: '#/IndividualEffect'
+      example:
+        branch-and-claw:
+          max_players_delta: 2
+          weight_delta: 0.2
+          playtime_max_delta: 30
+          description: "Adds Events, two new spirits, and increases max players to 6."
+        jagged-earth:
+          max_players_delta: 2
+          weight_delta: 0.4
+          playtime_max_delta: 60
+          description: "Adds 10 new spirits, Badlands, and new event types."
+
+BaseProperties:
+  type: object
+  description: The base game's properties before any expansion modifications.
+  properties:
+    min_players:
+      type: integer
+      minimum: 1
+      example: 1
+    max_players:
+      type: integer
+      minimum: 1
+      example: 4
+    min_playtime_minutes:
+      type: integer
+      minimum: 0
+      example: 90
+    max_playtime_minutes:
+      type: integer
+      minimum: 0
+      example: 120
+    weight:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      example: 3.86
+    best_at:
+      type: array
+      description: Player counts where the base game alone is considered best.
+      items:
+        type: integer
+        minimum: 1
+      example: [2]
+    recommended_at:
+      type: array
+      description: Player counts where the base game alone is recommended.
+      items:
+        type: integer
+        minimum: 1
+      example: [1, 3]
+
+EffectivePropertyValues:
+  type: object
+  description: The computed effective property values after applying expansions.
+  properties:
+    min_players:
+      type: integer
+      minimum: 1
+      example: 1
+    max_players:
+      type: integer
+      minimum: 1
+      example: 6
+    min_playtime_minutes:
+      type: integer
+      minimum: 0
+      example: 90
+    max_playtime_minutes:
+      type: integer
+      minimum: 0
+      example: 180
+    weight:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      example: 4.12
+    best_at:
+      type: array
+      items:
+        type: integer
+        minimum: 1
+      example: [2, 3]
+    recommended_at:
+      type: array
+      items:
+        type: integer
+        minimum: 1
+      example: [1, 4, 5]
+    experience_playtime:
+      $ref: 'ExperiencePlaytimeProfile.yaml#/ExperiencePlaytimeProfile'
+      description: >-
+        Experience-adjusted playtime data for this expansion combination.
+        When available, uses combination-specific experience data. Falls
+        back to base game experience data with expansion playtime deltas
+        applied. See ADR-0034.
+
+IndividualEffect:
+  type: object
+  description: The property modifications contributed by a single expansion.
+  properties:
+    min_players_delta:
+      type: integer
+      default: 0
+      example: 0
+    max_players_delta:
+      type: integer
+      default: 0
+      example: 2
+    weight_delta:
+      type: number
+      format: float
+      default: 0.0
+      example: 0.2
+    playtime_min_delta:
+      type: integer
+      default: 0
+      example: 0
+    playtime_max_delta:
+      type: integer
+      default: 0
+      example: 30
+    best_at_delta:
+      type: array
+      items:
+        type: integer
+        minimum: 1
+      example: [5, 6]
+    description:
+      type: string
+      example: "Adds Events, two new spirits, and increases max players to 6."

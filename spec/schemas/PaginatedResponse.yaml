@@ -1,0 +1,84 @@
+PaginatedResponse:
+  type: object
+  description: >-
+    Generic paginated response wrapper. All list endpoints return this
+    envelope with cursor-based pagination. The cursor is opaque to clients
+    and should be passed back verbatim to fetch the next page.
+  required:
+    - data
+    - meta
+    - _links
+  properties:
+    data:
+      type: array
+      description: The page of results.
+      items: {}
+    meta:
+      $ref: '#/PaginationMeta'
+    _links:
+      $ref: '#/PaginationLinks'
+
+PaginationMeta:
+  type: object
+  description: Pagination and filter metadata for the response.
+  required:
+    - total
+    - limit
+    - has_more
+  properties:
+    total:
+      type: integer
+      description: Total number of items matching the current filters.
+      minimum: 0
+      example: 342
+    limit:
+      type: integer
+      description: Maximum number of items per page.
+      minimum: 1
+      maximum: 100
+      example: 25
+    has_more:
+      type: boolean
+      description: Whether there are more items beyond this page.
+      example: true
+    next_cursor:
+      type: string
+      description: >-
+        Opaque cursor to pass as the 'cursor' parameter to fetch the next
+        page. Null or absent when there are no more pages.
+      nullable: true
+      example: "eyJpZCI6IjAxOTEyZjRjLTdlM2EtN2IxYS04YzVkLTlmMGUxYTJiM2M0ZCJ9"
+    filter_summary:
+      $ref: 'FilterSummary.yaml#/FilterSummary'
+
+PaginationLinks:
+  type: object
+  description: HAL-style navigation links for pagination.
+  required:
+    - self
+  properties:
+    self:
+      type: object
+      required:
+        - href
+      properties:
+        href:
+          type: string
+          description: The URL for the current page.
+          example: "/games?limit=25"
+    next:
+      type: object
+      nullable: true
+      properties:
+        href:
+          type: string
+          description: The URL for the next page.
+          example: "/games?cursor=eyJpZCI6IjAxOTEyZjRjLTdlM2EtN2IxYS04YzVkLTlmMGUxYTJiM2M0ZCJ9&limit=25"
+    prev:
+      type: object
+      nullable: true
+      properties:
+        href:
+          type: string
+          description: The URL for the previous page. Only present for bidirectional cursors.
+          example: "/games?cursor=eyJpZCI6IjAxOTEyZjRjLTdlM2EtN2IxYS04YzVkLTlmMGUxYTJiM2MwMCJ9&limit=25&dir=prev"

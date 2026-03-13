@@ -1,0 +1,14 @@
+contact:
+  name: OpenTabletop Project
+  url: https://github.com/tabletop-commons/opentabletop
+  email: maintainers@opentabletop.org
+
+termsOfService: https://opentabletop.org/terms
+
+externalDocs:
+  description: >-
+    OpenTabletop Documentation — comprehensive mdbook documentation covering
+    the Three Pillars (Standardized Data Model, Filtering & Windowing,
+    Statistical Foundation), architecture decision records, API specification
+    details, and getting started guides.
+  url: https://tabletop-commons.github.io/opentabletop/

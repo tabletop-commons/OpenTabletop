@@ -1,0 +1,96 @@
+ExpansionCombination:
+  type: object
+  description: >-
+    An explicit record of the effective properties when a specific set of
+    expansions is combined with a base game. These records capture emergent
+    combination effects that cannot be derived by simply summing individual
+    expansion deltas. See ADR-0007 for the three-tier resolution hierarchy:
+    (1) explicit ExpansionCombination, (2) delta sum fallback, (3) base only.
+  required:
+    - base_game_id
+    - expansion_ids
+    - source
+  properties:
+    base_game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the base game.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    expansion_ids:
+      type: array
+      description: >-
+        Ordered list of expansion UUIDv7s that make up this combination.
+        The combination is for this exact set; subsets or supersets are
+        separate records.
+      items:
+        type: string
+        format: uuid
+      minItems: 1
+      example:
+        - "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+        - "01912f4c-9b3c-7d4e-af50-1b2c3d4e5f6a"
+    effective_min_players:
+      type: integer
+      minimum: 1
+      description: Effective minimum player count with this combination.
+      example: 1
+    effective_max_players:
+      type: integer
+      minimum: 1
+      description: Effective maximum player count with this combination.
+      example: 6
+    effective_best_at:
+      type: array
+      description: >-
+        Player counts where this combination is considered "best" based
+        on community consensus.
+      items:
+        type: integer
+        minimum: 1
+      example: [2, 3]
+    effective_recommended_at:
+      type: array
+      description: >-
+        Player counts where this combination is recommended (good but
+        not necessarily the best experience).
+      items:
+        type: integer
+        minimum: 1
+      example: [1, 4, 5]
+    effective_weight:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      description: Effective complexity weight for this combination.
+      example: 4.12
+    effective_playtime_min:
+      type: integer
+      minimum: 0
+      description: Effective minimum playtime in minutes.
+      example: 90
+    effective_playtime_max:
+      type: integer
+      minimum: 0
+      description: Effective maximum playtime in minutes.
+      example: 180
+    source:
+      type: string
+      description: >-
+        Where this combination data originated. community_poll means it was
+        derived from community play data. publisher means the publisher
+        provided the values. computed means it was algorithmically derived.
+      enum:
+        - community_poll
+        - publisher
+        - computed
+      example: "community_poll"
+    experience_playtime:
+      type: array
+      description: >-
+        Experience-level playtime data specific to this expansion combination.
+        When present, these values override the base game's experience data
+        for queries using effective=true with this combination. Not all
+        combinations will have this data. See ADR-0034.
+      items:
+        $ref: 'ExperiencePlaytimePoll.yaml#/ExperiencePlaytimePoll'

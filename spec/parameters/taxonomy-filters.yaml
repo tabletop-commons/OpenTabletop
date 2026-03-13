@@ -1,0 +1,66 @@
+Mechanics:
+  name: mechanics
+  in: query
+  required: false
+  description: >-
+    Filter by mechanics using OR logic. Comma-separated list of mechanic
+    slugs. Returns games that have at least one of the specified mechanics.
+    Uses controlled vocabulary slugs (see ADR-0009).
+  schema:
+    type: string
+  example: "deck-building,hand-management"
+
+MechanicsAll:
+  name: mechanics_all
+  in: query
+  required: false
+  description: >-
+    Filter by mechanics using AND logic. Comma-separated list of mechanic
+    slugs. Returns only games that have all of the specified mechanics.
+  schema:
+    type: string
+  example: "cooperative-play,variable-player-powers"
+
+MechanicsNot:
+  name: mechanics_not
+  in: query
+  required: false
+  description: >-
+    Exclude games with these mechanics. Comma-separated list of mechanic
+    slugs. Returns games that have none of the specified mechanics.
+  schema:
+    type: string
+  example: "roll-and-move,player-elimination"
+
+Categories:
+  name: categories
+  in: query
+  required: false
+  description: >-
+    Filter by categories using OR logic. Comma-separated list of category
+    slugs. Returns games in at least one of the specified categories.
+  schema:
+    type: string
+  example: "strategy,thematic"
+
+Themes:
+  name: themes
+  in: query
+  required: false
+  description: >-
+    Filter by themes using OR logic. Comma-separated list of theme slugs.
+    Returns games with at least one of the specified themes.
+  schema:
+    type: string
+  example: "fantasy,mythology"
+
+ThemesNot:
+  name: theme_not
+  in: query
+  required: false
+  description: >-
+    Exclude games with these themes. Comma-separated list of theme slugs.
+    Returns games that have none of the specified themes.
+  schema:
+    type: string
+  example: "horror,zombies"

@@ -1,0 +1,42 @@
+WeightMin:
+  name: weight_min
+  in: query
+  required: false
+  description: >-
+    Minimum complexity weight on a 1.0 (light) to 5.0 (heavy) scale.
+    Returns games where weight >= this value.
+  schema:
+    type: number
+    format: float
+    minimum: 1.0
+    maximum: 5.0
+  example: 2.0
+
+WeightMax:
+  name: weight_max
+  in: query
+  required: false
+  description: >-
+    Maximum complexity weight on a 1.0 (light) to 5.0 (heavy) scale.
+    Returns games where weight <= this value.
+  schema:
+    type: number
+    format: float
+    minimum: 1.0
+    maximum: 5.0
+  example: 3.5
+
+EffectiveWeight:
+  name: effective_weight
+  in: query
+  required: false
+  description: >-
+    When combined with weight_min/weight_max and effective=true, this flag
+    controls whether weight filtering uses the effective (expansion-modified)
+    weight value. This parameter is implicitly true when effective=true, but
+    can be explicitly set to false to filter on base weight even when other
+    dimensions use effective properties.
+  schema:
+    type: boolean
+    default: false
+  example: true

@@ -1,0 +1,66 @@
+GameEdition:
+  type: object
+  description: >-
+    A specific published edition of a game. The same game may have multiple
+    editions across different publishers, languages, and years. Editions
+    track the publishing history and availability of a game.
+  required:
+    - id
+    - game_id
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "0191418d-9cae-7fba-d12c-4d5e6f7a8b9c"
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this edition belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    name:
+      type: string
+      description: >-
+        Display name of this edition, typically including the edition
+        identifier (e.g., "Second Edition", "Revised Edition").
+      example: "Spirit Island (Second Printing)"
+    year_published:
+      type: integer
+      description: The year this specific edition was published.
+      example: 2018
+    publisher_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the publisher for this edition.
+      example: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+    language:
+      type: string
+      description: Primary language of this edition (BCP 47 language tag).
+      example: "en"
+    notes:
+      type: string
+      description: >-
+        Additional notes about this edition, such as component differences,
+        errata, or regional availability.
+      example: >-
+        Includes updated rulebook with FAQ section and corrected power
+        card text for Vital Strength of the Earth.
+    is_canonical:
+      type: boolean
+      description: >-
+        Whether this is the canonical/reference edition whose properties
+        match the Game entity's top-level values.
+    deltas:
+      $ref: 'EditionDelta.yaml#/EditionDelta'
+      description: >-
+        Optional property deltas relative to the canonical edition. Only
+        present when include=deltas is requested.
+    _links:
+      type: object
+      description: HAL-style links.
+      properties:
+        self:
+          $ref: '_common.yaml#/Link'
+        game:
+          $ref: '_common.yaml#/Link'

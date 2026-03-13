@@ -1,0 +1,55 @@
+PlayerCountPoll:
+  type: object
+  description: >-
+    Per-player-count voting data capturing community sentiment about the quality
+    of experience at each player count. See ADR-0010 for the design rationale.
+    This enables queries like "games best at 3 players" by examining where
+    best_votes dominates.
+  required:
+    - game_id
+    - player_count
+    - best_votes
+    - recommended_votes
+    - not_recommended_votes
+    - total_votes
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this poll data belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count:
+      type: integer
+      minimum: 1
+      description: >-
+        The specific player count this poll entry is for. Each game has one
+        entry per supported player count value.
+      example: 2
+    best_votes:
+      type: integer
+      minimum: 0
+      description: >-
+        Number of votes saying this player count is the best way to play
+        the game.
+      example: 520
+    recommended_votes:
+      type: integer
+      minimum: 0
+      description: >-
+        Number of votes saying this player count is a good (recommended)
+        way to play the game.
+      example: 240
+    not_recommended_votes:
+      type: integer
+      minimum: 0
+      description: >-
+        Number of votes saying this player count is not recommended for
+        this game.
+      example: 40
+    total_votes:
+      type: integer
+      minimum: 0
+      description: >-
+        Total number of votes cast for this player count entry.
+        Should equal best_votes + recommended_votes + not_recommended_votes.
+      example: 800

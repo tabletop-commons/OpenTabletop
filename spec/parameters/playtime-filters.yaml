@@ -1,0 +1,85 @@
+PlaytimeMin:
+  name: playtime_min
+  in: query
+  required: false
+  description: >-
+    Minimum play time in minutes (publisher-stated). Returns games where
+    min_playtime_minutes >= this value.
+  schema:
+    type: integer
+    minimum: 0
+  example: 30
+
+PlaytimeMax:
+  name: playtime_max
+  in: query
+  required: false
+  description: >-
+    Maximum play time in minutes (publisher-stated). Returns games where
+    max_playtime_minutes <= this value.
+  schema:
+    type: integer
+    minimum: 0
+  example: 120
+
+CommunityPlaytimeMin:
+  name: community_playtime_min
+  in: query
+  required: false
+  description: >-
+    Community-reported minimum play time in minutes. Returns games where
+    community_playtime_min_minutes >= this value. Community playtime values
+    are derived from aggregated play logs and tend to be more accurate
+    than publisher estimates.
+  schema:
+    type: integer
+    minimum: 0
+  example: 45
+
+CommunityPlaytimeMax:
+  name: community_playtime_max
+  in: query
+  required: false
+  description: >-
+    Community-reported maximum play time in minutes. Returns games where
+    community_playtime_max_minutes <= this value.
+  schema:
+    type: integer
+    minimum: 0
+  example: 150
+
+PlaytimeSource:
+  name: playtime_source
+  in: query
+  required: false
+  description: >-
+    Which playtime values to use for playtime_min and playtime_max filters.
+    'publisher' uses the publisher-stated values (default). 'community'
+    uses the community-reported values.
+  schema:
+    type: string
+    enum:
+      - publisher
+      - community
+    default: "publisher"
+  example: "community"
+
+PlaytimeExperience:
+  name: playtime_experience
+  in: query
+  required: false
+  description: >-
+    Experience level to use when interpreting playtime filters. When set,
+    game playtime values are adjusted by the experience multiplier before
+    comparing against playtime_min/playtime_max. For example,
+    playtime_max=120&playtime_experience=first_play finds games whose
+    first-play time is under 120 minutes. Composes with playtime_source
+    and effective mode. See ADR-0034.
+  schema:
+    type: string
+    enum:
+      - first_play
+      - learning
+      - experienced
+      - expert
+  example: "first_play"

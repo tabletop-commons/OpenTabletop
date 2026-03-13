@@ -1,0 +1,14 @@
+Include:
+  name: include
+  in: query
+  required: false
+  description: >-
+    Comma-separated list of related resources to embed in the response.
+    This reduces round-trips for common data access patterns (see ADR-0002
+    regarding selective embedding via the include parameter). Available
+    values: mechanics, categories, themes, designers, publishers,
+    expansions, editions, effective_properties, experience_playtime.
+    Unrecognized values are silently ignored.
+  schema:
+    type: string
+  example: "mechanics,categories,designers,editions"

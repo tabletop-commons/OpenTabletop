@@ -1,0 +1,77 @@
+Players:
+  name: players
+  in: query
+  required: false
+  description: >-
+    Exact player count. Returns games that support this exact number of
+    players (min_players <= players <= max_players). Shorthand for setting
+    both players_min and players_max to the same value.
+  schema:
+    type: integer
+    minimum: 1
+  example: 3
+
+PlayersMin:
+  name: players_min
+  in: query
+  required: false
+  description: >-
+    Minimum player count supported by the game. Returns games where
+    min_players <= this value, meaning the game can be played with at
+    least this many players.
+  schema:
+    type: integer
+    minimum: 1
+  example: 2
+
+PlayersMax:
+  name: players_max
+  in: query
+  required: false
+  description: >-
+    Maximum player count supported by the game. Returns games where
+    max_players >= this value, meaning the game supports at least this
+    many players.
+  schema:
+    type: integer
+    minimum: 1
+  example: 6
+
+BestAt:
+  name: best_at
+  in: query
+  required: false
+  description: >-
+    Filter for games where the community considers this player count the
+    "best" experience. Uses structured per-player-count poll data
+    (see ADR-0010) where best_votes must be the dominant vote category.
+  schema:
+    type: integer
+    minimum: 1
+  example: 2
+
+RecommendedAt:
+  name: recommended_at
+  in: query
+  required: false
+  description: >-
+    Filter for games where the community considers this player count at
+    least "recommended" (best + recommended votes > not_recommended votes).
+  schema:
+    type: integer
+    minimum: 1
+  example: 4
+
+Effective:
+  name: effective
+  in: query
+  required: false
+  description: >-
+    When true, player count, playtime, and weight filters apply against
+    expansion-modified effective properties rather than the base game's
+    publisher-stated values. See ADR-0007 for the combinatorial expansion
+    property model.
+  schema:
+    type: boolean
+    default: false
+  example: true

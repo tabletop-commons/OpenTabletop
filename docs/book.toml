@@ -1,0 +1,44 @@
+[book]
+title = "OpenTabletop Documentation"
+authors = ["OpenTabletop Contributors"]
+description = "An open specification for board game data — the MusicBrainz of tabletop gaming"
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/tabletop-commons/opentabletop"
+edit-url-template = "https://github.com/tabletop-commons/opentabletop/edit/main/docs/{path}"
+site-url = "/opentabletop/"
+cname = ""
+smart-punctuation = true
+mathjax-support = false
+additional-css = ["custom.css"]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+no-section-label = false
+fold.enable = false
+fold.level = 0
+playground.editable = false
+playground.copyable = true
+
+[output.html.print]
+enable = true
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
