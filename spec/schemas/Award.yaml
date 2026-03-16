@@ -1,0 +1,47 @@
+Award:
+  type: object
+  description: >-
+    A board game award or award family. Represents an ongoing award program
+    such as the Spiel des Jahres, Dice Tower Awards, or International Gamers
+    Award. Individual game nominations and wins are tracked via GameAward.
+    See ADR-0042.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01914a2b-3c4d-7e5f-a6b7-c8d9e0f1a2b3"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "spiel-des-jahres"
+    name:
+      type: string
+      description: Display name of the award.
+      example: "Spiel des Jahres"
+    description:
+      type: string
+      nullable: true
+      description: Brief description of the award and its significance.
+      example: >-
+        The most prestigious award in board gaming, awarded annually since
+        1979 by a jury of German game critics to the best game suitable
+        for families.
+    organization:
+      type: string
+      nullable: true
+      description: The organization that bestows this award.
+      example: "Verein Spiel des Jahres e.V."
+    website:
+      type: string
+      format: uri
+      nullable: true
+      description: Official website for the award program.
+      example: "https://www.spiel-des-jahres.de/"
+    _links:
+      $ref: '_common.yaml#/Links'

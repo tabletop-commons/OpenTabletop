@@ -1,8 +1,9 @@
 summary: Spirit Island with embedded expansions
 description: >-
-  Spirit Island base game with its expansions embedded via the
-  ?include=expansions parameter. Shows the base game with Branch & Claw
-  and Jagged Earth as nested expansion objects.
+  Spirit Island base game with its full expansion family embedded via the
+  ?include=expansions parameter. Shows all game types: three major
+  expansions (Branch & Claw, Jagged Earth, Nature Incarnate), one
+  standalone expansion (Horizons of Spirit Island), and two promo packs.
 value:
   id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
   slug: "spirit-island"
@@ -161,6 +162,73 @@ value:
         parent:
           href: "/games/spirit-island"
           title: "Spirit Island"
+    - id: "01912f4c-ce6f-7a7b-dc8d-4e5f6a7b8c9d"
+      slug: "spirit-island-promo-pack-1"
+      name: "Spirit Island: Promo Pack 1"
+      sort_name: "spirit island promo pack 1"
+      type: "promo"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2017
+      description_short: >-
+        Two promo spirits for Spirit Island: Heart of the Wildfire and
+        Serpent Slumbering Beneath the Island. Adds spirits only — no
+        new mechanisms or property changes.
+      min_players: 1
+      max_players: 4
+      min_playtime_minutes: 90
+      max_playtime_minutes: 120
+      community_playtime_median_minutes: 105
+      min_age: 13
+      weight: 3.86
+      average_rating: 8.41
+      bayes_rating: 7.92
+      rating_count: 1823
+      mode: "cooperative"
+      bgg_id: 232394
+      status: "active"
+      created_at: "2025-06-15T10:55:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/spirit-island-promo-pack-1"
+          title: "Spirit Island: Promo Pack 1"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
+    - id: "01912f4c-df7a-7b8c-ed9e-5f6a7b8c9d0e"
+      slug: "spirit-island-promo-pack-2"
+      name: "Spirit Island: Promo Pack 2"
+      sort_name: "spirit island promo pack 2"
+      type: "promo"
+      parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+      year_published: 2020
+      description_short: >-
+        Four promo spirits for Spirit Island: Downpour Drenches the World,
+        Finder of Paths Unseen, Fractured Days Split the Sky, and Starlight
+        Seeks Its Form. Adds spirits only — no new mechanisms or property
+        changes.
+      min_players: 1
+      max_players: 4
+      min_playtime_minutes: 90
+      max_playtime_minutes: 120
+      community_playtime_median_minutes: 105
+      min_age: 13
+      weight: 3.86
+      average_rating: 8.55
+      bayes_rating: 7.98
+      rating_count: 1245
+      mode: "cooperative"
+      bgg_id: 306576
+      status: "active"
+      created_at: "2025-06-15T11:00:00Z"
+      updated_at: "2026-02-20T14:15:00Z"
+      _links:
+        self:
+          href: "/games/spirit-island-promo-pack-2"
+          title: "Spirit Island: Promo Pack 2"
+        parent:
+          href: "/games/spirit-island"
+          title: "Spirit Island"
   _links:
     self:
       href: "/games/spirit-island"
@@ -168,6 +236,12 @@ value:
     expansions:
       href: "/games/spirit-island/expansions"
       title: "Expansions for Spirit Island"
+    promos:
+      href: "/games/spirit-island/expansions?type=promo"
+      title: "Promo packs for Spirit Island"
+    standalone_expansions:
+      href: "/games/spirit-island/expansions?type=standalone_expansion"
+      title: "Standalone versions of Spirit Island"
     effective_properties:
       href: "/games/spirit-island/effective-properties"
       title: "Effective properties"

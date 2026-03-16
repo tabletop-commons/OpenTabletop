@@ -1,16 +1,16 @@
 # Getting Started
 
-This guide walks through your first interactions with the OpenTabletop API.
+This guide walks through your first interactions with an OpenTabletop-conforming API. The examples use the reference implementation at `api.opentabletop.org`, but any conforming server exposes the same endpoints and accepts the same parameters — only the base URL differs.
 
 ## Base URL
 
-The API is available at:
+The reference implementation is available at:
 
 ```
 https://api.opentabletop.org/v1
 ```
 
-No authentication is required for read-only access (rate limited to 60 requests/minute by IP).
+The specification requires that conforming implementations provide unauthenticated read-only access with rate limiting (default: 60 requests/minute by IP). See [ADR-0016](../adr/0016-api-key-auth-tiered-rate-limits.md).
 
 ## Your First Request
 
@@ -105,7 +105,7 @@ curl -X POST https://api.opentabletop.org/v1/games/search \
 
 ## Authentication
 
-For higher rate limits (600/min) or write access, use an API key:
+The specification defines tiered API key authentication ([ADR-0016](../adr/0016-api-key-auth-tiered-rate-limits.md)). For higher rate limits (600/min) or write access, use an API key:
 
 ```bash
 curl -H "X-API-Key: your-api-key" \

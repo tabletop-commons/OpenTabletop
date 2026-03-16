@@ -74,6 +74,13 @@ ExpansionCombination:
       minimum: 0
       description: Effective maximum playtime in minutes.
       example: 180
+    effective_min_age:
+      type: integer
+      minimum: 0
+      description: >-
+        Effective recommended minimum age for this combination. An expansion
+        may lower or raise the age recommendation relative to the base game.
+      example: 12
     source:
       type: string
       description: >-

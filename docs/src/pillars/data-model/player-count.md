@@ -44,6 +44,8 @@ From this data, a consumer can derive:
 
 The specification stores the *raw votes*, not the derived conclusions. Different applications may use different thresholds for "recommended" vs "not recommended." The raw data enables any analysis.
 
+Player count poll data reflects the voting community's experience and preferences. This community tends to be experienced hobbyist gamers whose priorities at different player counts — tolerance for downtime, game length, and complexity scaling — may differ from casual players, families, or groups new to the hobby. The raw vote data enables consumers to apply their own interpretive thresholds appropriate to their audience. See [Data Provenance & Bias](./data-provenance.md).
+
 ## Derived Fields
 
 For convenience, the Game entity includes pre-computed derived fields based on the poll data:

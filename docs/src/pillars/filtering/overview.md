@@ -14,7 +14,7 @@ Today, there is no way to answer this question with a single query to any existi
 
 The result is that every board game recommendation app, collection manager, and "what should we play" tool either builds its own filtering on top of scraped data or punts the problem to the user with a spreadsheet.
 
-## What OpenTabletop Does Differently
+## What the OpenTabletop Specification Enables
 
 OpenTabletop defines six orthogonal **filter dimensions** that compose using boolean logic:
 

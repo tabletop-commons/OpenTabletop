@@ -1,6 +1,6 @@
 # Property Deltas & Combinations
 
-Expansions do not just add content — they change the *properties* of the base game. Branch & Claw does not just add spirits to Spirit Island; it increases the recommended play time, nudges the complexity weight upward, and can alter the effective player count when combined with other expansions. The property delta system captures these changes as structured, queryable data.
+Expansions do not just add content — they change the *properties* of the base game. *Invaders from Afar* does not just add factions to *Scythe*; it raises the maximum player count from 5 to 7, extends play time at higher counts, and nudges the complexity weight upward with two new asymmetric factions. The property delta system captures these changes as structured, queryable data.
 
 This is what makes [effective mode filtering](../filtering/effective-mode.md) possible. Without it, you could only filter games by their base properties. With it, you can ask "what games support 6 players when I include expansions?" and get answers.
 
@@ -28,7 +28,7 @@ A `PropertyModification` records how a *single expansion* changes a *single prop
 | `id` | UUIDv7 | yes | Primary identifier |
 | `expansion_id` | UUIDv7 | yes | The expansion that causes this change |
 | `base_game_id` | UUIDv7 | yes | The base game being modified |
-| `property` | string | yes | Which property is changed (e.g., `max_players`, `weight`, `max_playtime`) |
+| `property` | string | yes | Which property is changed (e.g., `max_players`, `weight`, `max_playtime`, `min_age`) |
 | `modification_type` | enum | yes | How the property is changed: `set`, `add`, `multiply` |
 | `value` | string | yes | The new value or delta (interpreted based on modification_type) |
 
@@ -40,7 +40,7 @@ A `PropertyModification` records how a *single expansion* changes a *single prop
 
 ### Layer 2: ExpansionCombination (Expansion Set-Level Effects)
 
-An `ExpansionCombination` records the *effective properties* when a specific set of expansions is combined with a base game. This handles non-linear interactions: adding Branch & Claw and Jagged Earth together does not simply stack their individual deltas. The combination has its own tested, community-verified properties.
+An `ExpansionCombination` records the *effective properties* when a specific set of expansions is combined with a base game. This handles non-linear interactions: adding *Invaders from Afar* and *The Rise of Fenris* together does not simply stack their individual deltas. The combination has its own tested, community-verified properties.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -54,6 +54,7 @@ An `ExpansionCombination` records the *effective properties* when a specific set
 | `weight` | float | no | Effective complexity weight |
 | `best_at` | integer[] | no | Player counts where this combination is best |
 | `recommended_at` | integer[] | no | Player counts where this combination is recommended |
+| `min_age` | integer | no | Effective recommended minimum age |
 
 ## Three-Tier Resolution
 
@@ -61,7 +62,7 @@ When the system needs to determine the effective properties of a base game with 
 
 ```mermaid
 flowchart TD
-    Q["Query: Spirit Island + Branch & Claw + Jagged Earth"]
+    Q["Query: Scythe + Invaders from Afar + The Rise of Fenris"]
     T1{"Explicit<br/>ExpansionCombination<br/>exists?"}
     T2{"Individual<br/>PropertyModifications<br/>exist?"}
     T3["Fall back to<br/>base game properties"]
@@ -81,7 +82,7 @@ flowchart TD
     style T3 fill:#d32f2f,color:#fff
 ```
 
-**Tier 1: Explicit combination.** If an `ExpansionCombination` record exists for exactly this set of expansions with this base game, use its properties. This is the most accurate: someone has verified "Spirit Island + B&C + JE supports 1-6 players at weight 4.2."
+**Tier 1: Explicit combination.** If an `ExpansionCombination` record exists for exactly this set of expansions with this base game, use its properties. This is the most accurate: someone has verified "Scythe + IFA + Fenris supports 1-7 players at weight 3.52."
 
 **Tier 2: Delta sum.** If no explicit combination exists but individual `PropertyModification` records exist for each expansion, sum the deltas. For `set` modifications, the last one wins (by expansion release date). For `add` modifications, sum the values. This is a reasonable approximation but may not capture non-linear interactions.
 
@@ -89,86 +90,156 @@ flowchart TD
 
 The API response includes a `resolution_tier` field so consumers know the confidence level of the effective properties they received.
 
-## Spirit Island: Full Worked Example
+## Scythe: Full Worked Example
 
-Here is the complete property delta data for Spirit Island and its major expansions:
+Here is the complete property delta data for *Scythe* and its expansions:
 
 ### Base Game Properties
 
 | Property | Value |
 |----------|-------|
 | min_players | 1 |
-| max_players | 4 |
-| best_at | [2] |
-| recommended_at | [1, 2, 3] |
-| weight | 3.89 |
-| min_playtime | 90 |
-| max_playtime | 120 |
+| max_players | 5 |
+| best_at | [4] |
+| recommended_at | [3, 4, 5] |
+| weight | 3.45 |
+| min_playtime | 115 |
+| max_playtime | 115 |
+| min_age | 14 |
 
 ### Individual PropertyModifications
 
-**Branch & Claw:**
+**Invaders from Afar (2016):**
 
 | Property | Type | Value | Effect |
 |----------|------|-------|--------|
-| weight | set | 4.05 | Weight increases to 4.05 (more complex events) |
-| max_playtime | set | 150 | Play time extends to 90-150 min |
+| max_players | set | 7 | Two new factions support up to 7 players |
+| weight | set | 3.44 | BGG weight slightly lower than base 3.45 (see weight bias note below) |
+| min_playtime | set | 90 | Minimum play time drops from 115 to 90 with more players |
+| max_playtime | set | 140 | Play time extends at higher player counts |
 
-**Jagged Earth:**
+**The Wind Gambit (2017):**
 
 | Property | Type | Value | Effect |
 |----------|------|-------|--------|
-| max_players | set | 6 | Now supports up to 6 players |
-| weight | set | 4.10 | Weight increases to 4.10 |
-| max_playtime | set | 150 | Play time extends to 90-150 min |
+| max_players | set | 7 | Airships support higher player counts |
+| weight | set | 3.41 | Weight slightly *decreases* (airship module streamlines endgame) |
+| min_playtime | set | 70 | Airship abilities can accelerate game end |
+| max_playtime | set | 140 | Extended ceiling at higher player counts |
+
+**The Rise of Fenris (2018):**
+
+| Property | Type | Value | Effect |
+|----------|------|-------|--------|
+| weight | set | 3.42 | BGG weight lower than base 3.45 (see weight bias note below) |
+| min_playtime | set | 75 | Campaign episodes can be shorter than standard games |
+| max_playtime | set | 150 | Full campaign episodes run longer |
+| min_age | set | 12 | Age recommendation lowered from 14+ to 12+ |
+
+*Fenris* does not change player count (still 1-5). It restructures the game into an 8-episode campaign and *lowers* the recommended age from 14+ to 12+ — the campaign's guided structure makes the game more accessible to younger players. Its BGG weight (3.42) is slightly lower than the base game (3.45), following the same bias pattern as other expansions.
+
+**Encounters (2018):**
+
+| Property | Type | Value | Effect |
+|----------|------|-------|--------|
+| max_players | set | 7 | Encounter cards work at expanded player counts |
+| min_playtime | set | 90 | Minimum play time drops from 115 to 90 |
+
+*Encounters* replaces combat events with a deck of narrative encounter cards. Its BGG weight of 2.71 reflects the encounter card content rated in isolation. Additional PropertyModifications may apply but are omitted here for brevity.
+
+*Scythe* also has 14 promo packs that add factions, encounters, and modules. These are omitted from this worked example — the four major expansions above are sufficient to demonstrate the property delta system.
+
+> **Why are all expansion weights lower than the base game?** Every *Scythe* expansion has a *lower* BGG weight than the base game (3.45): *Invaders from Afar* is 3.44, *The Wind Gambit* is 3.41, *Fenris* is 3.42, and *Encounters* is 2.71. This does not mean expansions simplify the game. It reflects selection bias — the people who rate expansion weights on BGG are experienced players who have already internalized the base game's complexity. They rate the *marginal* difficulty the expansion adds from their veteran perspective, not the total combined experience a new player would face. This is why explicit `ExpansionCombination` records are valuable: they capture the curated, community-verified complexity of the *combined* experience rather than relying on individually biased ratings that undercount total weight.
 
 ### ExpansionCombinations (Explicit)
 
-**Spirit Island + Branch & Claw:**
+**Scythe + Invaders from Afar:**
 
 | Property | Value |
 |----------|-------|
 | min_players | 1 |
-| max_players | 4 |
-| best_at | [2] |
-| recommended_at | [1, 2, 3] |
-| weight | 4.05 |
+| max_players | 7 |
+| best_at | [4] |
+| recommended_at | [3, 4, 5, 6] |
+| weight | 3.44 |
 | min_playtime | 90 |
+| max_playtime | 140 |
+| min_age | 14 |
+
+**Scythe + The Wind Gambit:**
+
+| Property | Value |
+|----------|-------|
+| min_players | 1 |
+| max_players | 7 |
+| best_at | [4] |
+| recommended_at | [3, 4, 5] |
+| weight | 3.43 |
+| min_playtime | 70 |
+| max_playtime | 140 |
+| min_age | 14 |
+
+**Scythe + The Rise of Fenris:**
+
+| Property | Value |
+|----------|-------|
+| min_players | 1 |
+| max_players | 5 |
+| best_at | [3, 4] |
+| recommended_at | [2, 3, 4, 5] |
+| weight | 3.50 |
+| min_playtime | 75 |
+| max_playtime | 150 |
+| min_age | 12 |
+
+**Scythe + Invaders from Afar + The Wind Gambit:**
+
+| Property | Value |
+|----------|-------|
+| min_players | 1 |
+| max_players | 7 |
+| best_at | [4, 5] |
+| recommended_at | [3, 4, 5, 6] |
+| weight | 3.46 |
+| min_playtime | 70 |
+| max_playtime | 140 |
+
+**Scythe + Invaders from Afar + The Rise of Fenris:**
+
+| Property | Value |
+|----------|-------|
+| min_players | 1 |
+| max_players | 7 |
+| best_at | [3, 4] |
+| recommended_at | [2, 3, 4, 5, 6] |
+| weight | 3.52 |
+| min_playtime | 75 |
 | max_playtime | 150 |
 
-**Spirit Island + Jagged Earth:**
+**Scythe + Invaders from Afar + The Wind Gambit + The Rise of Fenris:**
 
 | Property | Value |
 |----------|-------|
 | min_players | 1 |
-| max_players | 6 |
-| best_at | [2, 3] |
-| recommended_at | [1, 2, 3, 4] |
-| weight | 4.10 |
-| min_playtime | 90 |
+| max_players | 7 |
+| best_at | [3, 4, 5] |
+| recommended_at | [2, 3, 4, 5, 6] |
+| weight | 3.55 |
+| min_playtime | 70 |
 | max_playtime | 150 |
 
-**Spirit Island + Branch & Claw + Jagged Earth:**
-
-| Property | Value |
-|----------|-------|
-| min_players | 1 |
-| max_players | 6 |
-| best_at | [2, 3, 4] |
-| recommended_at | [1, 2, 3, 4, 5] |
-| weight | 4.20 |
-| min_playtime | 120 |
-| max_playtime | 180 |
-
-Notice how the combination of both expansions produces different results than either alone. The `best_at` list expands to include 4 players — something neither expansion achieves individually. The minimum play time increases to 120 minutes, reflecting the added setup time when using both together. The weight jumps to 4.20, higher than either expansion alone. These non-linear effects are why explicit `ExpansionCombination` records exist.
+Notice how multi-expansion combinations produce different results than summing individual deltas. The `best_at` list with *Fenris* includes 3 players — something no individual expansion achieves, because the campaign structure is particularly engaging at smaller counts. *The Wind Gambit's* reduced min_playtime of 70 minutes persists through combinations — airship abilities that accelerate the endgame work regardless of other expansions present. And the weight with all major expansions reaches 3.55, above any individual expansion's weight, reflecting the cumulative cognitive load of managing factions, airships, and campaign modules simultaneously. These non-linear effects are why explicit `ExpansionCombination` records exist.
 
 ### Resolution in Action
 
-If someone queries "Spirit Island + Branch & Claw + Jagged Earth + Nature Incarnate":
+If someone queries "Scythe + Invaders from Afar + The Rise of Fenris":
 
-1. Check for an explicit `ExpansionCombination` with exactly `{B&C, JE, NI}`. If it exists (say with weight 4.35, 1-6 players, 120-180 min), use it. **Tier 1.**
-2. If not, check for individual `PropertyModification` records for Nature Incarnate and combine with the `{B&C, JE}` combination. **Tier 2.**
-3. If Nature Incarnate has no property modifications recorded at all, return the `{B&C, JE}` combination properties as the best available approximation. **Tier 3** for NI's effects.
+1. Check for an explicit `ExpansionCombination` with exactly `{IFA, Fenris}`. It exists with weight 3.52, 1-7 players, 75-150 min. **Tier 1.**
+
+If instead someone queries "Scythe + Invaders from Afar + The Rise of Fenris + Encounters":
+
+1. Check for an explicit `ExpansionCombination` with exactly `{IFA, Fenris, Encounters}`. None exists.
+2. *Encounters* has `PropertyModification` records (`max_players: set 7`, `min_playtime: set 90`). Apply delta sum: max_players remains 7 (already set by IFA), min_playtime remains 75 (Fenris sets it lower than Encounters' 90). **Tier 2** — the result is a reasonable approximation, but non-linear interactions between the three expansions are not captured.
 
 ## Data Quality
 

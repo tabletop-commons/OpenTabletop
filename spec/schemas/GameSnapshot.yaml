@@ -1,0 +1,98 @@
+GameSnapshot:
+  type: object
+  description: >-
+    A point-in-time capture of a single game's metrics. Implementations
+    periodically snapshot each game's rating, weight, ranking, and activity
+    metrics to enable longitudinal trend analysis (see ADR-0036). One record
+    exists per game per snapshot period. The snapshot frequency is
+    implementation-defined (monthly, quarterly, or yearly).
+  required:
+    - game_id
+    - snapshot_date
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this snapshot captures.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    snapshot_date:
+      type: string
+      format: date
+      description: >-
+        The date this snapshot was taken (UTC). Typically the first day of the
+        snapshot period (e.g., "2024-01-01" for a January monthly snapshot or
+        "2024-01-01" for Q1 quarterly snapshot).
+      example: "2024-01-01"
+    average_rating:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 10.0
+      nullable: true
+      description: Arithmetic mean of all user ratings at this snapshot date.
+      example: 8.31
+    bayes_rating:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 10.0
+      nullable: true
+      description: Bayesian average rating at this snapshot date.
+      example: 8.19
+    rating_count:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: Total number of user ratings at this snapshot date.
+      example: 27842
+    weight:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      nullable: true
+      description: Community-rated complexity weight at this snapshot date.
+      example: 3.86
+    weight_votes:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: Number of weight votes at this snapshot date.
+      example: 1790
+    rank_overall:
+      type: integer
+      minimum: 1
+      nullable: true
+      description: >-
+        Overall ranking position at this snapshot date. Null if the game was
+        not ranked (e.g., insufficient ratings).
+      example: 14
+    rank_by_category:
+      type: object
+      nullable: true
+      description: >-
+        Per-category ranking positions at this snapshot date. Keys are category
+        slugs from the controlled vocabulary; values are rank positions.
+      additionalProperties:
+        type: integer
+        minimum: 1
+      example:
+        strategy: 10
+        thematic: 3
+    play_count_period:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        Number of plays logged during this snapshot period (not cumulative).
+        Null if play logging data is not available.
+      example: 4521
+    owner_count:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        Total number of users who own this game at this snapshot date.
+        Null if ownership data is not available. Named to align with
+        the Game entity's owner_count field (see ADR-0041).
+      example: 68432

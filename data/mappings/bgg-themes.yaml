@@ -1,0 +1,198 @@
+# BGG Themes/Sub-domains -> OpenTabletop Themes Mapping
+#
+# Reverse index: every BGG theme/sub-domain mapped to OpenTabletop canonical slug(s).
+# Note: Some BGG themes map to OpenTabletop categories rather than themes.
+# Cross-type mappings are noted.
+#
+# mapping_type:
+#   direct  - 1:1 mapping, same concept
+#   split   - one BGG term maps to multiple OT terms
+#   cross   - BGG theme maps to a different OT vocabulary type
+#   unmapped - BGG term has no OT equivalent
+
+- bgg_id: 1001
+  bgg_name: "Political"
+  mapping_type: direct
+  ot_slugs: ["politics"]
+  notes: null
+
+- bgg_id: 1008
+  bgg_name: "Nautical"
+  mapping_type: direct
+  ot_slugs: ["nautical"]
+  notes: null
+
+- bgg_id: 1010
+  bgg_name: "Fantasy"
+  mapping_type: direct
+  ot_slugs: ["fantasy"]
+  notes: null
+
+- bgg_id: 1011
+  bgg_name: "Transportation"
+  mapping_type: direct
+  ot_slugs: ["transportation"]
+  notes: null
+
+- bgg_id: 1013
+  bgg_name: "Farming"
+  mapping_type: direct
+  ot_slugs: ["farming"]
+  notes: null
+
+- bgg_id: 1015
+  bgg_name: "Civilization"
+  mapping_type: direct
+  ot_slugs: ["civilization"]
+  notes: null
+
+- bgg_id: 1016
+  bgg_name: "Science Fiction"
+  mapping_type: direct
+  ot_slugs: ["science-fiction"]
+  notes: null
+
+- bgg_id: 1019
+  bgg_name: "Wargame"
+  mapping_type: direct
+  ot_slugs: ["war"]
+  notes: null
+
+- bgg_id: 1020
+  bgg_name: "Exploration"
+  mapping_type: direct
+  ot_slugs: ["exploration"]
+  notes: null
+
+- bgg_id: 1022
+  bgg_name: "Adventure"
+  mapping_type: direct
+  ot_slugs: ["adventure"]
+  notes: null
+
+- bgg_id: 1024
+  bgg_name: "Horror"
+  mapping_type: direct
+  ot_slugs: ["horror"]
+  notes: null
+
+- bgg_id: 1029
+  bgg_name: "City Building"
+  mapping_type: split
+  ot_slugs: ["urban", "building"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 1031
+  bgg_name: "Racing"
+  mapping_type: direct
+  ot_slugs: ["racing-theme"]
+  notes: null
+
+- bgg_id: 1034
+  bgg_name: "Trains"
+  mapping_type: direct
+  ot_slugs: ["trains"]
+  notes: null
+
+- bgg_id: 1035
+  bgg_name: "Medieval"
+  mapping_type: direct
+  ot_slugs: ["medieval"]
+  notes: null
+
+- bgg_id: 1039
+  bgg_name: "Murder/Mystery"
+  mapping_type: direct
+  ot_slugs: ["crime"]
+  notes: null
+
+- bgg_id: 1047
+  bgg_name: "Miniatures"
+  mapping_type: direct
+  ot_slugs: ["miniatures-theme"]
+  notes: null
+
+- bgg_id: 1050
+  bgg_name: "Ancient"
+  mapping_type: direct
+  ot_slugs: ["ancient-history"]
+  notes: null
+
+- bgg_id: 1079
+  bgg_name: "Humor"
+  mapping_type: direct
+  ot_slugs: ["comedy"]
+  notes: null
+
+- bgg_id: 1081
+  bgg_name: "Spies/Secret Agents"
+  mapping_type: direct
+  ot_slugs: ["espionage"]
+  notes: null
+
+- bgg_id: 1082
+  bgg_name: "Mythology"
+  mapping_type: direct
+  ot_slugs: ["mythology"]
+  notes: null
+
+- bgg_id: 1086
+  bgg_name: "Territory Building"
+  mapping_type: direct
+  ot_slugs: ["territory"]
+  notes: null
+
+- bgg_id: 1088
+  bgg_name: "Industry / Manufacturing"
+  mapping_type: direct
+  ot_slugs: ["industry"]
+  notes: null
+
+- bgg_id: 1089
+  bgg_name: "Animals"
+  mapping_type: direct
+  ot_slugs: ["animals"]
+  notes: null
+
+- bgg_id: 1090
+  bgg_name: "Pirates"
+  mapping_type: direct
+  ot_slugs: ["pirates"]
+  notes: null
+
+- bgg_id: 1113
+  bgg_name: "Space Exploration"
+  mapping_type: direct
+  ot_slugs: ["space"]
+  notes: null
+
+- bgg_id: 1115
+  bgg_name: "American West"
+  mapping_type: direct
+  ot_slugs: ["wild-west"]
+  notes: null
+
+- bgg_id: 2002
+  bgg_name: "Comic Book / Strip"
+  mapping_type: direct
+  ot_slugs: ["superheroes"]
+  notes: null
+
+- bgg_id: 2145
+  bgg_name: "Medical"
+  mapping_type: direct
+  ot_slugs: ["medicine"]
+  notes: null
+
+- bgg_id: 2481
+  bgg_name: "Zombies"
+  mapping_type: direct
+  ot_slugs: ["zombies"]
+  notes: null
+
+- bgg_id: 2710
+  bgg_name: "Post-Apocalyptic"
+  mapping_type: direct
+  ot_slugs: ["post-apocalyptic"]
+  notes: null

@@ -1,0 +1,28 @@
+CommunityAgePoll:
+  type: object
+  description: >-
+    A single entry in the community-suggested player age poll. Each entry
+    represents the number of votes for a specific minimum age. The poll
+    complements the publisher-stated min_age field on the Game entity.
+    See ADR-0041.
+  required:
+    - game_id
+    - suggested_age
+    - vote_count
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the game this poll entry belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    suggested_age:
+      type: integer
+      minimum: 0
+      description: >-
+        The suggested minimum age in years that voters selected.
+      example: 14
+    vote_count:
+      type: integer
+      minimum: 0
+      description: Number of voters who selected this age.
+      example: 342

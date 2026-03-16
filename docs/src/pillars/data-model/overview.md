@@ -137,7 +137,7 @@ erDiagram
 
 **Explicit over implicit.** Every relationship is a first-class entity with a type discriminator, not an implied association.
 
-**Dual-source data.** Wherever opinions differ from facts, both are captured. Publisher-stated play time and community-reported play time are separate fields, not averaged into one.
+**Dual-source data.** Wherever community perceptions differ from publisher-stated values, both are captured. Publisher-stated play time and community-reported play time are separate fields, not averaged into one. Both sources carry their own biases — see [Data Provenance & Bias](./data-provenance.md).
 
 **Combinatorial awareness.** The data model does not just store "this expansion exists." It stores how that expansion changes the base game's properties, and it supports pre-computed combinations for sets of expansions. This is what makes [effective mode filtering](../filtering/effective-mode.md) possible.
 

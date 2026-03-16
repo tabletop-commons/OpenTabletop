@@ -1,6 +1,6 @@
 # Legacy Migration
 
-Migrating from BGG's XML API to OpenTabletop is a gradual process. The architecture supports a **strangler fig** pattern: a translation layer that sits between consumers and BGG, progressively routing more traffic to OpenTabletop as the dataset grows and the API stabilizes.
+Adopting the OpenTabletop standard while moving away from BGG's XML API is a gradual process. The architecture supports a **strangler fig** pattern: a translation layer that sits between consumers and BGG, progressively routing more traffic to a conforming OpenTabletop server as its dataset grows and the specification stabilizes.
 
 ## The Strangler Fig Pattern
 
@@ -17,7 +17,7 @@ flowchart TD
     end
 
     subgraph "New System"
-        OBG["OpenTabletop API<br/><i>JSON / REST</i>"]
+        OBG["Conforming Server<br/><i>OpenTabletop JSON / REST</i>"]
     end
 
     subgraph "Legacy System"
@@ -49,7 +49,7 @@ Initially, the facade routes *everything* to BGG through a translation layer tha
 4. Maps BGG fields to OpenTabletop schema.
 5. Returns a conformant OpenTabletop JSON response.
 
-This gives consumers a stable, documented API immediately, even before OpenTabletop has its own data. The translation layer handles:
+This gives consumers a stable, documented API immediately, even before the conforming server has its own data. The translation layer handles:
 
 | BGG Endpoint | OpenTabletop Equivalent | Notes |
 |-------------|--------------------------|-------|
@@ -60,15 +60,15 @@ This gives consumers a stable, documented API immediately, even before OpenTable
 
 ### Phase 2: Dual Backend
 
-As the OpenTabletop dataset grows (imported from BGG data, community contributions, publisher partnerships), the facade starts routing to the native API for entities that exist:
+As the conforming server's dataset grows (imported from BGG data, community contributions, publisher partnerships), the facade starts routing to the native API for entities that exist:
 
 ```mermaid
 flowchart LR
     REQ["Incoming Request<br/>GET /games/spirit-island"]
 
-    CHECK{"Exists in<br/>OpenTabletop?"}
+    CHECK{"Exists in<br/>conforming server?"}
 
-    OBG["OpenTabletop API<br/><i>Native data</i>"]
+    OBG["Conforming Server<br/><i>Native data</i>"]
     BGG["BGG Translation<br/><i>Fallback</i>"]
 
     RESP["Response"]
@@ -83,11 +83,11 @@ flowchart LR
     style BGG fill:#f57c00,color:#fff
 ```
 
-The routing decision is per-entity: if Spirit Island exists in the OpenTabletop database, serve it natively. If an obscure game has not been imported yet, fall back to BGG translation.
+The routing decision is per-entity: if Spirit Island exists in the conforming server's database, serve it natively. If an obscure game has not been imported yet, fall back to BGG translation.
 
 ### Phase 3: Native Only
 
-Once the dataset is comprehensive enough, the BGG translation layer is decommissioned. All requests are served from OpenTabletop natively. The facade becomes unnecessary and is removed.
+Once the dataset is comprehensive enough, the BGG translation layer is decommissioned. All requests are served natively from the conforming server. The facade becomes unnecessary and is removed.
 
 ## Field Mapping
 
@@ -118,17 +118,17 @@ Migrating from BGG's data model to OpenTabletop's requires careful field mapping
 
 ### Key Differences
 
-**No type discriminator in BGG.** BGG does not distinguish base games from expansions at the entity level — you determine this from the presence of expansion links. OpenTabletop has an explicit `type` field.
+**No type discriminator in BGG.** BGG does not distinguish base games from expansions at the entity level — you determine this from the presence of expansion links. The OpenTabletop specification defines an explicit `type` field.
 
 **No dual playtime in BGG.** BGG stores only publisher-stated play time. Community play time is an OpenTabletop addition.
 
-**No property deltas in BGG.** BGG has no concept of how expansions change base game properties. This is entirely new in OpenTabletop.
+**No property deltas in BGG.** BGG has no concept of how expansions change base game properties. This is entirely new in the OpenTabletop specification.
 
 **Taxonomy mapping.** BGG mechanics and categories are free text. Mapping them to OpenTabletop's controlled vocabulary requires a maintained mapping table (e.g., BGG "Deck, Bag, and Pool Building" maps to OpenTabletop `deck-building`).
 
 ## Data Import
 
-The migration architecture includes a data import pipeline for bulk loading BGG data into the OpenTabletop database:
+The migration architecture includes a data import pipeline for bulk loading BGG data into a conforming server's database:
 
 1. **BGG data dump.** Periodic snapshots of BGG data (available through BGG data exports or scraping within rate limits).
 2. **Transformation.** Apply the field mapping, resolve taxonomy slugs, generate UUIDv7 identifiers, construct relationships.
@@ -142,9 +142,9 @@ The import pipeline is idempotent — running it twice with the same input produ
 
 If you are building an application that currently uses the BGG XML API, the migration path is:
 
-1. **Start using the OpenTabletop SDK** with the translation layer as the backend. Your code uses the new API immediately; the translation layer handles BGG communication.
+1. **Start using the OpenTabletop SDK** with the translation layer as the backend. Your code uses the standard API immediately; the translation layer handles BGG communication.
 2. **Map your BGG IDs.** Use the identifier lookup endpoint to find OpenTabletop UUIDs for your existing BGG IDs.
 3. **Adopt new features incrementally.** Start using effective mode, community play times, and multi-dimensional filtering — features that have no BGG equivalent.
-4. **Remove BGG dependency.** Once the OpenTabletop dataset covers your needs, point the SDK at the native API and decommission the translation layer.
+4. **Remove BGG dependency.** Once the conforming server's dataset covers your needs, point the SDK at it directly and decommission the translation layer.
 
 See [Migrating from BGG](../guides/migrating-from-bgg.md) for a practical step-by-step guide.

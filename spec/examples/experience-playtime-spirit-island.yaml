@@ -1,11 +1,22 @@
-summary: Spirit Island experience-adjusted playtime
+summary: Spirit Island experience-adjusted playtime (base game)
 description: >-
-  Experience playtime profile for Spirit Island, showing how play time
-  varies dramatically based on player familiarity. First-time players
-  take ~57% longer than experienced players, reflecting the game's
+  Experience playtime profile for the Spirit Island base game, showing how
+  play time varies dramatically based on player familiarity. First-time
+  players take ~57% longer than experienced players, reflecting the game's
   complex spirit powers, innate ability tracks, and multi-phase turn
   structure. Expert players who have internalized the decision trees
   play ~24% faster than the experienced baseline.
+
+  This profile covers the base game only. When expansions are applied,
+  the experience curve shifts — Branch & Claw, Jagged Earth, and Nature
+  Incarnate each add new systems (Events, tokens, aspects) that increase
+  first-play time further, while expert times remain relatively stable
+  because the core decision loop is unchanged. Expansion-specific
+  experience data lives on the ExpansionCombination record (see
+  ADR-0007), not on the base game profile. For example, the
+  Spirit Island + B&C + JE + NI combination has its own experience
+  playtime array with first_play median ~210 minutes vs. the base
+  game's 165 minutes.
 value:
   game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
   levels:

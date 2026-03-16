@@ -1,0 +1,807 @@
+# OpenTabletop Canonical Themes Taxonomy
+#
+# Themes answer "what is this game about?" at the setting/subject level.
+# Unlike mechanics (phylogenetic tree) or categories (emergent clusters),
+# themes are a controlled tag list with optional hierarchical grouping.
+# A game about pirates in space gets tagged "pirates" and "space."
+#
+# Structure:
+#   slug               — canonical identifier (lowercase, hyphenated)
+#   name               — display name
+#   definition         — precise, distinguishing definition
+#   parent_slug        — optional hierarchical grouping (null if root)
+#   children_slugs     — child themes
+#   canonical_examples — 3 games strongly associated with this theme
+#   synonyms           — alternate names
+#   bgg_ids            — BGG sub-domain/category ID(s) for this theme
+#   bgg_names          — BGG sub-domain/category name(s)
+
+# ============================================================================
+# SETTINGS / GEOGRAPHY
+# ============================================================================
+
+- slug: fantasy
+  name: Fantasy
+  definition: >-
+    Games set in worlds with magic, mythical creatures, or supernatural
+    elements. Includes high fantasy (epic quests, wizards), dark fantasy
+    (grimdark), and fairy-tale settings. The setting is non-historical
+    and features elements that violate real-world physics.
+  parent_slug: null
+  children_slugs:
+    - fairy-tale
+  canonical_examples:
+    - Gloomhaven
+    - Mage Knight
+    - Descent
+  synonyms:
+    - high-fantasy
+    - dark-fantasy
+  bgg_ids: [1010]
+  bgg_names: ["Fantasy"]
+
+- slug: fairy-tale
+  name: Fairy Tale / Storybook
+  definition: >-
+    Games with whimsical, folk-tale, or storybook settings. Lighter tone
+    than general fantasy — fairy godmothers, enchanted forests, talking
+    animals. Often family-friendly.
+  parent_slug: fantasy
+  children_slugs: []
+  canonical_examples:
+    - Once Upon a Time
+    - Stuffed Fables
+    - Mice and Mystics
+  synonyms:
+    - storybook
+    - folk-tale
+  bgg_ids: []
+  bgg_names: []
+
+- slug: science-fiction
+  name: Science Fiction
+  definition: >-
+    Games set in futures with advanced technology, space travel, alien
+    civilizations, cyberpunk dystopias, or speculative science. The
+    setting assumes technological progress beyond the present day.
+  parent_slug: null
+  children_slugs:
+    - space
+    - cyberpunk
+    - post-apocalyptic
+  canonical_examples:
+    - Twilight Imperium
+    - Race for the Galaxy
+    - "Android: Netrunner"
+  synonyms:
+    - sci-fi
+    - futuristic
+  bgg_ids: [1016]
+  bgg_names: ["Science Fiction"]
+
+- slug: space
+  name: Space / Interstellar
+  definition: >-
+    Games specifically set in outer space — interstellar travel, space
+    exploration, galactic empires, asteroid mining. The void of space
+    and interplanetary scale are central to the setting.
+  parent_slug: science-fiction
+  children_slugs: []
+  canonical_examples:
+    - Twilight Imperium
+    - Eclipse
+    - Star Realms
+  synonyms:
+    - galactic
+    - interstellar
+  bgg_ids: [1113]
+  bgg_names: ["Space Exploration"]
+
+- slug: cyberpunk
+  name: Cyberpunk
+  definition: >-
+    Games set in near-future dystopias featuring megacorporations,
+    hacking, cybernetic augmentation, and the intersection of high
+    technology with social decay.
+  parent_slug: science-fiction
+  children_slugs: []
+  canonical_examples:
+    - "Android: Netrunner"
+    - Netrunner
+    - Specter Ops
+  synonyms:
+    - dystopian-tech
+  bgg_ids: []
+  bgg_names: []
+
+- slug: post-apocalyptic
+  name: Post-Apocalyptic
+  definition: >-
+    Games set after societal collapse — nuclear war, plague, environmental
+    disaster, or other cataclysm. Survival, scavenging, and rebuilding
+    in a ruined world.
+  parent_slug: science-fiction
+  children_slugs: []
+  canonical_examples:
+    - Dead of Winter
+    - "Fallout: The Board Game"
+    - "Aftermath"
+  synonyms:
+    - apocalyptic
+    - wasteland
+  bgg_ids: [2710]
+  bgg_names: ["Post-Apocalyptic"]
+
+- slug: historical
+  name: Historical
+  definition: >-
+    Games based on real historical events, periods, or figures. The
+    setting draws from documented history and often aims for some degree
+    of historical accuracy in its scenario or mechanics.
+  parent_slug: null
+  children_slugs:
+    - medieval
+    - ancient-history
+    - modern-era
+    - wild-west
+  canonical_examples:
+    - Twilight Struggle
+    - Through the Ages
+    - "Brass: Birmingham"
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: medieval
+  name: Medieval
+  definition: >-
+    Games set in the European Middle Ages (~500-1500 CE). Knights,
+    castles, feudalism, crusades, and the social structures of
+    medieval European society.
+  parent_slug: historical
+  children_slugs: []
+  canonical_examples:
+    - Carcassonne
+    - The Castles of Burgundy
+    - Dominion
+  synonyms:
+    - middle-ages
+  bgg_ids: [1035]
+  bgg_names: ["Medieval"]
+
+- slug: ancient-history
+  name: Ancient
+  definition: >-
+    Games set in ancient civilizations — Egypt, Rome, Greece,
+    Mesopotamia, China, or other pre-medieval cultures. Pyramids,
+    gladiators, philosophers, and bronze-age empires.
+  parent_slug: historical
+  children_slugs: []
+  canonical_examples:
+    - "Tigris & Euphrates"
+    - Imhotep
+    - Cyclades
+  synonyms:
+    - classical-antiquity
+    - ancient-world
+  bgg_ids: [1050]
+  bgg_names: ["Ancient"]
+
+- slug: modern-era
+  name: Modern / Contemporary
+  definition: >-
+    Games set in the present day or recent history (post-1900).
+    Contemporary settings, modern technology, and current-era concerns.
+  parent_slug: historical
+  children_slugs: []
+  canonical_examples:
+    - Pandemic
+    - Ticket to Ride
+    - Power Grid
+  synonyms:
+    - contemporary
+    - present-day
+  bgg_ids: []
+  bgg_names: []
+
+- slug: wild-west
+  name: Wild West
+  definition: >-
+    Games set in the American frontier era (~1850-1900). Cowboys,
+    outlaws, gold rushes, railroads, and frontier towns.
+  parent_slug: historical
+  children_slugs: []
+  canonical_examples:
+    - Great Western Trail
+    - Western Legends
+    - Colt Express
+  synonyms:
+    - western
+    - frontier
+  bgg_ids: [1115]
+  bgg_names: ["American West"]
+
+- slug: nautical
+  name: Nautical / Maritime
+  definition: >-
+    Games centered on oceans, sailing, naval warfare, or seafaring
+    adventure. Ships, harbors, trade routes, and the open sea.
+  parent_slug: null
+  children_slugs:
+    - pirates
+  canonical_examples:
+    - "Merchants & Marauders"
+    - Archipelago
+    - Black Fleet
+  synonyms:
+    - maritime
+    - seafaring
+    - naval
+  bgg_ids: [1008]
+  bgg_names: ["Nautical"]
+
+- slug: urban
+  name: Urban / City
+  definition: >-
+    Games set in cities or focused on city building, metropolitan
+    environments, and urban planning.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Chinatown
+    - Suburbia
+    - Citadels
+  synonyms:
+    - city
+    - metropolitan
+  bgg_ids: [1029]
+  bgg_names: ["City Building"]
+
+# ============================================================================
+# SUBJECT MATTER
+# ============================================================================
+
+- slug: war
+  name: War / Military Conflict
+  definition: >-
+    Games about armed conflict at any scale — from squad-level tactics
+    to global geopolitical warfare. Combat and military strategy are
+    the central subject matter.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Twilight Struggle
+    - Root
+    - Risk
+  synonyms:
+    - military
+    - conflict
+  bgg_ids: [1019]
+  bgg_names: ["Wargame"]
+
+- slug: horror
+  name: Horror
+  definition: >-
+    Games with dark, frightening, or supernatural themes designed to
+    create tension, dread, or fear. Monsters, haunted locations, and
+    survival against terrifying threats.
+  parent_slug: null
+  children_slugs:
+    - lovecraftian
+    - zombies
+  canonical_examples:
+    - "Arkham Horror"
+    - "Betrayal at House on the Hill"
+    - Mysterium
+  synonyms:
+    - dark
+    - supernatural
+  bgg_ids: [1024]
+  bgg_names: ["Horror"]
+
+- slug: lovecraftian
+  name: Lovecraftian / Cosmic Horror
+  definition: >-
+    Games featuring eldritch entities, sanity mechanics, forbidden
+    knowledge, and the Cthulhu mythos or cosmic horror traditions.
+    Specifically inspired by H.P. Lovecraft's fiction.
+  parent_slug: horror
+  children_slugs: []
+  canonical_examples:
+    - "Arkham Horror"
+    - Eldritch Horror
+    - Mansions of Madness
+  synonyms:
+    - cthulhu
+    - cosmic-horror
+    - eldritch
+  bgg_ids: []
+  bgg_names: []
+
+- slug: zombies
+  name: Zombies
+  definition: >-
+    Games about zombie outbreaks, survival against undead hordes, or
+    post-apocalyptic worlds overrun by zombies.
+  parent_slug: horror
+  children_slugs: []
+  canonical_examples:
+    - Dead of Winter
+    - Zombicide
+    - Last Night on Earth
+  synonyms:
+    - undead
+  bgg_ids: [2481]
+  bgg_names: ["Zombies"]
+
+- slug: mythology
+  name: Mythology
+  definition: >-
+    Games drawing on mythological traditions — Greek, Norse, Egyptian,
+    Celtic, Japanese, or other cultural mythologies. Gods, heroes,
+    mythical creatures, and legendary narratives.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Cyclades
+    - Blood Rage
+    - Inis
+  synonyms:
+    - myth
+    - legends
+  bgg_ids: [1082]
+  bgg_names: ["Mythology"]
+
+- slug: pirates
+  name: Pirates
+  definition: >-
+    Games about piracy, treasure hunting, naval adventure on the high
+    seas, and the romanticized pirate life.
+  parent_slug: nautical
+  children_slugs: []
+  canonical_examples:
+    - "Merchants & Marauders"
+    - Dead Men Tell No Tales
+    - Libertalia
+  synonyms:
+    - piracy
+    - buccaneers
+  bgg_ids: [1090]
+  bgg_names: ["Pirates"]
+
+- slug: trains
+  name: Trains / Railroads
+  definition: >-
+    Games about rail networks, train operations, or railway investment.
+    Building tracks, running trains, and managing railroad companies.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Ticket to Ride
+    - Age of Steam
+    - "1830"
+  synonyms:
+    - railroads
+    - railways
+  bgg_ids: [1034]
+  bgg_names: ["Trains"]
+
+- slug: civilization
+  name: Civilization
+  definition: >-
+    Games about building, managing, and advancing entire societies across
+    historical eras. Technology, culture, warfare, and diplomacy at
+    civilization scale.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Through the Ages
+    - Clash of Cultures
+    - "Sid Meier's Civilization"
+  synonyms:
+    - civ-building
+    - nation-building
+  bgg_ids: [1015]
+  bgg_names: ["Civilization"]
+
+- slug: nature
+  name: Nature / Wildlife
+  definition: >-
+    Games about animals, ecosystems, natural environments, and
+    ecological themes. The natural world is the central subject.
+  parent_slug: null
+  children_slugs:
+    - animals
+    - farming
+  canonical_examples:
+    - Wingspan
+    - Cascadia
+    - Photosynthesis
+  synonyms:
+    - ecology
+    - wildlife
+    - environment
+  bgg_ids: []
+  bgg_names: []
+
+- slug: animals
+  name: Animals
+  definition: >-
+    Games where animals are the primary subject — collecting,
+    managing, or playing as animals. Distinct from nature/ecology
+    by focusing on the creatures themselves.
+  parent_slug: nature
+  children_slugs: []
+  canonical_examples:
+    - Wingspan
+    - Everdell
+    - Cascadia
+  synonyms:
+    - creatures
+  bgg_ids: [1089]
+  bgg_names: ["Animals"]
+
+- slug: farming
+  name: Farming / Agriculture
+  definition: >-
+    Games about farming, animal husbandry, harvesting crops, vineyard
+    management, or agricultural life. Working the land as the central
+    activity.
+  parent_slug: nature
+  children_slugs: []
+  canonical_examples:
+    - Agricola
+    - Viticulture
+    - Hallertau
+  synonyms:
+    - agriculture
+    - vineyard
+  bgg_ids: [1013]
+  bgg_names: ["Farming"]
+
+- slug: exploration
+  name: Exploration / Discovery
+  definition: >-
+    Games about discovering new lands, uncharted territory, or unknown
+    environments. The thrill of revelation and the unknown.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Robinson Crusoe
+    - The Lost Expedition
+    - Sleeping Gods
+  synonyms:
+    - discovery
+    - expedition
+  bgg_ids: [1020]
+  bgg_names: ["Exploration"]
+
+- slug: politics
+  name: Politics / Intrigue
+  definition: >-
+    Games about political maneuvering, governance, courtly intrigue,
+    elections, or geopolitical strategy. Power through negotiation,
+    manipulation, and influence rather than military force.
+  parent_slug: null
+  children_slugs:
+    - espionage
+  canonical_examples:
+    - Twilight Struggle
+    - Diplomacy
+    - Watergate
+  synonyms:
+    - political
+    - intrigue
+    - geopolitical
+  bgg_ids: [1001]
+  bgg_names: ["Political"]
+
+- slug: espionage
+  name: Espionage
+  definition: >-
+    Games about spies, intelligence agencies, covert operations, and
+    secret missions. Hidden information and deception in a spy
+    thriller setting.
+  parent_slug: politics
+  children_slugs: []
+  canonical_examples:
+    - Codenames
+    - Decrypto
+    - Spyfall
+  synonyms:
+    - spies
+    - intelligence
+  bgg_ids: [1081]
+  bgg_names: ["Spies/Secret Agents"]
+
+- slug: crime
+  name: Crime / Mystery
+  definition: >-
+    Games about criminal activity, detective work, investigation,
+    or solving mysteries. Whodunits, heists, and forensic deduction.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Sherlock Holmes Consulting Detective
+    - Chronicles of Crime
+    - Mysterium
+  synonyms:
+    - mystery
+    - detective
+    - investigation
+  bgg_ids: [1039]
+  bgg_names: ["Murder/Mystery"]
+
+- slug: trade
+  name: Trade / Commerce
+  definition: >-
+    Games about mercantile activity, shipping goods, establishing trade
+    routes, and commercial exchange. Buying low, selling high, and
+    building commercial empires.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Istanbul
+    - Jaipur
+    - "Century: Spice Road"
+  synonyms:
+    - commerce
+    - mercantile
+    - merchants
+  bgg_ids: []
+  bgg_names: []
+
+- slug: industry
+  name: Industry / Manufacturing
+  definition: >-
+    Games about factories, production chains, industrial revolution,
+    and manufacturing. Building industrial infrastructure and managing
+    production output.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - "Brass: Birmingham"
+    - Arkwright
+    - Kanban
+  synonyms:
+    - manufacturing
+    - industrial
+    - factory
+  bgg_ids: [1088]
+  bgg_names: ["Industry / Manufacturing"]
+
+- slug: survival
+  name: Survival
+  definition: >-
+    Games about enduring harsh conditions, resource scarcity, and
+    threats to survival. Staying alive is the primary challenge.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Robinson Crusoe
+    - Dead of Winter
+    - This War of Mine
+  synonyms:
+    - endurance
+  bgg_ids: []
+  bgg_names: []
+
+# ============================================================================
+# GENRE / TONE
+# ============================================================================
+
+- slug: adventure
+  name: Adventure
+  definition: >-
+    Games about questing, journeying, and exploration-driven narrative.
+    The core experience is going on an adventure — encounters, travel,
+    and heroic challenges along the way.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Sleeping Gods
+    - Talisman
+    - Runebound
+  synonyms:
+    - quest
+    - journey
+  bgg_ids: [1022]
+  bgg_names: ["Adventure"]
+
+- slug: comedy
+  name: Comedy / Humor
+  definition: >-
+    Games designed to be lighthearted, funny, and entertaining.
+    Humor is a primary design goal, not incidental.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Exploding Kittens
+    - Monikers
+    - Telestrations
+  synonyms:
+    - humor
+    - lighthearted
+    - silly
+  bgg_ids: [1079]
+  bgg_names: ["Humor"]
+
+- slug: steampunk
+  name: Steampunk
+  definition: >-
+    Games set in Victorian-era worlds with anachronistic technology —
+    steam-powered machines, clockwork devices, airships, and
+    retro-futuristic aesthetics.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - "Nemo's War"
+    - Mysterium (aesthetically)
+    - Planet Steam
+  synonyms:
+    - dieselpunk
+    - retro-futuristic
+  bgg_ids: []
+  bgg_names: []
+
+- slug: superheroes
+  name: Superheroes
+  definition: >-
+    Games featuring comic-book heroes, superpowers, and the superhero
+    genre conventions of secret identities, villains, and world-saving.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Marvel Champions
+    - Sentinels of the Multiverse
+    - "DC Deck-Building Game"
+  synonyms:
+    - comics
+    - comic-book
+  bgg_ids: [2002]
+  bgg_names: ["Comic Book / Strip"]
+
+# ============================================================================
+# ACTIVITY / DOMAIN
+# ============================================================================
+
+- slug: building
+  name: Building / Construction
+  definition: >-
+    Games about constructing structures, cities, monuments, or
+    architectural works. The physical act of building something
+    is the thematic focus.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Imhotep
+    - Keyflower
+    - Architects of the West Kingdom
+  synonyms:
+    - construction
+    - architecture
+  bgg_ids: [1029]
+  bgg_names: ["City Building"]
+
+- slug: racing-theme
+  name: Racing
+  definition: >-
+    Games themed around competitive speed — car racing, horse racing,
+    sailing races, or any competition to reach a destination first.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Flamme Rouge
+    - Formula D
+    - Camel Up
+  synonyms:
+    - motorsport
+    - horse-racing
+  bgg_ids: [1031]
+  bgg_names: ["Racing"]
+
+- slug: territory
+  name: Territory / Conquest
+  definition: >-
+    Games about claiming, defending, and expanding controlled territory.
+    Maps, borders, and territorial dominance as the thematic focus.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Risk
+    - Small World
+    - Root
+  synonyms:
+    - conquest
+    - dominion
+  bgg_ids: [1086]
+  bgg_names: ["Territory Building"]
+
+- slug: medicine
+  name: Medicine / Science
+  definition: >-
+    Games with medical or scientific themes — curing diseases, running
+    hospitals, biological processes, or scientific research.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Pandemic
+    - Cytosis
+    - Viral
+  synonyms:
+    - science
+    - biology
+    - medical
+  bgg_ids: [2145]
+  bgg_names: ["Medical"]
+
+- slug: transportation
+  name: Transportation / Logistics
+  definition: >-
+    Games about moving goods or people, managing logistics networks,
+    and transportation infrastructure beyond just trains.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Ticket to Ride
+    - Power Grid
+    - Age of Steam
+  synonyms:
+    - logistics
+    - shipping
+  bgg_ids: [1011]
+  bgg_names: ["Transportation"]
+
+- slug: empire
+  name: Empire / Nation-Building
+  definition: >-
+    Games about governing and expanding an empire or nation. Grand
+    strategy at the national or imperial scale — diplomacy, warfare,
+    economy, and culture management.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Scythe
+    - Twilight Imperium
+    - Eclipse
+  synonyms:
+    - nation-building
+    - imperial
+  bgg_ids: []
+  bgg_names: []
+
+- slug: miniatures-theme
+  name: Miniatures
+  definition: >-
+    Games where miniature figures are central to the experience — not
+    just components but a core part of the hobby (painting, collecting,
+    displaying). The miniatures hobby IS part of the game.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - "Warhammer 40,000"
+    - "Star Wars: Legion"
+    - Blood Rage
+  synonyms:
+    - minis
+    - figurines
+  bgg_ids: [1047]
+  bgg_names: ["Miniatures"]
+
+- slug: abstract-theme
+  name: Abstract / Themeless
+  definition: >-
+    Games with no meaningful theme or where the theme is purely
+    decorative. The game is about the mechanics and spatial/logical
+    puzzles, not about simulating any subject matter.
+  parent_slug: null
+  children_slugs: []
+  canonical_examples:
+    - Azul
+    - Sagrada
+    - Project L
+  synonyms:
+    - themeless
+    - no-theme
+  bgg_ids: []
+  bgg_names: []

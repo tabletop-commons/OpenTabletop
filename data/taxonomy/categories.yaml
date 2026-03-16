@@ -1,0 +1,944 @@
+# OpenTabletop Canonical Categories Taxonomy
+#
+# Categories are emergent clusters — constellations of design philosophy,
+# mechanics, and audience that the community recognizes as distinct genres.
+# Unlike mechanics (phylogenetic tree), categories are not evolutionary.
+# They describe WHAT KIND of experience a game provides.
+#
+# Structure:
+#   slug                     — canonical identifier (lowercase, hyphenated)
+#   name                     — display name
+#   definition               — precise, distinguishing definition
+#   defining_characteristics — list of traits that define this cluster
+#   origin_era               — when this category emerged as recognized
+#   origin_context           — how/why this cluster emerged
+#   canonical_examples       — 3 games most people would point to
+#   related_categories       — optional cross-references (not ancestry)
+#   synonyms                 — alternate names
+#   bgg_ids                  — BGG category ID(s)
+#   bgg_names                — BGG category name(s)
+
+# ============================================================================
+# TIER 1: CORE DESIGN PHILOSOPHY CLUSTERS
+# ============================================================================
+
+- slug: euro
+  name: Euro Game
+  definition: >-
+    Strategy games emphasizing indirect competition, resource optimization,
+    and elegant mechanical systems over thematic immersion or direct
+    conflict. Players compete primarily through efficiency and timing
+    rather than attacking opponents. Theme is subordinate to mechanism.
+  defining_characteristics:
+    - Resource conversion as core loop
+    - Indirect conflict (competition for shared resources, not direct attack)
+    - Low randomness — decisions outweigh luck
+    - Theme as secondary to mechanism
+    - Victory points as primary objective
+    - Minimal player elimination
+  origin_era: modern
+  origin_context: >-
+    Emerged from the German board game tradition (Spiel des Jahres era)
+    in the 1990s, pioneered by designers like Klaus Teuber, Reiner Knizia,
+    and Uwe Rosenberg. The term "Eurogame" was coined by English-speaking
+    gamers to describe this distinctly European design philosophy.
+  canonical_examples:
+    - Agricola
+    - Terraforming Mars
+    - "Brass: Birmingham"
+  related_categories:
+    - engine-builder
+    - worker-placement-game
+  synonyms:
+    - eurogame
+    - german-style
+    - designer-game
+  bgg_ids: []
+  bgg_names: []
+
+- slug: ameritrash
+  name: Ameritrash / Thematic
+  definition: >-
+    Games prioritizing thematic immersion, narrative arc, direct player
+    conflict, and dramatic moments over mechanical elegance. Dice-heavy
+    combat, rich lore, miniatures, and asymmetric player powers are
+    hallmarks. The term is used affectionately within the hobby.
+  defining_characteristics:
+    - Theme-driven design — mechanics serve the story
+    - Direct player conflict (combat, area control, confrontation)
+    - Higher randomness (dice combat, card draws) creating dramatic swings
+    - Rich components (miniatures, detailed boards, narrative text)
+    - Asymmetric player powers or factions
+    - Longer play times with epic narrative arcs
+  origin_era: modern
+  origin_context: >-
+    Emerged as the American counterpart to Euro design, with roots in
+    Avalon Hill wargames and fantasy RPG-influenced board games of the
+    1970s-80s. The term was coined in the early 2000s on BoardGameGeek
+    forums, initially pejorative but reclaimed by fans of the style.
+  canonical_examples:
+    - Twilight Imperium
+    - Cosmic Encounter
+    - "Arkham Horror"
+  related_categories:
+    - dungeon-crawler
+    - 4x
+  synonyms:
+    - thematic-game
+    - adventure-game
+  bgg_ids: []
+  bgg_names: []
+
+- slug: abstract
+  name: Abstract Strategy
+  definition: >-
+    Games with no theme or purely decorative theme, perfect or near-perfect
+    information, no randomness, and victory determined entirely by skill.
+    The purest form of competitive strategy — two minds in direct contest
+    with no hidden information or luck to blame.
+  defining_characteristics:
+    - No meaningful theme (or theme is purely decorative)
+    - Perfect or near-perfect information
+    - No randomness after setup
+    - Pure skill-based outcomes
+    - Typically two-player
+    - Simple rules, deep strategy
+  origin_era: ancient
+  origin_context: >-
+    The oldest category of designed games. Chess, Go, and Mancala
+    traditions span millennia across cultures. The modern "abstract
+    strategy" label emerged in the 20th century to distinguish these
+    pure-skill games from theme-driven designs.
+  canonical_examples:
+    - Chess
+    - Go
+    - Azul
+  related_categories: []
+  synonyms:
+    - abstract
+    - pure-strategy
+  bgg_ids: [1009]
+  bgg_names: ["Abstract Strategy"]
+
+- slug: wargame
+  name: Wargame
+  definition: >-
+    Games simulating military conflict at tactical, operational, or
+    strategic scales. Typically use hex grids, combat results tables,
+    and detailed order-of-battle information. Prioritize historical
+    accuracy and strategic depth over accessibility.
+  defining_characteristics:
+    - Simulates military conflict at defined scale
+    - Hex-and-counter or area-impulse systems
+    - Combat results tables or odds-based resolution
+    - Supply lines, terrain effects, fog of war
+    - Historical scenarios with setup based on real battles
+    - High complexity, long play times
+  origin_era: classical
+  origin_context: >-
+    Descended from Kriegsspiel (1812) through Avalon Hill's mass-market
+    wargames of the 1950s-60s (Tactics, Gettysburg). The genre peaked
+    in the 1970s-80s with SPI and GMT Games, and continues as a dedicated
+    niche with devoted player base.
+  canonical_examples:
+    - Advanced Squad Leader
+    - Twilight Struggle
+    - "Paths of Glory"
+  related_categories: []
+  synonyms:
+    - war-game
+    - conflict-simulation
+    - cosim
+  bgg_ids: [1019]
+  bgg_names: ["Wargame"]
+
+- slug: party
+  name: Party Game
+  definition: >-
+    Games designed for large groups (6+) with simple rules, short play
+    time, and emphasis on social interaction, humor, and performance
+    over strategic depth. Success depends on creativity, communication,
+    and reading people rather than optimization.
+  defining_characteristics:
+    - Large player counts (6-20+)
+    - Rules explainable in under 3 minutes
+    - Short play time (15-45 minutes)
+    - Social interaction is the primary mechanism
+    - Humor, creativity, or performance valued over strategy
+    - Accessible to non-gamers
+  origin_era: traditional
+  origin_context: >-
+    Party games have ancient roots in parlor games (Charades, 1700s)
+    but the modern category crystallized with games like Pictionary
+    (1985) and Taboo (1989). The 2010s saw a renaissance with
+    Codenames, Wavelength, and Just One.
+  canonical_examples:
+    - Codenames
+    - Telestrations
+    - Wavelength
+  related_categories: []
+  synonyms: []
+  bgg_ids: [1030]
+  bgg_names: ["Party Game"]
+
+- slug: family
+  name: Family Game
+  definition: >-
+    Games accessible to mixed-age groups with moderate complexity,
+    satisfying strategic choices, and play times under 60 minutes.
+    The sweet spot between children's games and hobby games — deep
+    enough for experienced players, approachable for newcomers.
+  defining_characteristics:
+    - Rules learnable in 10-15 minutes
+    - Play time under 60 minutes
+    - Suitable for ages 8+
+    - Meaningful decisions without overwhelming complexity
+    - Appealing visual design and production
+    - Low barrier to entry for new players
+  origin_era: modern
+  origin_context: >-
+    The family game category was formalized by the Spiel des Jahres
+    award (1979), which specifically targets games suitable for families.
+    Catan (1995) demonstrated that family games could also engage
+    dedicated hobbyists.
+  canonical_examples:
+    - Ticket to Ride
+    - Catan
+    - Azul
+  related_categories: []
+  synonyms:
+    - gateway-game
+  bgg_ids: [1010]
+  bgg_names: ["Family Game"]
+
+# ============================================================================
+# TIER 2: STRUCTURAL / FORMAT CATEGORIES
+# ============================================================================
+
+- slug: cooperative-game
+  name: Cooperative Game
+  definition: >-
+    Games where all players work together against the game system to
+    achieve a shared victory condition. If the game wins, everyone loses.
+    Distinguished from semi-cooperative (which includes individual
+    objectives or traitor roles) and from team-based games.
+  defining_characteristics:
+    - Shared win/loss condition — all players succeed or fail together
+    - Game system as opponent (AI, timer, deck depletion)
+    - Collaborative decision-making
+    - Often features an alpha-player problem (quarterbacking)
+    - Communication may be restricted
+  origin_era: modern
+  origin_context: >-
+    Cooperative play existed in folk games, but the modern cooperative
+    board game category was established by Lord of the Rings (2000)
+    and popularized by Pandemic (2008). The 2010s saw an explosion
+    with Spirit Island, The Crew, and cooperative deck-builders.
+  canonical_examples:
+    - Pandemic
+    - Spirit Island
+    - "The Crew"
+  related_categories:
+    - solo-game
+  synonyms:
+    - co-op
+  bgg_ids: []
+  bgg_names: []
+
+- slug: solo-game
+  name: Solo Game
+  definition: >-
+    Games designed to be played by a single player, either as the
+    primary mode or with a dedicated solo variant. The player competes
+    against the game system, a target score, or their own previous
+    performance.
+  defining_characteristics:
+    - Single-player experience
+    - Automated opponent (automa) or beat-your-own-score
+    - Often puzzle-like decision-making
+    - Growing rapidly as a category since 2015
+  origin_era: modern
+  origin_context: >-
+    Solo gaming existed in wargames (solitaire scenarios) for decades,
+    but became a mainstream category with dedicated solo modes in
+    Spirit Island (2017), Mage Knight (2011), and the Automa Factory
+    system pioneered for Stonemaier Games.
+  canonical_examples:
+    - Mage Knight
+    - Spirit Island
+    - Friday
+  related_categories:
+    - cooperative-game
+  synonyms:
+    - solitaire
+  bgg_ids: []
+  bgg_names: []
+
+- slug: two-player
+  name: Two-Player Game
+  definition: >-
+    Games designed specifically for exactly two players (not games that
+    merely "support" two). The design assumes head-to-head competition
+    or cooperation, with mechanics tuned for the two-player dynamic.
+  defining_characteristics:
+    - Designed for exactly two players
+    - Head-to-head competition or asymmetric cooperation
+    - Often tighter, more tactical than multiplayer variants
+    - No kingmaking or alliance dynamics
+  origin_era: ancient
+  origin_context: >-
+    Two-player games are among the oldest (Chess, Go, Backgammon).
+    The modern hobby two-player category was revitalized by 7 Wonders
+    Duel (2015), Patchwork (2014), and the explosion of two-player-only
+    designs.
+  canonical_examples:
+    - 7 Wonders Duel
+    - Patchwork
+    - Twilight Struggle
+  related_categories:
+    - abstract
+  synonyms:
+    - head-to-head
+    - duel
+  bgg_ids: [1002]
+  bgg_names: ["Two-Player Only"]
+
+- slug: legacy-game
+  name: Legacy Game
+  definition: >-
+    Games where the game state permanently changes across sessions
+    through stickers, destroyed components, sealed boxes, and
+    irreversible decisions. Each play session alters future sessions.
+    The game is consumed through play — it has a finite lifecycle.
+  defining_characteristics:
+    - Permanent component modification (stickers, tearing, writing)
+    - Sealed content revealed progressively
+    - Narrative arc spanning multiple sessions
+    - Game cannot be fully reset to original state
+    - Finite number of play sessions
+  origin_era: modern
+  origin_context: >-
+    Created by Rob Daviau with Risk Legacy (2011), which introduced
+    permanent game modification as a design principle. Pandemic Legacy
+    Season 1 (2015) proved the concept could produce the highest-rated
+    games in history.
+  canonical_examples:
+    - Pandemic Legacy
+    - Gloomhaven
+    - Risk Legacy
+  related_categories:
+    - campaign-game
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: campaign-game
+  name: Campaign Game
+  definition: >-
+    Games with connected sequences of scenarios featuring narrative
+    continuity and mechanical progression. Characters level up, the
+    story branches, and earlier outcomes affect later scenarios. Unlike
+    legacy games, campaigns can typically be reset and replayed.
+  defining_characteristics:
+    - Connected scenarios with narrative continuity
+    - Character progression across sessions
+    - Branching story outcomes
+    - Resettable — no permanent component destruction
+    - Multi-session commitment
+  origin_era: modern
+  origin_context: >-
+    Campaign play has roots in RPG-influenced board games like
+    HeroQuest (1989) and Descent (2005). The category matured with
+    Gloomhaven (2017) demonstrating that campaign board games could
+    rival RPGs in depth and narrative.
+  canonical_examples:
+    - Gloomhaven
+    - Descent
+    - Sleeping Gods
+  related_categories:
+    - legacy-game
+    - dungeon-crawler
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: dungeon-crawler
+  name: Dungeon Crawler
+  definition: >-
+    Games where players explore map tiles, fight monsters, collect loot,
+    and develop characters through tactical grid-based combat. The core
+    loop is explore-fight-loot-upgrade. Distinguished from RPGs by
+    defined scenario structure and board game mechanics.
+  defining_characteristics:
+    - Grid-based tactical combat
+    - Map tile exploration
+    - Monster encounters with AI-driven behavior
+    - Character progression (levels, equipment, abilities)
+    - Loot and reward systems
+  origin_era: modern
+  origin_context: >-
+    Descended from the RPG-board game hybrid tradition starting with
+    Dungeon! (1975) and HeroQuest (1989). Modern dungeon crawlers
+    like Descent (2005) and Gloomhaven (2017) elevated the format
+    with deeper tactical systems and campaign integration.
+  canonical_examples:
+    - Gloomhaven
+    - Descent
+    - Mansions of Madness
+  related_categories:
+    - campaign-game
+    - ameritrash
+  synonyms:
+    - dungeon-crawl
+    - adventure-game
+  bgg_ids: []
+  bgg_names: []
+
+- slug: real-time-game
+  name: Real-Time Game
+  definition: >-
+    Games where all players act simultaneously without turns, racing
+    against a clock or each other. Speed of decision-making and
+    execution matters as much as quality of decisions.
+  defining_characteristics:
+    - Simultaneous play without turn structure
+    - Time pressure (physical timer or competitive speed)
+    - Stress and urgency as designed emotions
+    - Fast resolution, short play times
+  origin_era: classical
+  origin_context: >-
+    Real-time board games have roots in games like Pit (1904) but
+    became a recognized modern category with Galaxy Trucker (2007),
+    Space Alert (2008), and Escape: The Curse of the Temple (2012).
+  canonical_examples:
+    - Captain Sonar
+    - Space Alert
+    - Galaxy Trucker
+  related_categories: []
+  synonyms: []
+  bgg_ids: [1037]
+  bgg_names: ["Real-time"]
+
+- slug: dexterity-game
+  name: Dexterity Game
+  definition: >-
+    Games where physical skill — flicking, stacking, balancing, tossing —
+    is the primary activity. Strategic thinking is secondary to manual
+    precision and coordination.
+  defining_characteristics:
+    - Physical skill as primary mechanism
+    - Manual precision and coordination
+    - Often accessible to all ages
+    - Short play times
+  origin_era: traditional
+  origin_context: >-
+    Dexterity games span centuries (Crokinole, 1876; Jenga, 1983).
+    The modern hobby has embraced them with games like Flick 'em Up
+    (2015), Ice Cool (2016), and Rhino Hero (2011).
+  canonical_examples:
+    - Crokinole
+    - Jenga
+    - Rhino Hero
+  related_categories: []
+  synonyms:
+    - action-game
+  bgg_ids: [1032]
+  bgg_names: ["Action / Dexterity"]
+
+# ============================================================================
+# TIER 3: DESIGN PATTERN CLUSTERS
+# ============================================================================
+
+- slug: engine-builder
+  name: Engine-Building Game
+  definition: >-
+    Games where the core experience is constructing a personal economic
+    engine that produces increasing returns over time. Early turns invest
+    in infrastructure; later turns harvest compound returns.
+  defining_characteristics:
+    - Personal production system grows over the game
+    - Compound returns from infrastructure investment
+    - Core satisfaction is watching your engine accelerate
+    - Often uses tableau or tech tree mechanics
+  origin_era: modern
+  origin_context: >-
+    Engine building existed in economic games (Civilization, 1980) but
+    emerged as a distinct category label with Race for the Galaxy (2007),
+    Terraforming Mars (2016), and Wingspan (2019).
+  canonical_examples:
+    - Terraforming Mars
+    - Wingspan
+    - Gizmos
+  related_categories:
+    - euro
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: deck-builder
+  name: Deck-Building Game
+  definition: >-
+    Games where constructing a personal deck during play IS the game.
+    The deck is your engine — acquiring powerful cards and culling weak
+    ones is the central activity, not a supporting mechanism.
+  defining_characteristics:
+    - Deck construction during play is the core activity
+    - Starts from identical small decks
+    - Acquiring and culling cards is the primary decision space
+    - Deck cycling and reshuffling mechanics
+  origin_era: modern
+  origin_context: >-
+    Created by Dominion (2008), which invented the deck-building
+    mechanic and defined the category simultaneously. Spawned
+    hundreds of variations (Star Realms, Clank!, Aeon's End).
+  canonical_examples:
+    - Dominion
+    - "Aeon's End"
+    - Star Realms
+  related_categories: []
+  synonyms:
+    - deckbuilder
+  bgg_ids: []
+  bgg_names: []
+
+- slug: worker-placement-game
+  name: Worker-Placement Game
+  definition: >-
+    Games where assigning workers to action spaces IS the core
+    experience. The blocking and prioritization of limited action
+    spaces defines the game, not just one mechanism among many.
+  defining_characteristics:
+    - Worker assignment as primary decision space
+    - Blocking/exclusivity of action spaces
+    - Limited worker pool creates opportunity cost
+    - Typically euro-style scoring
+  origin_era: modern
+  origin_context: >-
+    Established by Caylus (2005) and popularized by Agricola (2007).
+    The mechanic became so dominant in Euro design that "worker
+    placement game" became a recognized category label by 2010.
+  canonical_examples:
+    - Agricola
+    - Viticulture
+    - Lords of Waterdeep
+  related_categories:
+    - euro
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: area-control-game
+  name: Area-Control Game
+  definition: >-
+    Games where controlling territory IS the central objective and
+    source of tension. Gaining and defending regions on a shared map
+    is the primary activity, not a side mechanism.
+  defining_characteristics:
+    - Territorial control as primary objective
+    - Shared map with contested regions
+    - Military or influence-based competition for space
+    - Often features negotiation and shifting alliances
+  origin_era: ancient
+  origin_context: >-
+    Territory control is one of the oldest game concepts (Go, ~2000 BCE).
+    The modern area-control category crystallized with Risk (1957),
+    El Grande (1995), and the "dudes on a map" sub-genre (Kemet, Blood
+    Rage, Inis).
+  canonical_examples:
+    - El Grande
+    - Blood Rage
+    - Inis
+  related_categories:
+    - wargame
+  synonyms:
+    - dudes-on-a-map
+  bgg_ids: []
+  bgg_names: []
+
+- slug: social-deduction
+  name: Social Deduction
+  definition: >-
+    Games where hidden identities and deception are the core experience.
+    Players have secret roles and must deduce who is on which team
+    through conversation, voting, and behavioral analysis.
+  defining_characteristics:
+    - Hidden roles or identities
+    - Deception and bluffing as primary activity
+    - Social reading and persuasion
+    - Accusation and voting mechanics
+    - Often includes a traitor or werewolf-style role
+  origin_era: modern
+  origin_context: >-
+    Descended from Mafia (1986) and Werewolf (1997). Became a
+    mainstream hobby category with The Resistance (2009), Secret
+    Hitler (2016), and Blood on the Clocktower (2022).
+  canonical_examples:
+    - The Resistance
+    - Secret Hitler
+    - Blood on the Clocktower
+  related_categories:
+    - party
+  synonyms:
+    - hidden-identity
+    - werewolf-style
+  bgg_ids: [1081]
+  bgg_names: ["Deduction"]
+
+- slug: roll-and-write-game
+  name: Roll-and-Write Game
+  definition: >-
+    Games where players roll dice (or flip cards), then mark results on
+    a personal sheet. The format IS the category — the tactile act of
+    writing on your sheet with shared random input defines the experience.
+  defining_characteristics:
+    - Shared random input (dice roll or card flip)
+    - Personal player sheets for recording choices
+    - Simultaneous play (all players use same input)
+    - Compact, portable, often solo-friendly
+  origin_era: classical
+  origin_context: >-
+    Yahtzee (1956) established the core loop. The modern roll-and-write
+    renaissance began with Qwixx (2012) and exploded with Ganz Schon
+    Clever (2018), Welcome To (2018), and hundreds of successors.
+  canonical_examples:
+    - Yahtzee
+    - "Ganz Schon Clever"
+    - "Welcome To..."
+  related_categories: []
+  synonyms:
+    - flip-and-write
+  bgg_ids: []
+  bgg_names: []
+
+- slug: economic-game
+  name: Economic Game
+  definition: >-
+    Games where market dynamics, investment, stock trading, or commodity
+    speculation are the primary systems. Money is not just a resource —
+    it is the game. Distinguished from euro games by the emphasis on
+    economic simulation over general optimization.
+  defining_characteristics:
+    - Market dynamics and price fluctuation
+    - Investment and speculation mechanics
+    - Supply and demand modeling
+    - Financial risk management
+    - Often longer play times with complex economic modeling
+  origin_era: classical
+  origin_context: >-
+    Economic games have roots in Monopoly (1935) and Acquire (1964).
+    The modern category includes the 18xx series (1986+), Power Grid
+    (2004), and Food Chain Magnate (2015).
+  canonical_examples:
+    - Acquire
+    - Power Grid
+    - Food Chain Magnate
+  related_categories:
+    - euro
+  synonyms:
+    - financial-game
+  bgg_ids: [1021]
+  bgg_names: ["Economic"]
+
+- slug: negotiation-game
+  name: Negotiation Game
+  definition: >-
+    Games where deal-making, diplomacy, and interpersonal persuasion
+    ARE the core experience. Mechanical systems exist to create leverage,
+    but the game is won or lost at the negotiation table.
+  defining_characteristics:
+    - Face-to-face deal-making as primary activity
+    - Binding or non-binding agreements
+    - Leverage created by asymmetric needs
+    - Trust and betrayal as central dynamics
+  origin_era: classical
+  origin_context: >-
+    Diplomacy (1959) defined pure negotiation gaming. The category
+    expanded with Cosmic Encounter (1977), Chinatown (1999), and
+    modern designs that embed negotiation within other systems.
+  canonical_examples:
+    - Diplomacy
+    - Chinatown
+    - Cosmic Encounter
+  related_categories:
+    - party
+  synonyms:
+    - diplomacy-game
+  bgg_ids: [1026]
+  bgg_names: ["Negotiation"]
+
+- slug: puzzle-game
+  name: Puzzle Game
+  definition: >-
+    Games where solving spatial, logical, or combinatorial challenges
+    is the primary activity. The satisfaction comes from finding optimal
+    solutions to constrained problems.
+  defining_characteristics:
+    - Problem-solving as primary activity
+    - Spatial or logical constraints
+    - Often solo or low-interaction
+    - Satisfaction from optimization
+  origin_era: traditional
+  origin_context: >-
+    Puzzle games span from physical puzzles (tangrams) to modern board
+    game puzzles like Ubongo (2003), Sagrada (2017), and the spatial
+    puzzle genre.
+  canonical_examples:
+    - Ubongo
+    - Sagrada
+    - Project L
+  related_categories:
+    - abstract
+  synonyms: []
+  bgg_ids: [1028]
+  bgg_names: ["Puzzle"]
+
+- slug: racing-game
+  name: Racing Game
+  definition: >-
+    Games where the objective is to reach a destination or achieve a
+    condition first. The competitive pressure of the race — not point
+    optimization — is the core tension.
+  defining_characteristics:
+    - First-to-finish objective
+    - Positional awareness (who is ahead/behind)
+    - Speed vs. risk trade-offs
+    - Often includes catch-up mechanics
+  origin_era: ancient
+  origin_context: >-
+    Racing is one of the oldest game concepts (Royal Game of Ur,
+    ~2600 BCE). Modern racing games include Camel Up (2014),
+    Flamme Rouge (2016), and Formula D (2008).
+  canonical_examples:
+    - Camel Up
+    - Flamme Rouge
+    - Formula D
+  related_categories: []
+  synonyms:
+    - race-game
+  bgg_ids: [1031]
+  bgg_names: ["Racing"]
+
+# ============================================================================
+# TIER 4: THEMATIC / EXPERIENTIAL SUB-CATEGORIES
+# ============================================================================
+
+- slug: narrative-game
+  name: Narrative Game
+  definition: >-
+    Games where story delivery is a primary design goal. Player choices
+    affect narrative outcomes, and the story experience is as important
+    as the mechanical challenge.
+  defining_characteristics:
+    - Story as primary design goal
+    - Branching narrative outcomes
+    - Character-driven experiences
+    - Often uses paragraph books or app-driven storytelling
+  origin_era: modern
+  origin_context: >-
+    Narrative games descended from Choose Your Own Adventure books
+    and RPG-influenced designs. The category matured with Sherlock
+    Holmes Consulting Detective (1981), Arabian Nights (1985), and
+    modern narrative games like Sleeping Gods (2021).
+  canonical_examples:
+    - Sleeping Gods
+    - Forgotten Waters
+    - Mice and Mystics
+  related_categories:
+    - campaign-game
+  synonyms:
+    - story-game
+  bgg_ids: []
+  bgg_names: []
+
+- slug: 4x
+  name: 4X Game
+  definition: >-
+    Games structured around four phases: explore, expand, exploit, and
+    exterminate. Typically feature large-scale civilization or space
+    empire building with military, economic, and technological
+    progression systems.
+  defining_characteristics:
+    - Explore — discover new territory or resources
+    - Expand — grow your domain or presence
+    - Exploit — develop and leverage resources
+    - Exterminate — military conflict with rivals
+    - Large-scale empire or civilization building
+    - Long play times (3+ hours)
+  origin_era: modern
+  origin_context: >-
+    The 4X label originated in computer gaming (Master of Orion, 1993)
+    but applies equally to board games. Twilight Imperium (1997),
+    Eclipse (2011), and Civilization (1980) define the board game
+    expression of the format.
+  canonical_examples:
+    - Twilight Imperium
+    - Eclipse
+    - "Sid Meier's Civilization"
+  related_categories:
+    - ameritrash
+    - wargame
+  synonyms:
+    - explore-expand-exploit-exterminate
+  bgg_ids: [1015]
+  bgg_names: ["Exploration"]
+
+- slug: drafting-game
+  name: Drafting Game
+  definition: >-
+    Games where card or tile drafting IS the dominant experience. The
+    strategic evaluation of what to pick and what to pass defines the
+    game more than any other mechanism.
+  defining_characteristics:
+    - Drafting as the central decision space
+    - Evaluation of relative card value
+    - Denial strategy (what to pass matters)
+    - Often combined with tableau or set collection
+  origin_era: modern
+  origin_context: >-
+    Card drafting existed in CCGs (Magic: The Gathering booster draft)
+    but became a board game category with 7 Wonders (2010) and
+    Sushi Go! (2013).
+  canonical_examples:
+    - 7 Wonders
+    - Sushi Go!
+    - Blood Rage
+  related_categories:
+    - euro
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: trick-taking-game
+  name: Trick-Taking Game
+  definition: >-
+    Games where playing cards into tricks with rank and suit rules IS
+    the game. The trick-taking mechanism is not just present — it is the
+    entirety of the mechanical experience.
+  defining_characteristics:
+    - Card play into tricks with rank/suit hierarchy
+    - Lead-follow structure
+    - Trump suits or trump cards
+    - Hand evaluation and card counting
+  origin_era: traditional
+  origin_context: >-
+    Trick-taking has centuries of tradition (Whist, Bridge). Modern
+    hobby trick-taking games include The Crew (2019), Fox in the
+    Forest (2017), and Skull King (2013).
+  canonical_examples:
+    - "The Crew"
+    - Fox in the Forest
+    - Bridge
+  related_categories: []
+  synonyms: []
+  bgg_ids: [1023]
+  bgg_names: ["Card Game"]
+
+- slug: push-your-luck-game
+  name: Push-Your-Luck Game
+  definition: >-
+    Games where the core tension is deciding when to stop pressing your
+    luck. Each successive action or roll increases potential reward but
+    also risk of losing everything accumulated.
+  defining_characteristics:
+    - Escalating risk/reward curve
+    - Voluntary stop/continue decisions
+    - Bust or loss condition on push too far
+    - Emotional tension as primary experience
+  origin_era: classical
+  origin_context: >-
+    Push-your-luck is one of the oldest game dynamics (dice games).
+    The modern category includes Quacks of Quedlinburg (2018),
+    Can't Stop (1980), and Incan Gold (2005).
+  canonical_examples:
+    - "Quacks of Quedlinburg"
+    - "Can't Stop"
+    - Incan Gold
+  related_categories: []
+  synonyms:
+    - press-your-luck
+  bgg_ids: []
+  bgg_names: []
+
+- slug: tile-laying-game
+  name: Tile-Laying Game
+  definition: >-
+    Games where placing tiles to build a shared or personal geography
+    IS the core activity. The spatial puzzle of tile placement defines
+    the experience more than any other mechanism.
+  defining_characteristics:
+    - Tile placement as primary activity
+    - Spatial puzzle (adjacency, orientation, coverage)
+    - Map or pattern emerges during play
+    - Often combined with area scoring
+  origin_era: modern
+  origin_context: >-
+    Defined by Carcassonne (2000), which made tile-laying the entire
+    game rather than a supporting mechanism. The category expanded
+    with Cascadia (2021), Isle of Skye (2015), and Kingdomino (2016).
+  canonical_examples:
+    - Carcassonne
+    - Cascadia
+    - Kingdomino
+  related_categories:
+    - family
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: print-and-play
+  name: Print-and-Play
+  definition: >-
+    Games distributed as digital files for home printing and assembly.
+    A distribution format rather than a design philosophy, but a
+    recognized category with a dedicated community and design
+    conventions (minimal components, standard paper sizes).
+  defining_characteristics:
+    - Distributed as downloadable files
+    - Player prints and assembles components
+    - Minimal component requirements
+    - Often free or low-cost
+    - Active design community
+  origin_era: modern
+  origin_context: >-
+    Print-and-play gaming grew with internet distribution in the 2000s
+    and accelerated during COVID-19 lockdowns. BGG hosts thousands of
+    PnP designs, and dedicated contests (PnP design contests) support
+    the community.
+  canonical_examples:
+    - various PnP contest winners
+    - Sprawlopolis (PnP edition)
+    - "Mini Rogue (PnP edition)"
+  related_categories: []
+  synonyms:
+    - pnp
+  bgg_ids: []
+  bgg_names: []
+
+- slug: educational
+  name: Educational Game
+  definition: >-
+    Games designed with an explicit learning objective. Teaching content
+    through game mechanics — history, math, science, language, or other
+    subjects. Distinguished from games that incidentally teach strategy
+    or social skills.
+  defining_characteristics:
+    - Explicit learning objective
+    - Educational content integrated into mechanics
+    - Often designed for classroom or family use
+    - Assessment or knowledge-check elements
+  origin_era: classical
+  origin_context: >-
+    Educational games span centuries but became a recognized modern
+    category with Timeline (2012), various STEM games, and the
+    serious games movement in education.
+  canonical_examples:
+    - Timeline
+    - Wits and Wagers
+    - Evolution
+  related_categories:
+    - family
+  synonyms:
+    - serious-game
+    - learning-game
+  bgg_ids: [1094]
+  bgg_names: ["Educational"]

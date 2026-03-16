@@ -95,18 +95,44 @@ What the specification *can* provide:
 
 The key principle: the specification defines the *inputs* to recommendation (feature vectors, similarity metrics), not the *outputs* (personalized ranked lists). Implementations are free to build sophisticated recommendation systems on top of the specification's data.
 
-## Long-Term: Time-Series Data
+## Near-Term: Cross-Sectional Trend Endpoints
 
-**Status:** Exploratory
+**Status:** Planned for v1.0
 
-Board game data changes over time. Ratings shift as a game ages. Weight perceptions change as the community learns the game. New expansions alter the landscape. Time-series data would capture these dynamics:
+Cross-sectional trends aggregate existing game data over `year_published` — no new data collection required. These endpoints answer questions about how the *population of games* has changed over time:
 
-- **Rating over time**: Monthly average rating for each game, enabling "is this game aging well?" analysis.
-- **Weight drift**: Weight votes over time, capturing whether community consensus on complexity shifts.
-- **Play frequency**: Number of logged plays per month, indicating whether a game has staying power or fades quickly after release.
-- **Expansion impact**: How do ratings and play counts change when a major expansion releases?
+- `GET /statistics/trends/publications` — Games published per year/decade, filterable by mechanic, category, or theme. Reveals mechanic waves (cooperative explosion after 2008), publishing volume trends, and weight migration.
+- `GET /statistics/trends/mechanics` — Per-mechanic adoption curves showing count and percentage of games per year. Directly tied to the taxonomy's phylogenetic model — each mechanic's `origin_game` marks the start of its adoption curve.
+- `GET /statistics/trends/weight` — Weight distribution over time (mean, median, percentiles) scoped to top-100, all games, or games published that year. Answers "are games getting heavier or lighter?"
+- `GET /statistics/trends/player-count` — Player count trends including solo support percentage over time.
 
-Time-series data is expensive to store and compute. It is the furthest-out item on the roadmap and would require careful design around storage costs, update frequency, and API ergonomics.
+All trend endpoints compose with existing filter dimensions. See [Trend Analysis](./trends.md) for worked examples and [ADR-0036](../../adr/0036-time-series-snapshots-and-trend-analysis.md) for the design rationale.
+
+## Mid-Term: Longitudinal Snapshots
+
+**Status:** Planned for v1.1
+
+Longitudinal trends track the *same entities* over time. Unlike cross-sectional trends, they require new data — periodic `GameSnapshot` records capturing each game's rating, weight, rank, play count, and owner count at a specific date.
+
+### Endpoints
+
+- `GET /games/{id}/history` — Time series of a single game's metrics. "How did Gloomhaven's rating change from 2018 to 2024?"
+- `GET /statistics/rankings/history` — Historical ranking snapshots. "What was BGG #1 in 2019?"
+- `GET /statistics/rankings/transitions` — Games entering/exiting the top N over a date range. "Which games rose and fell in the top 10 between 2018 and 2025?"
+
+### Storage Considerations
+
+Snapshot frequency is implementation-defined:
+
+| Frequency | Rows/year (100k games) | Storage | Granularity |
+|-----------|----------------------|---------|-------------|
+| Monthly | 1.2M | ~500 MB | Best for short-term trends |
+| Quarterly | 400k | ~170 MB | Good balance of cost and detail |
+| Yearly | 100k | ~40 MB | Sufficient for long-term analysis |
+
+Historical data before an implementation begins collecting snapshots is not available unless backfilled from external sources. Trend quality improves with history length.
+
+See the `GameSnapshot` schema at `spec/schemas/GameSnapshot.yaml`.
 
 ## Contributing to the Roadmap
 

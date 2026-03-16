@@ -115,6 +115,11 @@ BaseProperties:
         type: integer
         minimum: 1
       example: [1, 3]
+    min_age:
+      type: integer
+      minimum: 0
+      description: Publisher-stated recommended minimum age for the base game.
+      example: 14
 
 EffectivePropertyValues:
   type: object
@@ -154,6 +159,12 @@ EffectivePropertyValues:
         type: integer
         minimum: 1
       example: [1, 4, 5]
+    min_age:
+      type: integer
+      minimum: 0
+      description: >-
+        Effective recommended minimum age after applying expansion modifications.
+      example: 12
     experience_playtime:
       $ref: 'ExperiencePlaytimeProfile.yaml#/ExperiencePlaytimeProfile'
       description: >-
@@ -193,6 +204,12 @@ IndividualEffect:
         type: integer
         minimum: 1
       example: [5, 6]
+    min_age_delta:
+      type: integer
+      default: 0
+      description: >-
+        Change to the base game's recommended minimum age from this expansion.
+      example: -2
     description:
       type: string
       example: "Adds Events, two new spirits, and increases max players to 6."

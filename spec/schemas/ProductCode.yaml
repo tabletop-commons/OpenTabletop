@@ -1,0 +1,79 @@
+ProductCode:
+  type: object
+  description: >-
+    A product identifier for a specific game edition. Used for retail tracking,
+    inventory management, and barcode scanning. See ADR-0040.
+  required:
+    - type
+    - code
+  properties:
+    type:
+      type: string
+      description: The product code standard or type.
+      enum:
+        - upc
+        - ean
+        - isbn
+        - asin
+        - sku
+      example: "ean"
+    code:
+      type: string
+      description: >-
+        The product code value. Format depends on type: UPC is 12 digits,
+        EAN is 13 digits, ISBN is 10 or 13 digits, ASIN is 10 alphanumeric
+        characters, SKU is publisher-specific.
+      example: "628275400200"
+
+PhysicalDimensions:
+  type: object
+  description: >-
+    Physical box dimensions of a game edition. See ADR-0040.
+  properties:
+    length:
+      type: number
+      format: float
+      minimum: 0
+      description: Box length (longest side).
+      example: 30.0
+    width:
+      type: number
+      format: float
+      minimum: 0
+      description: Box width.
+      example: 30.0
+    height:
+      type: number
+      format: float
+      minimum: 0
+      description: Box height (depth).
+      example: 5.2
+    unit:
+      type: string
+      description: Measurement unit for all dimensions.
+      enum:
+        - cm
+        - in
+      default: cm
+      example: "cm"
+
+PhysicalWeight:
+  type: object
+  description: >-
+    Physical weight of a game edition's box. Distinct from complexity weight
+    (the 1.0–5.0 community-rated scale). See ADR-0040.
+  properties:
+    value:
+      type: number
+      format: float
+      minimum: 0
+      description: Weight value.
+      example: 2.0
+    unit:
+      type: string
+      description: Weight unit.
+      enum:
+        - kg
+        - lb
+      default: kg
+      example: "kg"

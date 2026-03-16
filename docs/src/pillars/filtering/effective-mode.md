@@ -26,14 +26,14 @@ flowchart TD
     Q["Query: players=6, effective=true"]
 
     subgraph "Resolution Pipeline"
-        E["1. Select edition<br/>(explicit param or canonical default)"]
-        ED["2. Apply edition deltas<br/>→ edition-adjusted base"]
-        EX["3. Apply expansion resolution<br/>(three-tier: explicit combo /<br/>delta sum / base fallback)"]
-        XP["4. Apply experience adjustment<br/>(ADR-0034, if requested)"]
+        E["(1) Select edition"]
+        ED["(2) Apply edition deltas"]
+        EX["(3) Apply expansion resolution"]
+        XP["(4) Apply experience adjustment"]
     end
 
     subgraph "Filter evaluation"
-        BG["Check resolved properties<br/>max_players >= 6?"]
+        BG["Check resolved properties: max_players >= 6?"]
     end
 
     Q --> E
@@ -58,13 +58,14 @@ For each game in the database, effective mode:
 
 ## What Gets Searched
 
-Effective mode applies to three filter dimensions:
+Effective mode applies to four filter dimensions:
 
 | Dimension | Base fields | Effective fields |
 |-----------|-------------|-----------------|
 | Player Count | `min_players`, `max_players`, `best_at`, `recommended_at` | ExpansionCombination player fields |
 | Play Time | `min_playtime`, `max_playtime`, `community_min_playtime`, `community_max_playtime` | ExpansionCombination time fields |
 | Weight | `weight` | ExpansionCombination weight field |
+| Age | `min_age` | ExpansionCombination min_age field |
 
 Other dimensions (mechanics, theme, metadata) are not affected by effective mode — they operate on the base game's properties regardless.
 
@@ -74,10 +75,19 @@ Suppose the database contains these expansion combinations for Spirit Island:
 
 | Combination | Players | Best At | Weight | Play Time |
 |-------------|---------|---------|--------|-----------|
-| Base only | 1-4 | 2 | 3.89 | 90-120 |
-| + Branch & Claw | 1-4 | 2 | 4.05 | 90-150 |
-| + Jagged Earth | 1-6 | 2-3 | 4.10 | 90-150 |
-| + B&C + JE | 1-6 | 2-4 | 4.20 | 120-180 |
+| Base only | 1-4 | 2 | 4.08 | 90-120 |
+| + Branch & Claw | 1-4 | 2 | 4.24 | 90-150 |
+| + Jagged Earth | 1-6 | 2-3 | 4.52 | 90-120 |
+| + Nature Incarnate | 1-6 | 2-3 | 4.46 | 90-180 |
+| + B&C + JE | 1-6 | 2-4 | 4.56 | 90-150 |
+| + B&C + NI | 1-6 | 2-3 | 4.52 | 90-180 |
+| + JE + NI | 1-6 | 2-4 | 4.60 | 90-180 |
+| + B&C + JE + NI | 1-6 | 2-4 | 4.65 | 120-180 |
+| + Feather & Flame | 1-4 | 2 | 4.55 | 90-120 |
+
+Spirit Island also has **Horizons of Spirit Island**, a standalone introductory version (1-3 players, weight 3.56, 60-90 min). As a `standalone_expansion`, Horizons has its own base properties and appears independently in non-effective searches. Its components are compatible with the full game via the `integrates_with` relationship, but it does not appear as an expansion combination row — it is a separate searchable entity.
+
+**Feather & Flame** is a compilation that bundles both of Spirit Island's original Promo Packs (Promo Pack 1 and Promo Pack 2) into a single product. It adds new spirits — including Finder of Paths Unseen, one of the most challenging spirits in the game — along with adversaries, fear cards, scenarios, and aspect cards. While Feather & Flame does not change player count or play time, the added complexity is reflected in its weight (4.55 vs the base game's 4.08). This means Feather & Flame *can* be the reason Spirit Island matches a weight filter it would not otherwise match.
 
 Now consider these queries:
 
@@ -85,16 +95,19 @@ Now consider these queries:
 Spirit Island is excluded. Base game max is 4.
 
 **Query: `players=6&effective=true`**
-Spirit Island is included. The "Jagged Earth" and "B&C + JE" combinations both support 6.
+Spirit Island is included. The "Jagged Earth", "Nature Incarnate", and all multi-expansion combinations that include either support 6 players.
 
 **Query: `best_at=4&effective=true`**
-Spirit Island is included. The "B&C + JE" combination has 4 in its `best_at` list.
+Spirit Island is included. The "B&C + JE", "JE + NI", and "B&C + JE + NI" combinations have 4 in their `best_at` lists.
 
-**Query: `weight_max=4.0&effective=true`**
-Spirit Island is included via the base game (3.89) and the "B&C" combination (4.05 is > 4.0 so that one does not match, but the base does). Without effective mode, same result. But if the query were `weight_min=4.1&weight_max=4.3&effective=true`, the "B&C + JE" combination (4.20) would be the matching entry.
+**Query: `weight_min=4.4&weight_max=4.6&effective=true`**
+Spirit Island is included. Multiple combinations fall in this range: "Nature Incarnate" (4.46), "Jagged Earth" (4.52), "B&C + NI" (4.52), "Feather & Flame" (4.55), "B&C + JE" (4.56), "JE + NI" (4.60). The system returns the first matching combination.
+
+**Query: `weight_min=4.55&weight_max=4.65&effective=true`**
+Spirit Island is included via "Feather & Flame" (4.55), "B&C + JE" (4.56), "JE + NI" (4.60), and "B&C + JE + NI" (4.65). Without effective mode, Spirit Island (weight 4.08) would be excluded.
 
 **Query: `playtime_max=120&effective=true`**
-Spirit Island is included via the base game (max 120). But the "B&C + JE" combination (max 180) would not be the matching path. The system finds the combination that satisfies the constraint.
+Spirit Island is included via the base game (max 120), the Jagged Earth combination (max 120), and the Feather & Flame combination (max 120). The Nature Incarnate combinations with max 180 would not be the matching path. The system finds the combination that satisfies the constraint.
 
 ## Response Format
 
@@ -107,18 +120,20 @@ When effective mode produces a match through an expansion combination (not the b
   "name": "Spirit Island",
   "matched_via": {
     "type": "expansion_combination",
-    "combination_id": "01967b3c-6000-7000-8000-000000000042",
+    "combination_id": "01967b3c-6000-7000-8000-000000000055",
     "expansions": [
-      { "slug": "branch-and-claw", "name": "Branch & Claw" },
-      { "slug": "jagged-earth", "name": "Jagged Earth" }
+      { "slug": "spirit-island-branch-and-claw", "name": "Branch & Claw" },
+      { "slug": "spirit-island-jagged-earth", "name": "Jagged Earth" },
+      { "slug": "spirit-island-nature-incarnate", "name": "Nature Incarnate" }
     ],
     "effective_properties": {
       "min_players": 1,
       "max_players": 6,
       "best_at": [2, 3, 4],
-      "weight": 4.20,
+      "weight": 4.65,
       "min_playtime": 120,
-      "max_playtime": 180
+      "max_playtime": 180,
+      "min_age": 14
     },
     "resolution_tier": 1
   }

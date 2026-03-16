@@ -1,0 +1,38 @@
+AlternateName:
+  type: object
+  description: >-
+    An alternate name for a game in another language or market. Used for
+    international edition discovery and full-text search indexing. See ADR-0038.
+  required:
+    - name
+  properties:
+    name:
+      type: string
+      description: The alternate name.
+      example: "ブラス：バーミンガム"
+    language:
+      type: string
+      nullable: true
+      description: >-
+        BCP 47 language tag for this name (e.g., "ja", "zh-Hans", "ko", "ru").
+        Nullable when the language is unknown or the name is language-independent
+        (e.g., a stylized logo name).
+      example: "ja"
+    is_primary:
+      type: boolean
+      default: false
+      description: >-
+        Whether this is the primary name in its language. A game may have
+        multiple names in the same language (e.g., a translated title and
+        a transliterated original).
+    source:
+      type: string
+      nullable: true
+      description: >-
+        Where this alternate name originated. Useful for data provenance
+        tracking during BGG migration and community contributions.
+      enum:
+        - bgg
+        - publisher
+        - community
+      example: "bgg"
