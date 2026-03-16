@@ -1,0 +1,32 @@
+LanguageDependencePoll:
+  type: object
+  description: >-
+    A single entry in the language dependence poll. Each entry represents the
+    number of votes for a specific dependence level. The overall result is
+    surfaced as the language_dependence field on the Game entity. Useful for
+    publishers evaluating localization effort. See ADR-0041.
+  required:
+    - game_id
+    - level
+    - vote_count
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the game this poll entry belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    level:
+      type: string
+      description: The language dependence level.
+      enum:
+        - no_text
+        - some_text
+        - moderate_text
+        - extensive_text
+        - unplayable_without_text
+      example: "moderate_text"
+    vote_count:
+      type: integer
+      minimum: 0
+      description: Number of voters who selected this level.
+      example: 187

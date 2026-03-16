@@ -45,9 +45,9 @@ Significant technical decisions are recorded as ADRs:
 - ADRs are immutable once accepted — only the status field changes
 - To change a decision, create a new ADR that supersedes the old one
 
-### Data Corrections
+### Taxonomy and Example Data Corrections
 
-Game data corrections use a lighter-weight process:
+Corrections to the controlled vocabulary (mechanics, categories, themes) and spec example data use a lighter-weight process:
 
 1. Open an issue using the **Data Correction** template
 2. Provide source references

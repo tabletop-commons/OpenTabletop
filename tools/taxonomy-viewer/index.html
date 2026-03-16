@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenTabletop Mechanic Phylogeny</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d29922;
+    --purple: #bc8cff;
+    --cyan: #39d2c0;
+    --red: #f85149;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  #app { display: flex; height: 100vh; }
+
+  /* ── Tree panel ── */
+  .tree-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .tree-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    flex-shrink: 0;
+  }
+
+  .tree-header h1 { font-size: 15px; font-weight: 600; white-space: nowrap; }
+
+  .tree-header .stats {
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 12px;
+  }
+
+  .tree-header .stats span { color: var(--accent); font-weight: 600; }
+
+  .tree-header .controls {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+  }
+
+  .tree-header button {
+    padding: 4px 10px;
+    font-size: 11px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .tree-header button:hover { border-color: var(--accent); color: var(--text); }
+
+  .tree-header .table-link {
+    padding: 4px 10px;
+    font-size: 11px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 6px;
+  }
+
+  .tree-header .table-link:hover { background: var(--accent); color: var(--bg); }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    padding: 6px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .tree-svg-container {
+    flex: 1;
+    overflow: auto;
+    position: relative;
+  }
+
+  .tree-svg-container svg {
+    display: block;
+  }
+
+  /* D3 tree styling */
+  .node circle {
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: r 0.2s;
+  }
+
+  .node circle:hover { filter: brightness(1.3); }
+
+  .node text {
+    font-size: 12px;
+    fill: var(--text);
+    cursor: pointer;
+  }
+
+  .node text:hover { fill: var(--accent); }
+
+  .node.selected circle {
+    stroke: var(--accent) !important;
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 6px rgba(88,166,255,0.4));
+  }
+
+  .link {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1.5px;
+  }
+
+  /* era colors */
+  .era-ancient { fill: var(--orange); stroke: var(--orange); }
+  .era-traditional { fill: var(--purple); stroke: var(--purple); }
+  .era-classical { fill: var(--cyan); stroke: var(--cyan); }
+  .era-modern { fill: var(--green); stroke: var(--green); }
+
+  .node-collapsed circle { fill-opacity: 1; }
+  .node-leaf circle { fill-opacity: 0.25; }
+
+  /* ── Detail panel ── */
+  .detail-panel {
+    width: 380px;
+    min-width: 380px;
+    border-left: 1px solid var(--border);
+    background: var(--surface);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .detail-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .detail-content { padding: 20px; }
+
+  .detail-content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .detail-content .slug {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .detail-content .definition {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .detail-section { margin-bottom: 16px; }
+
+  .detail-section h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .origin-line { font-size: 13px; }
+  .origin-line .game { color: var(--accent); font-weight: 500; }
+  .origin-line .year { color: var(--text-dim); }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+  .tag.ancestor { border-color: var(--purple); color: var(--purple); }
+  .tag.child { border-color: var(--green); color: var(--green); }
+  .tag.example { border-color: var(--orange); color: var(--orange); cursor: default; }
+  .tag.synonym { border-color: var(--text-dim); color: var(--text-dim); cursor: default; }
+  .tag.bgg { border-color: var(--cyan); color: var(--cyan); cursor: default; }
+
+  .lineage-flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .lineage-chip {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .lineage-chip.anc {
+    background: rgba(188, 140, 255, 0.12);
+    border: 1px solid var(--purple);
+    color: var(--purple);
+  }
+
+  .lineage-chip.cur {
+    background: rgba(88, 166, 255, 0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .lineage-chip.ch {
+    background: rgba(63, 185, 80, 0.1);
+    border: 1px solid var(--green);
+    color: var(--green);
+  }
+
+  .lineage-arrow { color: var(--text-dim); font-size: 13px; }
+
+  .era-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .era-badge.ancient { background: #3d2b00; color: var(--orange); }
+  .era-badge.traditional { background: #2b1a3d; color: var(--purple); }
+  .era-badge.classical { background: #0d2d3d; color: var(--cyan); }
+  .era-badge.modern { background: #0d3d1a; color: var(--green); }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="tree-panel">
+    <div class="tree-header">
+      <h1>Mechanic Phylogeny</h1>
+      <div class="stats">
+        <div><span>{{ totalCount }}</span> mechanics</div>
+        <div><span>{{ rootCount }}</span> roots</div>
+        <div><span>{{ maxDepth }}</span> max depth</div>
+      </div>
+      <div class="controls">
+        <button @click="expandAll">Expand All</button>
+        <button @click="collapseAll">Collapse All</button>
+        <button @click="resetZoom">Reset View</button>
+        <a href="tables.html" class="table-link">Table View</a>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background: var(--orange)"></div> Ancient</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--purple)"></div> Traditional</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--cyan)"></div> Classical</div>
+      <div class="legend-item"><div class="legend-dot" style="background: var(--green)"></div> Modern</div>
+      <div class="legend-item" style="margin-left: 12px; color: var(--text-dim);">Click nodes to expand/collapse &middot; Click names to inspect</div>
+    </div>
+    <div class="tree-svg-container" ref="svgContainer"></div>
+  </div>
+
+  <div class="detail-panel">
+    <div v-if="!selected" class="detail-empty">
+      Click a mechanic name in the tree to view its phylogenetic data
+    </div>
+    <div v-else class="detail-content">
+      <h2>{{ selected.name }} <span class="era-badge" :class="selected.era">{{ selected.era }}</span></h2>
+      <div class="slug">{{ selected.slug }}</div>
+      <div class="definition">{{ selected.definition }}</div>
+
+      <div class="detail-section" v-if="lineageAncestors.length || lineageChildren.length">
+        <h3>Evolutionary Lineage</h3>
+        <div class="lineage-flow">
+          <template v-for="(a, i) in lineageAncestors" :key="a.slug">
+            <div class="lineage-chip anc" @click="selectBySlug(a.slug)">{{ a.name }}</div>
+            <span class="lineage-arrow">&rarr;</span>
+          </template>
+          <div class="lineage-chip cur">{{ selected.name }}</div>
+          <template v-if="lineageChildren.length">
+            <span class="lineage-arrow">&rarr;</span>
+            <template v-for="(c, i) in lineageChildren" :key="c.slug">
+              <div class="lineage-chip ch" @click="selectBySlug(c.slug)">{{ c.name }}</div>
+            </template>
+          </template>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Origin / Speciation Event</h3>
+        <div class="origin-line">
+          <span class="game">{{ selected.origin_game }}</span>
+          <span class="year"> ({{ formatYear(selected.origin_year) }})</span>
+        </div>
+      </div>
+
+      <div class="detail-section" v-if="selected.ancestor_slugs?.length">
+        <h3>Evolved From <span v-if="selected.ancestor_slugs.length > 1" style="font-size:9px;color:var(--orange);text-transform:none;letter-spacing:0">(multiple lineages)</span></h3>
+        <div class="tag-list">
+          <span v-for="s in selected.ancestor_slugs" :key="s" class="tag ancestor" @click="selectBySlug(s)">{{ nameOf(s) }}</span>
+        </div>
+      </div>
+
+      <div class="detail-section" v-if="selected.children_slugs?.length">
+        <h3>Gave Rise To</h3>
+        <div class="tag-list">
+          <span v-for="s in selected.children_slugs" :key="s" class="tag child" @click="selectBySlug(s)">{{ nameOf(s) }}</span>
+        </div>
+      </div>
+
+      <div class="detail-section" v-if="selected.examples?.length">
+        <h3>Canonical Examples</h3>
+        <div class="tag-list">
+          <span v-for="ex in selected.examples" :key="ex" class="tag example">{{ ex }}</span>
+        </div>
+      </div>
+
+      <div class="detail-section" v-if="selected.synonyms?.length">
+        <h3>Synonyms</h3>
+        <div class="tag-list">
+          <span v-for="s in selected.synonyms" :key="s" class="tag synonym">{{ s }}</span>
+        </div>
+      </div>
+
+      <div class="detail-section" v-if="selected.bgg_names?.length">
+        <h3>BGG Mapping</h3>
+        <div class="tag-list">
+          <span v-for="(name, i) in selected.bgg_names" :key="i" class="tag bgg">
+            {{ name }}<template v-if="selected.bgg_ids?.[i]"> (#{{ selected.bgg_ids[i] }})</template>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+
+createApp({
+  setup() {
+    const mechanics = ref([]);
+    const lookup = ref({});
+    const selected = ref(null);
+    const svgContainer = ref(null);
+
+    let svg, g, treemap, root, zoom, i = 0;
+    const duration = 500;
+    const nodeRadius = 7;
+    const depthSpacing = 220;
+
+    // Era colors
+    const eraColor = {
+      ancient: '#d29922',
+      traditional: '#bc8cff',
+      classical: '#39d2c0',
+      modern: '#3fb950'
+    };
+
+    // Stats
+    const totalCount = computed(() => mechanics.value.length);
+    const rootCount = ref(0);
+    const maxDepth = ref(0);
+
+    onMounted(async () => {
+      try {
+        const res = await fetch('../../data/taxonomy/mechanics.yaml');
+        const text = await res.text();
+        mechanics.value = jsyaml.load(text);
+        const lk = {};
+        mechanics.value.forEach(m => { lk[m.slug] = m; });
+        lookup.value = lk;
+        await nextTick();
+        buildTree();
+      } catch (e) {
+        console.error('Failed to load:', e);
+      }
+    });
+
+    function buildTree() {
+      const container = svgContainer.value;
+      if (!container) return;
+
+      // Build hierarchy: create a virtual root with children = root mechanics
+      const lk = lookup.value;
+      const roots = mechanics.value.filter(m => !m.ancestor_slugs?.length);
+      rootCount.value = roots.length;
+
+      // Track placed nodes to avoid duplicates in the DAG.
+      // Mechanics with multiple ancestors appear only once (under
+      // whichever parent is encountered first during traversal).
+      // The detail panel still shows all ancestors.
+      const placed = new Set();
+
+      function buildNode(m) {
+        if (placed.has(m.slug)) return null;
+        placed.add(m.slug);
+        const children = (m.children_slugs || [])
+          .map(s => lk[s])
+          .filter(Boolean)
+          .map(buildNode)
+          .filter(Boolean);
+        return { ...m, children: children.length ? children : undefined };
+      }
+
+      const treeData = {
+        name: 'Mechanics',
+        slug: '__root__',
+        era: 'root',
+        children: roots.map(buildNode).filter(Boolean)
+      };
+
+      // Calculate max depth
+      function calcDepth(node, d) {
+        if (!node.children) return d;
+        return Math.max(...node.children.map(c => calcDepth(c, d + 1)));
+      }
+      maxDepth.value = calcDepth(treeData, 0);
+
+      // D3 setup
+      const rect = container.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+
+      d3.select(container).selectAll('svg').remove();
+
+      svg = d3.select(container).append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      // Zoom behavior
+      zoom = d3.zoom()
+        .scaleExtent([0.2, 3])
+        .on('zoom', (event) => {
+          g.attr('transform', event.transform);
+        });
+
+      svg.call(zoom);
+
+      g = svg.append('g')
+        .attr('transform', `translate(60, ${height / 2})`);
+
+      treemap = d3.tree().nodeSize([22, depthSpacing]);
+
+      root = d3.hierarchy(treeData, d => d.children);
+      root.x0 = 0;
+      root.y0 = 0;
+
+      // Start with root children expanded, everything else collapsed
+      if (root.children) {
+        root.children.forEach(c => {
+          if (c.children) {
+            c.children.forEach(collapse);
+          }
+        });
+      }
+
+      update(root);
+
+      // Center the view
+      svg.call(zoom.transform, d3.zoomIdentity.translate(60, height / 2).scale(1));
+    }
+
+    function collapse(d) {
+      if (d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+      }
+    }
+
+    function expandNode(d) {
+      if (d._children) {
+        d.children = d._children;
+        d._children = null;
+      }
+    }
+
+    function expandAllNodes(d) {
+      if (d._children) {
+        d.children = d._children;
+        d._children = null;
+      }
+      if (d.children) d.children.forEach(expandAllNodes);
+    }
+
+    function collapseAllNodes(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      }
+      if (d._children) d._children.forEach(collapseAllNodes);
+    }
+
+    function update(source) {
+      const treeDataLayout = treemap(root);
+      const nodes = treeDataLayout.descendants();
+      const links = treeDataLayout.descendants().slice(1);
+
+      nodes.forEach(d => { d.y = d.depth * depthSpacing; });
+
+      // ── LINKS ──
+      const link = g.selectAll('path.link')
+        .data(links, d => d.id || (d.id = ++i));
+
+      const linkEnter = link.enter().insert('path', 'g')
+        .attr('class', 'link')
+        .attr('d', () => {
+          const o = { x: source.x0, y: source.y0 };
+          return diagonal(o, o);
+        });
+
+      const linkUpdate = linkEnter.merge(link);
+      linkUpdate.transition().duration(duration)
+        .attr('d', d => diagonal(d, d.parent));
+
+      link.exit().transition().duration(duration)
+        .attr('d', () => {
+          const o = { x: source.x, y: source.y };
+          return diagonal(o, o);
+        })
+        .remove();
+
+      // ── NODES ──
+      const node = g.selectAll('g.node')
+        .data(nodes, d => d.id || (d.id = ++i));
+
+      const nodeEnter = node.enter().append('g')
+        .attr('class', d => {
+          let cls = 'node';
+          if (d.data.slug === selected.value?.slug) cls += ' selected';
+          return cls;
+        })
+        .attr('transform', () => `translate(${source.y0},${source.x0})`);
+
+      // Circle
+      nodeEnter.append('circle')
+        .attr('r', 1e-6)
+        .attr('class', d => d.data.era ? `era-${d.data.era}` : '')
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          if (d.data.slug === '__root__') return;
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else if (d._children) {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d);
+        });
+
+      // Text label
+      nodeEnter.append('text')
+        .attr('dy', '0.35em')
+        .attr('x', d => (d.children || d._children) ? -12 : 12)
+        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+        .text(d => d.data.slug === '__root__' ? '' : d.data.name)
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          if (d.data.slug === '__root__') return;
+          selected.value = lookup.value[d.data.slug] || null;
+          updateSelection();
+        });
+
+      // Update
+      const nodeUpdate = nodeEnter.merge(node);
+
+      nodeUpdate.transition().duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`);
+
+      nodeUpdate.select('circle')
+        .attr('r', d => d.data.slug === '__root__' ? 5 : nodeRadius)
+        .attr('class', d => {
+          let cls = d.data.era ? `era-${d.data.era}` : '';
+          cls += d._children ? ' node-collapsed' : ' node-leaf';
+          return cls;
+        });
+
+      // Reposition text for expand/collapse changes
+      nodeUpdate.select('text')
+        .attr('x', d => (d.children || d._children) ? -12 : 12)
+        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start');
+
+      // Exit
+      const nodeExit = node.exit().transition().duration(duration)
+        .attr('transform', () => `translate(${source.y},${source.x})`)
+        .remove();
+
+      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('text').style('fill-opacity', 1e-6);
+
+      // Store positions for transitions
+      nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    function diagonal(s, d) {
+      return `M ${s.y} ${s.x}
+        C ${(s.y + d.y) / 2} ${s.x},
+          ${(s.y + d.y) / 2} ${d.x},
+          ${d.y} ${d.x}`;
+    }
+
+    function updateSelection() {
+      g.selectAll('g.node')
+        .classed('selected', d => d.data.slug === selected.value?.slug);
+    }
+
+    // Detail panel helpers
+    const lineageAncestors = computed(() => {
+      if (!selected.value) return [];
+      const ancs = [];
+      const walk = (slugs) => {
+        if (!slugs?.length) return;
+        const m = lookup.value[slugs[0]];
+        if (m) {
+          walk(m.ancestor_slugs);
+          ancs.push(m);
+        }
+      };
+      walk(selected.value.ancestor_slugs);
+      return ancs;
+    });
+
+    const lineageChildren = computed(() => {
+      if (!selected.value) return [];
+      return (selected.value.children_slugs || [])
+        .map(s => lookup.value[s])
+        .filter(Boolean);
+    });
+
+    function nameOf(slug) {
+      return lookup.value[slug]?.name || slug;
+    }
+
+    function formatYear(y) {
+      if (y < 0) return `${Math.abs(y)} BCE`;
+      return String(y);
+    }
+
+    function selectBySlug(slug) {
+      const m = lookup.value[slug];
+      if (m) {
+        selected.value = m;
+        updateSelection();
+      }
+    }
+
+    function expandAll() {
+      if (root) {
+        expandAllNodes(root);
+        update(root);
+      }
+    }
+
+    function collapseAll() {
+      if (root && root.children) {
+        root.children.forEach(c => {
+          collapseAllNodes(c);
+          // re-expand first level
+          if (c._children) {
+            c.children = c._children;
+            c._children = null;
+          }
+        });
+        update(root);
+      }
+    }
+
+    function resetZoom() {
+      if (!svg || !svgContainer.value) return;
+      const rect = svgContainer.value.getBoundingClientRect();
+      svg.transition().duration(500).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(60, rect.height / 2).scale(1)
+      );
+    }
+
+    return {
+      svgContainer, selected, totalCount, rootCount, maxDepth,
+      lineageAncestors, lineageChildren,
+      nameOf, formatYear, selectBySlug,
+      expandAll, collapseAll, resetZoom
+    };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

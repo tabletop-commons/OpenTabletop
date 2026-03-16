@@ -1,0 +1,115 @@
+TrendDataPoint:
+  type: object
+  description: >-
+    An aggregate data point for cross-sectional trend queries. Each point
+    represents a summary of games matching the query filters within a
+    specific time period (typically grouped by year_published). Used by
+    the /statistics/trends/* endpoints (see ADR-0036).
+  required:
+    - period
+    - game_count
+  properties:
+    period:
+      type: integer
+      description: >-
+        The time period this data point represents. When grouped by year,
+        this is the publication year (e.g., 2020). When grouped by decade,
+        this is the decade start year (e.g., 2020 for the 2020s).
+      example: 2020
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of games matching the query filters published in this period.
+      example: 342
+    avg_rating:
+      type: number
+      format: float
+      nullable: true
+      description: Mean rating of games in this period.
+      example: 7.12
+    avg_weight:
+      type: number
+      format: float
+      nullable: true
+      description: Mean complexity weight of games in this period.
+      example: 2.83
+    median_weight:
+      type: number
+      format: float
+      nullable: true
+      description: Median complexity weight of games in this period.
+      example: 2.75
+    weight_p25:
+      type: number
+      format: float
+      nullable: true
+      description: 25th percentile weight of games in this period.
+      example: 2.1
+    weight_p75:
+      type: number
+      format: float
+      nullable: true
+      description: 75th percentile weight of games in this period.
+      example: 3.4
+    avg_min_players:
+      type: number
+      format: float
+      nullable: true
+      description: Mean minimum player count of games in this period.
+      example: 1.4
+    avg_max_players:
+      type: number
+      format: float
+      nullable: true
+      description: Mean maximum player count of games in this period.
+      example: 4.2
+    solo_support_pct:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 100.0
+      nullable: true
+      description: >-
+        Percentage of games in this period that support solo play
+        (min_players = 1).
+      example: 38.5
+    avg_playtime_minutes:
+      type: number
+      format: float
+      nullable: true
+      description: Mean publisher-stated maximum playtime of games in this period.
+      example: 72.4
+
+MechanicTrendDataPoint:
+  type: object
+  description: >-
+    A trend data point for mechanic adoption over time. Each point
+    represents a single mechanic's prevalence within a specific time period.
+  required:
+    - period
+    - mechanic
+    - game_count
+  properties:
+    period:
+      type: integer
+      description: The publication year this data point represents.
+      example: 2020
+    mechanic:
+      type: string
+      description: The mechanic slug from the controlled vocabulary.
+      example: "cooperative"
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of games with this mechanic published in this period.
+      example: 234
+    pct_of_period:
+      type: number
+      format: float
+      minimum: 0.0
+      maximum: 100.0
+      nullable: true
+      description: >-
+        This mechanic's share of all games published in this period,
+        as a percentage.
+      example: 12.3

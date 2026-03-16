@@ -1,9 +1,9 @@
-summary: Spirit Island effective properties with Branch & Claw + Jagged Earth
+summary: Spirit Island effective properties with all three major expansions
 description: >-
-  Effective properties for Spirit Island when combined with Branch & Claw
-  and Jagged Earth expansions. This example shows the three-tier resolution
-  from ADR-0007, where an explicit ExpansionCombination record exists for
-  this popular expansion pairing.
+  Effective properties for Spirit Island when combined with Branch & Claw,
+  Jagged Earth, and Nature Incarnate. This example shows the three-tier
+  resolution from ADR-0007, where an explicit ExpansionCombination record
+  exists for this popular expansion pairing.
 value:
   base:
     min_players: 1
@@ -19,15 +19,17 @@ value:
   applied_expansions:
     - "spirit-island-branch-and-claw"
     - "spirit-island-jagged-earth"
+    - "spirit-island-nature-incarnate"
   effective:
     min_players: 1
     max_players: 6
-    min_playtime_minutes: 90
+    min_playtime_minutes: 120
     max_playtime_minutes: 180
-    weight: 4.12
+    weight: 4.35
     best_at:
       - 2
       - 3
+      - 4
     recommended_at:
       - 1
       - 4
@@ -36,29 +38,32 @@ value:
   individual_effects:
     spirit-island-branch-and-claw:
       min_players_delta: 0
-      max_players_delta: 2
-      weight_delta: 0.2
+      max_players_delta: 0
+      weight_delta: 0.16
       playtime_min_delta: 0
       playtime_max_delta: 30
-      best_at_delta:
-        - 5
-        - 6
       description: >-
         Adds Events, two new spirits (Sharp Fangs Behind the Leaves and
         Keeper of the Forbidden Wilds), Tokens (Beasts, Wilds, Disease,
-        Strife), and new power cards. Supports up to 6 players when combined
-        with the base game.
+        Strife), and new power cards.
     spirit-island-jagged-earth:
       min_players_delta: 0
       max_players_delta: 2
-      weight_delta: 0.4
+      weight_delta: 0.21
       playtime_min_delta: 0
-      playtime_max_delta: 60
-      best_at_delta:
-        - 5
-        - 6
+      playtime_max_delta: 30
       description: >-
         Adds 10 new spirits, 2 new adversaries (Habsburg Mining Expedition
         and Russia), new scenarios, Badlands tokens, and over 50 new power
         cards. Significantly increases the depth and replayability. Natively
         supports up to 6 players.
+    spirit-island-nature-incarnate:
+      min_players_delta: 0
+      max_players_delta: 2
+      weight_delta: 0.26
+      playtime_min_delta: 0
+      playtime_max_delta: 60
+      description: >-
+        Adds 8 new spirits, new adversaries, and new aspects for existing
+        spirits that change their play style. Aspects add significant
+        replayability by offering alternate versions of base game spirits.

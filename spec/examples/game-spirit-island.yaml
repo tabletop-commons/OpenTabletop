@@ -44,8 +44,8 @@ value:
   bayes_rating: 8.21
   rating_count: 28456
   mode: "cooperative"
-  image_url: "https://images.opentabletop.org/games/spirit-island/cover.jpg"
-  thumbnail_url: "https://images.opentabletop.org/games/spirit-island/thumb.jpg"
+  image_url: "https://example.com/images/spirit-island/cover.jpg"
+  thumbnail_url: "https://example.com/images/spirit-island/thumb.jpg"
   bgg_id: 162886
   status: "active"
   created_at: "2025-06-15T10:30:00Z"
@@ -165,6 +165,12 @@ value:
     expansions:
       href: "/games/spirit-island/expansions"
       title: "Expansions for Spirit Island"
+    promos:
+      href: "/games/spirit-island/expansions?type=promo"
+      title: "Promo packs for Spirit Island"
+    standalone_expansions:
+      href: "/games/spirit-island/expansions?type=standalone_expansion"
+      title: "Standalone versions of Spirit Island"
     effective_properties:
       href: "/games/spirit-island/effective-properties"
       title: "Effective properties"

@@ -2,8 +2,10 @@ summary: Spirit Island relationship graph
 description: >-
   The full family of Spirit Island game relationships demonstrating
   typed directional edges from ADR-0011. Shows the base game's connections
-  to its expansions (Branch & Claw, Jagged Earth, Nature Incarnate) and
-  the standalone reimplementation (Horizons of Spirit Island).
+  to its three major expansions (Branch & Claw, Jagged Earth, Nature
+  Incarnate), two promo packs, and the standalone reimplementation
+  (Horizons of Spirit Island) which also has an integrates_with
+  relationship for component compatibility.
 value:
   - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
     target_game_id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
@@ -71,8 +73,7 @@ value:
         Horizons is a standalone, introductory version of Spirit Island
         designed as a gateway for new players. It features 5 new spirits
         with a gentler learning curve, a simplified double-sided board,
-        and streamlined rules. Components are compatible with the full
-        Spirit Island game and its expansions.
+        and streamlined rules.
     _links:
       source:
         href: "/games/spirit-island"
@@ -80,3 +81,59 @@ value:
       target:
         href: "/games/horizons-of-spirit-island"
         title: "Horizons of Spirit Island"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-bd5e-7f6a-cb7c-3d4e5f6a7b8c"
+    relationship_type: "integrates_with"
+    metadata:
+      standalone_playable: true
+      component_compatible: true
+      notes: >-
+        Horizons spirits, boards, and components are fully compatible
+        with the base Spirit Island game and all its expansions. Players
+        can mix Horizons spirits into a full Spirit Island game or use
+        base game spirits with the Horizons board.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/horizons-of-spirit-island"
+        title: "Horizons of Spirit Island"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-ce6f-7a7b-dc8d-4e5f6a7b8c9d"
+    relationship_type: "expands"
+    metadata:
+      adds_components: true
+      standalone_playable: false
+      adds_spirits: 2
+      adds_power_cards: 0
+      notes: >-
+        Promo Pack 1. Adds two promo spirits (Heart of the Wildfire and
+        Serpent Slumbering Beneath the Island). No new mechanisms, tokens,
+        or property changes.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/spirit-island-promo-pack-1"
+        title: "Spirit Island: Promo Pack 1"
+  - source_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    target_game_id: "01912f4c-df7a-7b8c-ed9e-5f6a7b8c9d0e"
+    relationship_type: "expands"
+    metadata:
+      adds_components: true
+      standalone_playable: false
+      adds_spirits: 4
+      adds_power_cards: 0
+      notes: >-
+        Promo Pack 2. Adds four promo spirits (Downpour Drenches the World,
+        Finder of Paths Unseen, Fractured Days Split the Sky, Starlight
+        Seeks Its Form). No new mechanisms, tokens, or property changes.
+    _links:
+      source:
+        href: "/games/spirit-island"
+        title: "Spirit Island"
+      target:
+        href: "/games/spirit-island-promo-pack-2"
+        title: "Spirit Island: Promo Pack 2"

@@ -1,0 +1,101 @@
+# BGG Categories -> OpenTabletop Categories Mapping
+#
+# Reverse index: every BGG category ID mapped to OpenTabletop canonical slug(s).
+# Note: Some BGG categories map to OpenTabletop themes or mechanics, not categories.
+# Cross-type mappings are noted.
+#
+# mapping_type:
+#   direct  - 1:1 mapping, same concept
+#   split   - one BGG term maps to multiple OT terms
+#   cross   - BGG category maps to a different OT vocabulary type
+#   unmapped - BGG term has no OT equivalent
+
+- bgg_id: 1002
+  bgg_name: "Two-Player Only"
+  mapping_type: direct
+  ot_slugs: ["two-player"]
+  notes: null
+
+- bgg_id: 1009
+  bgg_name: "Abstract Strategy"
+  mapping_type: direct
+  ot_slugs: ["abstract"]
+  notes: null
+
+- bgg_id: 1010
+  bgg_name: "Family Game"
+  mapping_type: direct
+  ot_slugs: ["family"]
+  notes: null
+
+- bgg_id: 1015
+  bgg_name: "Exploration"
+  mapping_type: direct
+  ot_slugs: ["4x"]
+  notes: null
+
+- bgg_id: 1019
+  bgg_name: "Wargame"
+  mapping_type: direct
+  ot_slugs: ["wargame"]
+  notes: null
+
+- bgg_id: 1021
+  bgg_name: "Economic"
+  mapping_type: direct
+  ot_slugs: ["economic-game"]
+  notes: null
+
+- bgg_id: 1023
+  bgg_name: "Card Game"
+  mapping_type: direct
+  ot_slugs: ["trick-taking-game"]
+  notes: null
+
+- bgg_id: 1026
+  bgg_name: "Negotiation"
+  mapping_type: direct
+  ot_slugs: ["negotiation-game"]
+  notes: null
+
+- bgg_id: 1028
+  bgg_name: "Puzzle"
+  mapping_type: direct
+  ot_slugs: ["puzzle-game"]
+  notes: null
+
+- bgg_id: 1030
+  bgg_name: "Party Game"
+  mapping_type: direct
+  ot_slugs: ["party"]
+  notes: null
+
+- bgg_id: 1031
+  bgg_name: "Racing"
+  mapping_type: direct
+  ot_slugs: ["racing-game"]
+  notes: null
+
+- bgg_id: 1032
+  bgg_name: "Action / Dexterity"
+  mapping_type: direct
+  ot_slugs: ["dexterity-game"]
+  notes: null
+
+- bgg_id: 1037
+  bgg_name: "Real-time"
+  mapping_type: direct
+  ot_slugs: ["real-time-game"]
+  notes: null
+
+- bgg_id: 1081
+  bgg_name: "Deduction"
+  mapping_type: direct
+  ot_slugs: ["social-deduction"]
+  notes: null
+
+- bgg_id: 1094
+  bgg_name: "Educational"
+  mapping_type: direct
+  ot_slugs: ["educational"]
+  notes: null

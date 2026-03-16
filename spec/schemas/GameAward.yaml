@@ -1,0 +1,51 @@
+GameAward:
+  type: object
+  description: >-
+    A game's nomination for or win of a specific award in a specific year.
+    Links a Game to an Award with year, result, and optional category. The
+    result enum captures the full lifecycle from nomination through win.
+    See ADR-0042.
+  required:
+    - game_id
+    - award_id
+    - year
+    - result
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the game.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    award_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the award.
+      example: "01914a2b-3c4d-7e5f-a6b7-c8d9e0f1a2b3"
+    year:
+      type: integer
+      description: >-
+        The year of the award cycle. For awards announced in one year for
+        games published in another, this is the announcement year.
+      example: 2018
+    result:
+      type: string
+      description: >-
+        The game's result in this award cycle. Awards may have different
+        stages — not all awards use all result levels.
+      enum:
+        - nominated
+        - shortlisted
+        - recommended
+        - won
+      example: "nominated"
+    category:
+      type: string
+      nullable: true
+      description: >-
+        The specific award track or category, if the award has multiple
+        tracks. For example, the Spiel des Jahres family includes "Spiel
+        des Jahres", "Kennerspiel des Jahres", and "Kinderspiel des Jahres"
+        as distinct categories.
+      example: "Kennerspiel des Jahres"
+    _links:
+      $ref: '_common.yaml#/Links'

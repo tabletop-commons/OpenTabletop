@@ -89,7 +89,7 @@ The `weight` field on a Game is an average. The weight vote distribution provide
 }
 ```
 
-This distribution tells a richer story than the average alone. Spirit Island's weight is concentrated in the 3.5-4.5 range, confirming community consensus that it is a heavy game. The small number of 1.0-2.0 votes are likely people who misunderstood the scale or are expressing a different opinion about accessibility.
+This distribution tells a richer story than the average alone. Spirit Island's weight is concentrated in the 3.5-4.5 range, reflecting strong agreement among this voter population that the game is complex. The minority of 1.0-2.0 votes may reflect voters with different gaming backgrounds, different definitions of complexity, or different experience levels with the game — not necessarily errors.
 
 A bimodal distribution (many 2.0 votes and many 4.0 votes) would suggest the game's complexity is debated, which is useful information that an average hides.
 
@@ -141,7 +141,7 @@ Community-reported play times are derived from individual play logs. The statist
 }
 ```
 
-This data reveals what the publisher's "120 minutes" hides:
+This data shows what the publisher's single estimate cannot capture:
 - The median is actually 135 minutes, not 120.
 - 2-player games run about 105 minutes (close to the publisher estimate).
 - 4-player games take 180 minutes — 50% longer than the box says.

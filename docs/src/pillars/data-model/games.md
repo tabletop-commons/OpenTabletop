@@ -33,12 +33,14 @@ The `type` field classifies what kind of product this Game represents:
 
 | Type | Description | Example |
 |------|-------------|---------|
-| `base_game` | A standalone game that can be played without any other product | *Wingspan*, *Catan*, *Spirit Island* |
-| `expansion` | Requires a base game to play; adds content or rules | *Wingspan: European Expansion*, *Branch & Claw* |
-| `standalone_expansion` | Part of a game family but playable on its own | *Horizons of Spirit Island*, *Star Realms: Colony Wars* |
-| `promo` | A small promotional addition, typically a single card or tile | *Wingspan: Duet Promo Pack* |
-| `accessory` | A non-gameplay product associated with a game (sleeves, organizer, playmat) | *Wingspan Neoprene Playmat* |
-| `fan_expansion` | Community-created content, not officially published | *Spirit Island: Feather & Flame (fan)* |
+| `base_game` | A standalone game that can be played without any other product | *Catan*, *Wingspan*, *Spirit Island* |
+| `expansion` | Requires a base game to play; adds content or rules | *Carcassonne: Inns & Cathedrals*, *Scythe: Invaders from Afar* |
+| `standalone_expansion` | Part of a game family but playable on its own | *Dominion: Intrigue*, *Star Realms: Colony Wars* |
+| `promo` | A small promotional addition, typically a single card or tile | *Azul: Special Factories Promo* |
+| `accessory` | A non-gameplay product associated with a game (sleeves, organizer, playmat) | *Terraforming Mars Playmat* |
+| `fan_expansion` | Community-created content, not officially published | *Gloomhaven: Homebrew Class Pack (fan)* |
+
+For detailed classification criteria, decision trees, and grey zone rules, see [Entity Type Criteria](./entity-type-criteria.md).
 
 ### Type Hierarchy
 
@@ -105,8 +107,8 @@ The `weight_votes` field indicates how many community members contributed to the
   "weight_votes": 5127,
   "rating": 8.31,
   "rating_votes": 42891,
-  "image_url": "https://images.opentabletop.org/spirit-island.jpg",
-  "thumbnail_url": "https://images.opentabletop.org/spirit-island-thumb.jpg",
+  "image_url": "https://example.com/images/spirit-island.jpg",
+  "thumbnail_url": "https://example.com/images/spirit-island-thumb.jpg",
   "created_at": "2026-01-15T10:00:00Z",
   "updated_at": "2026-03-01T14:30:00Z"
 }

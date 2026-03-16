@@ -140,6 +140,25 @@ Game:
       maximum: 10.0
       description: Arithmetic mean of all user ratings on a 0-10 scale.
       example: 8.34
+    rating_distribution:
+      type: array
+      description: >-
+        Histogram of rating votes across 10 buckets. Index 0 is the count
+        of 1-star ratings, index 9 is the count of 10-star ratings. The sum
+        should equal rating_count. See ADR-0041.
+      items:
+        type: integer
+        minimum: 0
+      minItems: 10
+      maxItems: 10
+      example: [379, 156, 264, 336, 697, 1820, 4879, 12806, 19465, 16529]
+    rating_stddev:
+      type: number
+      format: float
+      minimum: 0.0
+      nullable: true
+      description: Standard deviation of the rating distribution.
+      example: 1.42
     bayes_rating:
       type: number
       format: float
@@ -154,6 +173,70 @@ Game:
       minimum: 0
       description: Total number of user ratings.
       example: 28456
+    rank_overall:
+      type: integer
+      minimum: 1
+      nullable: true
+      description: >-
+        Current overall ranking position. Null if the game is not ranked
+        (e.g., insufficient ratings). Updated periodically. See ADR-0041.
+      example: 1
+    rank_by_category:
+      type: object
+      nullable: true
+      description: >-
+        Per-category ranking positions. Keys are category slugs from the
+        controlled vocabulary; values are rank positions. See ADR-0041.
+      additionalProperties:
+        type: integer
+        minimum: 1
+      example:
+        strategy: 1
+    owner_count:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        Number of users who own this game. A demand signal for publishers
+        estimating print run sizes. See ADR-0041.
+      example: 82296
+    wishlist_count:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        Number of users who have wishlisted this game. A forward-looking
+        demand signal. See ADR-0041.
+      example: 21679
+    total_plays:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        All-time total logged plays. The ratio of total_plays to owner_count
+        measures engagement vs "shelf of shame." See ADR-0041.
+      example: 166001
+    community_suggested_age:
+      type: integer
+      minimum: 0
+      nullable: true
+      description: >-
+        Community-polled suggested minimum player age. Complements the
+        publisher-stated min_age field. See ADR-0041.
+      example: 14
+    language_dependence:
+      type: string
+      nullable: true
+      description: >-
+        Community-assessed language dependence level. Useful for publishers
+        evaluating localization effort. See ADR-0041.
+      enum:
+        - no_text
+        - some_text
+        - moderate_text
+        - extensive_text
+        - unplayable_without_text
+      example: "moderate_text"
     mode:
       type: string
       description: >-
@@ -170,12 +253,12 @@ Game:
       type: string
       format: uri
       description: URL to the full-size box art or primary image.
-      example: "https://images.opentabletop.org/games/spirit-island/cover.jpg"
+      example: "https://example.com/images/spirit-island/cover.jpg"
     thumbnail_url:
       type: string
       format: uri
       description: URL to a thumbnail-sized image (approximately 200x200).
-      example: "https://images.opentabletop.org/games/spirit-island/thumb.jpg"
+      example: "https://example.com/images/spirit-island/thumb.jpg"
     bgg_id:
       type: integer
       nullable: true
@@ -184,6 +267,29 @@ Game:
         not present in BGG. Stored via the external references system
         (see ADR-0008) but surfaced here for convenience.
       example: 162886
+    alternate_names:
+      type: array
+      description: >-
+        Alternate names for this game in other languages or markets. Used for
+        international search discovery. Only included when requested via the
+        include parameter (?include=alternate_names). See ADR-0038.
+      items:
+        $ref: 'AlternateName.yaml#/AlternateName'
+    funding_source:
+      type: string
+      nullable: true
+      description: >-
+        Primary funding or distribution channel for the game's initial
+        publication. Enables trend analysis of crowdfunding's impact on
+        the hobby (see ADR-0036).
+      enum:
+        - retail
+        - kickstarter
+        - gamefound
+        - backerkit
+        - self_published
+        - other
+      example: "retail"
     canonical_edition_id:
       type: string
       format: uuid
@@ -254,6 +360,21 @@ Game:
         Only included when requested via the include parameter.
       items:
         $ref: '#/Game'
+    credits:
+      type: array
+      description: >-
+        Extended credits beyond designers and artists (e.g., developers,
+        graphic designers, editors). Only included when requested via the
+        include parameter (?include=credits). See ADR-0039.
+      items:
+        $ref: 'GameCredit.yaml#/GameCredit'
+    awards:
+      type: array
+      description: >-
+        Awards and nominations for this game. Only included when requested
+        via the include parameter (?include=awards). See ADR-0042.
+      items:
+        $ref: 'GameAward.yaml#/GameAward'
     editions:
       type: array
       description: >-

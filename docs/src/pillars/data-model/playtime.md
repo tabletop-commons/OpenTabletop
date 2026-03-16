@@ -36,7 +36,7 @@ These represent the range within which most community-reported plays fall. The s
 
 ### Data Source
 
-Community play times come from logged plays where the player recorded a duration. Not all logged plays include duration, and the ones that do are self-reported, so there is inherent noise. However, with enough data points, the aggregate is far more accurate than publisher estimates.
+Community play times come from logged plays where the player recorded a duration. Not all logged plays include duration, and the ones that do are self-reported, so there is inherent noise. With enough data points, the aggregate provides a more detailed picture than publisher estimates — though it still reflects the play patterns of people who log their games, who tend to be more experienced hobbyist gamers. See [Data Provenance & Bias](./data-provenance.md) for more on how community data is shaped by who contributes it.
 
 ### Example: Terraforming Mars
 

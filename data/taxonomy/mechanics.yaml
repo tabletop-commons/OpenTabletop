@@ -1,0 +1,2922 @@
+# OpenTabletop Canonical Mechanics Taxonomy
+#
+# This is a phylogenetic model of board game mechanics — mechanics as an
+# evolutionary tree, not a flat tag list. Each mechanic includes its
+# evolutionary lineage, the game that codified it (origin/speciation event),
+# and a precise definition that distinguishes it from related mechanics.
+#
+# Structure:
+#   slug          — canonical identifier (lowercase, hyphenated, max 50 chars)
+#   name          — display name
+#   definition    — precise, distinguishing definition
+#   ancestor_slugs — what this mechanic evolved FROM (evolutionary lineage)
+#   children_slugs — what evolved FROM this mechanic
+#   origin_game   — the game that created/codified this as a distinct mechanic
+#   origin_year   — year of that game's publication
+#   era           — broad era when this mechanic emerged as recognized
+#   examples      — 2-3 canonical games demonstrating this mechanic
+#   synonyms      — alternate names that map to this canonical term
+#   bgg_ids       — BGG mechanic ID(s) that map to this term
+#   bgg_names     — BGG mechanic name(s) that map to this term
+
+# ============================================================================
+# ROOT MECHANICS — Ancient/foundational, no clear single ancestor
+# ============================================================================
+
+- slug: dice-rolling
+  name: Dice Rolling
+  definition: >-
+    Players roll dice to generate random outcomes that determine actions,
+    movement, combat results, or resource production. The core mechanic is
+    accepting randomized input and making decisions based on or despite
+    the result. Distinguished from push-your-luck by the absence of
+    voluntary stop/continue decisions on the roll itself.
+  ancestor_slugs: []
+  children_slugs:
+    - dice-placement
+    - push-your-luck
+    - roll-and-write
+    - re-rolling-and-locking
+    - dice-combat
+  origin_game: Backgammon
+  origin_year: -3000
+  era: ancient
+  examples:
+    - Catan
+    - King of Tokyo
+    - Sagrada
+  synonyms: []
+  bgg_ids: [2072]
+  bgg_names: ["Dice Rolling"]
+
+- slug: hand-management
+  name: Hand Management
+  definition: >-
+    Players hold a private set of cards and must decide which to play,
+    when to play them, and which to retain for future turns. The core
+    tension is opportunity cost — playing a card now means not having it
+    later. Distinguished from tableau-building by the emphasis on timing
+    and sequencing rather than permanent placement.
+  ancestor_slugs: []
+  children_slugs:
+    - card-drafting
+    - deck-building
+    - melding
+    - trick-taking
+    - multi-use-cards
+    - card-driven
+    - card-combat
+    - deck-construction
+    - tableau-building
+  origin_game: Rummy
+  origin_year: 1890
+  era: traditional
+  examples:
+    - Twilight Struggle
+    - Concordia
+    - 7 Wonders
+  synonyms: []
+  bgg_ids: [2040]
+  bgg_names: ["Hand Management"]
+
+- slug: area-control
+  name: Area Control
+  definition: >-
+    Players compete for dominance over defined regions of a shared map.
+    Control is typically determined by having the most units, influence,
+    or presence in a region. Scoring occurs for controlling or having
+    majority in areas. Distinguished from area-movement by the emphasis
+    on relative presence (majority) rather than traversal.
+  ancestor_slugs: []
+  children_slugs:
+    - area-movement
+    - enclosure
+    - tug-of-war
+    - king-of-the-hill
+  origin_game: Go
+  origin_year: -2000
+  era: ancient
+  examples:
+    - El Grande
+    - Blood Rage
+    - Inis
+  synonyms:
+    - area-majority
+    - area-influence
+  bgg_ids: [2080]
+  bgg_names: ["Area Majority / Influence"]
+
+- slug: set-collection
+  name: Set Collection
+  definition: >-
+    Players gather specific combinations of items (cards, tiles, tokens)
+    that score points or grant abilities when completed. The core mechanic
+    is identifying which sets to pursue and competing with opponents for
+    shared resources. Distinguished from pattern-building by the emphasis
+    on accumulation of matching items rather than spatial arrangement.
+  ancestor_slugs: []
+  children_slugs:
+    - pattern-building
+    - contracts
+    - melding
+  origin_game: Rummy
+  origin_year: 1890
+  era: traditional
+  examples:
+    - Ticket to Ride
+    - Jaipur
+    - Azul
+  synonyms: []
+  bgg_ids: [2004]
+  bgg_names: ["Set Collection"]
+
+- slug: trading-and-negotiation
+  name: Trading and Negotiation
+  definition: >-
+    Players exchange resources, promises, or favors through direct
+    interpersonal communication. Deals may be binding or non-binding.
+    The core mechanic is social — reading opponents, making offers,
+    and leveraging asymmetric needs. Distinguished from auction by
+    the bilateral (or multilateral) nature rather than competitive bidding.
+  ancestor_slugs: []
+  children_slugs:
+    - auction
+    - bribery
+    - i-cut-you-choose
+    - alliances
+    - voting
+  origin_game: Diplomacy
+  origin_year: 1959
+  era: classical
+  examples:
+    - Catan
+    - Chinatown
+    - Cosmic Encounter
+  synonyms:
+    - negotiation
+    - trading
+  bgg_ids: [2008]
+  bgg_names: ["Trading", "Negotiation"]
+
+- slug: tile-placement
+  name: Tile Placement
+  definition: >-
+    Players place tiles onto a shared or personal play area, creating
+    or extending a spatial structure. Placement decisions consider
+    adjacency, orientation, and how the tile interacts with its
+    neighbors. Distinguished from modular-board by the emphasis on
+    player-driven placement as the core decision rather than setup.
+  ancestor_slugs: []
+  children_slugs:
+    - enclosure
+    - map-addition
+    - map-exploration
+    - network-building
+    - modular-board
+    - pattern-building
+  origin_game: Dominoes
+  origin_year: 1200
+  era: traditional
+  examples:
+    - Carcassonne
+    - Azul
+    - Cascadia
+  synonyms: []
+  bgg_ids: [2002]
+  bgg_names: ["Tile Placement"]
+
+- slug: action-points
+  name: Action Points
+  definition: >-
+    Each turn, players receive a fixed budget of action points and
+    choose how to spend them across available actions. Different
+    actions may cost different amounts. The core tension is allocation —
+    you can do many small things or one big thing. Distinguished from
+    action-selection by the fungible, spendable nature of the points.
+  ancestor_slugs: []
+  children_slugs:
+    - action-selection
+  origin_game: Pandemic
+  origin_year: 2008
+  era: modern
+  examples:
+    - Pandemic
+    - Tikal
+    - Dead of Winter
+  synonyms:
+    - action-point-allowance
+  bgg_ids: [2001]
+  bgg_names: ["Action Points"]
+
+- slug: trick-taking
+  name: Trick Taking
+  definition: >-
+    Players play cards from their hand in a series of rounds (tricks).
+    Each trick has a lead suit, and the highest card of the lead suit
+    (or trump suit) wins the trick. The core mechanic is deduction
+    and timing — tracking what's been played and managing your hand
+    to win specific tricks. One of the oldest card game mechanics.
+  ancestor_slugs:
+    - hand-management
+  children_slugs:
+    - ladder-climbing
+  origin_game: Karnöffel
+  origin_year: 1426
+  era: traditional
+  examples:
+    - The Crew
+    - Fox in the Forest
+    - Bridge
+  synonyms: []
+  bgg_ids: [2009]
+  bgg_names: ["Trick-taking"]
+
+# ============================================================================
+# ACTION / TURN STRUCTURE MECHANICS
+# ============================================================================
+
+- slug: action-selection
+  name: Action Selection
+  definition: >-
+    Players choose from a shared or personal menu of available actions
+    each turn, with no point budget — you simply pick one (or a
+    prescribed number). Actions may become unavailable after selection.
+    Distinguished from action-points by the discrete, non-fungible nature
+    of the choices, and from worker-placement by the absence of blocking.
+  ancestor_slugs:
+    - action-points
+  children_slugs:
+    - worker-placement
+    - rondel
+    - follow
+    - variable-phase-order
+  origin_game: Puerto Rico
+  origin_year: 2002
+  era: modern
+  examples:
+    - Puerto Rico
+    - Concordia
+    - Great Western Trail
+  synonyms: []
+  bgg_ids: [2838]
+  bgg_names: ["Action Drafting"]
+
+- slug: worker-placement
+  name: Worker Placement
+  definition: >-
+    Players assign a limited pool of worker tokens to action spaces on
+    a shared board. Each space typically accepts only one worker, creating
+    a blocking/exclusivity constraint — if an opponent takes a space, you
+    cannot use it this round. The core tension is prioritization under
+    scarcity. Distinguished from action-selection by the blocking mechanism
+    and the physical placement of tokens.
+  ancestor_slugs:
+    - action-selection
+  children_slugs:
+    - dice-placement
+    - worker-placement-different-types
+    - action-retrieval
+    - worker-placement-with-bumping
+  origin_game: Caylus
+  origin_year: 2005
+  era: modern
+  examples:
+    - Agricola
+    - Viticulture
+    - Lords of Waterdeep
+  synonyms: []
+  bgg_ids: [2082]
+  bgg_names: ["Worker Placement"]
+
+- slug: worker-placement-different-types
+  name: Worker Placement with Different Worker Types
+  definition: >-
+    An evolution of worker placement where workers are not interchangeable —
+    different workers have different abilities, costs, or access to different
+    action spaces. Adds a layer of strategic consideration to which worker
+    to assign where. Distinguished from basic worker-placement by the
+    asymmetry between worker tokens.
+  ancestor_slugs:
+    - worker-placement
+  children_slugs: []
+  origin_game: Tzolk'in
+  origin_year: 2012
+  era: modern
+  examples:
+    - Tzolk'in
+    - Architects of the West Kingdom
+    - Paladins of the West Kingdom
+  synonyms: []
+  bgg_ids: [2933]
+  bgg_names: ["Worker Placement, Different Worker Types"]
+
+- slug: dice-placement
+  name: Dice Placement
+  definition: >-
+    A variant of worker placement where dice serve as workers. The die
+    value determines which action spaces are available or how effective
+    the placement is. Combines the randomness of dice-rolling with the
+    spatial blocking of worker-placement. Distinguished from basic
+    worker-placement by the random element of die values.
+  ancestor_slugs:
+    - worker-placement
+    - dice-rolling
+  children_slugs: []
+  origin_game: Alien Frontiers
+  origin_year: 2010
+  era: modern
+  examples:
+    - Alien Frontiers
+    - Troyes
+    - Marco Polo
+  synonyms:
+    - worker-placement-with-dice-workers
+  bgg_ids: [2935]
+  bgg_names: ["Worker Placement with Dice Workers"]
+
+- slug: rondel
+  name: Rondel
+  definition: >-
+    Players move a marker around a circular track of action spaces.
+    Movement is typically limited (1-3 spaces forward), creating a
+    rhythm where certain actions become available in predictable but
+    constrained patterns. The core tension is tempo — moving further
+    costs more but reaches better actions. Distinguished from action-
+    selection by the spatial, sequential constraint.
+  ancestor_slugs:
+    - action-selection
+  children_slugs: []
+  origin_game: Antike
+  origin_year: 2005
+  era: modern
+  examples:
+    - Navegador
+    - Teotihuacan
+    - Trajan
+  synonyms: []
+  bgg_ids: [2831]
+  bgg_names: ["Rondel"]
+
+- slug: simultaneous-action-selection
+  name: Simultaneous Action Selection
+  definition: >-
+    All players secretly and simultaneously choose their actions, then
+    reveal them at the same time. The core mechanic is prediction —
+    anticipating what opponents will choose and selecting accordingly.
+    Distinguished from sequential action-selection by the hidden,
+    simultaneous nature of decisions.
+  ancestor_slugs: []
+  children_slugs:
+    - programmed-movement
+    - roll-and-write
+  origin_game: Rock Paper Scissors
+  origin_year: -200
+  era: ancient
+  examples:
+    - 7 Wonders
+    - Sushi Go!
+    - Gloomhaven
+  synonyms:
+    - simultaneous-play
+  bgg_ids: [2020]
+  bgg_names: ["Simultaneous Action Selection"]
+
+- slug: programmed-movement
+  name: Programmed Movement
+  definition: >-
+    Players pre-program a sequence of actions or movements before
+    execution, then all programs resolve in order. The core tension
+    is the gap between planning and execution — other players' programs
+    may invalidate your assumptions. Distinguished from simultaneous-
+    action-selection by the sequential, multi-step programming.
+  ancestor_slugs:
+    - simultaneous-action-selection
+  children_slugs: []
+  origin_game: RoboRally
+  origin_year: 1994
+  era: modern
+  examples:
+    - RoboRally
+    - Colt Express
+    - Space Alert
+  synonyms: []
+  bgg_ids: [2078]
+  bgg_names: ["Programmed Movement"]
+
+- slug: real-time
+  name: Real-Time
+  definition: >-
+    Players act simultaneously without taking turns, racing against
+    a clock or each other. There is no turn structure — speed of
+    decision-making and execution matters. Distinguished from
+    simultaneous-action-selection by the continuous, unstructured
+    nature of play (no discrete rounds of simultaneous choice).
+  ancestor_slugs: []
+  children_slugs:
+    - speed-matching
+    - elapsed-real-time
+  origin_game: Pit
+  origin_year: 1904
+  era: classical
+  examples:
+    - Galaxy Trucker
+    - Space Alert
+    - Captain Sonar
+  synonyms: []
+  bgg_ids: [2832]
+  bgg_names: ["Real-Time"]
+
+- slug: follow
+  name: Follow / Role Selection
+  definition: >-
+    One player selects an action or role, and other players may follow
+    (perform a weaker version of that action) or do something else.
+    The selector typically gets a bonus. The core tension is leading
+    vs. following — do you select the action you want, or follow
+    someone else's lead for a weaker benefit?
+  ancestor_slugs:
+    - action-selection
+  children_slugs: []
+  origin_game: Puerto Rico
+  origin_year: 2002
+  era: modern
+  examples:
+    - Puerto Rico
+    - Race for the Galaxy
+    - Eminent Domain
+  synonyms:
+    - role-selection
+  bgg_ids: [2854]
+  bgg_names: ["Follow"]
+
+# ============================================================================
+# CARD MECHANICS
+# ============================================================================
+
+- slug: card-drafting
+  name: Card Drafting
+  definition: >-
+    Players select cards from a shared pool — either an open display,
+    a rotating hand of cards (draft), or a market. The core mechanic
+    is evaluation under incomplete information: which card is most
+    valuable to you, and which are you willing to let opponents take?
+    Distinguished from hand-management by the shared selection pool
+    rather than playing from a private hand.
+  ancestor_slugs:
+    - hand-management
+  children_slugs:
+    - open-drafting
+    - closed-drafting
+  origin_game: Fairy Tale
+  origin_year: 2004
+  era: modern
+  examples:
+    - 7 Wonders
+    - Blood Rage
+    - Sushi Go!
+  synonyms:
+    - drafting
+  bgg_ids: [2984, 2041]
+  bgg_names: ["Open Drafting", "Card Drafting"]
+
+- slug: deck-building
+  name: Deck Building
+  definition: >-
+    Each player starts with an identical small deck and acquires new
+    cards during play that are shuffled into their personal deck.
+    The deck IS your engine — it improves as you add powerful cards
+    and (critically) remove weak ones. Distinguished from hand-management
+    by the dynamic, evolving composition of your card pool, and from
+    card-drafting by the cycling/reshuffling mechanic.
+  ancestor_slugs:
+    - hand-management
+  children_slugs:
+    - bag-building
+    - pool-building
+  origin_game: Dominion
+  origin_year: 2008
+  era: modern
+  examples:
+    - Dominion
+    - Star Realms
+    - Clank!
+  synonyms:
+    - deckbuilding
+  bgg_ids: [2664]
+  bgg_names: ["Deck, Bag, and Pool Building"]
+
+- slug: bag-building
+  name: Bag Building
+  definition: >-
+    A physical variant of deck-building where players draw tokens
+    from a bag rather than cards from a deck. Tokens are added and
+    removed over the course of the game. The bag provides the same
+    evolving-pool mechanic as a deck but with tactile, non-card
+    components. Distinguished from deck-building by the physical
+    medium (bag of tokens vs. shuffled cards).
+  ancestor_slugs:
+    - deck-building
+  children_slugs: []
+  origin_game: Orléans
+  origin_year: 2014
+  era: modern
+  examples:
+    - Orléans
+    - Quacks of Quedlinburg
+    - Altiplano
+  synonyms: []
+  bgg_ids: [2664]
+  bgg_names: ["Deck, Bag, and Pool Building"]
+
+- slug: pool-building
+  name: Pool Building
+  definition: >-
+    A generalization of deck-building where players build a pool
+    of resources (dice, tokens, cards, or other components) that
+    grows and improves over the game. The pool may not cycle through
+    a discard/reshuffle like a deck — components may persist in play.
+    Distinguished from deck-building by the broader scope of pooled
+    components and the absence of mandatory cycling.
+  ancestor_slugs:
+    - deck-building
+  children_slugs: []
+  origin_game: Quarriors!
+  origin_year: 2011
+  era: modern
+  examples:
+    - Quarriors!
+    - Dice Forge
+    - Automobiles
+  synonyms: []
+  bgg_ids: [2664]
+  bgg_names: ["Deck, Bag, and Pool Building"]
+
+- slug: tableau-building
+  name: Tableau Building
+  definition: >-
+    Players build a personal display (tableau) of cards or tiles in
+    front of them. Cards in the tableau provide ongoing effects,
+    scoring conditions, or production abilities. The tableau represents
+    your engine/infrastructure. Distinguished from hand-management
+    by the permanent, visible nature of placed cards (they stay in
+    play rather than being consumed).
+  ancestor_slugs:
+    - hand-management
+  children_slugs:
+    - engine-building
+  origin_game: San Juan
+  origin_year: 2004
+  era: modern
+  examples:
+    - Wingspan
+    - Race for the Galaxy
+    - Terraforming Mars
+  synonyms: []
+  bgg_ids: [2828]
+  bgg_names: ["Tableau Building"]
+
+- slug: multi-use-cards
+  name: Multi-Use Cards
+  definition: >-
+    Cards can be used for multiple distinct purposes — as an action,
+    for resources, as a map element, for combat value, etc. Players must
+    choose which use to apply, creating opportunity cost on every card.
+    Distinguished from hand-management by the explicit mechanical
+    duality designed into each card.
+  ancestor_slugs:
+    - hand-management
+  children_slugs: []
+  origin_game: Glory to Rome
+  origin_year: 2005
+  era: modern
+  examples:
+    - Concordia
+    - Innovation
+    - Mottainai
+  synonyms: []
+  bgg_ids: [2965]
+  bgg_names: ["Multi-Use Cards"]
+
+- slug: melding
+  name: Melding and Splaying
+  definition: >-
+    Players form groups of cards (melds) by matching suits, values,
+    or other attributes, and lay them on the table. Splaying refers
+    to fanning cards to reveal icons on partially hidden cards.
+    A traditional card game mechanic adapted into modern designs.
+  ancestor_slugs:
+    - hand-management
+    - set-collection
+  children_slugs: []
+  origin_game: Rummy
+  origin_year: 1890
+  era: traditional
+  examples:
+    - Innovation
+    - Lost Cities
+    - Rummy
+  synonyms:
+    - melding-and-splaying
+  bgg_ids: [2048]
+  bgg_names: ["Melding and Splaying"]
+
+- slug: ladder-climbing
+  name: Ladder Climbing
+  definition: >-
+    Players play cards or combinations that must beat the previous
+    play in value or rank. Play continues until all players pass,
+    then the last player to play leads the next round. The "ladder"
+    is the escalating minimum. Distinguished from trick-taking by the
+    variable-length rounds and the emphasis on shedding cards rather
+    than winning individual tricks.
+  ancestor_slugs:
+    - trick-taking
+  children_slugs: []
+  origin_game: Tichu
+  origin_year: 1991
+  era: modern
+  examples:
+    - Tichu
+    - Haggis
+    - Scout
+  synonyms:
+    - climbing
+  bgg_ids: [2850]
+  bgg_names: ["Ladder Climbing"]
+
+# ============================================================================
+# ECONOMIC / ENGINE MECHANICS
+# ============================================================================
+
+- slug: resource-management
+  name: Resource Management
+  definition: >-
+    Players collect, store, convert, and spend various resources to
+    take actions and score points. The core tension is allocation —
+    which resources to acquire, when to convert, and when to spend.
+    This is a broad, foundational mechanic present in most strategy
+    games. Distinguished from engine-building by the emphasis on
+    allocation rather than production optimization.
+  ancestor_slugs: []
+  children_slugs:
+    - engine-building
+    - market
+    - income
+    - resource-conversion
+    - closed-economy
+    - loans
+  origin_game: Monopoly
+  origin_year: 1935
+  era: classical
+  examples:
+    - Catan
+    - Agricola
+    - Terraforming Mars
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: engine-building
+  name: Engine Building
+  definition: >-
+    Players construct a personal system (the "engine") of interlocking
+    components that produces increasingly powerful outputs over time.
+    Early turns invest in infrastructure; later turns harvest the
+    compound returns. The core satisfaction is watching your engine
+    accelerate. Distinguished from resource-management by the emphasis
+    on constructing a production system rather than managing individual
+    resources.
+  ancestor_slugs:
+    - resource-management
+    - tableau-building
+  children_slugs:
+    - chaining-combos
+    - tech-tree
+  origin_game: Race for the Galaxy
+  origin_year: 2007
+  era: modern
+  examples:
+    - Terraforming Mars
+    - Wingspan
+    - Gizmos
+  synonyms:
+    - combo-building
+  bgg_ids: [2902]
+  bgg_names: ["Income"]
+
+- slug: auction
+  name: Auction / Bidding
+  definition: >-
+    Players compete for items, rights, or privileges by placing bids.
+    The highest bidder wins the item and pays their bid (or a variant).
+    Auction formats include English (ascending), Dutch (descending),
+    sealed-bid, and once-around. The core mechanic is valuation — how
+    much is this item worth to you vs. your opponents?
+  ancestor_slugs:
+    - trading-and-negotiation
+  children_slugs:
+    - auction-english
+    - auction-dutch
+    - auction-sealed-bid
+    - auction-once-around
+    - turn-order-auction
+  origin_game: Medici
+  origin_year: 1995
+  era: modern
+  examples:
+    - Ra
+    - Power Grid
+    - Modern Art
+  synonyms:
+    - bidding
+  bgg_ids: [2012]
+  bgg_names: ["Auction/Bidding"]
+
+- slug: market
+  name: Market
+  definition: >-
+    A shared economic mechanism where goods have prices that fluctuate
+    based on supply, demand, or other game-state factors. Players buy
+    and sell at market prices. Distinguished from auction by the
+    impersonal, systemic nature of pricing (the market sets prices,
+    not competing bids).
+  ancestor_slugs:
+    - resource-management
+  children_slugs:
+    - stock-holding
+  origin_game: Civilization
+  origin_year: 1980
+  era: classical
+  examples:
+    - Power Grid
+    - Istanbul
+    - Clans of Caledonia
+  synonyms: []
+  bgg_ids: [2900]
+  bgg_names: ["Market"]
+
+- slug: stock-holding
+  name: Stock Holding
+  definition: >-
+    Players buy and sell shares or stakes in companies, factions, or
+    entities whose value fluctuates during the game. Dividends, mergers,
+    and market manipulation are common. The core mechanic is speculation
+    and investment. Distinguished from market by the focus on ownership
+    stakes rather than commodity trading.
+  ancestor_slugs:
+    - market
+  children_slugs:
+    - commodity-speculation
+    - investment
+  origin_game: Acquire
+  origin_year: 1964
+  era: classical
+  examples:
+    - Acquire
+    - 18xx series
+    - Indonesian
+  synonyms: []
+  bgg_ids: [2005]
+  bgg_names: ["Stock Holding"]
+
+- slug: pick-up-and-deliver
+  name: Pick-Up and Deliver
+  definition: >-
+    Players transport goods, passengers, or resources from one location
+    to another on the game board to fulfill contracts or score points.
+    The core mechanic is route optimization — planning efficient paths
+    that pick up at source and deliver to destination. Distinguished
+    from network-building by the emphasis on traversal rather than
+    construction.
+  ancestor_slugs:
+    - area-movement
+  children_slugs: []
+  origin_game: Merchant of Venus
+  origin_year: 1988
+  era: modern
+  examples:
+    - Merchants & Marauders
+    - Xia
+    - Istanbul
+  synonyms: []
+  bgg_ids: [2007]
+  bgg_names: ["Pick-up and Deliver"]
+
+- slug: contracts
+  name: Contracts
+  definition: >-
+    Players claim objective cards (contracts) that specify required
+    deliverables (sets of resources, routes completed, etc.) and
+    provide rewards upon fulfillment. The core tension is selecting
+    contracts you can efficiently complete while blocking opponents
+    from easy ones.
+  ancestor_slugs:
+    - set-collection
+  children_slugs: []
+  origin_game: Ticket to Ride
+  origin_year: 2004
+  era: modern
+  examples:
+    - Ticket to Ride
+    - Istanbul
+    - Great Western Trail
+  synonyms:
+    - objectives
+  bgg_ids: [2893]
+  bgg_names: ["Contracts"]
+
+- slug: tech-tree
+  name: Tech Tree / Tech Track
+  definition: >-
+    Players advance along branching or linear tracks that unlock new
+    abilities, units, or actions. Earlier technologies often prerequisite
+    later ones. The core mechanic is long-term strategic planning —
+    choosing a development path and committing to it. Distinguished
+    from engine-building by the structured, often shared progression
+    path.
+  ancestor_slugs:
+    - engine-building
+  children_slugs: []
+  origin_game: Civilization
+  origin_year: 1980
+  era: classical
+  examples:
+    - Through the Ages
+    - Terra Mystica
+    - Tapestry
+  synonyms:
+    - technology-tree
+    - tech-tracks
+  bgg_ids: [2849]
+  bgg_names: ["Tech Trees / Tech Tracks"]
+
+# ============================================================================
+# SPATIAL / MOVEMENT MECHANICS
+# ============================================================================
+
+- slug: area-movement
+  name: Area Movement
+  definition: >-
+    Players move units between defined regions (areas) on a map. Areas
+    are connected by adjacency, and movement typically costs actions
+    or movement points. Distinguished from point-to-point by the
+    region-based (rather than node-based) map structure, and from
+    grid-movement by the irregular, non-uniform area shapes.
+  ancestor_slugs:
+    - area-control
+  children_slugs:
+    - pick-up-and-deliver
+    - hidden-movement
+    - point-to-point-movement
+  origin_game: Risk
+  origin_year: 1957
+  era: classical
+  examples:
+    - Risk
+    - Twilight Imperium
+    - War of the Ring
+  synonyms: []
+  bgg_ids: [2046]
+  bgg_names: ["Area Movement"]
+
+- slug: network-building
+  name: Network and Route Building
+  definition: >-
+    Players construct connections (routes, tracks, pipes) between nodes
+    on a map. The network grows over time and typically provides
+    scoring for connectivity, length, or coverage. The core mechanic
+    is spatial planning and blocking. Distinguished from area-movement
+    by the emphasis on construction of infrastructure rather than
+    traversal.
+  ancestor_slugs:
+    - tile-placement
+  children_slugs:
+    - crayon-rails
+  origin_game: Ticket to Ride
+  origin_year: 2004
+  era: modern
+  examples:
+    - Ticket to Ride
+    - Power Grid
+    - "Brass: Birmingham"
+  synonyms:
+    - route-building
+  bgg_ids: [2081]
+  bgg_names: ["Network and Route Building"]
+
+- slug: hidden-movement
+  name: Hidden Movement
+  definition: >-
+    One or more players move secretly on the map, recording their
+    position privately while other players try to deduce their location.
+    Creates asymmetric information and cat-and-mouse tension.
+    Distinguished from hidden-roles by the spatial, movement-based
+    nature of the hidden information.
+  ancestor_slugs:
+    - area-movement
+  children_slugs:
+    - fog-of-war
+  origin_game: Scotland Yard
+  origin_year: 1983
+  era: modern
+  examples:
+    - Scotland Yard
+    - Fury of Dracula
+    - Letters from Whitechapel
+  synonyms: []
+  bgg_ids: [2890]
+  bgg_names: ["Hidden Movement"]
+
+- slug: grid-movement
+  name: Grid Movement
+  definition: >-
+    Players move units on a grid of squares or hexagons. Movement is
+    measured in spaces. Grid provides uniform, calculable distances
+    and clear adjacency. Distinguished from area-movement by the
+    regular, uniform spatial structure.
+  ancestor_slugs: []
+  children_slugs:
+    - hex-and-counter
+    - line-of-sight
+  origin_game: Chess
+  origin_year: 600
+  era: ancient
+  examples:
+    - Gloomhaven
+    - "Star Wars: Imperial Assault"
+    - Onitama
+  synonyms:
+    - square-grid
+    - hexagon-grid
+  bgg_ids: [2026, 2676]
+  bgg_names: ["Hexagon Grid", "Grid Movement"]
+
+- slug: modular-board
+  name: Modular Board
+  definition: >-
+    The game board is assembled from interchangeable pieces at the start
+    of (or during) the game, creating a different map each session.
+    Increases replayability through spatial variability. Distinguished
+    from tile-placement by the setup/configuration role rather than
+    in-game placement decisions.
+  ancestor_slugs:
+    - tile-placement
+  children_slugs: []
+  origin_game: Catan
+  origin_year: 1995
+  era: modern
+  examples:
+    - Catan
+    - Eclipse
+    - Spirit Island
+  synonyms:
+    - variable-setup
+  bgg_ids: [2011]
+  bgg_names: ["Modular Board"]
+
+- slug: enclosure
+  name: Enclosure
+  definition: >-
+    Players surround or enclose areas on the board to claim them.
+    The enclosed region is scored or controlled. Combines spatial
+    reasoning with area-control concepts. Distinguished from area-control
+    by the requirement to physically surround an area rather than
+    merely having majority presence.
+  ancestor_slugs:
+    - area-control
+    - tile-placement
+  children_slugs: []
+  origin_game: Go
+  origin_year: -2000
+  era: ancient
+  examples:
+    - Go
+    - Through the Desert
+    - Blokus
+  synonyms: []
+  bgg_ids: [2043]
+  bgg_names: ["Enclosure"]
+
+# ============================================================================
+# SOCIAL / INFORMATION MECHANICS
+# ============================================================================
+
+- slug: cooperative
+  name: Cooperative Play
+  definition: >-
+    All players work together against the game system to achieve a
+    shared victory condition. If the game wins, all players lose.
+    The core mechanic is collaborative decision-making under pressure.
+    Distinguished from semi-cooperative by the absence of individual
+    win conditions or traitor roles.
+  ancestor_slugs: []
+  children_slugs:
+    - semi-cooperative
+    - solo
+    - communication-limits
+  origin_game: Lord of the Rings
+  origin_year: 2000
+  era: modern
+  examples:
+    - Pandemic
+    - Spirit Island
+    - Forbidden Desert
+  synonyms:
+    - co-op
+    - cooperative-game
+  bgg_ids: [2023]
+  bgg_names: ["Cooperative Game"]
+
+- slug: semi-cooperative
+  name: Semi-Cooperative
+  definition: >-
+    Players work together toward a shared goal but also compete for
+    individual standing. The group can lose collectively, but among
+    survivors, there is a winner. May include a traitor. Distinguished
+    from full cooperative by the competitive individual layer.
+  ancestor_slugs:
+    - cooperative
+  children_slugs:
+    - traitor
+  origin_game: Shadows over Camelot
+  origin_year: 2005
+  era: modern
+  examples:
+    - Dead of Winter
+    - Nemesis
+    - Archipelago
+  synonyms: []
+  bgg_ids: [2015]
+  bgg_names: ["Semi-Cooperative Game"]
+
+- slug: traitor
+  name: Traitor Mechanic
+  definition: >-
+    One or more players are secretly working against the group while
+    pretending to cooperate. The traitor(s) win by sabotaging the
+    group's objective without being detected. Combines cooperative
+    play with hidden-roles and social deduction.
+  ancestor_slugs:
+    - semi-cooperative
+    - hidden-roles
+  children_slugs: []
+  origin_game: Shadows over Camelot
+  origin_year: 2005
+  era: modern
+  examples:
+    - Battlestar Galactica
+    - Dead of Winter
+    - Shadows over Camelot
+  synonyms:
+    - traitor-game
+  bgg_ids: [2834]
+  bgg_names: ["Traitor Game"]
+
+- slug: hidden-roles
+  name: Hidden Roles / Social Deduction
+  definition: >-
+    Each player is secretly assigned a role or team allegiance at the
+    start of the game. Players must deduce who is on which team through
+    behavior, voting patterns, and communication. The core mechanic
+    is reading people. Distinguished from hidden-movement by the
+    social/behavioral nature of the hidden information rather than
+    spatial.
+  ancestor_slugs: []
+  children_slugs:
+    - traitor
+  origin_game: Mafia
+  origin_year: 1986
+  era: modern
+  examples:
+    - The Resistance
+    - Secret Hitler
+    - Werewolf
+  synonyms:
+    - social-deduction
+  bgg_ids: [2028]
+  bgg_names: ["Hidden Roles"]
+
+- slug: bluffing
+  name: Bluffing
+  definition: >-
+    Players make claims or take actions that may be truthful or
+    deceptive, and opponents must decide whether to believe or
+    challenge them. The core mechanic is credibility management —
+    establishing a pattern of truth to make lies believable.
+    Distinguished from hidden-roles by the active, voluntary nature
+    of deception rather than assigned secret identities.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Poker
+  origin_year: 1829
+  era: traditional
+  examples:
+    - Coup
+    - Sheriff of Nottingham
+    - Skull
+  synonyms: []
+  bgg_ids: [2014]
+  bgg_names: ["Betting and Bluffing"]
+
+- slug: deduction
+  name: Deduction
+  definition: >-
+    Players use logic, elimination, and evidence to determine hidden
+    information (a culprit, location, code, etc.). The core mechanic
+    is structured reasoning from partial information. Distinguished
+    from social-deduction/hidden-roles by the logical (rather than
+    behavioral) nature of the deduction.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Clue
+  origin_year: 1949
+  era: classical
+  examples:
+    - Clue
+    - Cryptid
+    - Chronicles of Crime
+  synonyms:
+    - logic
+  bgg_ids: [2079]
+  bgg_names: ["Deduction"]
+
+- slug: communication-limits
+  name: Communication Limits
+  definition: >-
+    Players in a cooperative game face restrictions on what information
+    they can share with teammates. May not show cards, may not discuss
+    specific values, or may only communicate through structured
+    mechanisms. Creates tension between cooperation and information
+    asymmetry.
+  ancestor_slugs:
+    - cooperative
+  children_slugs: []
+  origin_game: Hanabi
+  origin_year: 2010
+  era: modern
+  examples:
+    - Hanabi
+    - The Crew
+    - Magic Maze
+  synonyms:
+    - limited-communication
+  bgg_ids: [2893]
+  bgg_names: ["Communication Limits"]
+
+- slug: voting
+  name: Voting
+  definition: >-
+    Players collectively decide outcomes through a voting mechanism.
+    Votes may be public or secret, equal or weighted. The core mechanic
+    is political — building coalitions, persuading others, and timing
+    proposals. Distinguished from negotiation by the formal, structured
+    decision mechanism.
+  ancestor_slugs:
+    - trading-and-negotiation
+  children_slugs: []
+  origin_game: Junta
+  origin_year: 1978
+  era: classical
+  examples:
+    - Junta
+    - Twilight Imperium
+    - Blood on the Clocktower
+  synonyms: []
+  bgg_ids: [2019]
+  bgg_names: ["Voting"]
+
+# ============================================================================
+# PUSH YOUR LUCK / RISK MANAGEMENT
+# ============================================================================
+
+- slug: push-your-luck
+  name: Push Your Luck
+  definition: >-
+    Players repeatedly choose between banking current gains or risking
+    them for greater rewards, with escalating probability of total loss.
+    The core tension is greed vs. prudence. Distinguished from
+    dice-rolling by the voluntary stop/continue decision after each
+    roll or draw.
+  ancestor_slugs:
+    - dice-rolling
+  children_slugs: []
+  origin_game: Can't Stop
+  origin_year: 1980
+  era: classical
+  examples:
+    - Quacks of Quedlinburg
+    - Clank!
+    - Celestia
+  synonyms: []
+  bgg_ids: [2661]
+  bgg_names: ["Push Your Luck"]
+
+- slug: roll-and-write
+  name: Roll and Write
+  definition: >-
+    Players roll dice (or flip cards) and all players simultaneously
+    record/mark results on personal score sheets. The core mechanic
+    is optimization — using shared random input to make locally
+    optimal marking decisions. Evolved from dice-rolling by adding
+    permanent recording. "Flip and write" is a card-based variant.
+  ancestor_slugs:
+    - dice-rolling
+    - simultaneous-action-selection
+  children_slugs: []
+  origin_game: Yahtzee
+  origin_year: 1956
+  era: classical
+  examples:
+    - Welcome To...
+    - Ganz Schön Clever
+    - Railroad Ink
+  synonyms:
+    - flip-and-write
+  bgg_ids: []
+  bgg_names: []
+
+- slug: re-rolling-and-locking
+  name: Re-Rolling and Locking
+  definition: >-
+    After an initial dice roll, players may choose to re-roll some dice
+    while locking others in place. Multiple re-rolls may be allowed.
+    The core mechanic is selective risk — which dice to keep and which
+    to gamble on improving. Distinguished from push-your-luck by the
+    granular, per-die decision rather than all-or-nothing.
+  ancestor_slugs:
+    - dice-rolling
+  children_slugs: []
+  origin_game: Yahtzee
+  origin_year: 1956
+  era: classical
+  examples:
+    - King of Tokyo
+    - Sagrada
+    - Yahtzee
+  synonyms: []
+  bgg_ids: [2856]
+  bgg_names: ["Re-rolling and Locking"]
+
+# ============================================================================
+# SPATIAL PATTERN / PUZZLE MECHANICS
+# ============================================================================
+
+- slug: pattern-building
+  name: Pattern Building
+  definition: >-
+    Players arrange components into specific spatial patterns to score
+    points. The pattern requirements may be prescribed (objective cards)
+    or emergent (adjacency bonuses). Distinguished from set-collection
+    by the spatial arrangement requirement — it's not just WHAT you
+    collect but WHERE you place it.
+  ancestor_slugs:
+    - set-collection
+    - tile-placement
+  children_slugs: []
+  origin_game: Azul
+  origin_year: 2017
+  era: modern
+  examples:
+    - Azul
+    - Sagrada
+    - Patchwork
+  synonyms:
+    - pattern-recognition
+  bgg_ids: [2048]
+  bgg_names: ["Pattern Building"]
+
+- slug: end-game-bonuses
+  name: End Game Bonuses
+  definition: >-
+    Players score additional points at game end based on specific
+    conditions they've met (set bonuses, area majorities, personal
+    objectives). Often hidden or variable. The core mechanic is
+    long-term planning toward scoring conditions that aren't
+    immediately visible in the point total.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Agricola
+  origin_year: 2007
+  era: modern
+  examples:
+    - Wingspan
+    - Terraforming Mars
+    - Castles of Burgundy
+  synonyms: []
+  bgg_ids: [2875]
+  bgg_names: ["End Game Bonuses"]
+
+# ============================================================================
+# VARIABLE / ASYMMETRIC MECHANICS
+# ============================================================================
+
+- slug: variable-player-powers
+  name: Variable Player Powers
+  definition: >-
+    Each player has unique abilities, starting resources, or rules
+    that differ from other players. Asymmetry creates different
+    strategic paths and forces players to adapt to their specific
+    powers. Distinguished from hidden-roles by the public, known
+    nature of the asymmetry.
+  ancestor_slugs: []
+  children_slugs:
+    - once-per-game-abilities
+  origin_game: Cosmic Encounter
+  origin_year: 1977
+  era: classical
+  examples:
+    - Spirit Island
+    - Root
+    - Cosmic Encounter
+  synonyms:
+    - asymmetric-powers
+    - variable-powers
+  bgg_ids: [2015]
+  bgg_names: ["Variable Player Powers"]
+
+- slug: take-that
+  name: Take That
+  definition: >-
+    Players directly attack, hinder, or steal from specific opponents
+    through targeted aggressive actions. The core mechanic is direct
+    conflict aimed at a chosen player. Distinguished from area-control
+    (indirect competition for space) by the deliberate, personal
+    targeting of an opponent.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Munchkin
+  origin_year: 2001
+  era: modern
+  examples:
+    - Munchkin
+    - Exploding Kittens
+    - Unstable Unicorns
+  synonyms: []
+  bgg_ids: [2686]
+  bgg_names: ["Take That"]
+
+- slug: solo
+  name: Solo / Solitaire Mode
+  definition: >-
+    A game mode designed for a single player, either as the primary
+    mode or as a variant of a multiplayer game. The player competes
+    against an automated opponent (automa), a scoring threshold, or
+    the game system itself. Distinguished from cooperative by the
+    single-player nature.
+  ancestor_slugs:
+    - cooperative
+  children_slugs: []
+  origin_game: Friday
+  origin_year: 2011
+  era: modern
+  examples:
+    - Spirit Island
+    - Mage Knight
+    - Marvel Champions
+  synonyms:
+    - solitaire
+  bgg_ids: [2814]
+  bgg_names: ["Solo / Solitaire Game"]
+
+# ============================================================================
+# DEXTERITY / PHYSICAL MECHANICS
+# ============================================================================
+
+- slug: dexterity
+  name: Dexterity
+  definition: >-
+    Players use physical skill (flicking, stacking, balancing, tossing)
+    to determine outcomes. The core mechanic is manual precision rather
+    than strategic decision-making. Distinguished from all other
+    mechanic families by the physical skill component.
+  ancestor_slugs: []
+  children_slugs:
+    - flicking
+    - stacking
+  origin_game: Crokinole
+  origin_year: 1876
+  era: traditional
+  examples:
+    - Crokinole
+    - Junk Art
+    - Flick 'em Up
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: flicking
+  name: Flicking
+  definition: >-
+    Players flick discs or tokens with their fingers to move them
+    across a playing surface. Accuracy and force control determine
+    outcomes. A specific type of dexterity mechanic.
+  ancestor_slugs:
+    - dexterity
+  children_slugs: []
+  origin_game: Crokinole
+  origin_year: 1876
+  era: traditional
+  examples:
+    - Crokinole
+    - Ice Cool
+    - Flick 'em Up
+  synonyms: []
+  bgg_ids: [2857]
+  bgg_names: ["Flicking"]
+
+# ============================================================================
+# META / CAMPAIGN MECHANICS
+# ============================================================================
+
+- slug: legacy
+  name: Legacy
+  definition: >-
+    The game permanently changes between sessions — components are
+    destroyed, stickers are applied, new rules are revealed, and
+    decisions carry forward irreversibly. Each campaign is unique
+    and unrepeatable. Distinguished from campaign by the permanent,
+    physical modification of game components.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Risk Legacy
+  origin_year: 2011
+  era: modern
+  examples:
+    - Pandemic Legacy
+    - Gloomhaven
+    - Charterstone
+  synonyms:
+    - legacy-game
+  bgg_ids: [2824]
+  bgg_names: ["Legacy Game"]
+
+- slug: campaign
+  name: Campaign / Scenario
+  definition: >-
+    A series of connected games (scenarios) played in sequence, with
+    narrative continuity and mechanical progression between sessions.
+    Characters may level up, the story branches, and earlier outcomes
+    affect later scenarios. Distinguished from legacy by the
+    non-destructive nature — the game can typically be reset and
+    replayed.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: HeroQuest
+  origin_year: 1989
+  era: modern
+  examples:
+    - Gloomhaven
+    - Descent
+    - Sleeping Gods
+  synonyms:
+    - scenario-based
+    - mission-based
+  bgg_ids: [2824]
+  bgg_names: ["Scenario / Mission / Campaign Game"]
+
+- slug: narrative-choice
+  name: Narrative Choice
+  definition: >-
+    Players make story-driven decisions that branch the narrative in
+    different directions. Choices affect which content is encountered,
+    how the story unfolds, and often the game's outcome. The core
+    mechanic is storytelling through player agency. Distinguished from
+    campaign by the emphasis on branching narrative rather than
+    mechanical progression.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Tales of the Arabian Nights
+  origin_year: 1985
+  era: modern
+  examples:
+    - Sleeping Gods
+    - Above and Below
+    - This War of Mine
+  synonyms:
+    - paragraph
+    - storytelling
+    - branching-narrative
+  bgg_ids: [2884]
+  bgg_names: ["Narrative Choice / Paragraph"]
+
+# ============================================================================
+# MISCELLANEOUS / CROSS-CUTTING MECHANICS
+# ============================================================================
+
+- slug: i-cut-you-choose
+  name: I Cut, You Choose
+  definition: >-
+    One player divides a resource (cards, territory, points) into
+    portions, and another player chooses which portion to take. The
+    divider is incentivized to make fair divisions because the chooser
+    picks first. An elegant fairness mechanism.
+  ancestor_slugs:
+    - trading-and-negotiation
+  children_slugs: []
+  origin_game: Divide and Conquer
+  origin_year: 1980
+  era: classical
+  examples:
+    - New York Slice
+    - San Marco
+    - Hanamikoji
+  synonyms:
+    - divide-and-choose
+  bgg_ids: [2866]
+  bgg_names: ["I Cut, You Choose"]
+
+- slug: player-elimination
+  name: Player Elimination
+  definition: >-
+    Players can be permanently removed from the game before it ends.
+    Eliminated players sit out while others continue. Generally
+    considered a negative mechanic in modern design because eliminated
+    players have nothing to do. Included for completeness and
+    historical context.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Risk
+  origin_year: 1957
+  era: classical
+  examples:
+    - Risk
+    - Bang!
+    - King of Tokyo
+  synonyms: []
+  bgg_ids: [2685]
+  bgg_names: ["Player Elimination"]
+
+- slug: income
+  name: Income / Automatic Resource Growth
+  definition: >-
+    Players receive resources automatically at regular intervals
+    (start of turn, start of round) based on their current position,
+    infrastructure, or game state. The amount typically grows as
+    players develop their engine. Distinguished from resource-management
+    by the automatic, passive nature of the acquisition.
+  ancestor_slugs:
+    - resource-management
+  children_slugs: []
+  origin_game: Monopoly
+  origin_year: 1935
+  era: classical
+  examples:
+    - Terraforming Mars
+    - "Brass: Birmingham"
+    - Scythe
+  synonyms:
+    - automatic-resource-growth
+  bgg_ids: [2902]
+  bgg_names: ["Income"]
+
+- slug: once-per-game-abilities
+  name: Once-Per-Game Abilities
+  definition: >-
+    Players have powerful abilities that can only be used once during
+    the entire game. The core tension is timing — using it too early
+    wastes its potential, but waiting too long risks never using it.
+    Creates memorable, dramatic moments.
+  ancestor_slugs:
+    - variable-player-powers
+  children_slugs: []
+  origin_game: Cosmic Encounter
+  origin_year: 1977
+  era: classical
+  examples:
+    - Twilight Imperium
+    - Root
+    - Cosmic Encounter
+  synonyms: []
+  bgg_ids: [2904]
+  bgg_names: ["Once-Per-Game Abilities"]
+
+# ============================================================================
+# AUCTION SUBTYPES — Children of auction
+# ============================================================================
+
+- slug: auction-english
+  name: English Auction
+  definition: >-
+    An ascending-bid auction where players take turns raising the bid.
+    The last bidder standing wins the item at their bid price. Creates
+    escalating tension as players decide when to drop out. The most
+    intuitive auction format, familiar from real-world auctions.
+  ancestor_slugs:
+    - auction
+  children_slugs: []
+  origin_game: Ra
+  origin_year: 1999
+  era: modern
+  examples:
+    - Ra
+    - Cyclades
+    - Power Grid
+  synonyms:
+    - ascending-auction
+    - open-ascending
+  bgg_ids: []
+  bgg_names: []
+
+- slug: auction-dutch
+  name: Dutch Auction
+  definition: >-
+    A descending-price auction where the price starts high and drops
+    until a player claims the item. The tension is reversed from English
+    auctions — wait longer for a better price, but risk someone else
+    grabbing it first. Named after Dutch flower auctions.
+  ancestor_slugs:
+    - auction
+  children_slugs: []
+  origin_game: Modern Art
+  origin_year: 1992
+  era: modern
+  examples:
+    - Modern Art
+    - Masters of Venice
+    - Medici
+  synonyms:
+    - descending-auction
+  bgg_ids: []
+  bgg_names: []
+
+- slug: auction-sealed-bid
+  name: Sealed Bid
+  definition: >-
+    All players simultaneously and secretly submit a single bid, then
+    reveal. Highest bid wins. Eliminates the iterative back-and-forth
+    of open auctions and forces players to evaluate in isolation.
+    Creates bluffing opportunities since you cannot react to others' bids.
+  ancestor_slugs:
+    - auction
+  children_slugs: []
+  origin_game: El Grande
+  origin_year: 1995
+  era: modern
+  examples:
+    - El Grande
+    - Modern Art
+    - Cyclades
+  synonyms:
+    - closed-bid
+    - hidden-bid
+  bgg_ids: []
+  bgg_names: []
+
+- slug: auction-once-around
+  name: Once Around Auction
+  definition: >-
+    Each player gets exactly one opportunity to bid (or pass) in turn
+    order. No second chances — you bid once and live with it. Faster
+    than English auctions and creates sharp decisions about bid sizing.
+  ancestor_slugs:
+    - auction
+  children_slugs: []
+  origin_game: Power Grid
+  origin_year: 2004
+  era: modern
+  examples:
+    - Power Grid
+    - Ra
+    - Amun-Re
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: turn-order-auction
+  name: Turn Order Auction
+  definition: >-
+    Players bid specifically for position in the turn order. Earlier
+    positions provide strategic advantage (first pick, first placement)
+    but cost more. Creates an explicit market for initiative. Common in
+    economic games where turn order significantly impacts outcomes.
+  ancestor_slugs:
+    - auction
+  children_slugs: []
+  origin_game: Age of Steam
+  origin_year: 2002
+  era: modern
+  examples:
+    - Age of Steam
+    - Keyflower
+    - Hansa Teutonica
+  synonyms:
+    - bid-for-turn-order
+  bgg_ids: [2843]
+  bgg_names: ["Turn Order: Auction"]
+
+# ============================================================================
+# MOVEMENT / SPATIAL SUBTYPES
+# ============================================================================
+
+- slug: point-to-point-movement
+  name: Point-to-Point Movement
+  definition: >-
+    Players move between discrete locations (nodes) connected by
+    defined routes or paths. Unlike area movement where regions are
+    adjacent zones, point-to-point uses an explicit graph of connections.
+    Movement is typically along specific routes with defined costs.
+  ancestor_slugs:
+    - area-movement
+  children_slugs: []
+  origin_game: Diplomacy
+  origin_year: 1959
+  era: classical
+  examples:
+    - War of the Ring
+    - Eldritch Horror
+    - Fury of Dracula
+  synonyms: []
+  bgg_ids: [2078]
+  bgg_names: ["Point to Point Movement"]
+
+- slug: crayon-rails
+  name: Crayon Rails
+  definition: >-
+    Players physically draw routes on the game board using crayons or
+    markers, creating permanent (for that game) connections between
+    cities. Uniquely tactile — your network is literally drawn by hand.
+    Typically combined with pick-up-and-deliver economics.
+  ancestor_slugs:
+    - network-building
+  children_slugs: []
+  origin_game: Empire Builder
+  origin_year: 1982
+  era: modern
+  examples:
+    - Empire Builder
+    - Lunar Rails
+    - Iron Dragon
+  synonyms: []
+  bgg_ids: [2870]
+  bgg_names: ["Crayon Rail System"]
+
+- slug: measurement-movement
+  name: Measurement Movement
+  definition: >-
+    Players measure movement distance using a physical ruler, tape
+    measure, or range tool rather than counting spaces on a grid.
+    Dominant in miniature wargaming. Adds spatial precision but also
+    physical skill in positioning and measuring.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Little Wars
+  origin_year: 1913
+  era: classical
+  examples:
+    - Warhammer 40,000
+    - "Star Wars: X-Wing"
+    - Bolt Action
+  synonyms:
+    - ruler-movement
+  bgg_ids: [2857]
+  bgg_names: ["Measurement Movement"]
+
+- slug: mancala
+  name: Mancala / Sowing
+  definition: >-
+    Players pick up all pieces from a pit or space and distribute them
+    one at a time into consecutive spaces in a defined direction
+    (sowing). The mechanic creates cascading, hard-to-predict outcomes
+    as the distribution pattern depends on current board state. One of
+    the oldest known game mechanics.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Mancala
+  origin_year: -600
+  era: ancient
+  examples:
+    - Trajan
+    - Five Tribes
+    - Mancala
+  synonyms:
+    - sowing
+    - seed-sowing
+  bgg_ids: [2955]
+  bgg_names: ["Mancala"]
+
+- slug: map-exploration
+  name: Map Exploration
+  definition: >-
+    The play area is not fully revealed at game start. Players discover
+    new map tiles, cards, or areas during play through exploration
+    actions. Creates genuine discovery and replayability since the map
+    differs each game. Distinguished from modular-board by the
+    progressive, mid-game revelation.
+  ancestor_slugs:
+    - tile-placement
+  children_slugs: []
+  origin_game: "Betrayal at House on the Hill"
+  origin_year: 2004
+  era: modern
+  examples:
+    - "Betrayal at House on the Hill"
+    - Sub Terra
+    - Vast
+  synonyms:
+    - exploration
+    - tile-exploration
+  bgg_ids: []
+  bgg_names: []
+
+- slug: track-movement
+  name: Track Movement
+  definition: >-
+    Players move tokens along a single linear or looping track. Movement
+    is typically determined by dice or card play. The track may represent
+    a race course, score track, or progression path. Simple and
+    intuitive — the most basic form of spatial movement.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: The Royal Game of Ur
+  origin_year: -2600
+  era: ancient
+  examples:
+    - Snakes and Ladders
+    - Trivial Pursuit
+    - Patchwork
+  synonyms:
+    - race-track
+    - linear-movement
+  bgg_ids: [2939]
+  bgg_names: ["Track Movement"]
+
+# ============================================================================
+# CARD SUBTYPES
+# ============================================================================
+
+- slug: open-drafting
+  name: Open Drafting
+  definition: >-
+    Players select cards (or tiles) from a face-up, visible market or
+    display. Everyone can see what is available and what opponents take.
+    Distinguished from closed-drafting by the full visibility of options
+    and from general card-drafting by the specific market/display
+    mechanism.
+  ancestor_slugs:
+    - card-drafting
+  children_slugs: []
+  origin_game: Ticket to Ride
+  origin_year: 2004
+  era: modern
+  examples:
+    - Ticket to Ride
+    - "Century: Spice Road"
+    - Splendor
+  synonyms: []
+  bgg_ids: [2984]
+  bgg_names: ["Open Drafting"]
+
+- slug: closed-drafting
+  name: Closed Drafting
+  definition: >-
+    Each player receives a hand of cards, selects one to keep, then
+    passes the remaining cards to an adjacent player. This pass-and-pick
+    continues until all cards are drafted. Creates tension between
+    taking what you want and denying opponents what they need.
+  ancestor_slugs:
+    - card-drafting
+  children_slugs: []
+  origin_game: Fairy Tale
+  origin_year: 2004
+  era: modern
+  examples:
+    - 7 Wonders
+    - Sushi Go!
+    - Blood Rage
+  synonyms:
+    - booster-draft
+    - pass-and-draft
+  bgg_ids: [2041]
+  bgg_names: ["Card Drafting"]
+
+- slug: card-driven
+  name: Card-Driven Game
+  definition: >-
+    Cards serve as the primary action mechanism, typically representing
+    historical events with specific effects AND generic operational
+    value. Players face a constant dilemma: use a card for its event
+    text or for its operational points. Revolutionized wargame and
+    political simulation design.
+  ancestor_slugs:
+    - hand-management
+  children_slugs:
+    - command-cards
+  origin_game: We the People
+  origin_year: 1994
+  era: modern
+  examples:
+    - Twilight Struggle
+    - Paths of Glory
+    - Labyrinth
+  synonyms:
+    - cdg
+    - card-driven-game
+  bgg_ids: [2018]
+  bgg_names: ["Campaign / Battle Card Driven"]
+
+- slug: command-cards
+  name: Command Cards
+  definition: >-
+    Cards dictate which units or sections of the board a player may
+    activate on their turn. Creates fog of war and force limitations —
+    you may want to attack the left flank but lack the cards to order
+    those units. Evolved from card-driven games into a simpler,
+    more tactical format.
+  ancestor_slugs:
+    - card-driven
+  children_slugs: []
+  origin_game: Battle Cry
+  origin_year: 2000
+  era: modern
+  examples:
+    - "Memoir '44"
+    - BattleLore
+    - "Commands & Colors"
+  synonyms: []
+  bgg_ids: [2851]
+  bgg_names: ["Command Cards"]
+
+- slug: deck-construction
+  name: Deck Construction
+  definition: >-
+    Players build a custom deck BEFORE the game begins, selecting cards
+    from a larger pool according to construction rules (deck size, card
+    limits, faction restrictions). The pre-game construction IS a core
+    strategic layer. Distinguished from deck-building which constructs
+    the deck DURING play.
+  ancestor_slugs:
+    - hand-management
+  children_slugs: []
+  origin_game: "Magic: The Gathering"
+  origin_year: 1993
+  era: modern
+  examples:
+    - "Magic: The Gathering"
+    - "Arkham Horror: The Card Game"
+    - Marvel Champions
+  synonyms:
+    - constructed-deck
+    - deckbuilding-pregame
+  bgg_ids: [2865]
+  bgg_names: ["Deck Construction"]
+
+# ============================================================================
+# COMBAT / CONFLICT
+# ============================================================================
+
+- slug: dice-combat
+  name: Dice-Based Combat
+  definition: >-
+    Conflicts between players are resolved by rolling dice, with results
+    determining hits, casualties, or outcomes. May involve modifiers from
+    terrain, unit types, or technology. The randomness creates dramatic
+    swings but can be mitigated by numbers advantage or positioning.
+  ancestor_slugs:
+    - dice-rolling
+  children_slugs:
+    - combat-results-table
+  origin_game: Risk
+  origin_year: 1957
+  era: classical
+  examples:
+    - Risk
+    - "Axis & Allies"
+    - Eclipse
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: card-combat
+  name: Card-Based Combat
+  definition: >-
+    Conflicts are resolved through card play rather than dice. Players
+    simultaneously or sequentially play cards from hand to determine
+    combat strength, special abilities, or combat modifiers. Replaces
+    randomness with hand management and bluffing.
+  ancestor_slugs:
+    - hand-management
+  children_slugs: []
+  origin_game: Dune
+  origin_year: 1979
+  era: modern
+  examples:
+    - Dune
+    - Kemet
+    - Inis
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: combat-results-table
+  name: Combat Results Table
+  definition: >-
+    Combat outcomes are determined by cross-referencing attacker/defender
+    strength ratios with a die roll on a standardized table. The CRT
+    produces results like "Defender Eliminated," "Exchange," or
+    "Attacker Retreat." Foundational to hex-and-counter wargaming.
+  ancestor_slugs:
+    - dice-combat
+  children_slugs: []
+  origin_game: Tactics
+  origin_year: 1954
+  era: classical
+  examples:
+    - Advanced Squad Leader
+    - PanzerBlitz
+    - "Paths of Glory"
+  synonyms:
+    - crt
+  bgg_ids: []
+  bgg_names: []
+
+- slug: tug-of-war
+  name: Tug of War
+  definition: >-
+    A shared marker or track moves bidirectionally between opposing
+    goals. One player's progress is the other's retreat. Creates a
+    zero-sum tension where every action both advances your position
+    and pushes back your opponent. Common in two-player conflict games.
+  ancestor_slugs:
+    - area-control
+  children_slugs: []
+  origin_game: Twilight Struggle
+  origin_year: 2005
+  era: modern
+  examples:
+    - Twilight Struggle
+    - Watergate
+    - "13 Days"
+  synonyms:
+    - influence-track
+  bgg_ids: [2960]
+  bgg_names: ["Tug of War"]
+
+# ============================================================================
+# SOCIAL / PERFORMANCE
+# ============================================================================
+
+- slug: alliances
+  name: Alliances
+  definition: >-
+    Players can form temporary or formal partnerships within a
+    competitive game. Allied players cooperate against common threats
+    while knowing the alliance will eventually dissolve. Creates a layer
+    of diplomacy, trust, and betrayal above the base mechanics.
+    Distinguished from cooperative by being optional and temporary.
+  ancestor_slugs:
+    - trading-and-negotiation
+  children_slugs: []
+  origin_game: Diplomacy
+  origin_year: 1959
+  era: classical
+  examples:
+    - Diplomacy
+    - Cosmic Encounter
+    - Dune
+  synonyms:
+    - temporary-alliances
+    - diplomacy
+  bgg_ids: []
+  bgg_names: []
+
+- slug: storytelling
+  name: Storytelling
+  definition: >-
+    Players collaboratively or competitively create narratives during
+    play. The story IS the game — players contribute story elements,
+    guide plot direction, or judge narrative quality. Distinguished from
+    narrative-choice by the open-ended creative generation rather than
+    selecting from predetermined options.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Once Upon a Time
+  origin_year: 1993
+  era: modern
+  examples:
+    - Once Upon a Time
+    - Dixit
+    - Mysterium
+  synonyms: []
+  bgg_ids: [2027]
+  bgg_names: ["Storytelling"]
+
+- slug: acting-performance
+  name: Acting / Performance
+  definition: >-
+    Players physically act out, mime, describe, or draw concepts for
+    teammates to guess. The core skill is communication under constraint
+    (no certain words, no talking, only gestures). Party game staple
+    that relies on social and creative skills rather than strategic
+    thinking.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Charades
+  origin_year: 1800
+  era: traditional
+  examples:
+    - Charades
+    - Codenames
+    - Monikers
+  synonyms:
+    - performance
+  bgg_ids: [2073]
+  bgg_names: ["Acting"]
+
+# ============================================================================
+# ECONOMIC SUBTYPES
+# ============================================================================
+
+- slug: commodity-speculation
+  name: Commodity Speculation
+  definition: >-
+    Players buy and sell commodities whose prices fluctuate based on
+    supply, demand, and market events. Profit comes from buying low
+    and selling high, or cornering a market. Distinguished from
+    stock-holding by trading fungible goods rather than ownership stakes.
+  ancestor_slugs:
+    - stock-holding
+  children_slugs: []
+  origin_game: Pit
+  origin_year: 1904
+  era: classical
+  examples:
+    - Stockpile
+    - Chinatown
+    - Pit
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: closed-economy
+  name: Closed Economy
+  definition: >-
+    The total money supply in the game is fixed — money paid by players
+    goes to other players or the bank, and money received comes from
+    the same pool. No new money is created. Creates scarcity tension and
+    makes every transaction a true resource transfer.
+  ancestor_slugs:
+    - resource-management
+  children_slugs: []
+  origin_game: Container
+  origin_year: 2007
+  era: modern
+  examples:
+    - Container
+    - Food Chain Magnate
+    - "Brass: Birmingham"
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+- slug: loans
+  name: Loans
+  definition: >-
+    Players can borrow money or resources from the game system, gaining
+    immediate liquidity at the cost of future repayment with interest
+    or penalties. Creates tension between short-term investment and
+    long-term debt burden. Distinguished from income by the explicit
+    debt obligation.
+  ancestor_slugs:
+    - resource-management
+  children_slugs: []
+  origin_game: Brass
+  origin_year: 2007
+  era: modern
+  examples:
+    - "Brass: Birmingham"
+    - Arkwright
+    - Age of Steam
+  synonyms: []
+  bgg_ids: [2892]
+  bgg_names: ["Loans"]
+
+- slug: resource-conversion
+  name: Resource Conversion
+  definition: >-
+    Players transform one type of resource into another through defined
+    conversion actions or recipes. The conversion chain — turning raw
+    materials into refined goods into victory points — forms the core
+    strategic puzzle. Distinguished from trading by converting through
+    game actions rather than player negotiation.
+  ancestor_slugs:
+    - resource-management
+  children_slugs: []
+  origin_game: Le Havre
+  origin_year: 2008
+  era: modern
+  examples:
+    - "Century: Spice Road"
+    - Le Havre
+    - Ora et Labora
+  synonyms:
+    - production-chain
+    - conversion-chain
+  bgg_ids: []
+  bgg_names: []
+
+- slug: investment
+  name: Investment
+  definition: >-
+    Players commit resources to ventures with uncertain or delayed
+    returns. The payoff depends on future game state, other players'
+    actions, or random events. Creates risk-reward decisions distinct
+    from direct resource spending. Distinguished from loans by the
+    uncertain return rather than guaranteed debt.
+  ancestor_slugs:
+    - stock-holding
+  children_slugs: []
+  origin_game: Acquire
+  origin_year: 1964
+  era: classical
+  examples:
+    - Acquire
+    - Stockpile
+    - Ponzi Scheme
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+# ============================================================================
+# TURN / ACTION STRUCTURE
+# ============================================================================
+
+- slug: variable-phase-order
+  name: Variable Phase Order
+  definition: >-
+    Players choose which phase or role will be active each round. All
+    players may participate in the chosen phase, but the chooser gets
+    a bonus. Gives the selecting player partial control over game
+    tempo and creates interaction through phase selection. Pioneered by
+    Puerto Rico's role selection mechanism.
+  ancestor_slugs:
+    - action-selection
+  children_slugs: []
+  origin_game: Puerto Rico
+  origin_year: 2002
+  era: modern
+  examples:
+    - Puerto Rico
+    - Race for the Galaxy
+    - San Juan
+  synonyms:
+    - role-selection
+    - phase-selection
+  bgg_ids: []
+  bgg_names: []
+
+- slug: chaining-combos
+  name: Chaining / Combos
+  definition: >-
+    Playing one card or taking one action triggers a cascade of
+    additional effects, each potentially triggering further effects.
+    Building an engine that produces long combo chains is the core
+    satisfaction. Distinguished from engine-building by the focus on
+    the chain execution itself rather than the construction of the
+    production system.
+  ancestor_slugs:
+    - engine-building
+  children_slugs: []
+  origin_game: Dominion
+  origin_year: 2008
+  era: modern
+  examples:
+    - Dominion
+    - Wingspan
+    - Marvel Champions
+  synonyms:
+    - combos
+    - chain-reactions
+  bgg_ids: []
+  bgg_names: []
+
+- slug: action-retrieval
+  name: Action Retrieval
+  definition: >-
+    Players must spend actions or turns to recover their previously
+    placed workers, tokens, or action markers before they can be
+    redeployed. Creates a tempo cost — you cannot keep placing
+    indefinitely without pausing to retrieve. Adds a planning dimension
+    to worker placement.
+  ancestor_slugs:
+    - worker-placement
+  children_slugs: []
+  origin_game: "Tzolk'in"
+  origin_year: 2012
+  era: modern
+  examples:
+    - "Tzolk'in"
+    - Viticulture
+    - "Raiders of the North Sea"
+  synonyms:
+    - worker-retrieval
+  bgg_ids: [2839]
+  bgg_names: ["Action Retrieval"]
+
+- slug: chit-pull
+  name: Chit-Pull Activation
+  definition: >-
+    Chits (tokens) representing units, factions, or actions are drawn
+    randomly from a container to determine activation order. Creates
+    uncertainty about when (or whether) your forces will activate.
+    Simulates fog of war and command friction. Dominant in wargaming
+    but appearing in modern designs.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Storm over Arnhem
+  origin_year: 1981
+  era: modern
+  examples:
+    - Undaunted
+    - Thunder Alley
+    - The Dark Valley
+  synonyms:
+    - activation-draw
+    - random-activation
+  bgg_ids: [2887]
+  bgg_names: ["Chit-Pull System"]
+
+- slug: force-commitment
+  name: Force Commitment
+  definition: >-
+    Players must commit forces, resources, or actions to conflicts or
+    areas before the outcome or opponent's commitment is revealed.
+    Simultaneous commitment creates bluffing, over/under-commitment
+    dilemmas, and risk of wasted resources on uncontested areas.
+  ancestor_slugs: []
+  children_slugs:
+    - order-counters
+  origin_game: Dune
+  origin_year: 1979
+  era: modern
+  examples:
+    - Dune
+    - Shogun
+    - "A Game of Thrones: The Board Game"
+  synonyms:
+    - simultaneous-commitment
+  bgg_ids: []
+  bgg_names: []
+
+# ============================================================================
+# SCORING / VICTORY CONDITIONS
+# ============================================================================
+
+- slug: race-to-finish
+  name: Race
+  definition: >-
+    The game ends immediately when a player achieves a specific
+    condition — reaching a point threshold, completing objectives, or
+    crossing a finish line. There is no fixed round count. Creates
+    urgency and allows players to control game length through their
+    strategic choices.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: The Royal Game of Ur
+  origin_year: -2600
+  era: ancient
+  examples:
+    - Ticket to Ride
+    - Catan
+    - Star Realms
+  synonyms:
+    - race-condition
+    - first-to-x
+  bgg_ids: [2831]
+  bgg_names: ["Race"]
+
+- slug: catch-up
+  name: Catch-Up Mechanism
+  definition: >-
+    Game systems that help trailing players close the gap with leaders.
+    May include targeted attacks on the leader, bonuses for losing
+    players, or diminishing returns for leading. Prevents runaway
+    leaders and maintains competitive tension throughout. Can be
+    explicit (rubber-banding) or emergent (target the leader).
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Cosmic Encounter
+  origin_year: 1977
+  era: classical
+  examples:
+    - Catan
+    - Cosmic Encounter
+    - Small World
+  synonyms:
+    - rubber-banding
+    - balancing-mechanism
+  bgg_ids: []
+  bgg_names: []
+
+- slug: scoring-rounds
+  name: Scoring Rounds
+  definition: >-
+    The game includes periodic scoring phases at predetermined intervals
+    (every few rounds, at the end of epochs/ages). Players earn points
+    based on their current board state during each scoring round.
+    Creates strategic tension around preparing for upcoming scoring
+    versus long-term investment.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Agricola
+  origin_year: 2007
+  era: modern
+  examples:
+    - Agricola
+    - Keyflower
+    - Terra Mystica
+  synonyms:
+    - periodic-scoring
+    - harvest
+  bgg_ids: []
+  bgg_names: []
+
+- slug: end-game-trigger
+  name: End-Game Trigger
+  definition: >-
+    The game ends not after a fixed number of rounds but when a player
+    or game condition triggers the endgame — depleting a supply,
+    reaching a threshold, or filling a board. The triggering player
+    often has strategic advantage from timing the ending. Creates
+    tension between triggering early (with a lead) or extending
+    the game (to catch up).
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Catan
+  origin_year: 1995
+  era: modern
+  examples:
+    - Ticket to Ride
+    - Terraforming Mars
+    - Concordia
+  synonyms:
+    - game-end-trigger
+    - variable-game-length
+  bgg_ids: []
+  bgg_names: []
+
+# ============================================================================
+# WARGAME MECHANICS
+# ============================================================================
+
+- slug: hex-and-counter
+  name: Hex-and-Counter
+  definition: >-
+    A wargaming system using a hexagonal grid overlaid on a map with
+    cardboard counters representing military units. Hex grids provide
+    uniform movement distances in all six directions (unlike square
+    grids). Counters encode unit type, strength, and movement via
+    printed values. The foundational wargame format.
+  ancestor_slugs:
+    - grid-movement
+  children_slugs: []
+  origin_game: Tactics II
+  origin_year: 1958
+  era: classical
+  examples:
+    - Paths of Glory
+    - Advanced Squad Leader
+    - Twilight Struggle
+  synonyms:
+    - hex-and-chit
+    - hex-wargame
+  bgg_ids: [2026]
+  bgg_names: ["Hexagon Grid"]
+
+- slug: fog-of-war
+  name: Fog of War
+  definition: >-
+    Information about opponent positions, unit strengths, or board state
+    is hidden from players. May use face-down counters, hidden
+    deployment, or separate maps. Simulates the uncertainty of real
+    military intelligence. Distinguished from hidden-movement by the
+    broader scope — not just position but also composition and strength.
+  ancestor_slugs:
+    - hidden-movement
+  children_slugs: []
+  origin_game: Stratego
+  origin_year: 1947
+  era: classical
+  examples:
+    - Stratego
+    - War of the Ring
+    - Captain Sonar
+  synonyms:
+    - hidden-information-combat
+  bgg_ids: []
+  bgg_names: []
+
+- slug: supply-lines
+  name: Supply Lines
+  definition: >-
+    Units require a chain of supply connecting them back to a supply
+    source. Units cut off from supply suffer penalties (reduced combat
+    strength, attrition, inability to attack). Forces players to
+    consider logistics alongside tactics — overextension is punished.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Afrika Korps
+  origin_year: 1964
+  era: classical
+  examples:
+    - Paths of Glory
+    - The Campaign for North Africa
+    - "Ukraine '43"
+  synonyms:
+    - logistics
+  bgg_ids: []
+  bgg_names: []
+
+- slug: line-of-sight
+  name: Line of Sight
+  definition: >-
+    Attacking or interacting with a target requires a clear line of
+    sight from the acting unit. Terrain features, walls, and other
+    obstacles can block LOS. Adds a spatial/geometric puzzle layer
+    to tactical combat. Players must consider positioning and cover.
+  ancestor_slugs:
+    - grid-movement
+  children_slugs: []
+  origin_game: Squad Leader
+  origin_year: 1977
+  era: classical
+  examples:
+    - Gloomhaven
+    - Advanced Squad Leader
+    - "Star Wars: Imperial Assault"
+  synonyms:
+    - los
+  bgg_ids: [2947]
+  bgg_names: ["Line of Sight"]
+
+# ============================================================================
+# SETUP / CONFIGURATION
+# ============================================================================
+
+- slug: variable-setup
+  name: Variable Setup
+  definition: >-
+    The initial game state is randomized or configured differently each
+    play. Board layout, starting resources, available cards, or goal
+    conditions change between games. Increases replayability by
+    preventing solved openings. Distinguished from modular-board by
+    applying to all game components, not just the map.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Catan
+  origin_year: 1995
+  era: modern
+  examples:
+    - Spirit Island
+    - Scythe
+    - Catan
+  synonyms:
+    - randomized-setup
+  bgg_ids: [2897]
+  bgg_names: ["Variable Set-up"]
+
+# ============================================================================
+# PREVIOUSLY REFERENCED (filling dangling children_slugs)
+# ============================================================================
+
+- slug: stacking
+  name: Stacking / Balancing
+  definition: >-
+    Players physically stack game components (blocks, cards, meeples)
+    on top of each other, requiring manual dexterity and spatial
+    judgment. Knocking over the stack typically incurs penalties.
+    Creates tension that scales with stack height.
+  ancestor_slugs:
+    - dexterity
+  children_slugs: []
+  origin_game: Jenga
+  origin_year: 1983
+  era: modern
+  examples:
+    - Jenga
+    - Rhino Hero
+    - Junk Art
+  synonyms:
+    - balancing
+  bgg_ids: [2891]
+  bgg_names: ["Stacking and Balancing"]
+
+- slug: map-addition
+  name: Map Addition
+  definition: >-
+    New areas, tiles, or board sections are added to the play area
+    during the game, expanding the available geography. Unlike map
+    exploration (which reveals pre-placed hidden tiles), map addition
+    creates genuinely new playable space. The game world literally
+    grows during play.
+  ancestor_slugs:
+    - tile-placement
+  children_slugs: []
+  origin_game: Carcassonne
+  origin_year: 2000
+  era: modern
+  examples:
+    - Carcassonne
+    - "Betrayal at House on the Hill"
+    - Isle of Skye
+  synonyms: []
+  bgg_ids: []
+  bgg_names: []
+
+# ============================================================================
+# ADDITIONAL MECHANICS
+# ============================================================================
+
+- slug: speed-matching
+  name: Speed Matching
+  definition: >-
+    Players race to identify matching symbols, patterns, or
+    connections faster than opponents. Combines pattern recognition
+    with reaction speed. No turn structure — the fastest player wins
+    each contest. Pure reflex and visual processing.
+  ancestor_slugs:
+    - real-time
+  children_slugs: []
+  origin_game: "Spot It!"
+  origin_year: 2009
+  era: modern
+  examples:
+    - "Spot It!"
+    - Jungle Speed
+    - Blink
+  synonyms:
+    - pattern-matching-speed
+  bgg_ids: []
+  bgg_names: []
+
+- slug: memory
+  name: Memory
+  definition: >-
+    Players must remember the locations, identities, or attributes of
+    hidden game elements (typically face-down cards or tiles). Success
+    depends on recall ability. The mechanic tests cognitive function
+    rather than strategic reasoning. Often combined with matching.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Concentration
+  origin_year: 1700
+  era: traditional
+  examples:
+    - Concentration
+    - Mysterium
+    - The Castles of Burgundy
+  synonyms:
+    - memorization
+  bgg_ids: [2047]
+  bgg_names: ["Memory"]
+
+- slug: worker-placement-with-bumping
+  name: Worker Placement with Bumping
+  definition: >-
+    A variation of worker placement where occupied spaces CAN be used
+    by placing a higher-value worker or paying a cost. The displaced
+    worker returns to its owner (possibly with compensation). Reduces
+    the pure blocking of traditional worker placement while maintaining
+    spatial competition.
+  ancestor_slugs:
+    - worker-placement
+  children_slugs: []
+  origin_game: Keyflower
+  origin_year: 2012
+  era: modern
+  examples:
+    - Keyflower
+    - The Manhattan Project
+    - "Argent: The Consortium"
+  synonyms:
+    - worker-bumping
+    - displacement
+  bgg_ids: []
+  bgg_names: []
+
+- slug: king-of-the-hill
+  name: King of the Hill
+  definition: >-
+    A specific location, objective, or status grants significant ongoing
+    benefits to whoever controls it. Other players continually contest
+    this position, creating a focal point of conflict. The position is
+    powerful but precarious — everyone targets you.
+  ancestor_slugs:
+    - area-control
+  children_slugs: []
+  origin_game: King of Tokyo
+  origin_year: 2011
+  era: modern
+  examples:
+    - King of Tokyo
+    - King of New York
+    - El Grande
+  synonyms:
+    - central-objective
+  bgg_ids: [2850]
+  bgg_names: ["King of the Hill"]
+
+- slug: elapsed-real-time
+  name: Elapsed Real Time
+  definition: >-
+    A physical timer or clock constrains play. Players must complete
+    actions within a time limit, or the game state advances with
+    penalties. Distinguished from real-time by using time as a resource
+    or constraint rather than eliminating turns entirely. The clock
+    creates urgency within a turn-based structure.
+  ancestor_slugs:
+    - real-time
+  children_slugs: []
+  origin_game: "Escape: The Curse of the Temple"
+  origin_year: 2012
+  era: modern
+  examples:
+    - "Escape: The Curse of the Temple"
+    - "XCOM: The Board Game"
+    - Space Alert
+  synonyms:
+    - timed-play
+    - sand-timer
+  bgg_ids: [2839]
+  bgg_names: ["Elapsed Real Time"]
+
+- slug: move-through-deck
+  name: Move Through Deck
+  definition: >-
+    Players advance through a deck of cards that serves as the game's
+    map, encounter system, or progression track. Each card drawn
+    represents a new location, event, or challenge. The deck IS the
+    game space — exploration and deck depletion are intertwined.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: "Clank!"
+  origin_year: 2016
+  era: modern
+  examples:
+    - "Clank!"
+    - The Lost Expedition
+    - "Arkham Horror: The Card Game"
+  synonyms:
+    - deck-exploration
+  bgg_ids: [2870]
+  bgg_names: ["Move Through Deck"]
+
+- slug: score-and-reset
+  name: Score and Reset
+  definition: >-
+    The game consists of multiple rounds or hands. After each round,
+    players score based on that round's outcome, then the game state
+    resets for the next round. Total score across all rounds determines
+    the winner. Common in card games and trick-taking.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Bridge
+  origin_year: 1925
+  era: classical
+  examples:
+    - Bridge
+    - "The Crew"
+    - Hearts
+  synonyms:
+    - multi-round-scoring
+  bgg_ids: [2869]
+  bgg_names: ["Score-and-Reset Game"]
+
+- slug: sudden-death-ending
+  name: Sudden Death Ending
+  definition: >-
+    The game can end abruptly and immediately when a specific condition
+    is met, regardless of round structure. Checkmate in chess, destruction
+    of a key unit, or a critical failure can instantly end the game.
+    Creates constant threat awareness and prevents complacency.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Chess
+  origin_year: 600
+  era: ancient
+  examples:
+    - Chess
+    - Twilight Imperium
+    - Pandemic
+  synonyms:
+    - instant-win
+    - instant-loss
+  bgg_ids: [2866]
+  bgg_names: ["Sudden Death Ending"]
+
+- slug: increase-value-unchosen
+  name: Increase Value of Unchosen Resources
+  definition: >-
+    Resources, cards, or options that are not selected by any player
+    accumulate bonus value (coins, tokens, appeal) over time. Creates
+    a self-balancing market — unpopular options become increasingly
+    attractive. Prevents any option from being permanently worthless.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: "Century: Spice Road"
+  origin_year: 2017
+  era: modern
+  examples:
+    - "Century: Spice Road"
+    - Puerto Rico
+    - Small World
+  synonyms:
+    - escalating-value
+    - accumulating-bonus
+  bgg_ids: [2844]
+  bgg_names: ["Increase Value of Unchosen Resources"]
+
+- slug: events
+  name: Events
+  definition: >-
+    Cards or other game elements trigger predetermined events that
+    alter the game state, introduce new conditions, or create crises
+    that all players must respond to. Events inject narrative and
+    unpredictability, often simulating external forces acting on the
+    game world.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Pandemic
+  origin_year: 2008
+  era: modern
+  examples:
+    - Pandemic
+    - Robinson Crusoe
+    - Eldritch Horror
+  synonyms:
+    - event-cards
+    - crisis-events
+  bgg_ids: [2893]
+  bgg_names: ["Events"]
+
+- slug: paper-and-pencil
+  name: Paper and Pencil
+  definition: >-
+    Players write, draw, or record on paper as a core game mechanic.
+    May involve writing answers, drawing pictures, filling in grids,
+    or recording routes. The ancestor of modern roll-and-write games.
+    Requires minimal components — just writing implements and paper.
+  ancestor_slugs: []
+  children_slugs: []
+  origin_game: Battleship
+  origin_year: 1931
+  era: classical
+  examples:
+    - Pictionary
+    - Battleship
+    - Telestrations
+  synonyms:
+    - pencil-and-paper
+  bgg_ids: [2055]
+  bgg_names: ["Paper-and-Pencil"]
+
+- slug: order-counters
+  name: Order Counters
+  definition: >-
+    Players secretly and simultaneously assign order tokens to their
+    units, regions, or action spaces. All orders are then revealed
+    and resolved. Creates a programming-like experience for military
+    command — you commit plans before seeing opponent actions.
+    Distinguished from programmed-movement by the focus on unit orders
+    rather than movement sequences.
+  ancestor_slugs:
+    - force-commitment
+  children_slugs: []
+  origin_game: Diplomacy
+  origin_year: 1959
+  era: classical
+  examples:
+    - "A Game of Thrones: The Board Game"
+    - Shogun
+    - Diplomacy
+  synonyms:
+    - secret-orders
+    - order-tokens
+  bgg_ids: [2917]
+  bgg_names: ["Order Counters"]
+
+# ============================================================================
+# PREVIOUSLY DANGLING REFERENCE
+# ============================================================================
+
+- slug: bribery
+  name: Bribery
+  definition: >-
+    Players offer resources, favors, or promises to other players in
+    exchange for specific actions, votes, or support. Distinguished
+    from standard trading by the power asymmetry — one player pays
+    another to act in their interest rather than exchanging mutual
+    value. Corruption as a game mechanic.
+  ancestor_slugs:
+    - trading-and-negotiation
+  children_slugs: []
+  origin_game: Sheriff of Nottingham
+  origin_year: 2014
+  era: modern
+  examples:
+    - Sheriff of Nottingham
+    - Cosmic Encounter
+    - Diplomacy
+  synonyms:
+    - bribes
+  bgg_ids: []
+  bgg_names: []

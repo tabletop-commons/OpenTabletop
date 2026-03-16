@@ -53,6 +53,8 @@ flowchart TD
     style CACHE fill:#00796b,color:#fff
 ```
 
+> **Note:** The diagram above shows the reference implementation. SDKs work with any server that conforms to the OpenAPI specification — the reference server is one such implementation, not a central service.
+
 ## Spec-First Design
 
 The specification is written before any implementation code. The workflow:
@@ -69,7 +71,7 @@ This ensures the specification is always correct and complete. The implementatio
 The reference server is a Rust application built on [Axum](https://github.com/tokio-rs/axum), a modern async web framework. It is the official, maintained implementation of the OpenTabletop specification.
 
 **Why Rust:**
-- Performance: The filtering engine must evaluate complex multi-dimensional queries across hundreds of thousands of games. Rust's zero-cost abstractions and lack of garbage collection pauses make it ideal for consistent, low-latency responses.
+- Performance: The filtering engine must evaluate complex multi-dimensional queries across large datasets. Rust's zero-cost abstractions and lack of garbage collection pauses make it ideal for consistent, low-latency responses.
 - Correctness: Rust's type system catches entire classes of bugs at compile time. For a specification-grade implementation, correctness is paramount.
 - Memory safety: No buffer overflows, no use-after-free, no data races. Critical for a public-facing API server.
 - Ecosystem: Axum, SQLx (async PostgreSQL), Tower (middleware), Tokio (async runtime) form a mature, production-ready stack.

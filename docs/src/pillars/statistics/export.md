@@ -1,6 +1,6 @@
 # Data Export
 
-The export system provides bulk access to OpenTabletop data in machine-friendly formats. It uses the same filter dimensions as the search API, so you can export targeted slices of the dataset rather than downloading everything.
+The export system provides bulk access to data from a conforming implementation in machine-friendly formats. It uses the same filter dimensions as the search API, so you can export targeted slices of the dataset rather than downloading everything.
 
 ## Export Endpoint
 
@@ -115,7 +115,9 @@ Export endpoints are rate-limited separately from search endpoints. The default 
 - Maximum 100,000 games per export (use filters to stay under)
 - No limit on export size in bytes (but larger exports take longer)
 
-For full-database exports exceeding the per-request limit, use the `cursor` parameter to paginate through the export in batches.
+These are the specification's recommended defaults. Implementations may adjust limits based on their infrastructure.
+
+For full-dataset exports exceeding the per-request limit, use the `cursor` parameter to paginate through the export in batches.
 
 ## Use Cases
 

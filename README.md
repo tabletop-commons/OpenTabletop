@@ -1,5 +1,14 @@
 # OpenTabletop
 
+[![Build & Deploy Docs](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/build-docs.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/build-docs.yml)
+[![Validate OpenAPI Spec](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/validate-openapi.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/validate-openapi.yml)
+[![ADR Check](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/adr-check.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/adr-check.yml)
+[![Build & Push Container](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/container.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/container.yml)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://tabletop-commons.github.io/OpenTabletop/)
+[![License: Apache 2.0](https://img.shields.io/badge/code-Apache%202.0-blue)](LICENSE)
+[![License: CC-BY-4.0](https://img.shields.io/badge/spec-CC--BY--4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
+[![OpenAPI 3.1](https://img.shields.io/badge/OpenAPI-3.1-green)](spec/openapi.yaml)
+
 **The open standard for board game data.**
 
 Board games deserve what MusicBrainz built for music and TMDb built for film: a community-driven, standardized API that any application can build on. OpenTabletop is that standard.
@@ -39,7 +48,7 @@ Every opinion-based data point — player count polls, weight votes, community p
 Expansions don't just add content — they change how a game plays. OpenTabletop tracks this:
 
 ```
-Spirit Island (base):               1-4 players, best@2,     weight 3.9
+Spirit Island (base):                1-4 players, best@2,     weight 3.9
   + Branch & Claw:                   1-4 players, best@2,     weight 4.0
   + Jagged Earth:                    1-6 players, best@2-3,   weight 4.1
   + Branch & Claw + Jagged Earth:    1-6 players, best@2-4,   weight 4.2

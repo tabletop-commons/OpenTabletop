@@ -3,7 +3,9 @@ GameEdition:
   description: >-
     A specific published edition of a game. The same game may have multiple
     editions across different publishers, languages, and years. Editions
-    track the publishing history and availability of a game.
+    track the publishing history, physical product details, and availability
+    of a game. See ADR-0035 for property deltas and ADR-0040 for product
+    metadata.
   required:
     - id
     - game_id
@@ -23,21 +25,88 @@ GameEdition:
       type: string
       description: >-
         Display name of this edition, typically including the edition
-        identifier (e.g., "Second Edition", "Revised Edition").
-      example: "Spirit Island (Second Printing)"
+        identifier (e.g., "Second Edition", "Czech edition 2025").
+      example: "Brass: Birmingham — Czech edition 2025"
     year_published:
       type: integer
       description: The year this specific edition was published.
-      example: 2018
-    publisher_id:
-      type: string
-      format: uuid
-      description: The UUIDv7 of the publisher for this edition.
-      example: "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+      example: 2025
+    publisher_ids:
+      type: array
+      description: >-
+        UUIDv7s of publishers for this edition. Multiple publishers is
+        common for international editions with co-publishing agreements
+        (e.g., Roxley + TLAMA games for the Czech edition of Brass).
+        See ADR-0040.
+      items:
+        type: string
+        format: uuid
+      minItems: 1
+      example:
+        - "01913e5a-6f7b-7c8d-ae9f-1a2b3c4d5e6f"
+        - "01914b3c-8d9e-7f0a-b1c2-d3e4f5a6b7c8"
     language:
       type: string
       description: Primary language of this edition (BCP 47 language tag).
-      example: "en"
+      example: "cs"
+    product_codes:
+      type: array
+      description: >-
+        Product identifiers for retail tracking. Common types include UPC
+        (12-digit), EAN (13-digit), ISBN (10 or 13 digits), ASIN (10
+        alphanumeric), and publisher-specific SKUs. See ADR-0040.
+      items:
+        $ref: 'ProductCode.yaml#/ProductCode'
+      example:
+        - type: "sku"
+          code: "TLG0200"
+    dimensions:
+      $ref: 'ProductCode.yaml#/PhysicalDimensions'
+      description: >-
+        Physical box dimensions. See ADR-0040.
+    box_weight:
+      $ref: 'ProductCode.yaml#/PhysicalWeight'
+      description: >-
+        Physical box weight. Distinct from the community-rated complexity
+        weight (1.0–5.0 scale) on the Game entity. See ADR-0040.
+    release_status:
+      type: string
+      description: >-
+        Current availability status of this edition. See ADR-0040.
+      enum:
+        - announced
+        - preorder
+        - released
+        - out_of_print
+      example: "released"
+    release_date:
+      type: string
+      format: date
+      nullable: true
+      description: >-
+        Full ISO 8601 date of this edition's release. More precise than
+        year_published. Nullable when only the year is known.
+      example: "2025-02-04"
+    image_url:
+      type: string
+      format: uri
+      nullable: true
+      description: URL to this edition's box art or primary image.
+      example: "https://example.com/images/brass-birmingham-czech-2025.jpg"
+    thumbnail_url:
+      type: string
+      format: uri
+      nullable: true
+      description: URL to a thumbnail of this edition's image.
+      example: "https://example.com/images/brass-birmingham-czech-2025-thumb.jpg"
+    artist_ids:
+      type: array
+      description: >-
+        UUIDv7s of artists credited on this specific edition. Different
+        editions may have different art teams. See ADR-0040.
+      items:
+        type: string
+        format: uuid
     notes:
       type: string
       description: >-

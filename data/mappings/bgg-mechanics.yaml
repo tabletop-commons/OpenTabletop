@@ -1,0 +1,489 @@
+# BGG Mechanics -> OpenTabletop Mechanics Mapping
+#
+# Reverse index: every BGG mechanic ID mapped to OpenTabletop canonical slug(s).
+# Direction: BGG -> OpenTabletop
+#
+# mapping_type:
+#   direct  - 1:1 mapping, same concept
+#   split   - one BGG term maps to multiple OT terms
+#   merge   - multiple BGG terms map to one OT term (listed on each BGG entry)
+#   subsumed - BGG term is covered by a broader OT term
+#   unmapped - BGG term has no OT equivalent
+
+- bgg_id: 2001
+  bgg_name: "Action Points"
+  mapping_type: direct
+  ot_slugs: ["action-points"]
+  notes: null
+
+- bgg_id: 2002
+  bgg_name: "Tile Placement"
+  mapping_type: direct
+  ot_slugs: ["tile-placement"]
+  notes: null
+
+- bgg_id: 2004
+  bgg_name: "Set Collection"
+  mapping_type: direct
+  ot_slugs: ["set-collection"]
+  notes: null
+
+- bgg_id: 2005
+  bgg_name: "Stock Holding"
+  mapping_type: direct
+  ot_slugs: ["stock-holding"]
+  notes: null
+
+- bgg_id: 2007
+  bgg_name: "Pick-up and Deliver"
+  mapping_type: direct
+  ot_slugs: ["pick-up-and-deliver"]
+  notes: null
+
+- bgg_id: 2008
+  bgg_name: "Trading"
+  mapping_type: direct
+  ot_slugs: ["trading-and-negotiation"]
+  notes: null
+
+- bgg_id: 2009
+  bgg_name: "Trick-taking"
+  mapping_type: direct
+  ot_slugs: ["trick-taking"]
+  notes: null
+
+- bgg_id: 2011
+  bgg_name: "Modular Board"
+  mapping_type: direct
+  ot_slugs: ["modular-board"]
+  notes: null
+
+- bgg_id: 2012
+  bgg_name: "Auction/Bidding"
+  mapping_type: direct
+  ot_slugs: ["auction"]
+  notes: null
+
+- bgg_id: 2014
+  bgg_name: "Betting and Bluffing"
+  mapping_type: direct
+  ot_slugs: ["bluffing"]
+  notes: null
+
+- bgg_id: 2015
+  bgg_name: "Semi-Cooperative Game"
+  mapping_type: split
+  ot_slugs: ["semi-cooperative", "variable-player-powers"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2018
+  bgg_name: "Campaign / Battle Card Driven"
+  mapping_type: direct
+  ot_slugs: ["card-driven"]
+  notes: null
+
+- bgg_id: 2019
+  bgg_name: "Voting"
+  mapping_type: direct
+  ot_slugs: ["voting"]
+  notes: null
+
+- bgg_id: 2020
+  bgg_name: "Simultaneous Action Selection"
+  mapping_type: direct
+  ot_slugs: ["simultaneous-action-selection"]
+  notes: null
+
+- bgg_id: 2023
+  bgg_name: "Cooperative Game"
+  mapping_type: direct
+  ot_slugs: ["cooperative"]
+  notes: null
+
+- bgg_id: 2026
+  bgg_name: "Hexagon Grid"
+  mapping_type: split
+  ot_slugs: ["grid-movement", "hex-and-counter"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2027
+  bgg_name: "Storytelling"
+  mapping_type: direct
+  ot_slugs: ["storytelling"]
+  notes: null
+
+- bgg_id: 2028
+  bgg_name: "Hidden Roles"
+  mapping_type: direct
+  ot_slugs: ["hidden-roles"]
+  notes: null
+
+- bgg_id: 2040
+  bgg_name: "Hand Management"
+  mapping_type: direct
+  ot_slugs: ["hand-management"]
+  notes: null
+
+- bgg_id: 2041
+  bgg_name: "Card Drafting"
+  mapping_type: split
+  ot_slugs: ["card-drafting", "closed-drafting"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2043
+  bgg_name: "Enclosure"
+  mapping_type: direct
+  ot_slugs: ["enclosure"]
+  notes: null
+
+- bgg_id: 2046
+  bgg_name: "Area Movement"
+  mapping_type: direct
+  ot_slugs: ["area-movement"]
+  notes: null
+
+- bgg_id: 2047
+  bgg_name: "Memory"
+  mapping_type: direct
+  ot_slugs: ["memory"]
+  notes: null
+
+- bgg_id: 2048
+  bgg_name: "Melding and Splaying"
+  mapping_type: split
+  ot_slugs: ["melding", "pattern-building"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2055
+  bgg_name: "Paper-and-Pencil"
+  mapping_type: direct
+  ot_slugs: ["paper-and-pencil"]
+  notes: null
+
+- bgg_id: 2072
+  bgg_name: "Dice Rolling"
+  mapping_type: direct
+  ot_slugs: ["dice-rolling"]
+  notes: null
+
+- bgg_id: 2073
+  bgg_name: "Acting"
+  mapping_type: direct
+  ot_slugs: ["acting-performance"]
+  notes: null
+
+- bgg_id: 2078
+  bgg_name: "Programmed Movement"
+  mapping_type: split
+  ot_slugs: ["programmed-movement", "point-to-point-movement"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2079
+  bgg_name: "Deduction"
+  mapping_type: direct
+  ot_slugs: ["deduction"]
+  notes: null
+
+- bgg_id: 2080
+  bgg_name: "Area Majority / Influence"
+  mapping_type: direct
+  ot_slugs: ["area-control"]
+  notes: null
+
+- bgg_id: 2081
+  bgg_name: "Network and Route Building"
+  mapping_type: direct
+  ot_slugs: ["network-building"]
+  notes: null
+
+- bgg_id: 2082
+  bgg_name: "Worker Placement"
+  mapping_type: direct
+  ot_slugs: ["worker-placement"]
+  notes: null
+
+- bgg_id: 2661
+  bgg_name: "Push Your Luck"
+  mapping_type: direct
+  ot_slugs: ["push-your-luck"]
+  notes: null
+
+- bgg_id: 2664
+  bgg_name: "Deck, Bag, and Pool Building"
+  mapping_type: split
+  ot_slugs: ["deck-building", "bag-building", "pool-building"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2676
+  bgg_name: "Grid Movement"
+  mapping_type: direct
+  ot_slugs: ["grid-movement"]
+  notes: null
+
+- bgg_id: 2685
+  bgg_name: "Player Elimination"
+  mapping_type: direct
+  ot_slugs: ["player-elimination"]
+  notes: null
+
+- bgg_id: 2686
+  bgg_name: "Take That"
+  mapping_type: direct
+  ot_slugs: ["take-that"]
+  notes: null
+
+- bgg_id: 2814
+  bgg_name: "Solo / Solitaire Game"
+  mapping_type: direct
+  ot_slugs: ["solo"]
+  notes: null
+
+- bgg_id: 2824
+  bgg_name: "Legacy Game"
+  mapping_type: split
+  ot_slugs: ["legacy", "campaign"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2828
+  bgg_name: "Tableau Building"
+  mapping_type: direct
+  ot_slugs: ["tableau-building"]
+  notes: null
+
+- bgg_id: 2831
+  bgg_name: "Rondel"
+  mapping_type: split
+  ot_slugs: ["rondel", "race-to-finish"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2832
+  bgg_name: "Real-Time"
+  mapping_type: direct
+  ot_slugs: ["real-time"]
+  notes: null
+
+- bgg_id: 2834
+  bgg_name: "Traitor Game"
+  mapping_type: direct
+  ot_slugs: ["traitor"]
+  notes: null
+
+- bgg_id: 2838
+  bgg_name: "Action Drafting"
+  mapping_type: direct
+  ot_slugs: ["action-selection"]
+  notes: null
+
+- bgg_id: 2839
+  bgg_name: "Action Retrieval"
+  mapping_type: split
+  ot_slugs: ["action-retrieval", "elapsed-real-time"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2843
+  bgg_name: "Turn Order: Auction"
+  mapping_type: direct
+  ot_slugs: ["turn-order-auction"]
+  notes: null
+
+- bgg_id: 2844
+  bgg_name: "Increase Value of Unchosen Resources"
+  mapping_type: direct
+  ot_slugs: ["increase-value-unchosen"]
+  notes: null
+
+- bgg_id: 2849
+  bgg_name: "Tech Trees / Tech Tracks"
+  mapping_type: direct
+  ot_slugs: ["tech-tree"]
+  notes: null
+
+- bgg_id: 2850
+  bgg_name: "Ladder Climbing"
+  mapping_type: split
+  ot_slugs: ["ladder-climbing", "king-of-the-hill"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2851
+  bgg_name: "Command Cards"
+  mapping_type: direct
+  ot_slugs: ["command-cards"]
+  notes: null
+
+- bgg_id: 2854
+  bgg_name: "Follow"
+  mapping_type: direct
+  ot_slugs: ["follow"]
+  notes: null
+
+- bgg_id: 2856
+  bgg_name: "Re-rolling and Locking"
+  mapping_type: direct
+  ot_slugs: ["re-rolling-and-locking"]
+  notes: null
+
+- bgg_id: 2857
+  bgg_name: "Flicking"
+  mapping_type: split
+  ot_slugs: ["flicking", "measurement-movement"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2865
+  bgg_name: "Deck Construction"
+  mapping_type: direct
+  ot_slugs: ["deck-construction"]
+  notes: null
+
+- bgg_id: 2866
+  bgg_name: "I Cut, You Choose"
+  mapping_type: split
+  ot_slugs: ["i-cut-you-choose", "sudden-death-ending"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2869
+  bgg_name: "Score-and-Reset Game"
+  mapping_type: direct
+  ot_slugs: ["score-and-reset"]
+  notes: null
+
+- bgg_id: 2870
+  bgg_name: "Crayon Rail System"
+  mapping_type: split
+  ot_slugs: ["crayon-rails", "move-through-deck"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2875
+  bgg_name: "End Game Bonuses"
+  mapping_type: direct
+  ot_slugs: ["end-game-bonuses"]
+  notes: null
+
+- bgg_id: 2884
+  bgg_name: "Narrative Choice / Paragraph"
+  mapping_type: direct
+  ot_slugs: ["narrative-choice"]
+  notes: null
+
+- bgg_id: 2887
+  bgg_name: "Chit-Pull System"
+  mapping_type: direct
+  ot_slugs: ["chit-pull"]
+  notes: null
+
+- bgg_id: 2890
+  bgg_name: "Hidden Movement"
+  mapping_type: direct
+  ot_slugs: ["hidden-movement"]
+  notes: null
+
+- bgg_id: 2891
+  bgg_name: "Stacking and Balancing"
+  mapping_type: direct
+  ot_slugs: ["stacking"]
+  notes: null
+
+- bgg_id: 2892
+  bgg_name: "Loans"
+  mapping_type: direct
+  ot_slugs: ["loans"]
+  notes: null
+
+- bgg_id: 2893
+  bgg_name: "Contracts"
+  mapping_type: split
+  ot_slugs: ["contracts", "communication-limits", "events"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2897
+  bgg_name: "Variable Set-up"
+  mapping_type: direct
+  ot_slugs: ["variable-setup"]
+  notes: null
+
+- bgg_id: 2900
+  bgg_name: "Market"
+  mapping_type: direct
+  ot_slugs: ["market"]
+  notes: null
+
+- bgg_id: 2902
+  bgg_name: "Income"
+  mapping_type: split
+  ot_slugs: ["engine-building", "income"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.
+
+- bgg_id: 2904
+  bgg_name: "Once-Per-Game Abilities"
+  mapping_type: direct
+  ot_slugs: ["once-per-game-abilities"]
+  notes: null
+
+- bgg_id: 2917
+  bgg_name: "Order Counters"
+  mapping_type: direct
+  ot_slugs: ["order-counters"]
+  notes: null
+
+- bgg_id: 2933
+  bgg_name: "Worker Placement, Different Worker Types"
+  mapping_type: direct
+  ot_slugs: ["worker-placement-different-types"]
+  notes: null
+
+- bgg_id: 2935
+  bgg_name: "Worker Placement with Dice Workers"
+  mapping_type: direct
+  ot_slugs: ["dice-placement"]
+  notes: null
+
+- bgg_id: 2939
+  bgg_name: "Track Movement"
+  mapping_type: direct
+  ot_slugs: ["track-movement"]
+  notes: null
+
+- bgg_id: 2947
+  bgg_name: "Line of Sight"
+  mapping_type: direct
+  ot_slugs: ["line-of-sight"]
+  notes: null
+
+- bgg_id: 2955
+  bgg_name: "Mancala"
+  mapping_type: direct
+  ot_slugs: ["mancala"]
+  notes: null
+
+- bgg_id: 2960
+  bgg_name: "Tug of War"
+  mapping_type: direct
+  ot_slugs: ["tug-of-war"]
+  notes: null
+
+- bgg_id: 2965
+  bgg_name: "Multi-Use Cards"
+  mapping_type: direct
+  ot_slugs: ["multi-use-cards"]
+  notes: null
+
+- bgg_id: 2984
+  bgg_name: "Open Drafting"
+  mapping_type: split
+  ot_slugs: ["card-drafting", "open-drafting"]
+  notes: >-
+    BGG combines multiple concepts that OpenTabletop separates.

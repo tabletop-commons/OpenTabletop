@@ -1,0 +1,39 @@
+Person:
+  type: object
+  description: >-
+    A person credited on one or more games. The Person entity is the canonical
+    record for all individuals in the system. The existing Designer and Artist
+    schemas are role-filtered views over Person. See ADR-0039.
+  required:
+    - id
+    - slug
+    - name
+  properties:
+    id:
+      type: string
+      format: uuid
+      description: UUIDv7 primary key.
+      example: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+    slug:
+      type: string
+      pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+      description: URL-friendly canonical identifier.
+      example: "martin-wallace"
+    name:
+      type: string
+      description: Full display name.
+      example: "Martin Wallace"
+    description:
+      type: string
+      nullable: true
+      description: Brief biography or notes.
+      example: >-
+        British board game designer known for economic and industrial-themed
+        games including Brass, Age of Steam, and A Few Acres of Snow.
+    game_count:
+      type: integer
+      minimum: 0
+      description: Number of active games this person is credited on (across all roles).
+      example: 87
+    _links:
+      $ref: '_common.yaml#/Links'

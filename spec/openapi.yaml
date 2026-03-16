@@ -159,9 +159,13 @@ components:
     IndividualEffect:
       $ref: 'schemas/EffectiveProperties.yaml#/IndividualEffect'
 
-    # Player count polling
+    # Community polls
     PlayerCountPoll:
       $ref: 'schemas/PlayerCountPoll.yaml#/PlayerCountPoll'
+    CommunityAgePoll:
+      $ref: 'schemas/CommunityAgePoll.yaml#/CommunityAgePoll'
+    LanguageDependencePoll:
+      $ref: 'schemas/LanguageDependencePoll.yaml#/LanguageDependencePoll'
 
     # Experience-adjusted playtime
     ExperiencePlaytimePoll:
@@ -184,6 +188,10 @@ components:
       $ref: 'schemas/Publisher.yaml#/Publisher'
     Artist:
       $ref: 'schemas/Artist.yaml#/Artist'
+    Person:
+      $ref: 'schemas/Person.yaml#/Person'
+    GameCredit:
+      $ref: 'schemas/GameCredit.yaml#/GameCredit'
 
     # Families & editions
     GameFamily:
@@ -192,6 +200,22 @@ components:
       $ref: 'schemas/GameEdition.yaml#/GameEdition'
     EditionDelta:
       $ref: 'schemas/EditionDelta.yaml#/EditionDelta'
+    ProductCode:
+      $ref: 'schemas/ProductCode.yaml#/ProductCode'
+    PhysicalDimensions:
+      $ref: 'schemas/ProductCode.yaml#/PhysicalDimensions'
+    PhysicalWeight:
+      $ref: 'schemas/ProductCode.yaml#/PhysicalWeight'
+
+    # Alternate names
+    AlternateName:
+      $ref: 'schemas/AlternateName.yaml#/AlternateName'
+
+    # Awards
+    Award:
+      $ref: 'schemas/Award.yaml#/Award'
+    GameAward:
+      $ref: 'schemas/GameAward.yaml#/GameAward'
 
     # Search
     SearchResult:
@@ -226,6 +250,14 @@ components:
     # Export
     ExportManifest:
       $ref: 'schemas/ExportManifest.yaml#/ExportManifest'
+
+    # Trends & Time-Series (ADR-0036)
+    GameSnapshot:
+      $ref: 'schemas/GameSnapshot.yaml#/GameSnapshot'
+    TrendDataPoint:
+      $ref: 'schemas/TrendDataPoint.yaml#/TrendDataPoint'
+    MechanicTrendDataPoint:
+      $ref: 'schemas/TrendDataPoint.yaml#/MechanicTrendDataPoint'
 
     # Error handling
     ErrorResponse:

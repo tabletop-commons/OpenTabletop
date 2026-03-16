@@ -1,0 +1,53 @@
+GameCredit:
+  type: object
+  description: >-
+    A credit entry linking a person to a game with a specific role. Used for
+    roles beyond the core Designer and Artist schemas (which cover ~95% of
+    credits). See ADR-0039 for the extended credit role taxonomy.
+  required:
+    - game_id
+    - person_id
+    - role
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the game.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    person_id:
+      type: string
+      format: uuid
+      description: UUIDv7 of the credited person.
+      example: "01913d4f-5e6a-7b7c-9d8e-0f1a2b3c4d5e"
+    role:
+      type: string
+      description: >-
+        The credited role. Core roles (designer, artist) use the existing
+        Designer and Artist schemas and endpoints. Publisher is a separate
+        entity. This enum covers additional credit roles that do not have
+        dedicated schemas. New roles can be added via the RFC process.
+      enum:
+        - developer
+        - graphic_designer
+        - sculptor
+        - editor
+        - writer
+        - insert_designer
+        - solo_mode_designer
+        - narrator
+        - producer
+      example: "developer"
+    person_name:
+      type: string
+      description: >-
+        Denormalized display name of the credited person. Included for
+        convenience to avoid requiring a join or separate Person lookup.
+      example: "Martin Wallace"
+    person_slug:
+      type: string
+      description: >-
+        Denormalized slug of the credited person. Enables direct link
+        construction without a separate lookup.
+      example: "martin-wallace"
+    _links:
+      $ref: '_common.yaml#/Links'
