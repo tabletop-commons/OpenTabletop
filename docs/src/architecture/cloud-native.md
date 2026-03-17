@@ -1,6 +1,8 @@
 # Cloud-Native Design
 
-The reference server is designed for cloud-native deployment from the ground up. It follows the [Twelve-Factor App](https://12factor.net/) methodology and is built to run in containerized environments, orchestrated by Kubernetes or similar platforms.
+> **For implementers.** This chapter provides guidance for operators building and deploying a conforming OpenTabletop server. The patterns described here are not mandatory for conformance, but they represent best practices drawn from the project's ADRs.
+
+A conforming server should be designed for cloud-native deployment from the ground up. This means following the [Twelve-Factor App](https://12factor.net/) methodology and building to run in containerized environments, orchestrated by Kubernetes or similar platforms.
 
 ## Deployment Topology
 
@@ -16,9 +18,9 @@ flowchart TD
 
     subgraph "Kubernetes Cluster"
         subgraph "API Tier"
-            API1["API Pod 1<br/><i>Rust/Axum</i>"]
-            API2["API Pod 2<br/><i>Rust/Axum</i>"]
-            API3["API Pod 3<br/><i>Rust/Axum</i>"]
+            API1["API Pod 1"]
+            API2["API Pod 2"]
+            API3["API Pod 3"]
         end
 
         subgraph "Cache Tier"
@@ -74,7 +76,7 @@ flowchart TD
 One codebase tracked in Git, many deploys (staging, production, developer instances).
 
 ### II. Dependencies
-All dependencies declared in `Cargo.toml` (Rust) and lock files. No system-level implicit dependencies. The Docker image includes everything needed to run.
+All dependencies declared in a manifest and lock file (e.g., `Cargo.toml`, `package.json`, `go.mod`). No system-level implicit dependencies. The container image includes everything needed to run.
 
 ### III. Config
 All configuration via environment variables:
@@ -101,10 +103,10 @@ The CI pipeline produces a container image (build), tags it with a version (rele
 The server is a stateless process. No in-memory session state, no local file storage. Multiple instances serve the same traffic behind a load balancer.
 
 ### VII. Port Binding
-The server binds to a port (`$PORT`) and serves HTTP directly. No app server wrapper (no Tomcat, no Gunicorn) -- Axum with Hyper is the HTTP server.
+The server binds to a port (`$PORT`) and serves HTTP directly. No app server wrapper required -- the application is the HTTP server.
 
 ### VIII. Concurrency
-Horizontal scaling via process count. Need more throughput? Add more pods. The async Tokio runtime also scales vertically across CPU cores within a single process.
+Horizontal scaling via process count. Need more throughput? Add more pods. An async runtime also scales vertically across CPU cores within a single process.
 
 ### IX. Disposability
 Fast startup (< 1 second). Graceful shutdown on SIGTERM (finish in-flight requests, close database connections). Pods can be killed and restarted at any time without data loss.
@@ -120,7 +122,7 @@ Database migrations, data imports, and other admin tasks run as one-off Kubernet
 
 ## OpenTelemetry
 
-The reference server is instrumented with OpenTelemetry for distributed tracing, metrics, and logs:
+A conforming server should be instrumented with OpenTelemetry for distributed tracing, metrics, and logs:
 
 **Traces:** Every HTTP request generates a trace span. Database queries, cache lookups, and filter evaluation are child spans. Consumers can pass a `traceparent` header (W3C Trace Context) for end-to-end tracing.
 
@@ -130,16 +132,16 @@ The reference server is instrumented with OpenTelemetry for distributed tracing,
 
 ## Container Image
 
-The reference server ships as a minimal container image:
+A conforming server should ship as a minimal container image:
 
 - **Base:** `scratch` or `distroless` -- no shell, no package manager, no attack surface.
-- **Binary:** A single statically-linked Rust binary. No runtime dependencies.
-- **Size:** ~20 MB compressed. Pulls in seconds.
+- **Binary:** A single statically-linked binary or minimal runtime. No unnecessary runtime dependencies.
+- **Size:** Keep images small. Pulls should complete in seconds.
 - **Health check:** `/health` endpoint returns 200 if the server is up and can reach PostgreSQL. `/ready` returns 200 when the server is ready to accept traffic (connection pool warmed, migrations verified).
 
 ## Kubernetes Readiness
 
-The server is designed for Kubernetes deployment with:
+A conforming server should be designed for Kubernetes deployment with:
 
 - Readiness and liveness probes at `/ready` and `/health`.
 - Graceful shutdown respecting the termination grace period.

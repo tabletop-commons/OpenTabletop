@@ -14,35 +14,33 @@ Changes to the OpenAPI specification require a formal RFC:
 2. **Write an RFC** describing the change, motivation, and alternatives considered
 3. **Community discussion** period (minimum 7 days)
 4. **Steering committee vote** for acceptance
-5. **Implementation**: submit a PR with the spec change, a reference implementation update, and at least one SDK update
+5. **Submit a PR** with the spec change, updated documentation, and new or updated examples if applicable
 
 Spec changes that also require a new ADR should use the `/create-adr` Claude skill or follow the MADR 4.0.0 template in `docs/src/adr/`.
 
-### Data Corrections
+### Data Contributions
 
-To correct or add board game data:
+To correct or add board game data (taxonomy terms, sample records, BGG mappings):
 
 1. Open an issue using the **Data Correction** template
 2. Provide source references (BGG link, publisher page, etc.)
 3. A maintainer will verify and merge
 
-### Code Contributions
+### Documentation & Tooling
 
-For reference server or SDK changes:
+For documentation improvements, script fixes, or taxonomy viewer enhancements:
 
 1. Fork the repository
 2. Create a feature branch from `main`
-3. Make your changes with tests
+3. Make your changes
 4. Submit a pull request using the PR template
-5. Ensure CI passes (spec validation, tests, linting)
+5. Ensure CI passes (spec validation, docs build, ADR check)
 
 ## Development Setup
 
 ### Prerequisites
 
-- [Rust](https://rustup.rs/) (for reference server and Rust SDK)
-- [Python 3.11+](https://python.org/) (for Python SDK)
-- [Node.js 20+](https://nodejs.org/) (for JavaScript SDK and spec tooling)
+- [Node.js 20+](https://nodejs.org/) (for spec tooling and bundling)
 - [mdbook](https://rust-lang.github.io/mdBook/) (for documentation)
 - [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid) (for diagrams)
 
@@ -61,9 +59,8 @@ npx @stoplight/spectral-cli lint spec/openapi.yaml
 ## Coding Standards
 
 - Spec files: YAML, 2-space indent, PascalCase for schema names, kebab-case for paths
-- Rust: `cargo fmt` and `cargo clippy`
-- Python: `ruff` for linting and formatting
-- JavaScript/TypeScript: `eslint` and `prettier`
+- Data files: YAML, 2-space indent, lowercase hyphenated slugs
+- Scripts: Bash, shellcheck-clean
 
 ## Commit Messages
 
@@ -71,8 +68,8 @@ Use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 feat(spec): add player count poll endpoint
-fix(sdk-python): correct pagination cursor handling
-docs(adr): add ADR-0034 for webhook support
+fix(data): correct Spirit Island mechanic classification
+docs(adr): add ADR-0045 for specification-only repository
 ```
 
 ## Code of Conduct

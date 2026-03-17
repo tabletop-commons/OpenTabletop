@@ -13,8 +13,9 @@ Decisions about how the project operates: format standards, licensing, versionin
 | [ADR-0004](0004-rfc-based-governance.md) | RFC-Based Governance with Steering Committee Transition | Accepted |
 | [ADR-0005](0005-semantic-versioning.md) | Semantic Versioning for Spec and Implementations | Accepted |
 | [ADR-0030](0030-structured-data-contributions.md) | Structured Data Contributions via Issue Templates | Accepted |
-| [ADR-0031](0031-rfc-with-reference-implementation.md) | RFC Changes Require Reference Implementation | Accepted |
+| [ADR-0031](0031-rfc-with-reference-implementation.md) | RFC Changes Require Reference Implementation | Superseded by ADR-0045 |
 | [ADR-0033](0033-mdbook-mermaid-documentation.md) | mdbook with Mermaid for Documentation | Accepted |
+| [ADR-0045](0045-specification-only-repository.md) | Specification-Only Repository | Accepted |
 
 ## Core Data Model
 
@@ -34,6 +35,7 @@ The foundational entity model: game entity design, relationships, taxonomy, play
 | [ADR-0037](0037-entity-type-classification-criteria.md) | Formal Entity Type Classification Criteria | Proposed |
 | [ADR-0043](0043-player-count-sentiment-model-improvements.md) | Player Count Sentiment Model Improvements | Proposed |
 | [ADR-0044](0044-player-entity-and-collection-data.md) | Player Entity and Collection Data | Proposed |
+| [ADR-0045](0045-specification-only-repository.md) | Specification-Only Repository | Accepted |
 
 ## API Design
 
@@ -51,9 +53,9 @@ Protocol, pagination, filtering, error handling, resource embedding, hypermedia,
 | [ADR-0019](0019-bulk-data-export.md) | Bulk Data Export Endpoints | Accepted |
 | [ADR-0028](0028-cache-control-etag.md) | Cache-Control Headers and ETags | Accepted |
 
-## Infrastructure & Implementation
+## Infrastructure & Implementation Guidance
 
-Cloud-native design, deployment, observability, reference server technology, SDK generation, search, database migrations, and legacy system migration.
+Cloud-native design, deployment, observability, search, database migrations, and legacy system migration. These ADRs document recommended patterns for operators building conforming servers -- they are guidance, not requirements of the standard. ADR-0025 (reference server) and ADR-0026 (SDK generation) are superseded by ADR-0045.
 
 | ADR | Title | Status |
 |-----|-------|--------|
@@ -62,8 +64,8 @@ Cloud-native design, deployment, observability, reference server technology, SDK
 | [ADR-0022](0022-kubernetes-native-deployment.md) | Kubernetes-Native Deployment with Docker Compose Fallback | Accepted |
 | [ADR-0023](0023-opentelemetry-observability.md) | OpenTelemetry for Unified Observability | Accepted |
 | [ADR-0024](0024-immutable-infrastructure.md) | Immutable Infrastructure with Blue-Green Deployment | Accepted |
-| [ADR-0025](0025-rust-axum-sqlx-reference-server.md) | Rust with Axum and SQLx for the Reference Server | Accepted |
-| [ADR-0026](0026-openapi-generator-sdks.md) | OpenAPI Generator for SDK Generation | Accepted |
+| [ADR-0025](0025-rust-axum-sqlx-reference-server.md) | Rust with Axum and SQLx for the Reference Server | Superseded by ADR-0045 |
+| [ADR-0026](0026-openapi-generator-sdks.md) | OpenAPI Generator for SDK Generation | Superseded by ADR-0045 |
 | [ADR-0027](0027-postgresql-fulltext-search.md) | PostgreSQL Full-Text Search | Accepted |
 | [ADR-0029](0029-versioned-sql-migrations.md) | Versioned Plain SQL Migration Files | Accepted |
 | [ADR-0032](0032-strangler-fig-legacy-migration.md) | Strangler Fig Pattern for BGG Legacy Migration | Accepted |
@@ -113,13 +115,13 @@ All ADRs in sequential order for reference. Numbers are append-only and never re
 | [ADR-0022](0022-kubernetes-native-deployment.md) | Kubernetes-Native Deployment with Docker Compose Fallback | Accepted |
 | [ADR-0023](0023-opentelemetry-observability.md) | OpenTelemetry for Unified Observability | Accepted |
 | [ADR-0024](0024-immutable-infrastructure.md) | Immutable Infrastructure with Blue-Green Deployment | Accepted |
-| [ADR-0025](0025-rust-axum-sqlx-reference-server.md) | Rust with Axum and SQLx for the Reference Server | Accepted |
-| [ADR-0026](0026-openapi-generator-sdks.md) | OpenAPI Generator for SDK Generation | Accepted |
+| [ADR-0025](0025-rust-axum-sqlx-reference-server.md) | Rust with Axum and SQLx for the Reference Server | Superseded by ADR-0045 |
+| [ADR-0026](0026-openapi-generator-sdks.md) | OpenAPI Generator for SDK Generation | Superseded by ADR-0045 |
 | [ADR-0027](0027-postgresql-fulltext-search.md) | PostgreSQL Full-Text Search | Accepted |
 | [ADR-0028](0028-cache-control-etag.md) | Cache-Control Headers and ETags | Accepted |
 | [ADR-0029](0029-versioned-sql-migrations.md) | Versioned Plain SQL Migration Files | Accepted |
 | [ADR-0030](0030-structured-data-contributions.md) | Structured Data Contributions via Issue Templates | Accepted |
-| [ADR-0031](0031-rfc-with-reference-implementation.md) | RFC Changes Require Reference Implementation | Accepted |
+| [ADR-0031](0031-rfc-with-reference-implementation.md) | RFC Changes Require Reference Implementation | Superseded by ADR-0045 |
 | [ADR-0032](0032-strangler-fig-legacy-migration.md) | Strangler Fig Pattern for BGG Legacy Migration | Accepted |
 | [ADR-0033](0033-mdbook-mermaid-documentation.md) | mdbook with Mermaid for Documentation | Accepted |
 | [ADR-0034](0034-experience-bucketed-playtime.md) | Experience-Bucketed Playtime Adjustment | Proposed |
@@ -133,3 +135,4 @@ All ADRs in sequential order for reference. Numbers are append-only and never re
 | [ADR-0042](0042-game-awards-and-recognition.md) | Game Awards and Recognition | Proposed |
 | [ADR-0043](0043-player-count-sentiment-model-improvements.md) | Player Count Sentiment Model Improvements | Proposed |
 | [ADR-0044](0044-player-entity-and-collection-data.md) | Player Entity and Collection Data | Proposed |
+| [ADR-0045](0045-specification-only-repository.md) | Specification-Only Repository | Accepted |

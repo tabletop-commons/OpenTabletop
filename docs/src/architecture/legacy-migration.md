@@ -142,9 +142,9 @@ The import pipeline is idempotent -- running it twice with the same input produc
 
 If you are building an application that currently uses the BGG XML API, the migration path is:
 
-1. **Start using the OpenTabletop SDK** with the translation layer as the backend. Your code uses the standard API immediately; the translation layer handles BGG communication.
+1. **Start using an OpenTabletop client library** with the translation layer as the backend. Your code uses the standard API immediately; the translation layer handles BGG communication.
 2. **Map your BGG IDs.** Use the identifier lookup endpoint to find OpenTabletop UUIDs for your existing BGG IDs.
 3. **Adopt new features incrementally.** Start using effective mode, community play times, and multi-dimensional filtering -- features that have no BGG equivalent.
-4. **Remove BGG dependency.** Once the conforming server's dataset covers your needs, point the SDK at it directly and decommission the translation layer.
+4. **Remove BGG dependency.** Once the conforming server's dataset covers your needs, point your client at it directly and decommission the translation layer.
 
 See [Migrating from BGG](../guides/migrating-from-bgg.md) for a practical step-by-step guide.

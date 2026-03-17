@@ -56,6 +56,7 @@
     - [ADR-0030: Structured Data Contributions](./adr/0030-structured-data-contributions.md)
     - [ADR-0031: RFC with Reference Implementation](./adr/0031-rfc-with-reference-implementation.md)
     - [ADR-0033: mdbook with Mermaid](./adr/0033-mdbook-mermaid-documentation.md)
+    - [ADR-0045: Specification-Only Repository](./adr/0045-specification-only-repository.md)
   - [Core Data Model]()
     - [ADR-0006: Unified Game Entity](./adr/0006-unified-game-entity.md)
     - [ADR-0007: Combinatorial Expansion Model](./adr/0007-combinatorial-expansion-property-model.md)
@@ -79,7 +80,7 @@
     - [ADR-0018: HAL-Style Links](./adr/0018-hal-style-links.md)
     - [ADR-0019: Bulk Data Export](./adr/0019-bulk-data-export.md)
     - [ADR-0028: Cache-Control & ETags](./adr/0028-cache-control-etag.md)
-  - [Infrastructure & Implementation]()
+  - [Infrastructure & Implementation Guidance]()
     - [ADR-0020: Twelve-Factor Design](./adr/0020-twelve-factor-design.md)
     - [ADR-0021: Distroless Containers](./adr/0021-distroless-container-images.md)
     - [ADR-0022: Kubernetes-Native Deployment](./adr/0022-kubernetes-native-deployment.md)
@@ -101,6 +102,7 @@
 # Guides
 
 - [Getting Started](./guides/getting-started.md)
+- [Implementing the Spec](./guides/implementing.md)
 - [Migrating from BGG](./guides/migrating-from-bgg.md)
 
 # Governance
