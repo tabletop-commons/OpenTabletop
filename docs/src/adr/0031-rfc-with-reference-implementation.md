@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-Specification changes that look reasonable on paper can prove impractical or ambiguous when actually implemented. Spec drift — where the specification diverges from what implementations can realistically support — is a common failure mode of API standards projects. We need a process that grounds every specification change in real, working code.
+Specification changes that look reasonable on paper can prove impractical or ambiguous when actually implemented. Spec drift -- where the specification diverges from what implementations can realistically support -- is a common failure mode of API standards projects. We need a process that grounds every specification change in real, working code.
 
 ## Decision Drivers
 
@@ -18,7 +18,7 @@ Specification changes that look reasonable on paper can prove impractical or amb
 
 ## Considered Options
 
-* Spec-only changes are allowed — implementations catch up later
+* Spec-only changes are allowed -- implementations catch up later
 * Every spec change requires at least one reference implementation PR
 * Every spec change requires all implementations (server + all SDKs) to be updated simultaneously
 

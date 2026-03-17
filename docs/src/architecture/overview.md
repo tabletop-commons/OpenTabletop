@@ -1,6 +1,6 @@
 # System Overview
 
-OpenTabletop is a specification-first project. The OpenAPI document is the canonical source of truth, and everything else — the reference server, SDKs, documentation — is derived from or validated against that specification. This page describes the overall system architecture.
+OpenTabletop is a specification-first project. The OpenAPI document is the canonical source of truth, and everything else -- the reference server, SDKs, documentation -- is derived from or validated against that specification. This page describes the overall system architecture.
 
 ## Architecture Diagram
 
@@ -53,7 +53,7 @@ flowchart TD
     style CACHE fill:#00796b,color:#fff
 ```
 
-> **Note:** The diagram above shows the reference implementation. SDKs work with any server that conforms to the OpenAPI specification — the reference server is one such implementation, not a central service.
+> **Note:** The diagram above shows the reference implementation. SDKs work with any server that conforms to the OpenAPI specification -- the reference server is one such implementation, not a central service.
 
 ## Spec-First Design
 
@@ -61,7 +61,7 @@ The specification is written before any implementation code. The workflow:
 
 1. **Design the API** by authoring the OpenAPI document. Endpoints, schemas, examples, and constraints are defined in YAML.
 2. **Generate artifacts** from the spec: SDKs, documentation, mock servers, and contract tests.
-3. **Implement the server** to satisfy the contract. The reference server is validated against the spec using contract testing — if the server returns a response that does not match the spec schema, the test fails.
+3. **Implement the server** to satisfy the contract. The reference server is validated against the spec using contract testing -- if the server returns a response that does not match the spec schema, the test fails.
 4. **Evolve the spec** through the RFC process. Changes to the spec drive changes to the implementation, not the other way around.
 
 This ensures the specification is always correct and complete. The implementation cannot drift from the contract because the contract is tested continuously.

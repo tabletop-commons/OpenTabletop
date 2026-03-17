@@ -10,7 +10,7 @@ The `min_age` field on the [Game entity](./games.md) stores what the publisher p
 |-------|------|-------------|
 | `min_age` | integer | Publisher's recommended minimum age in years |
 
-This is a factual record of what the publisher claims. It is useful for filtering and comparison, but it reflects the publisher's judgment — which is shaped by factors beyond gameplay suitability.
+This is a factual record of what the publisher claims. It is useful for filtering and comparison, but it reflects the publisher's judgment -- which is shaped by factors beyond gameplay suitability.
 
 ### Why Publisher Ages Are Conservative
 
@@ -41,18 +41,19 @@ The Game entity includes a pre-computed derived field:
 
 This is computed as the median of all votes, providing a single representative value. The raw poll data is always available for custom analysis.
 
-### Example: Scythe
+### Example: Pandemic
 
-*Scythe* is a medium-heavy strategy game. The publisher rates it at 14+.
+*Pandemic* is a cooperative strategy game. The publisher rates it at 8+.
 
 | Suggested Age | Votes |
 |---------------|-------|
-| 10 | 28 |
-| 12 | 156 |
-| 14 | 312 |
-| 16 | 45 |
+| 6 | 12 |
+| 8 | 87 |
+| 10 | 298 |
+| 12 | 134 |
+| 14 | 23 |
 
-The community suggested age is **12**. A significant portion of voters (156 of 541, 29%) believe 12-year-olds can handle the game, and only 8% think it requires players older than the publisher's recommendation. The 14+ rating likely reflects the game's strategic depth more than any content concern.
+The community suggested age is **10** -- two years higher than the publisher's box rating. While an 8-year-old can physically play (move pawns, draw cards), the cooperative strategy layer -- managing hand cards across players, planning multi-turn cure sequences, and prioritizing outbreak containment -- requires the kind of forward planning that most voters consider a 10-year-old task. The gap between "can play" and "can meaningfully contribute to strategy" is exactly what the community poll captures.
 
 ### Example: Ticket to Ride
 
@@ -64,23 +65,36 @@ The community suggested age is **12**. A significant portion of voters (156 of 5
 | 8 | 423 |
 | 10 | 67 |
 
-The community suggested age is **8** — aligning with the publisher. Simpler games tend to show stronger publisher-community agreement because there is less ambiguity between "can physically play" and "can strategically engage."
+The community suggested age is **8** -- aligning with the publisher. Simpler games tend to show stronger publisher-community agreement because there is less ambiguity between "can physically play" and "can strategically engage."
 
 ## Age with Expansions
 
-Expansions can change age recommendations. *Scythe: The Rise of Fenris* is publisher-rated at 12+ while the base game is 14+ — the campaign's guided structure makes the game more accessible to younger players.
+Expansions can change age recommendations. *Pandemic Legacy: Season 1* is publisher-rated at 13+ while the base *Pandemic* is 8+ -- the legacy campaign introduces mature themes (permanent city destruction, character death, narrative tension) and requires a sustained multi-session commitment that raises the appropriate age significantly.
 
 Age changes are modeled through the same [property delta system](./property-deltas.md) as player count and play time:
 
-- **PropertyModification**: An expansion can set a new `min_age` value (e.g., *Fenris* sets `min_age` to 12).
+- **PropertyModification**: An expansion can set a new `min_age` value (e.g., *Pandemic Legacy: Season 1* sets `min_age` to 13).
 - **ExpansionCombination**: An explicit combination record can include an `effective_min_age` when the combined age recommendation has been community-verified.
 
-Multi-expansion combination ages are not assumed from individual expansion data. If *Fenris* is 12+ but *Invaders from Afar* is 14+, the system does not guess what the combined age recommendation should be — it only includes `effective_min_age` when the value has been explicitly curated.
+Multi-expansion combination ages are not assumed from individual expansion data. The system only includes `effective_min_age` when the value has been explicitly curated -- it does not guess from individual expansion ages.
 
 When [effective mode](../filtering/effective-mode.md) is enabled, age filtering considers expansion-modified recommendations where available.
 
+## OpenTabletop's Approach
+
+### Input Contract
+
+The age recommendation model follows the specification's [Input Contract](./data-provenance.md#input-contract) principles:
+
+| Element | Age-Specific Definition |
+|---------|------------------------|
+| **Question** | "What is the youngest age you'd recommend for *[Game]*?" |
+| **Scale** | Age in years (integer) |
+| **Context captured** | Basis for assessment: played with children of this age / professional judgment (educator, child development) / general impression. Whether the voter has children. |
+| **Transparency** | "Your recommendation is recorded alongside your basis. The aggregate is weighted by basis type -- assessments from voters who have played with children of the recommended age carry more weight than general impressions." |
+
 ## Data Provenance
 
-Community age polls reflect the voting community's perspective — predominantly experienced hobbyist gamers who may assess age appropriateness differently from parents, educators, or child development specialists. A hobbyist who taught their 10-year-old *Scythe* may vote "10" based on their child's specific aptitude, while a parent browsing for family games may have a more conservative threshold.
+Community age polls reflect the voting community's perspective -- predominantly experienced hobbyist gamers who may assess age appropriateness differently from parents, educators, or child development specialists. A hobbyist who taught their 8-year-old *Pandemic* may vote "8" based on their child's specific aptitude, while a parent browsing for family games may have a more conservative threshold.
 
 The raw vote distribution enables consumers to apply their own interpretive thresholds appropriate to their audience. See [Data Provenance & Bias](./data-provenance.md) for more on how community data is shaped by who contributes it.

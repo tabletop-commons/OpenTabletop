@@ -7,11 +7,11 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-Game resources have many related entities — mechanics, designers, publishers, expansions, player count polls, and more. Always embedding all related data in every response wastes bandwidth and increases latency. Never embedding forces clients into N+1 request patterns. We need a middle ground that lets clients request exactly the related resources they need in a single request.
+Game resources have many related entities -- mechanics, designers, publishers, expansions, player count polls, and more. Always embedding all related data in every response wastes bandwidth and increases latency. Never embedding forces clients into N+1 request patterns. We need a middle ground that lets clients request exactly the related resources they need in a single request.
 
 ## Decision Drivers
 
-* Clients have varying needs — a list view needs minimal data, a detail view needs rich data
+* Clients have varying needs -- a list view needs minimal data, a detail view needs rich data
 * Over-fetching wastes bandwidth, especially on mobile connections
 * Under-fetching forces N+1 request patterns that increase latency
 * The mechanism should be simple and self-documenting via OpenAPI
@@ -19,7 +19,7 @@ Game resources have many related entities — mechanics, designers, publishers, 
 ## Considered Options
 
 * Always embed all related resources in every response
-* Never embed — clients must make separate requests for each related resource
+* Never embed -- clients must make separate requests for each related resource
 * Selective embedding via `?include` query parameter
 
 ## Decision Outcome

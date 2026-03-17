@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The OpenTabletop project defines a public specification for board game data interchange. We need to choose an API protocol and contract format that maximizes adoption across diverse consumers — web frontends, mobile apps, data science pipelines, and third-party integrations. The specification must serve as the single source of truth, and the design process must be spec-first so that implementations conform to the spec rather than the other way around.
+The OpenTabletop project defines a public specification for board game data interchange. We need to choose an API protocol and contract format that maximizes adoption across diverse consumers -- web frontends, mobile apps, data science pipelines, and third-party integrations. The specification must serve as the single source of truth, and the design process must be spec-first so that implementations conform to the spec rather than the other way around.
 
 ## Decision Drivers
 

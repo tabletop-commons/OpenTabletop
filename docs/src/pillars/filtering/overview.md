@@ -1,6 +1,6 @@
 # Pillar 2: Filtering & Windowing
 
-Filtering is the showcase feature of OpenTabletop. The data model defines *what the data looks like*; filtering defines *how you ask questions of it*. And the questions people actually want to ask — the ones they cannot answer today — are multi-dimensional.
+Filtering is the showcase feature of OpenTabletop. The data model defines *what the data looks like*; filtering defines *how you ask questions of it*. And the questions people actually want to ask -- the ones they cannot answer today -- are multi-dimensional.
 
 ## The Problem
 
@@ -8,15 +8,15 @@ It is game night. You have 4 people, about 90 minutes, and your group prefers me
 
 Today, there is no way to answer this question with a single query to any existing board game service:
 
-- **BGG** has no API filtering at all. You can search by name or browse ranked lists. There is no parameter for player count, play time, weight, mechanics, or theme. You must eyeball results manually.
-- **BGG's advanced search** (on the website, not the API) supports some filters, but they cannot be combined effectively. You cannot filter by "best at 4" vs "supports 4." You cannot exclude themes. You cannot use community play times.
+- **BGG's XML API2** supports collection-status filters (owned, want to trade, wishlist, rated, played) and personal rating filters (min/max rating, min/max BGG rating, min/max plays) on the Collection endpoint. The Search endpoint only filters by name and type. But there are **no game-property filters** -- you cannot query by player count, play time, weight, mechanics, or theme via the API. To find "cooperative games for 4 players under 90 minutes," you must fetch all games and filter client-side.
+- **BGG's advanced search** (on the website, not the API) supports some game-property filters, but they cannot be combined effectively. You cannot filter by "best at 4" vs "supports 4." You cannot exclude themes. You cannot use community play times.
 - **Board Game Atlas** had limited filtering before it shut down. It supported player count and play time but not weight, not mechanics combinations, and not expansion-aware effective mode.
 
 The result is that every board game recommendation app, collection manager, and "what should we play" tool either builds its own filtering on top of scraped data or punts the problem to the user with a spreadsheet.
 
 ## What the OpenTabletop Specification Enables
 
-OpenTabletop defines six orthogonal **filter dimensions** that compose using boolean logic:
+OpenTabletop defines nine **filter dimensions** that compose using boolean logic, ordered to match the [Pillar 1 data model](../data-model/overview.md):
 
 ```mermaid
 flowchart LR
@@ -25,12 +25,15 @@ flowchart LR
     end
 
     subgraph Dimensions
-        D1["Player Count"]
-        D2["Play Time"]
-        D3["Weight"]
-        D4["Game Type & Mechanics"]
-        D5["Theme"]
-        D6["Metadata"]
+        D1["Rating & Confidence"]
+        D2["Weight"]
+        D3["Player Count"]
+        D4["Play Time"]
+        D5["Age"]
+        D6["Game Type & Mechanics"]
+        D7["Theme"]
+        D8["Metadata"]
+        D9["Corpus (aspirational)"]
     end
 
     subgraph Logic
@@ -48,6 +51,9 @@ flowchart LR
     Q --> D4
     Q --> D5
     Q --> D6
+    Q --> D7
+    Q --> D8
+    Q --> D9
 
     D1 --> AND
     D2 --> AND
@@ -55,6 +61,9 @@ flowchart LR
     D4 --> AND
     D5 --> AND
     D6 --> AND
+    D7 --> AND
+    D8 --> AND
+    D9 --> AND
 
     AND --> R
 ```
@@ -63,17 +72,25 @@ Each dimension can contain multiple criteria (combined with OR logic within the 
 
 ### The Key Differentiators
 
-1. **Community-aware player count.** Filter by "supports 4" OR "best at 4" OR "recommended at 4." These are three different questions with three different answer sets. See [Filter Dimensions](./dimensions.md).
+1. **Rating confidence.** Filter not just by rating value but by rating *reliability*. A confidence score (0-1) captures whether a rating is trustworthy or the product of brigading, tiny sample size, or extreme polarization. See [Rating Model](../data-model/rating-model.md).
 
-2. **Dual play time sources.** Filter by publisher-stated time or community-reported time. When your group consistently takes longer than the box says, use community times. See [Play Time Model](../data-model/playtime.md).
+2. **Dimensional weight.** Filter by composite weight or by individual dimensions -- "high strategic depth but low fiddliness" separates good complexity from tedious bookkeeping. See [Weight Model](../data-model/weight-model.md).
 
-3. **Expansion-aware effective mode.** The `effective=true` flag searches across expansion combinations. A game that only supports 4 players in its base form but supports 6 with an expansion will appear in a `players=6&effective=true` search. No other API can do this. See [Effective Mode](./effective-mode.md).
+3. **Community-aware player count.** Filter by "supports 4" OR "highly rated at 4" OR "acceptable at 4." These are three different questions with three different answer sets, using numeric per-count ratings rather than categorical buckets. See [Player Count Model](../data-model/player-count.md).
 
-4. **Theme exclusion.** Not just "include cooperative games" but "exclude space-themed games." Negative filters are first-class. See [Filter Dimensions](./dimensions.md).
+4. **Dual play time sources.** Filter by publisher-stated time or community-reported time, with experience-level adjustment. "Show me games where a first play fits in 2 hours" is a real query. See [Play Time Model](../data-model/playtime.md).
 
-5. **Mechanic composition.** Find games that have ALL of a set of mechanics (`mechanics_all=["cooperative", "hand-management"]`) or ANY of a set (`mechanics=["cooperative", "hand-management"]`). See [Filter Dimensions](./dimensions.md).
+5. **Expansion-aware effective mode.** The `effective=true` flag searches across expansion combinations. A game that only supports 4 players in its base form but supports 6 with an expansion will appear in a `players=6&effective=true` search. No other API can do this. See [Effective Mode](./effective-mode.md).
 
-6. **Single endpoint, JSON body.** Complex queries use `POST /games/search` with a JSON body instead of URL parameter soup. See [Search Endpoint](./search-endpoint.md).
+6. **Age recommendation sources.** Filter by publisher-stated age or community-suggested age. Publisher ages tend to be conservative; community data provides an alternative view. See [Age Recommendation Model](../data-model/age-recommendation.md).
+
+7. **Theme exclusion.** Not just "include cooperative games" but "exclude space-themed games." Negative filters are first-class. See [Filter Dimensions](./dimensions.md).
+
+8. **Mechanic composition.** Find games that have ALL of a set of mechanics (`mechanics_all=["cooperative", "hand-management"]`) or ANY of a set (`mechanics=["cooperative", "hand-management"]`). See [Filter Dimensions](./dimensions.md).
+
+9. **Single endpoint, JSON body.** Complex queries use `POST /games/search` with a JSON body instead of URL parameter soup. See [Search Endpoint](./search-endpoint.md).
+
+10. **Corpus-based filtering (aspirational).** "What do players like me think?" -- filter by player archetype or collection similarity, enabled by the [Player entity](../data-model/players.md).
 
 ## The Game Night Query
 

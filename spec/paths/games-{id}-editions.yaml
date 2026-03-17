@@ -6,7 +6,7 @@ get:
     a specific game. Each edition includes publishing metadata. Use
     `?include=deltas` to embed structured property deltas that describe how
     each edition differs from the canonical (baseline) edition. The canonical
-    edition has no delta — it defines the baseline values. See ADR-0035 for
+    edition has no delta -- it defines the baseline values. See ADR-0035 for
     the edition delta model.
   tags:
     - Games

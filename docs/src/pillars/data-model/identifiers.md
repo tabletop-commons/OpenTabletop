@@ -4,7 +4,7 @@ Every entity in the OpenTabletop data model has two native identifiers and can c
 
 ## UUIDv7
 
-The primary identifier for every entity is a **UUIDv7** — a universally unique identifier that embeds a millisecond-precision timestamp.
+The primary identifier for every entity is a **UUIDv7** -- a universally unique identifier that embeds a millisecond-precision timestamp.
 
 ```
 01967b3c-5a00-7000-8000-000000000001
@@ -23,13 +23,13 @@ UUIDv4 was considered but rejected because it is not time-sortable, which degrad
 
 ## Slugs
 
-Every entity also has a **slug** — a human-readable, URL-safe identifier:
+Every entity also has a **slug** -- a human-readable, URL-safe identifier:
 
 ```
-spirit-island
-brass-birmingham
-r-eric-reuss
-greater-than-games
+twilight-imperium
+war-of-the-ring
+reiner-knizia
+days-of-wonder
 ```
 
 ### Slug Rules
@@ -47,7 +47,7 @@ UUIDv7 is for machines. Slugs are for humans. Both are valid lookup keys:
 
 ```http
 GET /games/01967b3c-5a00-7000-8000-000000000001
-GET /games/spirit-island
+GET /games/twilight-imperium
 ```
 
 Both return the same Game entity. The API accepts either form wherever a game identifier is expected. Internally, the slug resolves to the UUIDv7 and all storage and indexing uses the UUID.
@@ -68,23 +68,23 @@ The `Identifier` entity stores cross-references to external systems:
 
 | Source | Format | Example | Description |
 |--------|--------|---------|-------------|
-| `bgg` | integer (as string) | `"162886"` | BoardGameGeek thing ID |
-| `bgg_family` | integer (as string) | `"39224"` | BoardGameGeek family ID |
-| `bga` | string | `"spirit-island"` | Board Game Arena game slug |
-| `isbn` | string | `"978-1-940402-14-4"` | ISBN for games sold as books |
-| `ean` | string | `"0798304339291"` | EAN/UPC barcode |
-| `asin` | string | `"B01MUHP51S"` | Amazon Standard Identification Number |
-| `wikidata` | string | `"Q29561447"` | Wikidata entity ID |
+| `bgg` | integer (as string) | `"233078"` | BoardGameGeek thing ID |
+| `bgg_family` | integer (as string) | `"55"` | BoardGameGeek family ID |
+| `bga` | string | `"twilightimperium"` | Board Game Arena game slug |
+| `isbn` | string | `"978-1-63344-363-5"` | ISBN for games sold as books |
+| `ean` | string | `"0841333106652"` | EAN/UPC barcode |
+| `asin` | string | `"B07DYBSNKP"` | Amazon Standard Identification Number |
+| `wikidata` | string | `"Q1748930"` | Wikidata entity ID |
 
-The `source` field is an open vocabulary — new sources can be added without a specification change. The known sources above are documented as conventions, not an exhaustive list.
+The `source` field is an open vocabulary -- new sources can be added without a specification change. The known sources above are documented as conventions, not an exhaustive list.
 
 ### Lookup by External ID
 
 ```http
-GET /games?identifier_source=bgg&identifier_value=162886
+GET /games?identifier_source=bgg&identifier_value=233078
 ```
 
-Returns the OpenTabletop Game entity that maps to BGG thing ID 162886 (Spirit Island). This is essential for migration: applications moving from BGG's API can look up their existing BGG IDs to find the corresponding OpenTabletop UUIDs.
+Returns the OpenTabletop Game entity that maps to BGG thing ID 233078 (*Twilight Imperium: Fourth Edition*). This is essential for migration: applications moving from BGG's API can look up their existing BGG IDs to find the corresponding OpenTabletop UUIDs.
 
 ### Multiple External IDs
 
@@ -97,18 +97,18 @@ A single game can have multiple identifiers from the same source. This handles c
 ```json
 {
   "id": "01967b3c-5a00-7000-8000-000000000001",
-  "slug": "spirit-island",
+  "slug": "twilight-imperium",
   "identifiers": [
-    { "source": "bgg", "external_id": "162886" },
-    { "source": "bga", "external_id": "spiritisland" },
-    { "source": "ean", "external_id": "0798304339291" },
-    { "source": "wikidata", "external_id": "Q29561447" }
+    { "source": "bgg", "external_id": "233078" },
+    { "source": "bga", "external_id": "twilightimperium" },
+    { "source": "ean", "external_id": "0841333106652" },
+    { "source": "wikidata", "external_id": "Q1748930" }
   ]
 }
 ```
 
 ## Identifier Stability
 
-OpenTabletop identifiers (UUIDv7 and slug) are permanent. Once assigned, they never change and are never reused. If a game is removed from the database, its IDs are retired — they will return a 410 Gone response, not a 404, and will never be assigned to a different entity.
+OpenTabletop identifiers (UUIDv7 and slug) are permanent. Once assigned, they never change and are never reused. If a game is removed from the database, its IDs are retired -- they will return a 410 Gone response, not a 404, and will never be assigned to a different entity.
 
 External identifiers may change if the external system reassigns them, but the OpenTabletop cross-reference is updated to reflect the current state. Historical mappings may be preserved with a `deprecated` flag in future specification versions.

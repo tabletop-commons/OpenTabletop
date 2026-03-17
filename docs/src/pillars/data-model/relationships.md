@@ -16,25 +16,25 @@ Games do not exist in isolation. An expansion extends a base game. A reimplement
 
 | Type | Direction | Description | Example |
 |------|-----------|-------------|---------|
-| `expands` | expansion -> base | Source adds content to target; source requires target to play | *Wingspan: European Expansion* expands *Wingspan* |
-| `reimplements` | new -> old | Source is a new version of target with mechanical changes | *Brass: Birmingham* reimplements *Brass* |
-| `contains` | collection -> item | Source physically includes target (big-box, compilation) | *Dominion: Big Box* contains *Dominion* and *Dominion: Intrigue* |
-| `requires` | dependent -> dependency | Source cannot be used without target (stronger than `expands`) | *Spirit Island: Feather & Flame Scenario Pack* requires *Branch & Claw* |
-| `recommends` | game -> game | Source suggests target as a companion (non-binding) | A solo variant fan expansion recommends the base game's organizer insert |
-| `integrates_with` | game <-> game | Source and target can be combined for a unified experience | *Star Realms* integrates_with *Star Realms: Colony Wars* |
+| `expands` | expansion -> base | Source adds content to target; source requires target to play | *Wingspan: European Expansion* `expands` *Wingspan* |
+| `reimplements` | new -> old | Source is a new version of target with mechanical changes | *Brass: Birmingham* `reimplements` *Brass* |
+| `contains` | collection -> item | Source physically includes target (big-box, compilation) | *Dominion: Big Box* `contains` *Dominion* and *Dominion: Intrigue* |
+| `requires` | dependent -> dependency | Source cannot be used without target (stronger than `expands`) | *7 Wonders: Cities Anniversary Pack* `requires` both *7 Wonders* and *7 Wonders: Cities* |
+| `recommends` | game -> game | Source suggests target as a companion (non-binding) | A solo variant fan expansion `recommends` the base game's organizer insert |
+| `integrates_with` | game <-> game | Source and target can be combined for a unified experience | *Star Realms* `integrates_with` *Star Realms: Colony Wars* |
 
 ### Directionality
 
 All relationships are stored as directed edges from `source_game_id` to `target_game_id`. For symmetric relationships like `integrates_with`, both directions are stored:
 
-- *Star Realms* -> integrates_with -> *Star Realms: Colony Wars*
-- *Star Realms: Colony Wars* -> integrates_with -> *Star Realms*
+- *Star Realms* -> `integrates_with` -> *Star Realms: Colony Wars*
+- *Star Realms: Colony Wars* -> `integrates_with` -> *Star Realms*
 
 This allows querying from either side without special-casing.
 
 ## Case Study: The Spirit Island Family Tree
 
-Spirit Island is an excellent example of the relationship model's expressiveness. It has standard expansions, a standalone expansion, and dependency chains:
+*Spirit Island* is an excellent example of the relationship model's expressiveness. It has standard expansions, a standalone expansion, and dependency chains:
 
 ```mermaid
 flowchart TD
@@ -72,9 +72,9 @@ flowchart TD
 
 Key observations from this graph:
 
-- **Branch & Claw**, **Jagged Earth**, and **Nature Incarnate** are `expansion` type games with `expands` relationships pointing to Spirit Island. They require the base game.
-- **Horizons of Spirit Island** is a `standalone_expansion`. It has an `integrates_with` relationship to Spirit Island (bidirectional) but does *not* have an `expands` relationship, because it does not require the base game.
-- **Promo Packs** are `promo` type games with `expands` relationships. They add individual spirits or scenarios. **Feather & Flame** is a `compilation` that `contains` both Promo Pack 1 and Promo Pack 2 — the individual packs were difficult to obtain, so they were re-released as a single product. It also `expands` Spirit Island directly.
+- ***Branch & Claw***, ***Jagged Earth***, and ***Nature Incarnate*** are `expansion` type games with `expands` relationships pointing to *Spirit Island*. They require the base game.
+- ***Horizons of Spirit Island*** is a `standalone_expansion`. It has an `integrates_with` relationship to *Spirit Island* (bidirectional) but does *not* have an `expands` relationship, because it does not require the base game.
+- **Promo Packs** are `promo` type games with `expands` relationships. They add individual spirits or scenarios. ***Feather & Flame*** is a `compilation` that `contains` both Promo Pack 1 and Promo Pack 2 -- the individual packs were difficult to obtain, so they were re-released as a single product. It also `expands` *Spirit Island* directly.
 
 ## Querying Relationships
 
@@ -84,7 +84,7 @@ Key observations from this graph:
 GET /games/spirit-island/relationships?type=expands&direction=inbound
 ```
 
-Returns all games where `target_game_id` is Spirit Island and `relationship_type` is `expands` — i.e., everything that expands Spirit Island.
+Returns all games where `target_game_id` is Spirit Island and `relationship_type` is `expands` -- i.e., everything that expands Spirit Island.
 
 ```json
 {
@@ -176,7 +176,7 @@ Returns all relationships within 2 hops of Spirit Island, enabling reconstructio
 GET /games/spirit-island-branch-and-claw/relationships?type=expands&direction=outbound
 ```
 
-Returns the single relationship: Branch & Claw expands Spirit Island.
+Returns the single relationship: *Branch & Claw* expands *Spirit Island*.
 
 ```json
 {
@@ -227,12 +227,12 @@ flowchart LR
 
 Key observations from this graph:
 
-- **Brass (2007)** — Martin Wallace's original design, set in Lancashire during the Industrial Revolution. All subsequent entries reimplement this game.
-- **Age of Industry (2010)** — Wallace's own abstracted reimplementation with variable maps, predating the 2018 relaunch. A distinct design direction (green) from the later Roxley series.
-- **Brass: Lancashire (2018)** — a refined re-release of the original *Brass* by Roxley Games. Same Lancashire setting, updated rules and art. Despite sharing a setting with the 2007 original, it is a distinct game entry with a `reimplements` relationship.
-- **Brass: Birmingham (2018)** — a new map with distinct economic strategies, also by Roxley. Paired with Lancashire as the 2018 relaunch.
-- **Brass: Pittsburgh (2026)** — upcoming entry in the Roxley series (dashed arrow indicates unreleased).
+- **Brass (2007)** -- Martin Wallace's original design, set in Lancashire during the Industrial Revolution. All subsequent entries reimplement this game.
+- **Age of Industry (2010)** -- Wallace's own abstracted reimplementation with variable maps, predating the 2018 relaunch. A distinct design direction (green) from the later Roxley series.
+- **Brass: Lancashire (2018)** -- a refined re-release of the original *Brass* by Roxley Games. Same Lancashire setting, updated rules and art. Despite sharing a setting with the 2007 original, it is a distinct game entry with a `reimplements` relationship.
+- **Brass: Birmingham (2018)** -- a new map with distinct economic strategies, also by Roxley. Paired with Lancashire as the 2018 relaunch.
+- **Brass: Pittsburgh (2026)** -- upcoming entry in the Roxley series (dashed arrow indicates unreleased).
 
 All five are distinct games linked by `reimplements`, capturing mechanical lineage without implying compatibility or dependency.
 
-> **Why not treat these as versions of one game?** On BoardGameGeek, the original *Brass* (2007) has no separate entry — it exists only as a "Version" under *Brass: Lancashire*. This collapses a meaningful design distinction: the 2007 and 2018 games have different rules, different component sets, and different ratings communities. OpenTabletop models them as separate game entities connected by `reimplements`, preserving the historical lineage while keeping each game's data (ratings, polls, weight) independent.
+> **Why not treat these as versions of one game?** On BoardGameGeek, the original *Brass* (2007) has no separate entry -- it exists only as a "Version" under *Brass: Lancashire*. This collapses a meaningful design distinction: the 2007 and 2018 games have different rules, different component sets, and different ratings communities. OpenTabletop models them as separate game entities connected by `reimplements`, preserving the historical lineage while keeping each game's data (ratings, polls, weight) independent.

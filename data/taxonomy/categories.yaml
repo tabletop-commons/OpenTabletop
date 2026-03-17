@@ -1,22 +1,22 @@
 # OpenTabletop Canonical Categories Taxonomy
 #
-# Categories are emergent clusters — constellations of design philosophy,
+# Categories are emergent clusters -- constellations of design philosophy,
 # mechanics, and audience that the community recognizes as distinct genres.
 # Unlike mechanics (phylogenetic tree), categories are not evolutionary.
 # They describe WHAT KIND of experience a game provides.
 #
 # Structure:
-#   slug                     — canonical identifier (lowercase, hyphenated)
-#   name                     — display name
-#   definition               — precise, distinguishing definition
-#   defining_characteristics — list of traits that define this cluster
-#   origin_era               — when this category emerged as recognized
-#   origin_context           — how/why this cluster emerged
-#   canonical_examples       — 3 games most people would point to
-#   related_categories       — optional cross-references (not ancestry)
-#   synonyms                 — alternate names
-#   bgg_ids                  — BGG category ID(s)
-#   bgg_names                — BGG category name(s)
+#   slug                     -- canonical identifier (lowercase, hyphenated)
+#   name                     -- display name
+#   definition               -- precise, distinguishing definition
+#   defining_characteristics -- list of traits that define this cluster
+#   origin_era               -- when this category emerged as recognized
+#   origin_context           -- how/why this cluster emerged
+#   canonical_examples       -- 3 games most people would point to
+#   related_categories       -- optional cross-references (not ancestry)
+#   synonyms                 -- alternate names
+#   bgg_ids                  -- BGG category ID(s)
+#   bgg_names                -- BGG category name(s)
 
 # ============================================================================
 # TIER 1: CORE DESIGN PHILOSOPHY CLUSTERS
@@ -32,7 +32,7 @@
   defining_characteristics:
     - Resource conversion as core loop
     - Indirect conflict (competition for shared resources, not direct attack)
-    - Low randomness — decisions outweigh luck
+    - Low randomness -- decisions outweigh luck
     - Theme as secondary to mechanism
     - Victory points as primary objective
     - Minimal player elimination
@@ -64,7 +64,7 @@
     combat, rich lore, miniatures, and asymmetric player powers are
     hallmarks. The term is used affectionately within the hobby.
   defining_characteristics:
-    - Theme-driven design — mechanics serve the story
+    - Theme-driven design -- mechanics serve the story
     - Direct player conflict (combat, area control, confrontation)
     - Higher randomness (dice combat, card draws) creating dramatic swings
     - Rich components (miniatures, detailed boards, narrative text)
@@ -94,7 +94,7 @@
   definition: >-
     Games with no theme or purely decorative theme, perfect or near-perfect
     information, no randomness, and victory determined entirely by skill.
-    The purest form of competitive strategy — two minds in direct contest
+    The purest form of competitive strategy -- two minds in direct contest
     with no hidden information or luck to blame.
   defining_characteristics:
     - No meaningful theme (or theme is purely decorative)
@@ -186,7 +186,7 @@
   definition: >-
     Games accessible to mixed-age groups with moderate complexity,
     satisfying strategic choices, and play times under 60 minutes.
-    The sweet spot between children's games and hobby games — deep
+    The sweet spot between children's games and hobby games -- deep
     enough for experienced players, approachable for newcomers.
   defining_characteristics:
     - Rules learnable in 10-15 minutes
@@ -223,7 +223,7 @@
     Distinguished from semi-cooperative (which includes individual
     objectives or traitor roles) and from team-based games.
   defining_characteristics:
-    - Shared win/loss condition — all players succeed or fail together
+    - Shared win/loss condition -- all players succeed or fail together
     - Game system as opponent (AI, timer, deck depletion)
     - Collaborative decision-making
     - Often features an alpha-player problem (quarterbacking)
@@ -309,7 +309,7 @@
     Games where the game state permanently changes across sessions
     through stickers, destroyed components, sealed boxes, and
     irreversible decisions. Each play session alters future sessions.
-    The game is consumed through play — it has a finite lifecycle.
+    The game is consumed through play -- it has a finite lifecycle.
   defining_characteristics:
     - Permanent component modification (stickers, tearing, writing)
     - Sealed content revealed progressively
@@ -343,7 +343,7 @@
     - Connected scenarios with narrative continuity
     - Character progression across sessions
     - Branching story outcomes
-    - Resettable — no permanent component destruction
+    - Resettable -- no permanent component destruction
     - Multi-session commitment
   origin_era: modern
   origin_context: >-
@@ -422,7 +422,7 @@
 - slug: dexterity-game
   name: Dexterity Game
   definition: >-
-    Games where physical skill — flicking, stacking, balancing, tossing —
+    Games where physical skill -- flicking, stacking, balancing, tossing --
     is the primary activity. Strategic thinking is secondary to manual
     precision and coordination.
   defining_characteristics:
@@ -479,7 +479,7 @@
   name: Deck-Building Game
   definition: >-
     Games where constructing a personal deck during play IS the game.
-    The deck is your engine — acquiring powerful cards and culling weak
+    The deck is your engine -- acquiring powerful cards and culling weak
     ones is the central activity, not a supporting mechanism.
   defining_characteristics:
     - Deck construction during play is the core activity
@@ -588,7 +588,7 @@
   name: Roll-and-Write Game
   definition: >-
     Games where players roll dice (or flip cards), then mark results on
-    a personal sheet. The format IS the category — the tactile act of
+    a personal sheet. The format IS the category -- the tactile act of
     writing on your sheet with shared random input defines the experience.
   defining_characteristics:
     - Shared random input (dice roll or card flip)
@@ -614,7 +614,7 @@
   name: Economic Game
   definition: >-
     Games where market dynamics, investment, stock trading, or commodity
-    speculation are the primary systems. Money is not just a resource —
+    speculation are the primary systems. Money is not just a resource --
     it is the game. Distinguished from euro games by the emphasis on
     economic simulation over general optimization.
   defining_characteristics:
@@ -696,8 +696,8 @@
   name: Racing Game
   definition: >-
     Games where the objective is to reach a destination or achieve a
-    condition first. The competitive pressure of the race — not point
-    optimization — is the core tension.
+    condition first. The competitive pressure of the race -- not point
+    optimization -- is the core tension.
   defining_characteristics:
     - First-to-finish objective
     - Positional awareness (who is ahead/behind)
@@ -758,10 +758,10 @@
     empire building with military, economic, and technological
     progression systems.
   defining_characteristics:
-    - Explore — discover new territory or resources
-    - Expand — grow your domain or presence
-    - Exploit — develop and leverage resources
-    - Exterminate — military conflict with rivals
+    - Explore -- discover new territory or resources
+    - Expand -- grow your domain or presence
+    - Exploit -- develop and leverage resources
+    - Exterminate -- military conflict with rivals
     - Large-scale empire or civilization building
     - Long play times (3+ hours)
   origin_era: modern
@@ -812,7 +812,7 @@
   name: Trick-Taking Game
   definition: >-
     Games where playing cards into tricks with rank and suit rules IS
-    the game. The trick-taking mechanism is not just present — it is the
+    the game. The trick-taking mechanism is not just present -- it is the
     entirety of the mechanical experience.
   defining_characteristics:
     - Card play into tricks with rank/suit hierarchy
@@ -918,7 +918,7 @@
   name: Educational Game
   definition: >-
     Games designed with an explicit learning objective. Teaching content
-    through game mechanics — history, math, science, language, or other
+    through game mechanics -- history, math, science, language, or other
     subjects. Distinguished from games that incidentally teach strategy
     or social skills.
   defining_characteristics:

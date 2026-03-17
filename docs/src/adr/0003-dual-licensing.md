@@ -3,7 +3,7 @@ status: accepted
 date: 2026-03-12
 ---
 
-# ADR-0003: Dual Licensing — Apache 2.0 for Code, CC-BY-4.0 for Spec
+# ADR-0003: Dual Licensing -- Apache 2.0 for Code, CC-BY-4.0 for Spec
 
 ## Context and Problem Statement
 
@@ -24,7 +24,7 @@ The OpenTabletop project consists of two distinct artifacts: the API specificati
 
 ## Decision Outcome
 
-Chosen option: "Dual license — Apache 2.0 for code, CC-BY-4.0 for spec", because this mirrors the approach used by the OpenAPI Initiative and provides the best fit for each artifact type. Apache 2.0 includes an explicit patent grant that protects contributors and users of the code, which MIT lacks. CC-BY-4.0 is the standard license for creative and specification works, requiring attribution while allowing free use and adaptation. MIT was rejected because it lacks patent protection, and using Apache 2.0 alone would be awkward for non-code specification documents.
+Chosen option: "Dual license -- Apache 2.0 for code, CC-BY-4.0 for spec", because this mirrors the approach used by the OpenAPI Initiative and provides the best fit for each artifact type. Apache 2.0 includes an explicit patent grant that protects contributors and users of the code, which MIT lacks. CC-BY-4.0 is the standard license for creative and specification works, requiring attribution while allowing free use and adaptation. MIT was rejected because it lacks patent protection, and using Apache 2.0 alone would be awkward for non-code specification documents.
 
 ### Consequences
 

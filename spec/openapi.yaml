@@ -3,26 +3,26 @@ openapi: 3.1.0
 info:
   title: OpenTabletop API
   version: 0.1.0
-  summary: An open specification for board game data — the MusicBrainz of tabletop gaming.
+  summary: An open specification for board game data -- the MusicBrainz of tabletop gaming.
   description: >-
     The OpenTabletop API provides a comprehensive, open specification for
     board game data interchange. Built on three pillars:
 
 
-    **Pillar 1: Standardized Data Model** — A unified game entity with type
+    **Pillar 1: Standardized Data Model** -- A unified game entity with type
     discriminator (ADR-0006), combinatorial expansion property model (ADR-0007),
     typed game relationships (ADR-0011), structured per-player-count polls
     (ADR-0010), and controlled vocabulary taxonomy (ADR-0009). All entities use
     UUIDv7 primary keys with human-friendly URL slugs (ADR-0008).
 
 
-    **Pillar 2: Filtering & Windowing** — Rich multi-dimensional filtering
+    **Pillar 2: Filtering & Windowing** -- Rich multi-dimensional filtering
     across player count, playtime, weight, mechanics, themes, and metadata.
     Filters compose with AND semantics. The `effective` mode filters against
     expansion-modified properties using the three-tier resolution hierarchy.
 
 
-    **Pillar 3: Statistical Foundation** — Structured data export in JSONL and
+    **Pillar 3: Statistical Foundation** -- Structured data export in JSONL and
     CSV formats for data science workflows, with full filter support and
     self-describing manifests.
 
@@ -41,7 +41,7 @@ info:
 
 externalDocs:
   description: >-
-    OpenTabletop Documentation — comprehensive mdbook documentation covering
+    OpenTabletop Documentation -- comprehensive mdbook documentation covering
     the Three Pillars (Standardized Data Model, Filtering & Windowing,
     Statistical Foundation), architecture decision records, API specification
     details, and getting started guides.
@@ -160,8 +160,10 @@ components:
       $ref: 'schemas/EffectiveProperties.yaml#/IndividualEffect'
 
     # Community polls
-    PlayerCountPoll:
-      $ref: 'schemas/PlayerCountPoll.yaml#/PlayerCountPoll'
+    PlayerCountRating:
+      $ref: 'schemas/PlayerCountPoll.yaml#/PlayerCountRating'
+    PlayerCountPollLegacy:
+      $ref: 'schemas/PlayerCountPoll.yaml#/PlayerCountPollLegacy'
     CommunityAgePoll:
       $ref: 'schemas/CommunityAgePoll.yaml#/CommunityAgePoll'
     LanguageDependencePoll:

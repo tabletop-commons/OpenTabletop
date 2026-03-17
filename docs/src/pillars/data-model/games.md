@@ -7,7 +7,7 @@ The `Game` entity is the core of the data model. Every board game, expansion, pr
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | UUIDv7 | yes | Primary identifier, time-sortable |
-| `slug` | string | yes | URL-safe human-readable identifier (e.g., `spirit-island`) |
+| `slug` | string | yes | URL-safe human-readable identifier (e.g., `twilight-imperium`) |
 | `name` | string | yes | Primary display name |
 | `type` | enum | yes | Game type discriminator (see below) |
 | `description` | string | no | Full text description |
@@ -33,7 +33,7 @@ The `type` field classifies what kind of product this Game represents:
 
 | Type | Description | Example |
 |------|-------------|---------|
-| `base_game` | A standalone game that can be played without any other product | *Catan*, *Wingspan*, *Spirit Island* |
+| `base_game` | A standalone game that can be played without any other product | *Cosmic Encounter*, *War of the Ring*, *Wingspan* |
 | `expansion` | Requires a base game to play; adds content or rules | *Carcassonne: Inns & Cathedrals*, *Scythe: Invaders from Afar* |
 | `standalone_expansion` | Part of a game family but playable on its own | *Dominion: Intrigue*, *Star Realms: Colony Wars* |
 | `promo` | A small promotional addition, typically a single card or tile | *Azul: Special Factories Promo* |
@@ -77,15 +77,15 @@ Both sets of fields are available for filtering. The `playtime_source` filter pa
 
 | Range | Interpretation | Examples |
 |-------|----------------|----------|
-| 1.0 - 1.5 | Very light — minimal rules, suitable for non-gamers | *Uno*, *Codenames* |
-| 1.5 - 2.5 | Light — simple rules with some decisions | *Ticket to Ride*, *Azul* |
-| 2.5 - 3.5 | Medium — meaningful strategic depth | *Wingspan*, *Everdell* |
-| 3.5 - 4.5 | Heavy — complex rules and deep strategy | *Spirit Island*, *Terraforming Mars* |
-| 4.5 - 5.0 | Very heavy — steep learning curve, long playtime | *Twilight Imperium*, *Mage Knight* |
+| 1.0 - 1.5 | Very light -- minimal rules, suitable for non-gamers | *Uno*, *Codenames* |
+| 1.5 - 2.5 | Light -- simple rules with some decisions | *Ticket to Ride*, *Azul* |
+| 2.5 - 3.5 | Medium -- meaningful strategic depth | *Wingspan*, *Everdell* |
+| 3.5 - 4.5 | Heavy -- complex rules and deep strategy | *Spirit Island*, *Terraforming Mars* |
+| 4.5 - 5.0 | Very heavy -- steep learning curve, long playtime | *Twilight Imperium*, *Mage Knight* |
 
-The `weight_votes` field indicates how many community members contributed to the weight score. A weight of 3.5 with 5000 votes is far more reliable than 3.5 with 12 votes.
+The `weight_votes` field indicates how many community members contributed to the weight score. A weight of 3.5 with 5,000 votes is far more reliable than 3.5 with 12 votes.
 
-**Rating** is a community average on a 1.0 to 10.0 scale, with `rating_votes` tracking the sample size. The specification does not define a Bayesian average or geek rating equivalent — those are derived values that belong in application logic, not the data model. The raw average and vote count are the source data.
+**Rating** is a community average on a 1.0 to 10.0 scale, with `rating_votes` tracking the sample size. The specification does not define a Bayesian average or geek rating equivalent -- those are derived values that belong in application logic, not the data model. The raw average and vote count are the source data.
 
 ## Example
 

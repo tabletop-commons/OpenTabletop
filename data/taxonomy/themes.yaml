@@ -6,15 +6,15 @@
 # A game about pirates in space gets tagged "pirates" and "space."
 #
 # Structure:
-#   slug               — canonical identifier (lowercase, hyphenated)
-#   name               — display name
-#   definition         — precise, distinguishing definition
-#   parent_slug        — optional hierarchical grouping (null if root)
-#   children_slugs     — child themes
-#   canonical_examples — 3 games strongly associated with this theme
-#   synonyms           — alternate names
-#   bgg_ids            — BGG sub-domain/category ID(s) for this theme
-#   bgg_names          — BGG sub-domain/category name(s)
+#   slug               -- canonical identifier (lowercase, hyphenated)
+#   name               -- display name
+#   definition         -- precise, distinguishing definition
+#   parent_slug        -- optional hierarchical grouping (null if root)
+#   children_slugs     -- child themes
+#   canonical_examples -- 3 games strongly associated with this theme
+#   synonyms           -- alternate names
+#   bgg_ids            -- BGG sub-domain/category ID(s) for this theme
+#   bgg_names          -- BGG sub-domain/category name(s)
 
 # ============================================================================
 # SETTINGS / GEOGRAPHY
@@ -44,7 +44,7 @@
   name: Fairy Tale / Storybook
   definition: >-
     Games with whimsical, folk-tale, or storybook settings. Lighter tone
-    than general fantasy — fairy godmothers, enchanted forests, talking
+    than general fantasy -- fairy godmothers, enchanted forests, talking
     animals. Often family-friendly.
   parent_slug: fantasy
   children_slugs: []
@@ -82,7 +82,7 @@
 - slug: space
   name: Space / Interstellar
   definition: >-
-    Games specifically set in outer space — interstellar travel, space
+    Games specifically set in outer space -- interstellar travel, space
     exploration, galactic empires, asteroid mining. The void of space
     and interplanetary scale are central to the setting.
   parent_slug: science-fiction
@@ -117,7 +117,7 @@
 - slug: post-apocalyptic
   name: Post-Apocalyptic
   definition: >-
-    Games set after societal collapse — nuclear war, plague, environmental
+    Games set after societal collapse -- nuclear war, plague, environmental
     disaster, or other cataclysm. Survival, scavenging, and rebuilding
     in a ruined world.
   parent_slug: science-fiction
@@ -172,7 +172,7 @@
 - slug: ancient-history
   name: Ancient
   definition: >-
-    Games set in ancient civilizations — Egypt, Rome, Greece,
+    Games set in ancient civilizations -- Egypt, Rome, Greece,
     Mesopotamia, China, or other pre-medieval cultures. Pyramids,
     gladiators, philosophers, and bronze-age empires.
   parent_slug: historical
@@ -264,7 +264,7 @@
 - slug: war
   name: War / Military Conflict
   definition: >-
-    Games about armed conflict at any scale — from squad-level tactics
+    Games about armed conflict at any scale -- from squad-level tactics
     to global geopolitical warfare. Combat and military strategy are
     the central subject matter.
   parent_slug: null
@@ -337,7 +337,7 @@
 - slug: mythology
   name: Mythology
   definition: >-
-    Games drawing on mythological traditions — Greek, Norse, Egyptian,
+    Games drawing on mythological traditions -- Greek, Norse, Egyptian,
     Celtic, Japanese, or other cultural mythologies. Gods, heroes,
     mythical creatures, and legendary narratives.
   parent_slug: null
@@ -427,7 +427,7 @@
 - slug: animals
   name: Animals
   definition: >-
-    Games where animals are the primary subject — collecting,
+    Games where animals are the primary subject -- collecting,
     managing, or playing as animals. Distinct from nature/ecology
     by focusing on the creatures themselves.
   parent_slug: nature
@@ -594,7 +594,7 @@
   name: Adventure
   definition: >-
     Games about questing, journeying, and exploration-driven narrative.
-    The core experience is going on an adventure — encounters, travel,
+    The core experience is going on an adventure -- encounters, travel,
     and heroic challenges along the way.
   parent_slug: null
   children_slugs: []
@@ -629,7 +629,7 @@
 - slug: steampunk
   name: Steampunk
   definition: >-
-    Games set in Victorian-era worlds with anachronistic technology —
+    Games set in Victorian-era worlds with anachronistic technology --
     steam-powered machines, clockwork devices, airships, and
     retro-futuristic aesthetics.
   parent_slug: null
@@ -686,7 +686,7 @@
 - slug: racing-theme
   name: Racing
   definition: >-
-    Games themed around competitive speed — car racing, horse racing,
+    Games themed around competitive speed -- car racing, horse racing,
     sailing races, or any competition to reach a destination first.
   parent_slug: null
   children_slugs: []
@@ -720,7 +720,7 @@
 - slug: medicine
   name: Medicine / Science
   definition: >-
-    Games with medical or scientific themes — curing diseases, running
+    Games with medical or scientific themes -- curing diseases, running
     hospitals, biological processes, or scientific research.
   parent_slug: null
   children_slugs: []
@@ -756,7 +756,7 @@
   name: Empire / Nation-Building
   definition: >-
     Games about governing and expanding an empire or nation. Grand
-    strategy at the national or imperial scale — diplomacy, warfare,
+    strategy at the national or imperial scale -- diplomacy, warfare,
     economy, and culture management.
   parent_slug: null
   children_slugs: []
@@ -773,7 +773,7 @@
 - slug: miniatures-theme
   name: Miniatures
   definition: >-
-    Games where miniature figures are central to the experience — not
+    Games where miniature figures are central to the experience -- not
     just components but a core part of the hobby (painting, collecting,
     displaying). The miniatures hobby IS part of the game.
   parent_slug: null

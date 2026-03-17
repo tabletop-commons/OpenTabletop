@@ -1,6 +1,6 @@
 # Pillar 3: Statistical Foundation
 
-The third pillar of OpenTabletop is a commitment: **raw data is a first-class output.** Every opinion-based data point in the system — player count polls, weight votes, community play times, expansion property modifications — is available as exportable, analyzable data. The specification does not lock consumers into one algorithm for "best player count" or one definition of "weight." It provides the underlying distributions and lets consumers decide.
+The third pillar of OpenTabletop is a commitment: **raw data is a first-class output.** Every opinion-based data point in the system -- player count polls, weight votes, community play times, expansion property modifications -- is available as exportable, analyzable data. The specification does not lock consumers into one algorithm for "best player count" or one definition of "weight." It provides the underlying distributions and lets consumers decide.
 
 ## Why This Matters
 
@@ -12,7 +12,7 @@ Board game data is full of derived values that obscure the underlying reality:
 
 - **BGG's "geek rating"** applies a Bayesian average that penalizes games with few votes. The formula is not public. You cannot recompute it, adjust it, or replace it with your own ranking system.
 
-OpenTabletop's position is that these derived values are useful but they belong in *application logic*, not in the data specification. The specification provides the raw inputs — vote distributions, individual data points, exportable collections — and lets applications build whatever derived values serve their users.
+OpenTabletop's position is that these derived values are useful but they belong in *application logic*, not in the data specification. The specification provides the raw inputs -- vote distributions, individual data points, exportable collections -- and lets applications build whatever derived values serve their users.
 
 ## What the Statistical Foundation Provides
 
@@ -26,7 +26,7 @@ Every poll-based value exposes the full vote breakdown:
 
 ### 2. Expansion Delta Data
 
-Property modifications and expansion combinations are not just used internally for [effective mode filtering](../filtering/effective-mode.md) — they are queryable and exportable entities. A data scientist can download all property modifications to analyze patterns like:
+Property modifications and expansion combinations are not just used internally for [effective mode filtering](../filtering/effective-mode.md) -- they are queryable and exportable entities. A data scientist can download all property modifications to analyze patterns like:
 
 - "How much does adding an expansion typically increase play time?"
 - "Do expansions tend to increase or decrease the best player count?"

@@ -118,7 +118,7 @@ SearchFilters:
       type: string
       description: >-
         Slug of the edition to use when effective=true. Composes with
-        expansion resolution — the edition provides the base that
+        expansion resolution -- the edition provides the base that
         expansions then modify.
     effective:
       type: boolean
@@ -202,7 +202,7 @@ PlaytimeFilter:
         When set, game playtime values are adjusted using experience-level
         multipliers before comparison. For example, playtime max=120 with
         experience=first_play will find games whose FIRST PLAY time is
-        under 120 minutes — meaning their experienced-play time is roughly
+        under 120 minutes -- meaning their experienced-play time is roughly
         80 minutes. Composes with source and effective mode. See ADR-0034.
       enum:
         - first_play

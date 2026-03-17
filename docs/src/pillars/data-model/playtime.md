@@ -36,16 +36,16 @@ These represent the range within which most community-reported plays fall. The s
 
 ### Data Source
 
-Community play times come from logged plays where the player recorded a duration. Not all logged plays include duration, and the ones that do are self-reported, so there is inherent noise. With enough data points, the aggregate provides a more detailed picture than publisher estimates — though it still reflects the play patterns of people who log their games, who tend to be more experienced hobbyist gamers. See [Data Provenance & Bias](./data-provenance.md) for more on how community data is shaped by who contributes it.
+Community play times come from logged plays where the player recorded a duration. Not all logged plays include duration, and the ones that do are self-reported, so there is inherent noise. With enough data points, the aggregate provides a more detailed picture than publisher estimates -- though it still reflects the play patterns of people who log their games, who tend to be more experienced hobbyist gamers. See [Data Provenance & Bias](./data-provenance.md) for more on how community data is shaped by who contributes it.
 
-### Example: Terraforming Mars
+### Example: Ark Nova
 
 | Source | Min | Max |
 |--------|-----|-----|
-| Publisher | 120 min | 120 min |
-| Community | 90 min | 180 min |
+| Publisher | 90 min | 150 min |
+| Community | 120 min | 210 min |
 
-The publisher lists a single value: 120 minutes. The community data tells a much richer story: experienced 2-player games can finish in 90 minutes, while 5-player games with new players regularly exceed 3 hours. The 120-minute publisher estimate is not wrong — it is just the median for an experienced 3-player game, which is one narrow slice of the full picture.
+The publisher says 90-150 minutes. The community data tells a different story: even experienced 2-player games rarely finish under 2 hours, and 4-player games with new players can exceed 3.5 hours. The publisher's 90-minute lower bound assumes experienced players making fast decisions -- a condition that rarely holds for a game with this much card variety and decision density.
 
 ### Example: Gloomhaven
 
@@ -60,9 +60,9 @@ The publisher's optimistic "60-120 minutes" per scenario misses that most groups
 
 The [filter dimensions](../filtering/dimensions.md) support both sources:
 
-- `playtime_min` / `playtime_max` — Filter using whichever source is selected by `playtime_source`
-- `playtime_source=publisher` — Use publisher-stated times (default)
-- `playtime_source=community` — Use community-reported times
+- `playtime_min` / `playtime_max` -- Filter using whichever source is selected by `playtime_source`
+- `playtime_source=publisher` -- Use publisher-stated times (default)
+- `playtime_source=community` -- Use community-reported times
 
 Why default to publisher times? Because publisher times are available for nearly every game, while community times require sufficient play log data. For less popular games, community data may not exist. Defaulting to publisher ensures the broadest coverage while allowing users who want accuracy to opt into community times.
 
@@ -78,7 +78,7 @@ When [effective mode](../filtering/effective-mode.md) is enabled, play time filt
 
 ## Experience-Adjusted Play Time
 
-All playtime data — publisher-stated, community-reported, and expansion-modified — implicitly assumes experienced players. But a first play of Spirit Island takes 57% longer than an experienced play. The experience-adjusted playtime model (ADR-0034) addresses this by bucketing community play data by experience level.
+All playtime data -- publisher-stated, community-reported, and expansion-modified -- implicitly assumes experienced players. But a first play of *Agricola* takes roughly 60% longer than an experienced play -- the card combinations, feeding mechanics, and action optimization are overwhelming on first encounter. The experience-adjusted playtime model ([ADR-0034](../../adr/0034-experience-bucketed-playtime.md)) addresses this by bucketing community play data by experience level.
 
 ### Experience Levels
 
@@ -93,24 +93,24 @@ All playtime data — publisher-stated, community-reported, and expansion-modifi
 
 Community play logs include a self-reported experience level. The system aggregates these into per-level median and percentile times. Multipliers are derived per-game as `median[level] / median[experienced]`.
 
-### Example: Spirit Island
+### Example: Agricola
 
 | Level | Median | 10th pctl | 90th pctl | Reports |
 |-------|--------|-----------|-----------|---------|
-| First play | 165 min | 120 min | 240 min | 342 |
-| Learning | 135 min | 100 min | 180 min | 518 |
-| Experienced | 105 min | 75 min | 150 min | 1,204 |
-| Expert | 80 min | 60 min | 110 min | 287 |
+| First play | 150 min | 110 min | 220 min | 278 |
+| Learning | 120 min | 90 min | 165 min | 445 |
+| Experienced | 95 min | 65 min | 130 min | 1,089 |
+| Expert | 70 min | 50 min | 100 min | 231 |
 
-Spirit Island's first-play multiplier is 1.57× — a first-time group should budget nearly twice as long as the box suggests. The expert multiplier of 0.76× reflects that veteran players who have internalized the decision trees can finish significantly faster.
+Agricola's first-play multiplier is 1.58× -- a first-time group should budget nearly twice the box's "30 minutes per player" estimate. The card combinations, feeding pressure, and action space are overwhelming on first encounter. The expert multiplier of 0.74× reflects that veteran players who have internalized the occupation/improvement combos and optimal action sequences can finish remarkably quickly.
 
 ### Why Per-Game Multipliers Matter
 
 Different games have fundamentally different experience curves:
 
-- **Party games** (Codenames, Wavelength): Near-zero first-play penalty. Rules take 2 minutes to explain, and play speed barely changes with experience.
-- **Medium-weight euros** (Wingspan, Everdell): Moderate first-play penalty (~1.3×). The rules are learnable in one session, but card familiarity speeds up experienced play.
-- **Heavy games** (Spirit Island, Through the Ages): High first-play penalty (~1.5-2.0×). Complex interlocking systems, large decision trees, and frequent rules references extend first plays dramatically.
+- **Party games** (*Codenames*, *Wavelength*): Near-zero first-play penalty. Rules take 2 minutes to explain, and play speed barely changes with experience.
+- **Medium-weight euros** (*Wingspan*, *Everdell*): Moderate first-play penalty (~1.3×). The rules are learnable in one session, but card familiarity speeds up experienced play.
+- **Heavy games** (*Agricola*, *Through the Ages*): High first-play penalty (~1.5-2.0×). Complex interlocking systems, large decision trees, and frequent rules references extend first plays dramatically.
 
 A global multiplier would be wrong for all three categories. Game-specific data from community play logs captures these differences accurately.
 
@@ -122,13 +122,26 @@ The `playtime_experience` parameter adjusts playtime filtering:
 GET /games?playtime_max=120&playtime_source=community&playtime_experience=first_play
 ```
 
-This asks: "Show me games where a first play fits in 2 hours." Spirit Island's community max (150 min) adjusted for first_play (× 1.57 = 235 min) exceeds 120, so it is correctly excluded — a first play of Spirit Island will not fit in 2 hours.
+This asks: "Show me games where a first play fits in 2 hours." *Agricola*'s community max (130 min) adjusted for first_play (× 1.58 = 205 min) exceeds 120, so it is correctly excluded -- a first play of *Agricola* will not fit in 2 hours.
 
 See [Filter Dimensions](../filtering/dimensions.md) for the full parameter reference.
 
 ### Games Without Experience Data
 
 Games with fewer than a minimum number of experience-tagged play logs fall back to global default multipliers (derived from aggregate data across all games). The `sufficient_data` flag in the experience profile indicates whether game-specific or global multipliers are in use.
+
+## OpenTabletop's Approach
+
+### Input Contract
+
+The playtime model follows the specification's [Input Contract](./data-provenance.md#input-contract) principles:
+
+| Element | Playtime-Specific Definition |
+|---------|----------------------------|
+| **Question** | "How long did your session of *[Game]* take?" |
+| **Scale** | Minutes (integer) |
+| **Context captured** | Player count for this session, experience level (first play / learning / experienced / expert per [ADR-0034](../../adr/0034-experience-bucketed-playtime.md)), whether rules teaching was included |
+| **Transparency** | "Your reported time is bucketed by experience level and player count. The aggregate reflects play times for your experience bracket, not all players." |
 
 ## Future: Play Time Distribution
 

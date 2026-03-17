@@ -24,7 +24,8 @@ Every search response includes a `meta` object alongside the `data` array. The m
       "theme_not": ["space"]
     },
     "sort": "rating_desc",
-    "effective": false
+    "effective": false,
+    "include_integrations": false
   }
 }
 ```
@@ -39,6 +40,7 @@ Every search response includes a `meta` object alongside the `data` array. The m
 | `filters_applied` | object | Echo of all active filters. Only includes non-null, non-default parameters. |
 | `sort` | string | The sort order used. |
 | `effective` | boolean | Whether effective mode was active for this query. |
+| `include_integrations` | boolean | Whether `integrates_with` combinations were included in effective mode. Only meaningful when `effective` is `true`. |
 
 ## FilterSummary (filters_applied)
 
@@ -84,7 +86,7 @@ The `cursor` field implements keyset pagination. See [Pagination](../../specific
 
 - First request: omit `cursor` (or set to `null`).
 - Next page: pass the `cursor` value from the previous response.
-- Last page: `cursor` is `null` — no more results.
+- Last page: `cursor` is `null` -- no more results.
 
 The cursor is an opaque string. Do not parse, construct, or modify it. Its format may change between API versions.
 
@@ -107,7 +109,7 @@ For most filtered queries, the total is small enough to be exact.
 
 ## Future: Facet Counts
 
-A planned extension to the response metadata is **facet counts** — aggregate counts of how many results match each value of a given dimension. For example:
+A planned extension to the response metadata is **facet counts** -- aggregate counts of how many results match each value of a given dimension. For example:
 
 ```json
 {

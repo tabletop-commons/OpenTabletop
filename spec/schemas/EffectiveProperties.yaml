@@ -48,7 +48,7 @@ EffectiveProperties:
     edition_source:
       type: string
       description: >-
-        How the edition was selected — explicit means user specified via
+        How the edition was selected -- explicit means user specified via
         query param, canonical means the default canonical edition was used,
         none means no edition data exists for this game.
       enum:

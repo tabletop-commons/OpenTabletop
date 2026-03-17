@@ -1,10 +1,61 @@
-PlayerCountPoll:
+PlayerCountRating:
   type: object
   description: >-
-    Per-player-count voting data capturing community sentiment about the quality
-    of experience at each player count. See ADR-0010 for the design rationale.
-    This enables queries like "games best at 3 players" by examining where
-    best_votes dominates.
+    Per-player-count quality rating capturing community sentiment about the
+    experience at each player count. Each voter independently rates each
+    supported player count on a 1-5 scale, producing a distribution that can
+    be analyzed with standard statistical tools. See ADR-0010 and ADR-0043.
+  required:
+    - game_id
+    - player_count
+    - average_rating
+    - rating_count
+  properties:
+    game_id:
+      type: string
+      format: uuid
+      description: The UUIDv7 of the game this rating data belongs to.
+      example: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    player_count:
+      type: integer
+      minimum: 1
+      description: >-
+        The specific player count this rating is for. Each game has one
+        entry per supported player count value.
+      example: 3
+    average_rating:
+      type: number
+      format: float
+      minimum: 1.0
+      maximum: 5.0
+      description: >-
+        Mean community rating for this player count on a 1.0 (poor) to
+        5.0 (excellent) scale. Each voter rates independently -- a voter
+        can rate both 3p and 4p as 5.0 without being forced to choose.
+      example: 4.7
+    rating_count:
+      type: integer
+      minimum: 0
+      description: Number of community votes for this player count.
+      example: 1407
+    rating_stddev:
+      type: number
+      format: float
+      minimum: 0.0
+      nullable: true
+      description: >-
+        Standard deviation of ratings at this player count. Low values
+        indicate consensus; high values indicate polarized opinions.
+      example: 0.5
+
+PlayerCountPollLegacy:
+  type: object
+  description: >-
+    BGG-compatible three-tier per-player-count poll data. This schema
+    preserves the Best/Recommended/Not Recommended voting system for
+    migration from BoardGameGeek (ADR-0032). The native model uses
+    numeric per-count ratings (see PlayerCountRating). This legacy
+    format has known statistical limitations documented in ADR-0043.
   required:
     - game_id
     - player_count
@@ -21,30 +72,28 @@ PlayerCountPoll:
     player_count:
       type: integer
       minimum: 1
-      description: >-
-        The specific player count this poll entry is for. Each game has one
-        entry per supported player count value.
+      description: The specific player count this poll entry is for.
       example: 2
     best_votes:
       type: integer
       minimum: 0
       description: >-
         Number of votes saying this player count is the best way to play
-        the game.
+        the game. Part of the BGG three-tier model.
       example: 520
     recommended_votes:
       type: integer
       minimum: 0
       description: >-
         Number of votes saying this player count is a good (recommended)
-        way to play the game.
+        way to play the game. Part of the BGG three-tier model.
       example: 240
     not_recommended_votes:
       type: integer
       minimum: 0
       description: >-
         Number of votes saying this player count is not recommended for
-        this game.
+        this game. Part of the BGG three-tier model.
       example: 40
     total_votes:
       type: integer

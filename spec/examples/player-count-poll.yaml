@@ -1,31 +1,32 @@
-summary: Spirit Island player count poll data
+summary: Terraforming Mars player count ratings
 description: >-
-  Per-player-count voting data for Spirit Island showing community sentiment
-  at each supported player count. This demonstrates the structured poll model
-  from ADR-0010. The data shows Spirit Island is considered best at 2 players,
-  recommended at 1 and 3, and not recommended at 4 players.
+  Per-player-count community ratings for Terraforming Mars showing the numeric
+  rating model from ADR-0043. Each player count is rated independently on a
+  1-5 scale. The data shows Terraforming Mars is highest rated at 3 players
+  (4.7/5), well-regarded at 2 and 4, and poorly rated at 1 and 5.
 value:
-  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  - game_id: "01967b3c-5a00-7000-8000-000000000070"
     player_count: 1
-    best_votes: 40
-    recommended_votes: 320
-    not_recommended_votes: 440
-    total_votes: 800
-  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    average_rating: 2.1
+    rating_count: 1277
+    rating_stddev: 1.2
+  - game_id: "01967b3c-5a00-7000-8000-000000000070"
     player_count: 2
-    best_votes: 520
-    recommended_votes: 240
-    not_recommended_votes: 40
-    total_votes: 800
-  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    average_rating: 4.2
+    rating_count: 1222
+    rating_stddev: 0.7
+  - game_id: "01967b3c-5a00-7000-8000-000000000070"
     player_count: 3
-    best_votes: 160
-    recommended_votes: 400
-    not_recommended_votes: 240
-    total_votes: 800
-  - game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+    average_rating: 4.7
+    rating_count: 1407
+    rating_stddev: 0.5
+  - game_id: "01967b3c-5a00-7000-8000-000000000070"
     player_count: 4
-    best_votes: 80
-    recommended_votes: 240
-    not_recommended_votes: 480
-    total_votes: 800
+    average_rating: 3.6
+    rating_count: 1246
+    rating_stddev: 1.0
+  - game_id: "01967b3c-5a00-7000-8000-000000000070"
+    player_count: 5
+    average_rating: 2.3
+    rating_count: 1141
+    rating_stddev: 1.1

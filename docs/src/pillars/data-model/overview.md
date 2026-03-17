@@ -127,7 +127,7 @@ erDiagram
 | **Mechanic** | A controlled vocabulary term describing a game mechanism (e.g., "deck-building", "worker-placement"). See [Taxonomy](./taxonomy.md). |
 | **Category** | A controlled vocabulary term for game classification (e.g., "strategy", "party", "war"). See [Taxonomy](./taxonomy.md). |
 | **Theme** | A controlled vocabulary term for thematic setting (e.g., "fantasy", "space", "historical"). See [Taxonomy](./taxonomy.md). |
-| **Family** | A named grouping of related games (e.g., "Catan", "Pandemic Legacy"). See [Taxonomy](./taxonomy.md). |
+| **Family** | A named grouping of related games (e.g., "*Catan*", "*Pandemic Legacy*"). See [Taxonomy](./taxonomy.md). |
 | **Person** | A designer, artist, or other credited individual. See [People & Organizations](./people.md). |
 | **Organization** | A publisher, manufacturer, or distributor. See [People & Organizations](./people.md). |
 | **PlayerCountPoll** | Community vote data for each supported player count. See [Player Count Model](./player-count.md). |
@@ -137,7 +137,7 @@ erDiagram
 
 **Explicit over implicit.** Every relationship is a first-class entity with a type discriminator, not an implied association.
 
-**Dual-source data.** Wherever community perceptions differ from publisher-stated values, both are captured. Publisher-stated play time and community-reported play time are separate fields, not averaged into one. Both sources carry their own biases — see [Data Provenance & Bias](./data-provenance.md).
+**Dual-source data.** Wherever community perceptions differ from publisher-stated values, both are captured. Publisher-stated play time and community-reported play time are separate fields, not averaged into one. Both sources carry their own biases -- see [Data Provenance & Bias](./data-provenance.md).
 
 **Combinatorial awareness.** The data model does not just store "this expansion exists." It stores how that expansion changes the base game's properties, and it supports pre-computed combinations for sets of expansions. This is what makes [effective mode filtering](../filtering/effective-mode.md) possible.
 

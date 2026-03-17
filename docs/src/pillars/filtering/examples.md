@@ -1,8 +1,8 @@
 # Real-World Examples
 
-Five scenarios demonstrating the filtering system in practice. Each includes the natural-language question, the API request, and an annotated response.
+Six scenarios demonstrating the filtering system in practice. Each includes the natural-language question, the API request, and an annotated response.
 
-## Example 1: Game Night — 4 Players, 90 Minutes, Medium Weight
+## Example 1: Game Night -- 4 Players, 90 Minutes, Medium Weight
 
 **Scenario:** Four friends have 90 minutes. They want medium-weight cooperative games, no space themes.
 
@@ -63,7 +63,7 @@ Content-Type: application/json
       "min_players": 2,
       "max_players": 7,
       "community_max_playtime": 50,
-      "weight": 1.91,
+      "weight": 2.18,
       "rating": 7.22
     }
   ],
@@ -79,7 +79,9 @@ Content-Type: application/json
       "weight_max": 3.5,
       "mechanics": ["cooperative"],
       "theme_not": ["space"]
-    }
+    },
+    "sort": "rating_desc",
+    "effective": false
   }
 }
 ```
@@ -88,7 +90,7 @@ Content-Type: application/json
 
 ---
 
-## Example 2: Solo Gaming — Heavy, Engine-Building, Recent
+## Example 2: Solo Gaming -- Heavy, Engine-Building, Recent
 
 **Scenario:** A solo player wants heavy engine-building games published in the last 3 years.
 
@@ -100,7 +102,7 @@ Content-Type: application/json
 
 {
   "players": 1,
-  "best_at": 1,
+  "top_at": 1,
   "weight_min": 3.5,
   "mechanics_all": ["engine-building", "solo"],
   "year_min": 2023,
@@ -132,20 +134,22 @@ Content-Type: application/json
     "cursor": null,
     "filters_applied": {
       "players": 1,
-      "best_at": 1,
+      "top_at": 1,
       "weight_min": 3.5,
       "mechanics_all": ["engine-building", "solo"],
       "year_min": 2023
-    }
+    },
+    "sort": "weight_desc",
+    "effective": false
   }
 }
 ```
 
-**Why `best_at` matters:** `players=1` finds games that *support* solo play, but many of those are mediocre solo experiences (a multiplayer game with a tacked-on solo mode). `best_at=1` narrows to games the community considers *best* solo, dramatically improving recommendation quality.
+**Why `top_at` matters:** `players=1` finds games that *support* solo play, but many of those are mediocre solo experiences (a multiplayer game with a tacked-on solo mode). `top_at=1` narrows to games the community rates highly at 1 player (above the high threshold, e.g., 4.0+/5), dramatically improving recommendation quality.
 
 ---
 
-## Example 3: Large Group — Party Games for 6-8 People
+## Example 3: Large Group -- Party Games for 6-8 People
 
 **Scenario:** A group of 7 wants light party games under 30 minutes.
 
@@ -210,14 +214,22 @@ Content-Type: application/json
   "meta": {
     "total": 43,
     "limit": 10,
-    "cursor": "eyJyYXRpbmciOjcuNTQsImlkIjoiMDE5NjdiM2MifQ=="
+    "cursor": "eyJyYXRpbmciOjcuNTQsImlkIjoiMDE5NjdiM2MifQ==",
+    "filters_applied": {
+      "players": 7,
+      "playtime_max": 30,
+      "weight_max": 1.5,
+      "category": ["party"]
+    },
+    "sort": "rating_desc",
+    "effective": false
   }
 }
 ```
 
 ---
 
-## Example 4: Effective Mode — 6-Player Games with Expansions
+## Example 4: Effective Mode -- 6-Player Games with Expansions
 
 **Scenario:** A group of 6 wants strategy games. They are willing to buy expansions if needed.
 
@@ -231,7 +243,7 @@ Content-Type: application/json
   "players": 6,
   "effective": true,
   "weight_min": 2.5,
-  "weight_max": 4.0,
+  "weight_max": 4.6,
   "category": ["strategy"],
   "sort": "rating_desc",
   "limit": 5
@@ -251,7 +263,7 @@ Content-Type: application/json
       "year_published": 2017,
       "min_players": 1,
       "max_players": 4,
-      "weight": 3.89,
+      "weight": 4.08,
       "rating": 8.31,
       "matched_via": {
         "type": "expansion_combination",
@@ -261,7 +273,7 @@ Content-Type: application/json
         "effective_properties": {
           "min_players": 1,
           "max_players": 6,
-          "weight": 4.10
+          "weight": 4.52
         },
         "resolution_tier": 1
       }
@@ -293,16 +305,25 @@ Content-Type: application/json
   "meta": {
     "total": 28,
     "limit": 5,
-    "cursor": "eyJyYXRpbmciOjguMjIsImlkIjoiMDE5NjdiM2MifQ=="
+    "cursor": "eyJyYXRpbmciOjguMjIsImlkIjoiMDE5NjdiM2MifQ==",
+    "filters_applied": {
+      "players": 6,
+      "effective": true,
+      "weight_min": 2.5,
+      "weight_max": 4.6,
+      "category": ["strategy"]
+    },
+    "sort": "rating_desc",
+    "effective": true
   }
 }
 ```
 
-**Key insight:** Neither Spirit Island (1-4p) nor Scythe (1-5p) supports 6 players in base form. Both appear because effective mode found expansion combinations that reach 6. The `matched_via` object tells the consumer exactly which expansions to buy.
+**Key insight:** Neither *Spirit Island* (1-4p) nor *Scythe* (1-5p) supports 6 players in base form. Both appear because effective mode found expansion combinations that reach 6. The `matched_via` object tells the consumer exactly which expansions to buy.
 
 ---
 
-## Example 5: Designer Deep Dive — All Uwe Rosenberg Games
+## Example 5: Designer Deep Dive -- All Uwe Rosenberg Games
 
 **Scenario:** A fan wants to explore all medium-to-heavy Uwe Rosenberg games sorted by year.
 
@@ -362,16 +383,18 @@ Content-Type: application/json
       "designer": ["uwe-rosenberg"],
       "weight_min": 2.5,
       "type": ["base_game"]
-    }
+    },
+    "sort": "year_desc",
+    "effective": false
   }
 }
 ```
 
-**Note:** `type: ["base_game"]` excludes Rosenberg's expansions and promos, focusing only on his standalone designs. Without this filter, results would include expansion entries for Agricola, Caverna, etc.
+**Note:** `type: ["base_game"]` excludes Rosenberg's expansions and promos, focusing only on his standalone designs. Without this filter, results would include expansion entries for *Agricola*, *Caverna*, etc.
 
 ---
 
-## Example 6: First-Time Play — "We Have 2 Hours and Nobody Knows the Game"
+## Example 6: First-Time Play -- "We Have 2 Hours and Nobody Knows the Game"
 
 **Scenario:** A group of 3 wants to try a new cooperative game tonight. They have 2 hours. They have never played whatever game they pick, so the first-play time needs to fit within 2 hours.
 
@@ -447,15 +470,19 @@ Content-Type: application/json
     "cursor": "eyJyYXRpbmciOjcuMzIsImlkIjoiMDE5NjdiM2MifQ==",
     "filters_applied": {
       "players": 3,
-      "playtime_max": "≤ 120 min (adjusted for first_play)",
+      "playtime_max": 120,
       "playtime_source": "community",
-      "weight": "2.0 – 3.5",
+      "playtime_experience": "first_play",
+      "weight_min": 2.0,
+      "weight_max": 3.5,
       "mechanics": ["cooperative"]
-    }
+    },
+    "sort": "rating_desc",
+    "effective": false
   }
 }
 ```
 
-**Key insight:** Spirit Island is NOT in these results. Its community max playtime is 150 minutes, and adjusted for first play (× 1.57) that is 235 minutes — well over the 2-hour budget. Pandemic fits because its first-play adjusted time (60 × 1.50 = 90 min) is within 120. The `experience_playtime` include shows the consumer exactly what to expect: "Pandemic will take about 75 minutes for your first game."
+**Key insight:** *Spirit Island* is NOT in these results. Its community max playtime is 150 minutes, and adjusted for first play (× 1.57) that is 235 minutes -- well over the 2-hour budget. *Pandemic* fits because its first-play adjusted time (60 × 1.50 = 90 min) is within 120. The `experience_playtime` include shows the consumer exactly what to expect: "*Pandemic* will take about 75 minutes for your first game."
 
-**Without experience adjustment**, this query would have returned Spirit Island (community max 150 min > 120, still excluded) but would have included games whose experienced play time is 80 minutes but whose first play realistically takes 130+ minutes — setting up the group for a game that runs over their time budget.
+**Without experience adjustment**, this query would have returned *Spirit Island* (community max 150 min > 120, still excluded) but would have included games whose experienced play time is 80 minutes but whose first play realistically takes 130+ minutes -- setting up the group for a game that runs over their time budget.

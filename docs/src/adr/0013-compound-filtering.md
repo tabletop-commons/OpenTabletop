@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The central value proposition of the OpenTabletop API is enabling consumers to answer questions like "What are the best worker-placement games for exactly 3 players that play in under 90 minutes with medium-heavy weight?" This requires composable multi-dimensional filtering across six dimensions simultaneously. The filtering system is not just a feature — it is THE core feature that differentiates this API from existing board game data sources.
+The central value proposition of the OpenTabletop API is enabling consumers to answer questions like "What are the best worker-placement games for exactly 3 players that play in under 90 minutes with medium-heavy weight?" This requires composable multi-dimensional filtering across six dimensions simultaneously. The filtering system is not just a feature -- it is THE core feature that differentiates this API from existing board game data sources.
 
 ## Decision Drivers
 

@@ -83,7 +83,7 @@ flowchart LR
     style BGG fill:#f57c00,color:#fff
 ```
 
-The routing decision is per-entity: if Spirit Island exists in the conforming server's database, serve it natively. If an obscure game has not been imported yet, fall back to BGG translation.
+The routing decision is per-entity: if *Spirit Island* exists in the conforming server's database, serve it natively. If an obscure game has not been imported yet, fall back to BGG translation.
 
 ### Phase 3: Native Only
 
@@ -118,7 +118,7 @@ Migrating from BGG's data model to OpenTabletop's requires careful field mapping
 
 ### Key Differences
 
-**No type discriminator in BGG.** BGG does not distinguish base games from expansions at the entity level — you determine this from the presence of expansion links. The OpenTabletop specification defines an explicit `type` field.
+**No type discriminator in BGG.** BGG does not distinguish base games from expansions at the entity level -- you determine this from the presence of expansion links. The OpenTabletop specification defines an explicit `type` field.
 
 **No dual playtime in BGG.** BGG stores only publisher-stated play time. Community play time is an OpenTabletop addition.
 
@@ -136,7 +136,7 @@ The migration architecture includes a data import pipeline for bulk loading BGG 
 4. **Enrichment.** Add OpenTabletop-specific data (community play times, property deltas, expansion combinations) from community contributions.
 5. **Load.** Bulk insert into PostgreSQL.
 
-The import pipeline is idempotent — running it twice with the same input produces the same result. BGG IDs are stored as external identifiers and used as deduplication keys.
+The import pipeline is idempotent -- running it twice with the same input produces the same result. BGG IDs are stored as external identifiers and used as deduplication keys.
 
 ## For Application Developers
 
@@ -144,7 +144,7 @@ If you are building an application that currently uses the BGG XML API, the migr
 
 1. **Start using the OpenTabletop SDK** with the translation layer as the backend. Your code uses the standard API immediately; the translation layer handles BGG communication.
 2. **Map your BGG IDs.** Use the identifier lookup endpoint to find OpenTabletop UUIDs for your existing BGG IDs.
-3. **Adopt new features incrementally.** Start using effective mode, community play times, and multi-dimensional filtering — features that have no BGG equivalent.
+3. **Adopt new features incrementally.** Start using effective mode, community play times, and multi-dimensional filtering -- features that have no BGG equivalent.
 4. **Remove BGG dependency.** Once the conforming server's dataset covers your needs, point the SDK at it directly and decommission the translation layer.
 
 See [Migrating from BGG](../guides/migrating-from-bgg.md) for a practical step-by-step guide.

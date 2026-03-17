@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide walks through your first interactions with an OpenTabletop-conforming API. The examples use the reference implementation at `api.opentabletop.org`, but any conforming server exposes the same endpoints and accepts the same parameters — only the base URL differs.
+This guide walks through your first interactions with an OpenTabletop-conforming API. The examples use the reference implementation at `api.opentabletop.org`, but any conforming server exposes the same endpoints and accepts the same parameters -- only the base URL differs.
 
 ## Base URL
 
@@ -60,6 +60,20 @@ mode=cooperative&\
 sort=bayes_rating&order=desc&\
 limit=10"
 ```
+
+## Searching in Other Languages
+
+Games carry alternate names in any language. Search works across all of them:
+
+```bash
+# Search by Japanese name
+curl "https://api.opentabletop.org/v1/search?q=ブラス：バーミンガム"
+
+# Search by Korean name
+curl "https://api.opentabletop.org/v1/search?q=브라스:%20버밍엄"
+```
+
+Both return the same *Brass: Birmingham* entity. The full-text search indexes all alternate names with language-appropriate tokenizers, so users can discover games in their own language regardless of what language the game was originally published in.
 
 ## Expansion-Aware Filtering
 
@@ -139,6 +153,6 @@ curl "https://api.opentabletop.org/v1/games?cursor=eyJpZCI6IjAxOTM4...&limit=25"
 
 ## Next Steps
 
-- [Filter Dimensions](../pillars/filtering/dimensions.md) — Full reference for all 6 filter dimensions
-- [Expansion Model](../pillars/data-model/property-deltas.md) — How combinatorial expansion effects work
-- [Data Export](../pillars/statistics/export.md) — Bulk data access for analysis
+- [Filter Dimensions](../pillars/filtering/dimensions.md) -- Full reference for all 6 filter dimensions
+- [Expansion Model](../pillars/data-model/property-deltas.md) -- How combinatorial expansion effects work
+- [Data Export](../pillars/statistics/export.md) -- Bulk data access for analysis

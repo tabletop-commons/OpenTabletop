@@ -31,7 +31,7 @@ GameAward:
       type: string
       description: >-
         The game's result in this award cycle. Awards may have different
-        stages — not all awards use all result levels.
+        stages -- not all awards use all result levels.
       enum:
         - nominated
         - shortlisted

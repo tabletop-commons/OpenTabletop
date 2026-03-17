@@ -30,6 +30,6 @@ Chosen option: "Single unified table with type discriminator", because it produc
 
 * Good, because all game types are queryable from a single table with simple WHERE clauses
 * Good, because the discriminator column enables efficient type-filtered indexes
-* Good, because the API surface is uniform — one /games endpoint serves all types
+* Good, because the API surface is uniform -- one /games endpoint serves all types
 * Bad, because some columns are nullable for types where they don't apply (e.g., base games don't have `requires_base_game`)
 * Bad, because adding a new game type requires careful review of which columns apply

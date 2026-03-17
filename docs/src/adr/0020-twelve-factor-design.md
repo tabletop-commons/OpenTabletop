@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The OpenTabletop reference server must be deployable across diverse environments — local development, CI/CD pipelines, cloud VMs, and Kubernetes clusters. The deployment and runtime model should follow established best practices that ensure portability, scalability, and operational simplicity. We need an architectural philosophy that guides operational decisions consistently.
+The OpenTabletop reference server must be deployable across diverse environments -- local development, CI/CD pipelines, cloud VMs, and Kubernetes clusters. The deployment and runtime model should follow established best practices that ensure portability, scalability, and operational simplicity. We need an architectural philosophy that guides operational decisions consistently.
 
 ## Decision Drivers
 

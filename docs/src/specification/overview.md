@@ -1,6 +1,6 @@
 # OpenAPI Specification Overview
 
-The OpenTabletop API is defined by an OpenAPI 3.1 specification in the `spec/` directory. This spec is the **single source of truth** — all implementations (reference server, SDKs) are derived from it (ADR-0002).
+The OpenTabletop API is defined by an OpenAPI 3.1 specification in the `spec/` directory. This spec is the **single source of truth** -- all implementations (reference server, SDKs) are derived from it (ADR-0002).
 
 ## File Organization
 

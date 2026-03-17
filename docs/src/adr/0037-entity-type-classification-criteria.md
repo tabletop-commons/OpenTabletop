@@ -29,15 +29,15 @@ Without formal criteria, contributors and data curators will reproduce these sam
 
 ## Considered Options
 
-* **Informal guidelines** — Expand the existing type discriminator table in `games.md` with longer descriptions and examples
-* **Formal classification criteria as a dedicated documentation page with ADR** — Create a full decision tree, grey zone rules, worked examples, BGG migration mapping, and RFC reviewer checklist
-* **Algorithmic classification** — Define programmatic rules that automatically assign types during data import
+* **Informal guidelines** -- Expand the existing type discriminator table in `games.md` with longer descriptions and examples
+* **Formal classification criteria as a dedicated documentation page with ADR** -- Create a full decision tree, grey zone rules, worked examples, BGG migration mapping, and RFC reviewer checklist
+* **Algorithmic classification** -- Define programmatic rules that automatically assign types during data import
 
 ## Decision Outcome
 
 Chosen option: "Formal classification criteria as a dedicated documentation page with ADR," because repeatable, human-readable criteria serve both human contributors (RFC review, data correction) and automated import pipelines (BGG migration). The criteria document follows the established pattern of `taxonomy-criteria.md`: a mermaid decision tree flowchart, grey zone rules with worked examples, and an RFC reviewer checklist.
 
-Informal guidelines were rejected because they lack the structure needed for consistent review decisions across contributors. Fully algorithmic classification was rejected because grey zone cases inherently require human judgment — the criteria guide that judgment rather than replace it.
+Informal guidelines were rejected because they lack the structure needed for consistent review decisions across contributors. Fully algorithmic classification was rejected because grey zone cases inherently require human judgment -- the criteria guide that judgment rather than replace it.
 
 ### Consequences
 
@@ -45,8 +45,8 @@ Informal guidelines were rejected because they lack the structure needed for con
 * Good, because the BGG migration pipeline can reference the same criteria for deterministic import rules
 * Good, because the "new entity vs new edition" boundary is formally documented alongside the type boundary
 * Good, because the pattern matches `taxonomy-criteria.md`, keeping documentation consistent
-* Good, because the criteria compose with the relationship type system ([ADR-0011](0011-typed-game-relationships.md)) — the decision tree references relationship types as outputs
-* Bad, because edge cases will inevitably arise that the criteria do not cover — the document must evolve via RFC
+* Good, because the criteria compose with the relationship type system ([ADR-0011](0011-typed-game-relationships.md)) -- the decision tree references relationship types as outputs
+* Bad, because edge cases will inevitably arise that the criteria do not cover -- the document must evolve via RFC
 * Bad, because retroactive reclassification of imported data may be needed as criteria are refined
 
 ## Implementation

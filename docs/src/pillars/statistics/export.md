@@ -14,18 +14,22 @@ GET /export/games?format=jsonl&mechanics=cooperative&year_min=2020
 |-----------|------|---------|-------------|
 | `format` | string | `jsonl` | Output format: `jsonl` or `csv` |
 | `include` | string[] | `["base"]` | Data to include (see below) |
-| All search filters | — | — | Same parameters as `POST /games/search` |
+| All search filters | -- | -- | Same parameters as `POST /games/search` |
 
 ### Include Options
 
 | Value | Description |
 |-------|-------------|
-| `base` | Core game fields (id, slug, name, type, players, playtime, weight, rating) |
+| `base` | Core game fields (id, slug, name, type, players, playtime, weight, rating, confidence, community_suggested_age) |
 | `taxonomy` | Mechanics, categories, themes, families for each game |
 | `people` | Designers, artists, publishers |
-| `polls` | Player count poll data |
+| `polls` | Player count ratings (numeric 1-5 per count, with average, vote count, and std dev) |
+| `rating_distribution` | Rating histogram (1-10 buckets), std dev, and confidence score |
 | `weight_votes` | Weight vote distribution |
+| `experience_playtime` | Experience-bucketed playtime data (first_play, learning, experienced, expert multipliers) |
+| `age_polls` | Community age recommendation polls |
 | `playtime_stats` | Community play time statistics |
+| `editions` | Edition metadata and edition deltas (ADR-0035) |
 | `identifiers` | External cross-reference IDs |
 | `relationships` | GameRelationship edges |
 | `deltas` | PropertyModification and ExpansionCombination data |
@@ -40,12 +44,12 @@ GET /export/games?format=jsonl&include=base,polls,taxonomy&weight_min=3.0
 Each line is a self-contained JSON object representing one game with all requested includes:
 
 ```jsonl
-{"id":"01967b3c-5a00-7000-8000-000000000001","slug":"spirit-island","name":"Spirit Island","type":"base_game","min_players":1,"max_players":4,"weight":3.89,"rating":8.31,"mechanics":["cooperative","hand-management","area-control"],"categories":["strategy","thematic"],"player_count_poll":[{"player_count":1,"best":312,"recommended":589,"not_recommended":142},{"player_count":2,"best":876,"recommended":421,"not_recommended":28}]}
-{"id":"01967b3c-5a00-7000-8000-000000000070","slug":"terraforming-mars","name":"Terraforming Mars","type":"base_game","min_players":1,"max_players":5,"weight":3.26,"rating":8.38,"mechanics":["engine-building","hand-management","drafting"],"categories":["strategy","economic"],"player_count_poll":[{"player_count":1,"best":201,"recommended":654,"not_recommended":187},{"player_count":2,"best":412,"recommended":723,"not_recommended":89}]}
+{"id":"01967b3c-5a00-7000-8000-000000000096","slug":"barrage","name":"Barrage","type":"base_game","min_players":1,"max_players":4,"weight":4.02,"rating":8.12,"mechanics":["worker-placement","area-control","engine-building"],"categories":["strategy","economic"],"player_count_ratings":[{"player_count":1,"average_rating":2.8,"rating_count":312,"rating_stddev":1.2},{"player_count":2,"average_rating":3.9,"rating_count":534,"rating_stddev":0.8},{"player_count":3,"average_rating":4.6,"rating_count":687,"rating_stddev":0.5},{"player_count":4,"average_rating":4.4,"rating_count":498,"rating_stddev":0.7}]}
+{"id":"01967b3c-5a00-7000-8000-000000000097","slug":"castles-of-burgundy","name":"The Castles of Burgundy","type":"base_game","min_players":1,"max_players":4,"weight":3.00,"rating":8.28,"mechanics":["dice-rolling","drafting","engine-building"],"categories":["strategy"],"player_count_ratings":[{"player_count":1,"average_rating":3.2,"rating_count":456,"rating_stddev":1.0},{"player_count":2,"average_rating":4.7,"rating_count":1823,"rating_stddev":0.4},{"player_count":3,"average_rating":3.8,"rating_count":987,"rating_stddev":0.8},{"player_count":4,"average_rating":3.3,"rating_count":612,"rating_stddev":0.9}]}
 ```
 
 JSON Lines (`.jsonl`) is chosen because:
-- Each line can be parsed independently — streaming and parallel processing are trivial.
+- Each line can be parsed independently -- streaming and parallel processing are trivial.
 - Appending new records does not require modifying existing data.
 - Tools like `jq`, `pandas`, and `duckdb` handle JSON Lines natively.
 - It is the de facto standard for data engineering pipelines.
@@ -55,9 +59,9 @@ JSON Lines (`.jsonl`) is chosen because:
 Flat tabular export for spreadsheet users and simple analysis:
 
 ```csv
-id,slug,name,type,min_players,max_players,weight,rating,mechanics,categories
-01967b3c-5a00-7000-8000-000000000001,spirit-island,Spirit Island,base_game,1,4,3.89,8.31,"cooperative|hand-management|area-control","strategy|thematic"
-01967b3c-5a00-7000-8000-000000000070,terraforming-mars,Terraforming Mars,base_game,1,5,3.26,8.38,"engine-building|hand-management|drafting","strategy|economic"
+id,slug,name,type,min_players,max_players,weight,rating,confidence,mechanics,categories
+01967b3c-5a00-7000-8000-000000000096,barrage,Barrage,base_game,1,4,4.02,8.12,0.81,"worker-placement|area-control|engine-building","strategy|economic"
+01967b3c-5a00-7000-8000-000000000097,castles-of-burgundy,The Castles of Burgundy,base_game,1,4,3.00,8.28,0.85,"dice-rolling|drafting|engine-building","strategy"
 ```
 
 CSV limitations:

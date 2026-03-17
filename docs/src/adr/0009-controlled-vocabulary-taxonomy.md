@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-Board games are classified by mechanics (deck building, worker placement), categories (strategy, party), and themes (fantasy, sci-fi, historical). These taxonomies are critical for filtering and discovery, but inconsistent or uncontrolled tagging leads to fragmentation — where the same concept has multiple spellings, synonyms, or granularity levels. We need a taxonomy strategy that enables precise, consistent filtering.
+Board games are classified by mechanics (deck building, worker placement), categories (strategy, party), and themes (fantasy, sci-fi, historical). These taxonomies are critical for filtering and discovery, but inconsistent or uncontrolled tagging leads to fragmentation -- where the same concept has multiple spellings, synonyms, or granularity levels. We need a taxonomy strategy that enables precise, consistent filtering.
 
 ## Decision Drivers
 
@@ -18,9 +18,9 @@ Board games are classified by mechanics (deck building, worker placement), categ
 
 ## Considered Options
 
-* Free tagging — anyone can create any tag
-* Controlled vocabulary — curated list of approved terms with an RFC process for additions
-* Hybrid — controlled vocabulary with user-submitted free tags that are periodically reviewed
+* Free tagging -- anyone can create any tag
+* Controlled vocabulary -- curated list of approved terms with an RFC process for additions
+* Hybrid -- controlled vocabulary with user-submitted free tags that are periodically reviewed
 
 ## Decision Outcome
 

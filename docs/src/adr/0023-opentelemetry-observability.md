@@ -12,7 +12,7 @@ Operating the reference server requires visibility into application behavior thr
 ## Decision Drivers
 
 * Observability must cover all three pillars: structured logs, metrics, and distributed traces
-* The solution must be vendor-neutral — operators should choose their own backends (Grafana, Datadog, etc.)
+* The solution must be vendor-neutral -- operators should choose their own backends (Grafana, Datadog, etc.)
 * Trace IDs must correlate across logs, metrics, and traces for unified debugging
 * The instrumentation overhead must be minimal in production
 

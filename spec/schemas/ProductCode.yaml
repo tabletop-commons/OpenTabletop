@@ -61,7 +61,7 @@ PhysicalWeight:
   type: object
   description: >-
     Physical weight of a game edition's box. Distinct from complexity weight
-    (the 1.0–5.0 community-rated scale). See ADR-0040.
+    (the 1.0-5.0 community-rated scale). See ADR-0040.
   properties:
     value:
       type: number

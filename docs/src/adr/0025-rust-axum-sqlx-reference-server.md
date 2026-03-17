@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The OpenTabletop specification needs a reference server implementation that demonstrates the full API contract, serves as a conformance test target, and can be deployed in production. The technology choice for this reference server must prioritize correctness, performance, and long-term maintainability. Critically, the reference server is one valid implementation of the specification — not the only one — and should not be conflated with the spec itself.
+The OpenTabletop specification needs a reference server implementation that demonstrates the full API contract, serves as a conformance test target, and can be deployed in production. The technology choice for this reference server must prioritize correctness, performance, and long-term maintainability. Critically, the reference server is one valid implementation of the specification -- not the only one -- and should not be conflated with the spec itself.
 
 ## Decision Drivers
 

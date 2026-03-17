@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The database schema must evolve over time as the API specification grows. Schema changes need to be versioned, reproducible, and applicable in a consistent order across all environments. The migration tooling choice also has implications for implementation portability — migrations tightly coupled to an ORM lock downstream implementations into that ORM's ecosystem.
+The database schema must evolve over time as the API specification grows. Schema changes need to be versioned, reproducible, and applicable in a consistent order across all environments. The migration tooling choice also has implications for implementation portability -- migrations tightly coupled to an ORM lock downstream implementations into that ORM's ecosystem.
 
 ## Decision Drivers
 

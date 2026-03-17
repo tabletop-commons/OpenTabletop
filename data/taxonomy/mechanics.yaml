@@ -1,26 +1,26 @@
 # OpenTabletop Canonical Mechanics Taxonomy
 #
-# This is a phylogenetic model of board game mechanics — mechanics as an
+# This is a phylogenetic model of board game mechanics -- mechanics as an
 # evolutionary tree, not a flat tag list. Each mechanic includes its
 # evolutionary lineage, the game that codified it (origin/speciation event),
 # and a precise definition that distinguishes it from related mechanics.
 #
 # Structure:
-#   slug          — canonical identifier (lowercase, hyphenated, max 50 chars)
-#   name          — display name
-#   definition    — precise, distinguishing definition
-#   ancestor_slugs — what this mechanic evolved FROM (evolutionary lineage)
-#   children_slugs — what evolved FROM this mechanic
-#   origin_game   — the game that created/codified this as a distinct mechanic
-#   origin_year   — year of that game's publication
-#   era           — broad era when this mechanic emerged as recognized
-#   examples      — 2-3 canonical games demonstrating this mechanic
-#   synonyms      — alternate names that map to this canonical term
-#   bgg_ids       — BGG mechanic ID(s) that map to this term
-#   bgg_names     — BGG mechanic name(s) that map to this term
+#   slug          -- canonical identifier (lowercase, hyphenated, max 50 chars)
+#   name          -- display name
+#   definition    -- precise, distinguishing definition
+#   ancestor_slugs -- what this mechanic evolved FROM (evolutionary lineage)
+#   children_slugs -- what evolved FROM this mechanic
+#   origin_game   -- the game that created/codified this as a distinct mechanic
+#   origin_year   -- year of that game's publication
+#   era           -- broad era when this mechanic emerged as recognized
+#   examples      -- 2-3 canonical games demonstrating this mechanic
+#   synonyms      -- alternate names that map to this canonical term
+#   bgg_ids       -- BGG mechanic ID(s) that map to this term
+#   bgg_names     -- BGG mechanic name(s) that map to this term
 
 # ============================================================================
-# ROOT MECHANICS — Ancient/foundational, no clear single ancestor
+# ROOT MECHANICS -- Ancient/foundational, no clear single ancestor
 # ============================================================================
 
 - slug: dice-rolling
@@ -54,7 +54,7 @@
   definition: >-
     Players hold a private set of cards and must decide which to play,
     when to play them, and which to retain for future turns. The core
-    tension is opportunity cost — playing a card now means not having it
+    tension is opportunity cost -- playing a card now means not having it
     later. Distinguished from tableau-building by the emphasis on timing
     and sequencing rather than permanent placement.
   ancestor_slugs: []
@@ -135,7 +135,7 @@
   definition: >-
     Players exchange resources, promises, or favors through direct
     interpersonal communication. Deals may be binding or non-binding.
-    The core mechanic is social — reading opponents, making offers,
+    The core mechanic is social -- reading opponents, making offers,
     and leveraging asymmetric needs. Distinguished from auction by
     the bilateral (or multilateral) nature rather than competitive bidding.
   ancestor_slugs: []
@@ -190,7 +190,7 @@
   definition: >-
     Each turn, players receive a fixed budget of action points and
     choose how to spend them across available actions. Different
-    actions may cost different amounts. The core tension is allocation —
+    actions may cost different amounts. The core tension is allocation --
     you can do many small things or one big thing. Distinguished from
     action-selection by the fungible, spendable nature of the points.
   ancestor_slugs: []
@@ -214,7 +214,7 @@
     Players play cards from their hand in a series of rounds (tricks).
     Each trick has a lead suit, and the highest card of the lead suit
     (or trump suit) wins the trick. The core mechanic is deduction
-    and timing — tracking what's been played and managing your hand
+    and timing -- tracking what's been played and managing your hand
     to win specific tricks. One of the oldest card game mechanics.
   ancestor_slugs:
     - hand-management
@@ -239,7 +239,7 @@
   name: Action Selection
   definition: >-
     Players choose from a shared or personal menu of available actions
-    each turn, with no point budget — you simply pick one (or a
+    each turn, with no point budget -- you simply pick one (or a
     prescribed number). Actions may become unavailable after selection.
     Distinguished from action-points by the discrete, non-fungible nature
     of the choices, and from worker-placement by the absence of blocking.
@@ -266,7 +266,7 @@
   definition: >-
     Players assign a limited pool of worker tokens to action spaces on
     a shared board. Each space typically accepts only one worker, creating
-    a blocking/exclusivity constraint — if an opponent takes a space, you
+    a blocking/exclusivity constraint -- if an opponent takes a space, you
     cannot use it this round. The core tension is prioritization under
     scarcity. Distinguished from action-selection by the blocking mechanism
     and the physical placement of tokens.
@@ -291,7 +291,7 @@
 - slug: worker-placement-different-types
   name: Worker Placement with Different Worker Types
   definition: >-
-    An evolution of worker placement where workers are not interchangeable —
+    An evolution of worker placement where workers are not interchangeable --
     different workers have different abilities, costs, or access to different
     action spaces. Adds a layer of strategic consideration to which worker
     to assign where. Distinguished from basic worker-placement by the
@@ -340,7 +340,7 @@
     Players move a marker around a circular track of action spaces.
     Movement is typically limited (1-3 spaces forward), creating a
     rhythm where certain actions become available in predictable but
-    constrained patterns. The core tension is tempo — moving further
+    constrained patterns. The core tension is tempo -- moving further
     costs more but reaches better actions. Distinguished from action-
     selection by the spatial, sequential constraint.
   ancestor_slugs:
@@ -361,7 +361,7 @@
   name: Simultaneous Action Selection
   definition: >-
     All players secretly and simultaneously choose their actions, then
-    reveal them at the same time. The core mechanic is prediction —
+    reveal them at the same time. The core mechanic is prediction --
     anticipating what opponents will choose and selecting accordingly.
     Distinguished from sequential action-selection by the hidden,
     simultaneous nature of decisions.
@@ -386,7 +386,7 @@
   definition: >-
     Players pre-program a sequence of actions or movements before
     execution, then all programs resolve in order. The core tension
-    is the gap between planning and execution — other players' programs
+    is the gap between planning and execution -- other players' programs
     may invalidate your assumptions. Distinguished from simultaneous-
     action-selection by the sequential, multi-step programming.
   ancestor_slugs:
@@ -407,7 +407,7 @@
   name: Real-Time
   definition: >-
     Players act simultaneously without taking turns, racing against
-    a clock or each other. There is no turn structure — speed of
+    a clock or each other. There is no turn structure -- speed of
     decision-making and execution matters. Distinguished from
     simultaneous-action-selection by the continuous, unstructured
     nature of play (no discrete rounds of simultaneous choice).
@@ -432,7 +432,7 @@
     One player selects an action or role, and other players may follow
     (perform a weaker version of that action) or do something else.
     The selector typically gets a bonus. The core tension is leading
-    vs. following — do you select the action you want, or follow
+    vs. following -- do you select the action you want, or follow
     someone else's lead for a weaker benefit?
   ancestor_slugs:
     - action-selection
@@ -456,7 +456,7 @@
 - slug: card-drafting
   name: Card Drafting
   definition: >-
-    Players select cards from a shared pool — either an open display,
+    Players select cards from a shared pool -- either an open display,
     a rotating hand of cards (draft), or a market. The core mechanic
     is evaluation under incomplete information: which card is most
     valuable to you, and which are you willing to let opponents take?
@@ -484,7 +484,7 @@
   definition: >-
     Each player starts with an identical small deck and acquires new
     cards during play that are shuffled into their personal deck.
-    The deck IS your engine — it improves as you add powerful cards
+    The deck IS your engine -- it improves as you add powerful cards
     and (critically) remove weak ones. Distinguished from hand-management
     by the dynamic, evolving composition of your card pool, and from
     card-drafting by the cycling/reshuffling mechanic.
@@ -534,7 +534,7 @@
     A generalization of deck-building where players build a pool
     of resources (dice, tokens, cards, or other components) that
     grows and improves over the game. The pool may not cycle through
-    a discard/reshuffle like a deck — components may persist in play.
+    a discard/reshuffle like a deck -- components may persist in play.
     Distinguished from deck-building by the broader scope of pooled
     components and the absence of mandatory cycling.
   ancestor_slugs:
@@ -578,7 +578,7 @@
 - slug: multi-use-cards
   name: Multi-Use Cards
   definition: >-
-    Cards can be used for multiple distinct purposes — as an action,
+    Cards can be used for multiple distinct purposes -- as an action,
     for resources, as a map element, for combat value, etc. Players must
     choose which use to apply, creating opportunity cost on every card.
     Distinguished from hand-management by the explicit mechanical
@@ -652,7 +652,7 @@
   name: Resource Management
   definition: >-
     Players collect, store, convert, and spend various resources to
-    take actions and score points. The core tension is allocation —
+    take actions and score points. The core tension is allocation --
     which resources to acquire, when to convert, and when to spend.
     This is a broad, foundational mechanic present in most strategy
     games. Distinguished from engine-building by the emphasis on
@@ -710,7 +710,7 @@
     Players compete for items, rights, or privileges by placing bids.
     The highest bidder wins the item and pays their bid (or a variant).
     Auction formats include English (ascending), Dutch (descending),
-    sealed-bid, and once-around. The core mechanic is valuation — how
+    sealed-bid, and once-around. The core mechanic is valuation -- how
     much is this item worth to you vs. your opponents?
   ancestor_slugs:
     - trading-and-negotiation
@@ -784,7 +784,7 @@
   definition: >-
     Players transport goods, passengers, or resources from one location
     to another on the game board to fulfill contracts or score points.
-    The core mechanic is route optimization — planning efficient paths
+    The core mechanic is route optimization -- planning efficient paths
     that pick up at source and deliver to destination. Distinguished
     from network-building by the emphasis on traversal rather than
     construction.
@@ -830,7 +830,7 @@
   definition: >-
     Players advance along branching or linear tracks that unlock new
     abilities, units, or actions. Earlier technologies often prerequisite
-    later ones. The core mechanic is long-term strategic planning —
+    later ones. The core mechanic is long-term strategic planning --
     choosing a development path and committing to it. Distinguished
     from engine-building by the structured, often shared progression
     path.
@@ -1101,7 +1101,7 @@
   definition: >-
     Players make claims or take actions that may be truthful or
     deceptive, and opponents must decide whether to believe or
-    challenge them. The core mechanic is credibility management —
+    challenge them. The core mechanic is credibility management --
     establishing a pattern of truth to make lies believable.
     Distinguished from hidden-roles by the active, voluntary nature
     of deception rather than assigned secret identities.
@@ -1168,7 +1168,7 @@
   definition: >-
     Players collectively decide outcomes through a voting mechanism.
     Votes may be public or secret, equal or weighted. The core mechanic
-    is political — building coalitions, persuading others, and timing
+    is political -- building coalitions, persuading others, and timing
     proposals. Distinguished from negotiation by the formal, structured
     decision mechanism.
   ancestor_slugs:
@@ -1216,7 +1216,7 @@
   definition: >-
     Players roll dice (or flip cards) and all players simultaneously
     record/mark results on personal score sheets. The core mechanic
-    is optimization — using shared random input to make locally
+    is optimization -- using shared random input to make locally
     optimal marking decisions. Evolved from dice-rolling by adding
     permanent recording. "Flip and write" is a card-based variant.
   ancestor_slugs:
@@ -1240,7 +1240,7 @@
   definition: >-
     After an initial dice roll, players may choose to re-roll some dice
     while locking others in place. Multiple re-rolls may be allowed.
-    The core mechanic is selective risk — which dice to keep and which
+    The core mechanic is selective risk -- which dice to keep and which
     to gamble on improving. Distinguished from push-your-luck by the
     granular, per-die decision rather than all-or-nothing.
   ancestor_slugs:
@@ -1267,7 +1267,7 @@
     Players arrange components into specific spatial patterns to score
     points. The pattern requirements may be prescribed (objective cards)
     or emergent (adjacency bonuses). Distinguished from set-collection
-    by the spatial arrangement requirement — it's not just WHAT you
+    by the spatial arrangement requirement -- it's not just WHAT you
     collect but WHERE you place it.
   ancestor_slugs:
     - set-collection
@@ -1431,7 +1431,7 @@
 - slug: legacy
   name: Legacy
   definition: >-
-    The game permanently changes between sessions — components are
+    The game permanently changes between sessions -- components are
     destroyed, stickers are applied, new rules are revealed, and
     decisions carry forward irreversibly. Each campaign is unique
     and unrepeatable. Distinguished from campaign by the permanent,
@@ -1457,7 +1457,7 @@
     narrative continuity and mechanical progression between sessions.
     Characters may level up, the story branches, and earlier outcomes
     affect later scenarios. Distinguished from legacy by the
-    non-destructive nature — the game can typically be reset and
+    non-destructive nature -- the game can typically be reset and
     replayed.
   ancestor_slugs: []
   children_slugs: []
@@ -1573,7 +1573,7 @@
   name: Once-Per-Game Abilities
   definition: >-
     Players have powerful abilities that can only be used once during
-    the entire game. The core tension is timing — using it too early
+    the entire game. The core tension is timing -- using it too early
     wastes its potential, but waiting too long risks never using it.
     Creates memorable, dramatic moments.
   ancestor_slugs:
@@ -1591,7 +1591,7 @@
   bgg_names: ["Once-Per-Game Abilities"]
 
 # ============================================================================
-# AUCTION SUBTYPES — Children of auction
+# AUCTION SUBTYPES -- Children of auction
 # ============================================================================
 
 - slug: auction-english
@@ -1622,7 +1622,7 @@
   definition: >-
     A descending-price auction where the price starts high and drops
     until a player claims the item. The tension is reversed from English
-    auctions — wait longer for a better price, but risk someone else
+    auctions -- wait longer for a better price, but risk someone else
     grabbing it first. Named after Dutch flower auctions.
   ancestor_slugs:
     - auction
@@ -1666,7 +1666,7 @@
   name: Once Around Auction
   definition: >-
     Each player gets exactly one opportunity to bid (or pass) in turn
-    order. No second chances — you bid once and live with it. Faster
+    order. No second chances -- you bid once and live with it. Faster
     than English auctions and creates sharp decisions about bid sizing.
   ancestor_slugs:
     - auction
@@ -1734,7 +1734,7 @@
   definition: >-
     Players physically draw routes on the game board using crayons or
     markers, creating permanent (for that game) connections between
-    cities. Uniquely tactile — your network is literally drawn by hand.
+    cities. Uniquely tactile -- your network is literally drawn by hand.
     Typically combined with pick-up-and-deliver economics.
   ancestor_slugs:
     - network-building
@@ -1824,7 +1824,7 @@
     Players move tokens along a single linear or looping track. Movement
     is typically determined by dice or card play. The track may represent
     a race course, score track, or progression path. Simple and
-    intuitive — the most basic form of spatial movement.
+    intuitive -- the most basic form of spatial movement.
   ancestor_slugs: []
   children_slugs: []
   origin_game: The Royal Game of Ur
@@ -1918,7 +1918,7 @@
   name: Command Cards
   definition: >-
     Cards dictate which units or sections of the board a player may
-    activate on their turn. Creates fog of war and force limitations —
+    activate on their turn. Creates fog of war and force limitations --
     you may want to attack the left flank but lack the cards to order
     those units. Evolved from card-driven games into a simpler,
     more tactical format.
@@ -2083,7 +2083,7 @@
   name: Storytelling
   definition: >-
     Players collaboratively or competitively create narratives during
-    play. The story IS the game — players contribute story elements,
+    play. The story IS the game -- players contribute story elements,
     guide plot direction, or judge narrative quality. Distinguished from
     narrative-choice by the open-ended creative generation rather than
     selecting from predetermined options.
@@ -2150,7 +2150,7 @@
 - slug: closed-economy
   name: Closed Economy
   definition: >-
-    The total money supply in the game is fixed — money paid by players
+    The total money supply in the game is fixed -- money paid by players
     goes to other players or the bank, and money received comes from
     the same pool. No new money is created. Creates scarcity tension and
     makes every transaction a true resource transfer.
@@ -2194,8 +2194,8 @@
   name: Resource Conversion
   definition: >-
     Players transform one type of resource into another through defined
-    conversion actions or recipes. The conversion chain — turning raw
-    materials into refined goods into victory points — forms the core
+    conversion actions or recipes. The conversion chain -- turning raw
+    materials into refined goods into victory points -- forms the core
     strategic puzzle. Distinguished from trading by converting through
     game actions rather than player negotiation.
   ancestor_slugs:
@@ -2294,7 +2294,7 @@
   definition: >-
     Players must spend actions or turns to recover their previously
     placed workers, tokens, or action markers before they can be
-    redeployed. Creates a tempo cost — you cannot keep placing
+    redeployed. Creates a tempo cost -- you cannot keep placing
     indefinitely without pausing to retrieve. Adds a planning dimension
     to worker placement.
   ancestor_slugs:
@@ -2365,7 +2365,7 @@
   name: Race
   definition: >-
     The game ends immediately when a player achieves a specific
-    condition — reaching a point threshold, completing objectives, or
+    condition -- reaching a point threshold, completing objectives, or
     crossing a finish line. There is no fixed round count. Creates
     urgency and allows players to control game length through their
     strategic choices.
@@ -2434,7 +2434,7 @@
   name: End-Game Trigger
   definition: >-
     The game ends not after a fixed number of rounds but when a player
-    or game condition triggers the endgame — depleting a supply,
+    or game condition triggers the endgame -- depleting a supply,
     reaching a threshold, or filling a board. The triggering player
     often has strategic advantage from timing the ending. Creates
     tension between triggering early (with a lead) or extending
@@ -2489,7 +2489,7 @@
     is hidden from players. May use face-down counters, hidden
     deployment, or separate maps. Simulates the uncertainty of real
     military intelligence. Distinguished from hidden-movement by the
-    broader scope — not just position but also composition and strength.
+    broader scope -- not just position but also composition and strength.
   ancestor_slugs:
     - hidden-movement
   children_slugs: []
@@ -2511,7 +2511,7 @@
     Units require a chain of supply connecting them back to a supply
     source. Units cut off from supply suffer penalties (reduced combat
     strength, attrition, inability to attack). Forces players to
-    consider logistics alongside tactics — overextension is punished.
+    consider logistics alongside tactics -- overextension is punished.
   ancestor_slugs: []
   children_slugs: []
   origin_game: Afrika Korps
@@ -2631,7 +2631,7 @@
   definition: >-
     Players race to identify matching symbols, patterns, or
     connections faster than opponents. Combines pattern recognition
-    with reaction speed. No turn structure — the fastest player wins
+    with reaction speed. No turn structure -- the fastest player wins
     each contest. Pure reflex and visual processing.
   ancestor_slugs:
     - real-time
@@ -2699,7 +2699,7 @@
     A specific location, objective, or status grants significant ongoing
     benefits to whoever controls it. Other players continually contest
     this position, creating a focal point of conflict. The position is
-    powerful but precarious — everyone targets you.
+    powerful but precarious -- everyone targets you.
   ancestor_slugs:
     - area-control
   children_slugs: []
@@ -2745,7 +2745,7 @@
     Players advance through a deck of cards that serves as the game's
     map, encounter system, or progression track. Each card drawn
     represents a new location, event, or challenge. The deck IS the
-    game space — exploration and deck depletion are intertwined.
+    game space -- exploration and deck depletion are intertwined.
   ancestor_slugs: []
   children_slugs: []
   origin_game: "Clank!"
@@ -2808,7 +2808,7 @@
   definition: >-
     Resources, cards, or options that are not selected by any player
     accumulate bonus value (coins, tokens, appeal) over time. Creates
-    a self-balancing market — unpopular options become increasingly
+    a self-balancing market -- unpopular options become increasingly
     attractive. Prevents any option from being permanently worthless.
   ancestor_slugs: []
   children_slugs: []
@@ -2854,7 +2854,7 @@
     Players write, draw, or record on paper as a core game mechanic.
     May involve writing answers, drawing pictures, filling in grids,
     or recording routes. The ancestor of modern roll-and-write games.
-    Requires minimal components — just writing implements and paper.
+    Requires minimal components -- just writing implements and paper.
   ancestor_slugs: []
   children_slugs: []
   origin_game: Battleship
@@ -2875,7 +2875,7 @@
     Players secretly and simultaneously assign order tokens to their
     units, regions, or action spaces. All orders are then revealed
     and resolved. Creates a programming-like experience for military
-    command — you commit plans before seeing opponent actions.
+    command -- you commit plans before seeing opponent actions.
     Distinguished from programmed-movement by the focus on unit orders
     rather than movement sequences.
   ancestor_slugs:
@@ -2903,7 +2903,7 @@
   definition: >-
     Players offer resources, favors, or promises to other players in
     exchange for specific actions, votes, or support. Distinguished
-    from standard trading by the power asymmetry — one player pays
+    from standard trading by the power asymmetry -- one player pays
     another to act in their interest rather than exchanging mutual
     value. Corruption as a game mechanic.
   ancestor_slugs:

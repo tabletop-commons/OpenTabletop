@@ -1,6 +1,6 @@
 # Taxonomy
 
-Board game metadata relies on three classification vocabularies: **mechanics**, **categories**, and **themes**. These are controlled vocabularies — curated lists of terms with stable identifiers, not free-text tags. A game is tagged with zero or more entries from each vocabulary through many-to-many join relationships.
+Board game metadata relies on three classification vocabularies: **mechanics**, **categories**, and **themes**. These are controlled vocabularies -- curated lists of terms with stable identifiers, not free-text tags. A game is tagged with zero or more entries from each vocabulary through many-to-many join relationships.
 
 ## Why Controlled Vocabularies
 
@@ -18,7 +18,7 @@ Every taxonomy term has:
 
 ## Mechanics
 
-A mechanic describes *how you interact with the game* — the systems and structures that create the gameplay experience. These are objective, observable features of a game's design.
+A mechanic describes *how you interact with the game* -- the systems and structures that create the gameplay experience. These are objective, observable features of a game's design.
 
 **Examples:**
 
@@ -39,7 +39,7 @@ Mechanics can be hierarchical. `deck-building` might have children like `pool-bu
 
 ## Categories
 
-A category describes *what kind of experience the game provides* — its genre classification. Categories are more subjective than mechanics but still follow defined criteria.
+A category describes *what kind of experience the game provides* -- its genre classification. Categories are more subjective than mechanics but still follow defined criteria.
 
 **Examples:**
 
@@ -58,7 +58,7 @@ A category describes *what kind of experience the game provides* — its genre c
 
 ## Themes
 
-A theme describes *the setting or subject matter* of the game — its narrative and aesthetic wrapper. Themes are the most subjective vocabulary but still benefit from controlled terms.
+A theme describes *the setting or subject matter* of the game -- its narrative and aesthetic wrapper. Themes are the most subjective vocabulary but still benefit from controlled terms.
 
 **Examples:**
 
@@ -77,15 +77,15 @@ A theme describes *the setting or subject matter* of the game — its narrative 
 
 ## Families
 
-A **family** groups games that share a brand, universe, or lineage but are not necessarily related by `GameRelationship` edges. Families are looser than relationships — they capture "these games are part of the same franchise" without implying mechanical dependency.
+A **family** groups games that share a brand, universe, or lineage but are not necessarily related by `GameRelationship` edges. Families are looser than relationships -- they capture "these games are part of the same franchise" without implying mechanical dependency.
 
 **Examples:**
 
 | Slug | Name | Description |
 |------|------|-------------|
-| `catan` | Catan | All games in the Catan universe |
-| `pandemic` | Pandemic | All Pandemic variants and legacy editions |
-| `ticket-to-ride` | Ticket to Ride | All Ticket to Ride maps and editions |
+| `catan` | *Catan* | All games in the *Catan* universe |
+| `pandemic` | *Pandemic* | All *Pandemic* variants and legacy editions |
+| `ticket-to-ride` | *Ticket to Ride* | All *Ticket to Ride* maps and editions |
 | `exit-the-game` | EXIT: The Game | The EXIT series of escape room games |
 | `18xx` | 18xx | The family of railroad stock-trading games |
 
@@ -106,6 +106,8 @@ Adding a new mechanic, category, or theme is a specification change. It follows 
 ### Slug Conventions
 
 - Lowercase, hyphen-separated: `deck-building`, not `deckBuilding` or `deck_building`
-- Use the most common English term: `cooperative`, not `co-operative`
+- Canonical slugs use the most common English term: `cooperative`, not `co-operative`
 - Avoid abbreviations unless universally understood: `rpg` is acceptable, `wrkr-plcmnt` is not
 - Maximum 50 characters
+
+Canonical English slugs serve as **interoperability keys** -- they ensure that a Japanese implementation and a German implementation refer to the same mechanic with the same identifier. Implementations surface these slugs to users in their own language via display names and translations: the slug `worker-placement` is the API key, but the UI shows "ワーカープレイスメント" in Japanese or "Arbeiterplatzierung" in German. The slug is for machines; the display name is for humans.

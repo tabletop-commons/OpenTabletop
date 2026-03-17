@@ -1,13 +1,13 @@
 # OpenTabletop Code Owners
 # See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-# Specification — requires spec maintainer review
+# Specification -- requires spec maintainer review
 /spec/ @tabletop-commons/spec-maintainers
 
 # Documentation
 /docs/ @tabletop-commons/doc-maintainers
 
-# Architecture Decision Records — require steering committee review
+# Architecture Decision Records -- require steering committee review
 /docs/src/adr/ @tabletop-commons/steering-committee
 
 # Reference server

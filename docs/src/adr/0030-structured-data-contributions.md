@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-The OpenTabletop project's data quality depends on community contributions — game corrections, new game submissions, and data imports from external sources like BoardGameGeek. We need a contribution workflow that structures incoming data for easy review and verification while being accessible to non-technical contributors who may not be comfortable with pull requests.
+The OpenTabletop project's data quality depends on community contributions -- game corrections, new game submissions, and data imports from external sources like BoardGameGeek. We need a contribution workflow that structures incoming data for easy review and verification while being accessible to non-technical contributors who may not be comfortable with pull requests.
 
 ## Decision Drivers
 

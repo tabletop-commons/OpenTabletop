@@ -11,7 +11,7 @@ The reference server is distributed as a container image. The base image choice 
 
 ## Decision Drivers
 
-* Minimal attack surface — fewer packages mean fewer CVE exposure points
+* Minimal attack surface -- fewer packages mean fewer CVE exposure points
 * Small image size for fast pulls and reduced storage costs
 * The container must support health check endpoints and signal handling
 * Multi-stage builds should produce a clean separation between build and runtime artifacts
@@ -24,7 +24,7 @@ The reference server is distributed as a container image. The base image choice 
 
 ## Decision Outcome
 
-Chosen option: "Distroless base image with multi-stage Dockerfile", because it provides the smallest possible attack surface by containing only the application binary, its runtime dependencies, and CA certificates — no shell, no package manager, no utilities that an attacker could exploit. The Dockerfile uses a multi-stage build: the first stage uses a full Rust toolchain image for compilation, and the final stage copies only the compiled binary into `gcr.io/distroless/cc-debian12`. The application exposes `/healthz` (liveness — returns 200 if the process is running) and `/readyz` (readiness — returns 200 if the database connection pool is healthy) health endpoints. The application handles SIGTERM for graceful shutdown, draining in-flight requests before exiting. Alpine was rejected because musl libc can cause subtle compatibility issues with some Rust crates. Debian slim was rejected because it includes a shell and package manager that increase attack surface unnecessarily.
+Chosen option: "Distroless base image with multi-stage Dockerfile", because it provides the smallest possible attack surface by containing only the application binary, its runtime dependencies, and CA certificates -- no shell, no package manager, no utilities that an attacker could exploit. The Dockerfile uses a multi-stage build: the first stage uses a full Rust toolchain image for compilation, and the final stage copies only the compiled binary into `gcr.io/distroless/cc-debian12`. The application exposes `/healthz` (liveness -- returns 200 if the process is running) and `/readyz` (readiness -- returns 200 if the database connection pool is healthy) health endpoints. The application handles SIGTERM for graceful shutdown, draining in-flight requests before exiting. Alpine was rejected because musl libc can cause subtle compatibility issues with some Rust crates. Debian slim was rejected because it includes a shell and package manager that increase attack surface unnecessarily.
 
 ### Consequences
 

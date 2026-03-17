@@ -24,7 +24,7 @@ As an open specification project, OpenTabletop needs a governance model that bal
 
 ## Decision Outcome
 
-Chosen option: "RFC process with BDFL-to-steering-committee transition", because it provides the right governance at each stage of project maturity. Initially, the project founder operates as BDFL to make rapid decisions and set direction. All specification changes go through an RFC process: a written proposal is submitted, discussed in a public thread for a minimum review period, and then decided. Once the project reaches 10 or more active contributors, governance transitions to an elected steering committee of 3-5 members with rotating terms. The RFC process remains constant throughout — only the decision-making body changes.
+Chosen option: "RFC process with BDFL-to-steering-committee transition", because it provides the right governance at each stage of project maturity. Initially, the project founder operates as BDFL to make rapid decisions and set direction. All specification changes go through an RFC process: a written proposal is submitted, discussed in a public thread for a minimum review period, and then decided. Once the project reaches 10 or more active contributors, governance transitions to an elected steering committee of 3-5 members with rotating terms. The RFC process remains constant throughout -- only the decision-making body changes.
 
 ### Consequences
 

@@ -11,17 +11,17 @@ Board game awards are a significant factor in purchasing decisions, marketing ma
 
 ## Decision Drivers
 
-* Awards are a primary discovery mechanism — "Spiel des Jahres winner" is the most recognized quality signal in the hobby
+* Awards are a primary discovery mechanism -- "Spiel des Jahres winner" is the most recognized quality signal in the hobby
 * Publishers prominently display awards on box art and marketing materials; they need this data to be queryable
 * Filtering by award status ("all Kennerspiel winners") is a high-value search use case
 * Awards have a stable, well-understood data model: an award, a year, a game, and a result (nominated/won)
-* The data is purely additive — no existing schemas need modification beyond adding an optional include array
+* The data is purely additive -- no existing schemas need modification beyond adding an optional include array
 
 ## Considered Options
 
-* **Dedicated Award and GameAward schemas** — Full entity modeling with endpoints for awards and per-game award listings
-* **Tags/labels on Game entity** — Simple string array of award labels (e.g., ["spiel-des-jahres-2020-nominee"])
-* **Defer to v2** — Awards are metadata, not structural; implement later
+* **Dedicated Award and GameAward schemas** -- Full entity modeling with endpoints for awards and per-game award listings
+* **Tags/labels on Game entity** -- Simple string array of award labels (e.g., ["spiel-des-jahres-2020-nominee"])
+* **Defer to v2** -- Awards are metadata, not structural; implement later
 
 ## Decision Outcome
 
@@ -29,39 +29,39 @@ Chosen option: "Dedicated Award and GameAward schemas," because awards are a dis
 
 ### Consequences
 
-* Good, because awards become a first-class queryable dimension — "show me all Spiel des Jahres winners from 2015-2025"
+* Good, because awards become a first-class queryable dimension -- "show me all Spiel des Jahres winners from 2015-2025"
 * Good, because the data model naturally represents the award lifecycle (nomination → shortlist → win)
 * Good, because publishers can reference award status in their data submissions
 * Good, because award filtering composes with existing filter dimensions (all Kennerspiel winners that play well at 2)
-* Bad, because the initial award taxonomy must be seeded — there are dozens of recognized board game awards worldwide
-* Bad, because award categorization is complex — the Spiel des Jahres family has three sub-awards (SdJ, Kennerspiel, Kinderspiel), the Dice Tower has multiple categories, etc.
+* Bad, because the initial award taxonomy must be seeded -- there are dozens of recognized board game awards worldwide
+* Bad, because award categorization is complex -- the Spiel des Jahres family has three sub-awards (SdJ, Kennerspiel, Kinderspiel), the Dice Tower has multiple categories, etc.
 
 ## Implementation
 
 ### New Schemas
 
-**`spec/schemas/Award.yaml`** — An award or award family:
+**`spec/schemas/Award.yaml`** -- An award or award family:
 - `id` (UUID, required)
-- `slug` (string, required) — e.g., "spiel-des-jahres"
-- `name` (string, required) — e.g., "Spiel des Jahres"
+- `slug` (string, required) -- e.g., "spiel-des-jahres"
+- `name` (string, required) -- e.g., "Spiel des Jahres"
 - `description` (string)
-- `organization` (string) — e.g., "Verein Spiel des Jahres"
+- `organization` (string) -- e.g., "Verein Spiel des Jahres"
 - `website` (URI)
 - `_links` (Links)
 
-**`spec/schemas/GameAward.yaml`** — A game's relationship to an award:
+**`spec/schemas/GameAward.yaml`** -- A game's relationship to an award:
 - `game_id` (UUID, required)
 - `award_id` (UUID, required)
-- `year` (integer, required) — The award cycle year
+- `year` (integer, required) -- The award cycle year
 - `result` (enum, required): `nominated`, `shortlisted`, `recommended`, `won`
-- `category` (string, nullable) — Specific track within the award family (e.g., "Kennerspiel des Jahres")
+- `category` (string, nullable) -- Specific track within the award family (e.g., "Kennerspiel des Jahres")
 - `_links` (Links)
 
 ### New Endpoints
 
-- **`GET /awards`** — List all awards (paginated)
-- **`GET /awards/{id}`** — Single award detail
-- **`GET /games/{id}/awards`** — Awards for a specific game
+- **`GET /awards`** -- List all awards (paginated)
+- **`GET /awards/{id}`** -- Single award detail
+- **`GET /games/{id}/awards`** -- Awards for a specific game
 
 ### Game Schema Changes
 

@@ -8,7 +8,7 @@ COPY migrations/ migrations/
 
 RUN cargo build --release
 
-# Stage 2: Runtime (distroless — minimal attack surface, no shell)
+# Stage 2: Runtime (distroless -- minimal attack surface, no shell)
 FROM gcr.io/distroless/cc-debian12:nonroot
 
 COPY --from=builder /app/target/release/opentabletop-server /usr/local/bin/server

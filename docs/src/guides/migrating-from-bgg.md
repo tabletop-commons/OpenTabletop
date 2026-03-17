@@ -2,6 +2,8 @@
 
 This guide maps BoardGameGeek XML API concepts to their OpenTabletop equivalents.
 
+While this guide focuses on BGG as the most common migration source for English-speaking communities, OpenTabletop servers can be populated from any data source -- regional databases, publisher records, community curations, or other platforms. The specification is agnostic about data origin. If you are building a server for a non-English community using local data sources, the entity mapping principles here still apply even if the source system is not BGG.
+
 ## Strangler Fig Approach (ADR-0032)
 
 You don't have to migrate all at once. The recommended pattern:
@@ -38,7 +40,7 @@ Route traffic through a gateway that sends requests to OpenTabletop for migrated
 | `poll[@name='suggested_numplayers']` | `GET /games/{id}/player-count-poll` | Structured as proper endpoint |
 | `minplaytime` | `min_playtime_minutes` | Publisher-stated |
 | `maxplaytime` | `max_playtime_minutes` | Publisher-stated |
-| (not available) | `community_playtime_median_minutes` | Community-reported — new |
+| (not available) | `community_playtime_median_minutes` | Community-reported -- new |
 | `statistics/ratings/averageweight` | `weight` | Same 1-5 scale |
 | `statistics/ratings/average` | `average_rating` | Same scale |
 | `statistics/ratings/bayesaverage` | `bayes_rating` | Bayesian average |
@@ -52,7 +54,7 @@ Route traffic through a gateway that sends requests to OpenTabletop for migrated
 BGG returns XML. Conforming OpenTabletop implementations return JSON with HAL-style `_links`.
 
 ### Polling vs Structured Data
-BGG embeds poll data inline in the thing response as XML. The OpenTabletop specification defines polls as dedicated endpoints with structured schemas — each player count has explicit best/recommended/not-recommended vote counts.
+BGG embeds poll data inline in the thing response as XML. The OpenTabletop specification defines polls as dedicated endpoints with structured schemas -- each player count has explicit best/recommended/not-recommended vote counts.
 
 ### No Expansion-Aware Filtering
 BGG has no concept of filtering by expansion-modified properties. The specification's `effective=true` parameter is entirely new functionality.

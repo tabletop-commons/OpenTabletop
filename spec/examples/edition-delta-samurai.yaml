@@ -1,4 +1,4 @@
-summary: Samurai — edition deltas across printings
+summary: Samurai -- edition deltas across printings
 description: >-
   Demonstrates edition-level property deltas for Samurai, a classic
   tile-placement area-majority game by Reiner Knizia. The original 1998
@@ -56,7 +56,7 @@ value:
         rules_changes: >-
           Revised rules with clearer tile-placement examples and diagrams.
           Added official variant for quicker two-player games with a reduced
-          map. Scoring clarification for Buddha figures — explicitly states
+          map. Scoring clarification for Buddha figures -- explicitly states
           that ties on a figure type result in no one claiming that type.
         component_changes: >-
           Larger game board (roughly 30% bigger) with improved graphic design

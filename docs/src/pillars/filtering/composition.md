@@ -13,30 +13,34 @@ flowchart TD
     ALL["All Games in Database"]
 
     subgraph "Dimension Filters (AND across dimensions)"
-        PC["Player Count Filter<br/><i>players, best_at, etc.</i>"]
-        PT["Play Time Filter<br/><i>playtime_min, playtime_max</i>"]
-        W["Weight Filter<br/><i>weight_min, weight_max</i>"]
-        M["Mechanics Filter<br/><i>mechanics, mechanics_all, mechanics_not</i>"]
-        TH["Theme Filter<br/><i>theme, theme_not</i>"]
-        MD["Metadata Filter<br/><i>designer, publisher, year, etc.</i>"]
+        RC["Rating & Confidence<br/><i>rating_min, confidence_min</i>"]
+        W["Weight<br/><i>weight_min, weight_max</i>"]
+        PC["Player Count<br/><i>players, top_at, recommended_at</i>"]
+        PT["Play Time<br/><i>playtime_min, playtime_max</i>"]
+        AG["Age<br/><i>age_min, age_max</i>"]
+        TM["Game Type & Mechanics<br/><i>type, mechanics, mechanics_not</i>"]
+        TH["Theme<br/><i>theme, theme_not</i>"]
+        MD["Metadata<br/><i>designer, publisher, year, etc.</i>"]
     end
 
     SORT["Sort"]
     PAGE["Paginate"]
     OUT["Response"]
 
-    ALL --> PC
+    ALL --> RC
+    RC --> W
+    W --> PC
     PC --> PT
-    PT --> W
-    W --> M
-    M --> TH
+    PT --> AG
+    AG --> TM
+    TM --> TH
     TH --> MD
     MD --> SORT
     SORT --> PAGE
     PAGE --> OUT
 ```
 
-The pipeline is conceptual — the actual database query optimizes the execution order. But the logical behavior is as if each dimension filters the result set in sequence, with every game needing to pass all active filters.
+The pipeline is conceptual -- the actual database query optimizes the execution order. But the logical behavior is as if each dimension filters the result set in sequence, with every game needing to pass all active filters.
 
 ## Within-Dimension OR
 
@@ -49,7 +53,7 @@ When a dimension accepts an array of values, those values are combined with OR:
 }
 ```
 
-This matches games that have (cooperative OR solo mechanics) AND (fantasy OR nature theme). It does NOT require a game to have both cooperative and solo mechanics — any one match within the dimension is sufficient.
+This matches games that have (cooperative OR solo mechanics) AND (fantasy OR nature theme). It does NOT require a game to have both cooperative and solo mechanics -- any one match within the dimension is sufficient.
 
 ## Within-Dimension AND
 
@@ -109,11 +113,11 @@ If any single dimension fails, the game is excluded.
 
 ## Inactive Dimensions
 
-A dimension that has no parameters set is inactive and matches everything. If you only specify `players=4`, then play time, weight, mechanics, theme, and metadata are all unconstrained — every game that supports 4 players is returned regardless of those other properties.
+A dimension that has no parameters set is inactive and matches everything. If you only specify `players=4`, then rating, weight, play time, age, mechanics, theme, and metadata are all unconstrained -- every game that supports 4 players is returned regardless of those other properties.
 
 ## Effective Mode Interaction
 
-When `effective=true`, the player count, play time, and weight dimensions expand their search to include expansion combinations. This does not change the composition rules — it changes the *data* that each dimension searches against. Instead of checking only the base game's properties, the filter also checks all known `ExpansionCombination` entries for that game.
+When `effective=true`, the player count, play time, and weight dimensions expand their search to include expansion combinations. This does not change the composition rules -- it changes the *data* that each dimension searches against. Instead of checking only the base game's properties, the filter also checks all known `ExpansionCombination` entries for that game.
 
 See [Effective Mode](./effective-mode.md) for the full explanation.
 
@@ -121,6 +125,6 @@ See [Effective Mode](./effective-mode.md) for the full explanation.
 
 **Empty array parameters.** An empty array (`"mechanics": []`) is treated as an inactive filter, not as "no mechanics." If you want games with literally no mechanics tagged, use a dedicated parameter (not yet specified; this is a future consideration).
 
-**Conflicting constraints.** `weight_min=4.0&weight_max=2.0` is a valid query that returns zero results. The API does not reject logically impossible combinations — it returns an empty result set.
+**Conflicting constraints.** `weight_min=4.0&weight_max=2.0` is a valid query that returns zero results. The API does not reject logically impossible combinations -- it returns an empty result set.
 
 **Null fields.** Games missing a field (e.g., no community play time data) are excluded from filters on that field unless a fallback is specified. A game with no `community_max_playtime` will not appear in `community_playtime_max=90` results, even if its publisher play time is under 90 minutes. The two data sources are independent.

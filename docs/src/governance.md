@@ -11,8 +11,13 @@ While the project has fewer than 10 active contributors, the founder makes final
 At 10+ active contributors, the project transitions to an elected steering committee:
 
 - **5 members**, elected annually by active contributors
-- **Staggered terms** — 2-3 seats rotate each year for continuity
+- **Staggered terms** -- 2-3 seats rotate each year for continuity
 - **Decisions by majority vote** with the founder holding a tiebreaker vote during the first transition year
+- **Geographic and linguistic diversity** -- the committee should aim to represent the international communities the specification serves, not just English-speaking contributors
+
+## Language and Accessibility
+
+OpenTabletop is a global standard. Contributions, discussions, and RFC proposals are welcome in any language. The core team will work with community translators to ensure key discussions are accessible across language boundaries. Non-English contributions are valued equally -- a Japanese developer's RFC is as valid as an English one.
 
 ## Decision Process
 
@@ -42,7 +47,7 @@ Significant technical decisions are recorded as ADRs:
 
 - Use `/create-adr` to propose a new decision
 - ADRs start as `proposed`, move to `accepted` after review
-- ADRs are immutable once accepted — only the status field changes
+- ADRs are immutable once accepted -- only the status field changes
 - To change a decision, create a new ADR that supersedes the old one
 
 ### Taxonomy and Example Data Corrections

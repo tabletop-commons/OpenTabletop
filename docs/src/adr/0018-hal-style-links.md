@@ -7,7 +7,7 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-A well-designed REST API should be discoverable — clients should be able to navigate the API by following links in responses rather than constructing URLs from documentation. However, full HATEOAS (Hypermedia as the Engine of Application State) adds significant complexity with marginal benefit for most API consumers. We need a pragmatic level of hypermedia support that aids discoverability without over-engineering.
+A well-designed REST API should be discoverable -- clients should be able to navigate the API by following links in responses rather than constructing URLs from documentation. However, full HATEOAS (Hypermedia as the Engine of Application State) adds significant complexity with marginal benefit for most API consumers. We need a pragmatic level of hypermedia support that aids discoverability without over-engineering.
 
 ## Decision Drivers
 
@@ -18,7 +18,7 @@ A well-designed REST API should be discoverable — clients should be able to na
 
 ## Considered Options
 
-* No hypermedia links — clients construct URLs from documentation
+* No hypermedia links -- clients construct URLs from documentation
 * HAL (Hypertext Application Language) format links
 * JSON:API links format
 * Full HATEOAS with state transitions and actions

@@ -17,7 +17,7 @@ Cursor pagination uses an opaque token that encodes the position in the result s
 | Parameter | Type | Default | Max | Description |
 |-----------|------|---------|-----|-------------|
 | `limit` | integer | 25 | 100 | Number of items per page |
-| `cursor` | string | (none) | — | Opaque cursor from a previous response |
+| `cursor` | string | (none) | -- | Opaque cursor from a previous response |
 
 ## Response Format
 
@@ -53,7 +53,7 @@ curl "https://api.opentabletop.org/v1/games?cursor=eyJpZCI6IjAxOTM4NWEyLTdj...&l
 
 ## Notes
 
-- Cursors are **opaque** — do not parse or construct them; they may change format between API versions
-- Cursors are **stable** — using a cursor always returns the next logical page, even if items are added or removed
+- Cursors are **opaque** -- do not parse or construct them; they may change format between API versions
+- Cursors are **stable** -- using a cursor always returns the next logical page, even if items are added or removed
 - `prev_cursor` is `null` on the first page; `next_cursor` is `null` on the last page
-- Filters and sort order are encoded in the cursor — you do not need to repeat them on subsequent pages
+- Filters and sort order are encoded in the cursor -- you do not need to repeat them on subsequent pages

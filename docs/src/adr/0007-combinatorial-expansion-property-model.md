@@ -18,7 +18,7 @@ When expansions are combined with a base game, the resulting gameplay properties
 
 ## Considered Options
 
-* Simple additive deltas only — each expansion declares its delta from the base game
+* Simple additive deltas only -- each expansion declares its delta from the base game
 * ExpansionCombination entity for explicit combo effects with additive delta fallback
 * Full combination matrix precomputing all possible expansion sets
 

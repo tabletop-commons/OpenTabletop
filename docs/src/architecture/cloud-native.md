@@ -101,7 +101,7 @@ The CI pipeline produces a container image (build), tags it with a version (rele
 The server is a stateless process. No in-memory session state, no local file storage. Multiple instances serve the same traffic behind a load balancer.
 
 ### VII. Port Binding
-The server binds to a port (`$PORT`) and serves HTTP directly. No app server wrapper (no Tomcat, no Gunicorn) — Axum with Hyper is the HTTP server.
+The server binds to a port (`$PORT`) and serves HTTP directly. No app server wrapper (no Tomcat, no Gunicorn) -- Axum with Hyper is the HTTP server.
 
 ### VIII. Concurrency
 Horizontal scaling via process count. Need more throughput? Add more pods. The async Tokio runtime also scales vertically across CPU cores within a single process.
@@ -132,7 +132,7 @@ The reference server is instrumented with OpenTelemetry for distributed tracing,
 
 The reference server ships as a minimal container image:
 
-- **Base:** `scratch` or `distroless` — no shell, no package manager, no attack surface.
+- **Base:** `scratch` or `distroless` -- no shell, no package manager, no attack surface.
 - **Binary:** A single statically-linked Rust binary. No runtime dependencies.
 - **Size:** ~20 MB compressed. Pulls in seconds.
 - **Health check:** `/health` endpoint returns 200 if the server is up and can reach PostgreSQL. `/ready` returns 200 when the server is ready to accept traffic (connection pool warmed, migrations verified).

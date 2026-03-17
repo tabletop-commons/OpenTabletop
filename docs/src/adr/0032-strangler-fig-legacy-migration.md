@@ -7,20 +7,20 @@ date: 2026-03-12
 
 ## Context and Problem Statement
 
-Many applications currently rely on BoardGameGeek's XML API or web scraping for board game data. Migrating these consumers to the OpenTabletop API must be incremental and low-risk — a "big bang" cutover would break existing integrations and risk data loss. We need a migration strategy that allows gradual, reversible adoption of the new API while maintaining compatibility with existing BGG-based workflows.
+Many applications currently rely on BoardGameGeek's XML API or web scraping for board game data. Migrating these consumers to the OpenTabletop API must be incremental and low-risk -- a "big bang" cutover would break existing integrations and risk data loss. We need a migration strategy that allows gradual, reversible adoption of the new API while maintaining compatibility with existing BGG-based workflows.
 
 ## Decision Drivers
 
 * Existing BGG-dependent applications must be able to migrate incrementally, not all-at-once
 * BGG IDs must remain usable as lookup keys during and after migration
-* The migration must be reversible at every step — no point of no return
+* The migration must be reversible at every step -- no point of no return
 * Data imported from BGG must be reconcilable with OpenTabletop's native identifiers
 
 ## Considered Options
 
-* Big-bang migration — switch from BGG to OpenTabletop in a single cutover
-* Parallel run — operate both systems indefinitely with manual synchronization
-* Strangler fig pattern — incrementally route requests through an API gateway translation layer
+* Big-bang migration -- switch from BGG to OpenTabletop in a single cutover
+* Parallel run -- operate both systems indefinitely with manual synchronization
+* Strangler fig pattern -- incrementally route requests through an API gateway translation layer
 
 ## Decision Outcome
 
@@ -28,8 +28,8 @@ Chosen option: "Strangler fig pattern with API gateway translation layer", becau
 
 ### Consequences
 
-* Good, because migration is incremental — each route can be switched individually based on data readiness
+* Good, because migration is incremental -- each route can be switched individually based on data readiness
 * Good, because BGG ID cross-references enable seamless lookups during the transition period
-* Good, because the migration is fully reversible at the route level — any route can fall back to BGG
+* Good, because the migration is fully reversible at the route level -- any route can fall back to BGG
 * Bad, because the API gateway translation layer is additional infrastructure that must be built and maintained
 * Bad, because data discrepancies between BGG and OpenTabletop may surface during the migration, requiring reconciliation

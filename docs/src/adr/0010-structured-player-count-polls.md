@@ -33,3 +33,7 @@ Chosen option: "Per-player-count polls with best/recommended/not-recommended vot
 * Good, because the poll structure naturally extends to other poll types (e.g., language dependence, age suitability)
 * Bad, because per-player-count poll data is significantly more storage than a simple min/max range
 * Bad, because games with few votes may have unreliable poll distributions, requiring a minimum vote threshold for filtering
+
+## Future Considerations
+
+[ADR-0043](0043-player-count-sentiment-model-improvements.md) adopts a numeric per-count rating model (1-5 scale) as the native replacement for the three-tier system documented here. The core decision of this ADR -- structured per-player-count sentiment data rather than simple min/max ranges -- carries forward. The change is in *how* sentiment is collected: independent numeric ratings per count rather than Best/Recommended/Not Recommended buckets. The BGG three-tier data is preserved as `PlayerCountPollLegacy` for migration compatibility.

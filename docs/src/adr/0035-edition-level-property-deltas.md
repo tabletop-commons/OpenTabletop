@@ -17,22 +17,22 @@ The project already has a well-established delta pattern via `PropertyModificati
 
 * Editions can differ in weight, playtime, and occasionally player count (e.g., a reprint adds a solo variant)
 * Must compose with the existing expansion effective-properties pipeline (ADR-0007) and experience adjustment (ADR-0034)
-* Only one edition is active at a time — no combinatorial explosion like expansions
+* Only one edition is active at a time -- no combinatorial explosion like expansions
 * Should reuse the existing delta vocabulary (additive deltas, same field names) for consistency
-* Must be backward compatible — games without edition data behave exactly as today
+* Must be backward compatible -- games without edition data behave exactly as today
 * Need both structured (filterable) deltas and human-readable change descriptions
 
 ## Considered Options
 
-* **Freeform notes on GameEdition (status quo)** — Keep the existing `notes` field for edition differences
-* **Reuse PropertyModification with polymorphic source** — Add an `edition_id` field to `PropertyModification` and use the same schema for both expansion and edition deltas
-* **New EditionDelta schema** — A dedicated schema for edition-level property changes
+* **Freeform notes on GameEdition (status quo)** -- Keep the existing `notes` field for edition differences
+* **Reuse PropertyModification with polymorphic source** -- Add an `edition_id` field to `PropertyModification` and use the same schema for both expansion and edition deltas
+* **New EditionDelta schema** -- A dedicated schema for edition-level property changes
 
 ## Decision Outcome
 
 Chosen option: "New EditionDelta schema," because editions and expansions have fundamentally different resolution semantics. Expansions are combinatorial (any subset can be active simultaneously), while editions are mutually exclusive (exactly one is active). Overloading `PropertyModification` would conflate these two models and complicate both the API contract and the resolution logic.
 
-Each game has one canonical edition (typically the original printing). All other editions may have an `EditionDelta` describing how their properties differ from the canonical. The canonical edition has no delta — it defines the baseline.
+Each game has one canonical edition (typically the original printing). All other editions may have an `EditionDelta` describing how their properties differ from the canonical. The canonical edition has no delta -- it defines the baseline.
 
 Edition selection is controlled via a query parameter (`edition` accepting a slug or UUID) that defaults to the canonical edition. The resolution pipeline becomes:
 
@@ -44,14 +44,14 @@ This slots in naturally before expansion resolution: first determine the base va
 
 ### Consequences
 
-* Good, because edition-specific property differences become filterable — a user can filter by the 2015 reprint's actual weight
+* Good, because edition-specific property differences become filterable -- a user can filter by the 2015 reprint's actual weight
 * Good, because the delta pattern is consistent with expansion `PropertyModification` (same field names, same additive semantics)
-* Good, because one-at-a-time selection means no combinatorial explosion — the resolution cost is O(1) per edition
+* Good, because one-at-a-time selection means no combinatorial explosion -- the resolution cost is O(1) per edition
 * Good, because it composes cleanly with the existing pipeline: edition deltas are applied before expansion resolution, which is applied before experience adjustment
-* Good, because backward compatible — games with no edition data or queries without an `edition` parameter behave identically to today
+* Good, because backward compatible -- games with no edition data or queries without an `edition` parameter behave identically to today
 * Good, because both structured deltas (for filtering) and human-readable descriptions (for display) are supported
 * Bad, because it adds one more resolution step to the effective-properties pipeline
-* Bad, because the canonical edition requires curation — someone must decide which printing is the baseline
+* Bad, because the canonical edition requires curation -- someone must decide which printing is the baseline
 * Bad, because edition delta data requires community contribution effort for each game with multiple printings
 
 ### Rejected Options
@@ -64,12 +64,12 @@ This slots in naturally before expansion resolution: first determine the base va
 
 ### New Schemas
 
-- `EditionDelta` — Structured property deltas for a specific edition relative to the canonical edition, including numeric deltas and human-readable change descriptions
+- `EditionDelta` -- Structured property deltas for a specific edition relative to the canonical edition, including numeric deltas and human-readable change descriptions
 
 ### API Changes
 
-- New endpoint: `GET /games/{id}/editions` — returns all editions of a game, optionally embedding delta data via `?include=deltas`
-- New query parameter: `edition` on filtering endpoints — selects the active edition for property resolution
+- New endpoint: `GET /games/{id}/editions` -- returns all editions of a game, optionally embedding delta data via `?include=deltas`
+- New query parameter: `edition` on filtering endpoints -- selects the active edition for property resolution
 - New include value: `edition_delta` for embedding in game responses
 
 ### Filter Composition

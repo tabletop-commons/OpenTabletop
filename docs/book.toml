@@ -1,7 +1,7 @@
 [book]
 title = "OpenTabletop Documentation"
 authors = ["OpenTabletop Contributors"]
-description = "An open specification for board game data — the MusicBrainz of tabletop gaming"
+description = "An open specification for board game data -- the MusicBrainz of tabletop gaming"
 language = "en"
 src = "src"
 

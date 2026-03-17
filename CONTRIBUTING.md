@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to OpenTabletop. This document explains how to participate.
 
+OpenTabletop is a global standard. Contributions, discussions, and proposals are welcome in any language. If you are more comfortable writing in Japanese, German, Portuguese, Korean, or any other language, please do so -- the community will work with translators to ensure your contribution is understood and considered equally. The specification serves board game communities worldwide, and we value perspectives from all of them.
+
 ## Types of Contributions
 
 ### Spec Changes (RFC Process)

@@ -18,7 +18,7 @@ Data scientists, researchers, and application developers who need the complete d
 
 ## Considered Options
 
-* No bulk export — consumers must paginate through the full API
+* No bulk export -- consumers must paginate through the full API
 * Paginate-all pattern with a special "dump" mode on existing endpoints
 * Dedicated export endpoints with streaming responses and manifest metadata
 

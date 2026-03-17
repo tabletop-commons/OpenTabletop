@@ -9,7 +9,7 @@ Decisions about how the project operates: format standards, licensing, versionin
 | ADR | Title | Status |
 |-----|-------|--------|
 | [ADR-0001](0001-use-madr-for-decisions.md) | Use MADR 4.0.0 for Architecture Decision Records | Accepted |
-| [ADR-0003](0003-dual-licensing.md) | Dual Licensing — Apache 2.0 for Code, CC-BY-4.0 for Spec | Accepted |
+| [ADR-0003](0003-dual-licensing.md) | Dual Licensing -- Apache 2.0 for Code, CC-BY-4.0 for Spec | Accepted |
 | [ADR-0004](0004-rfc-based-governance.md) | RFC-Based Governance with Steering Committee Transition | Accepted |
 | [ADR-0005](0005-semantic-versioning.md) | Semantic Versioning for Spec and Implementations | Accepted |
 | [ADR-0030](0030-structured-data-contributions.md) | Structured Data Contributions via Issue Templates | Accepted |
@@ -28,10 +28,12 @@ The foundational entity model: game entity design, relationships, taxonomy, play
 | [ADR-0009](0009-controlled-vocabulary-taxonomy.md) | Controlled Vocabulary for Taxonomy | Accepted |
 | [ADR-0010](0010-structured-player-count-polls.md) | Structured Per-Player-Count Polling Data | Accepted |
 | [ADR-0011](0011-typed-game-relationships.md) | Typed Game Relationships with JSONB Metadata | Accepted |
-| [ADR-0014](0014-dual-playtime-model.md) | Dual Playtime Model — Publisher-Stated and Community-Reported | Accepted |
+| [ADR-0014](0014-dual-playtime-model.md) | Dual Playtime Model -- Publisher-Stated and Community-Reported | Accepted |
 | [ADR-0034](0034-experience-bucketed-playtime.md) | Experience-Bucketed Playtime Adjustment | Proposed |
 | [ADR-0035](0035-edition-level-property-deltas.md) | Edition-Level Property Deltas | Accepted |
 | [ADR-0037](0037-entity-type-classification-criteria.md) | Formal Entity Type Classification Criteria | Proposed |
+| [ADR-0043](0043-player-count-sentiment-model-improvements.md) | Player Count Sentiment Model Improvements | Proposed |
+| [ADR-0044](0044-player-entity-and-collection-data.md) | Player Entity and Collection Data | Proposed |
 
 ## API Design
 
@@ -89,7 +91,7 @@ All ADRs in sequential order for reference. Numbers are append-only and never re
 |-----|-------|--------|
 | [ADR-0001](0001-use-madr-for-decisions.md) | Use MADR 4.0.0 for Architecture Decision Records | Accepted |
 | [ADR-0002](0002-use-rest-with-openapi.md) | Use REST with OpenAPI 3.2 as the API Protocol | Accepted |
-| [ADR-0003](0003-dual-licensing.md) | Dual Licensing — Apache 2.0 for Code, CC-BY-4.0 for Spec | Accepted |
+| [ADR-0003](0003-dual-licensing.md) | Dual Licensing -- Apache 2.0 for Code, CC-BY-4.0 for Spec | Accepted |
 | [ADR-0004](0004-rfc-based-governance.md) | RFC-Based Governance with Steering Committee Transition | Accepted |
 | [ADR-0005](0005-semantic-versioning.md) | Semantic Versioning for Spec and Implementations | Accepted |
 | [ADR-0006](0006-unified-game-entity.md) | Unified Game Entity with Type Discriminator | Accepted |
@@ -100,7 +102,7 @@ All ADRs in sequential order for reference. Numbers are append-only and never re
 | [ADR-0011](0011-typed-game-relationships.md) | Typed Game Relationships with JSONB Metadata | Accepted |
 | [ADR-0012](0012-keyset-pagination.md) | Keyset (Cursor-Based) Pagination | Accepted |
 | [ADR-0013](0013-compound-filtering.md) | Compound Multi-Dimensional Filtering as Core Feature | Accepted |
-| [ADR-0014](0014-dual-playtime-model.md) | Dual Playtime Model — Publisher-Stated and Community-Reported | Accepted |
+| [ADR-0014](0014-dual-playtime-model.md) | Dual Playtime Model -- Publisher-Stated and Community-Reported | Accepted |
 | [ADR-0015](0015-rfc9457-error-responses.md) | RFC 9457 Problem Details for Error Responses | Accepted |
 | [ADR-0016](0016-api-key-auth-tiered-rate-limits.md) | API Key Authentication with Tiered Rate Limits | Accepted |
 | [ADR-0017](0017-selective-resource-embedding.md) | Selective Resource Embedding via ?include Parameter | Accepted |
@@ -129,3 +131,5 @@ All ADRs in sequential order for reference. Numbers are append-only and never re
 | [ADR-0040](0040-edition-product-and-physical-metadata.md) | Edition Product and Physical Metadata | Proposed |
 | [ADR-0041](0041-community-signals-and-aggregate-statistics.md) | Community Signals and Aggregate Statistics | Proposed |
 | [ADR-0042](0042-game-awards-and-recognition.md) | Game Awards and Recognition | Proposed |
+| [ADR-0043](0043-player-count-sentiment-model-improvements.md) | Player Count Sentiment Model Improvements | Proposed |
+| [ADR-0044](0044-player-entity-and-collection-data.md) | Player Entity and Collection Data | Proposed |

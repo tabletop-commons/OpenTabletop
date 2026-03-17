@@ -3,11 +3,11 @@ status: accepted
 date: 2026-03-12
 ---
 
-# ADR-0014: Dual Playtime Model — Publisher-Stated and Community-Reported
+# ADR-0014: Dual Playtime Model -- Publisher-Stated and Community-Reported
 
 ## Context and Problem Statement
 
-Board game play times as stated by publishers (printed on the box) are notoriously inaccurate — they often represent ideal conditions and experienced players. Community-reported play times from actual play logs are typically more reliable but are not always available, especially for new or niche games. The API needs to represent both sources of playtime data and make intelligent defaults for filtering.
+Board game play times as stated by publishers (printed on the box) are notoriously inaccurate -- they often represent ideal conditions and experienced players. Community-reported play times from actual play logs are typically more reliable but are not always available, especially for new or niche games. The API needs to represent both sources of playtime data and make intelligent defaults for filtering.
 
 ## Decision Drivers
 

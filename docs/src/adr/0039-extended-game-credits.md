@@ -7,21 +7,21 @@ date: 2026-03-15
 
 ## Context and Problem Statement
 
-The specification currently models three credit types as separate schemas: Designer, Artist, and Publisher. BGG tracks 10+ credit roles including developer, graphic designer, sculptor, editor, writer, insert designer, solo mode designer, and narrator. Real-world game credits are diverse — Brass: Birmingham credits designers (Gavan Brown, Matt Tolman, Martin Wallace), artists (6 people), and 22 publishers, plus has fields for solo designer, developer, graphic designer, sculptor, editor, writer, and insert designer. Without extended credit roles, the specification cannot represent complete game credits, blocking both publisher adoption (attribution is non-negotiable) and BGG migration ([ADR-0032](0032-strangler-fig-legacy-migration.md)).
+The specification currently models three credit types as separate schemas: Designer, Artist, and Publisher. BGG tracks 10+ credit roles including developer, graphic designer, sculptor, editor, writer, insert designer, solo mode designer, and narrator. Real-world game credits are diverse -- Brass: Birmingham credits designers (Gavan Brown, Matt Tolman, Martin Wallace), artists (6 people), and 22 publishers, plus has fields for solo designer, developer, graphic designer, sculptor, editor, writer, and insert designer. Without extended credit roles, the specification cannot represent complete game credits, blocking both publisher adoption (attribution is non-negotiable) and BGG migration ([ADR-0032](0032-strangler-fig-legacy-migration.md)).
 
 ## Decision Drivers
 
 * Publishers and designers consider credit accuracy non-negotiable for data submission
 * BGG tracks 10+ credit roles; our 3 schemas cover only ~30% of real credit data
-* Adding a separate schema per role (Developer.yaml, GraphicDesigner.yaml, etc.) does not scale — every new role requires a spec change, new endpoints, new include values
+* Adding a separate schema per role (Developer.yaml, GraphicDesigner.yaml, etc.) does not scale -- every new role requires a spec change, new endpoints, new include values
 * The existing Designer, Artist, and Publisher schemas are well-established and should not be broken
 * A single person may hold multiple roles (e.g., Gavan Brown is both designer and artist on Brass: Birmingham)
 
 ## Considered Options
 
-* **Separate schema per role** — Add Developer.yaml, GraphicDesigner.yaml, Sculptor.yaml, Editor.yaml, Writer.yaml, InsertDesigner.yaml, etc.
-* **Unified Person schema replacing Designer/Artist** — Replace all people schemas with a single Person entity and role-based join table
-* **Keep Designer/Artist, add Person + GameCredit for additional roles** — Preserve backward compatibility while extending credit coverage
+* **Separate schema per role** -- Add Developer.yaml, GraphicDesigner.yaml, Sculptor.yaml, Editor.yaml, Writer.yaml, InsertDesigner.yaml, etc.
+* **Unified Person schema replacing Designer/Artist** -- Replace all people schemas with a single Person entity and role-based join table
+* **Keep Designer/Artist, add Person + GameCredit for additional roles** -- Preserve backward compatibility while extending credit coverage
 
 ## Decision Outcome
 
@@ -31,18 +31,18 @@ The unified replacement was rejected because it would break existing endpoints a
 
 ### Consequences
 
-* Good, because existing Designer, Artist, and Publisher endpoints remain unchanged — zero breaking changes
+* Good, because existing Designer, Artist, and Publisher endpoints remain unchanged -- zero breaking changes
 * Good, because all BGG credit roles can be represented
 * Good, because a single person appearing in multiple roles (designer + artist) is naturally supported via the Person entity
 * Good, because new roles can be added to the enum via the RFC process without schema restructuring
-* Bad, because credits are split across two mechanisms (dedicated schemas for designer/artist, GameCredit for others) — the `/games/{id}/credits` endpoint must unify them
+* Bad, because credits are split across two mechanisms (dedicated schemas for designer/artist, GameCredit for others) -- the `/games/{id}/credits` endpoint must unify them
 * Bad, because Person deduplication across BGG import requires fuzzy name matching
 
 ## Implementation
 
 ### New Schemas
 
-**`spec/schemas/Person.yaml`** — Lightweight unified person entity. Designer and Artist become role-filtered views over Person.
+**`spec/schemas/Person.yaml`** -- Lightweight unified person entity. Designer and Artist become role-filtered views over Person.
 
 Fields:
 - `id` (UUID, required)
@@ -52,19 +52,19 @@ Fields:
 - `game_count` (integer)
 - `_links` (Links)
 
-**`spec/schemas/GameCredit.yaml`** — Join model linking a person to a game with a specific role.
+**`spec/schemas/GameCredit.yaml`** -- Join model linking a person to a game with a specific role.
 
 Fields:
 - `game_id` (UUID, required)
 - `person_id` (UUID, required)
 - `role` (enum, required): `developer`, `graphic_designer`, `sculptor`, `editor`, `writer`, `insert_designer`, `solo_mode_designer`, `narrator`, `producer`
-- `person_name` (string) — denormalized for convenience
-- `person_slug` (string) — denormalized for link construction
+- `person_name` (string) -- denormalized for convenience
+- `person_slug` (string) -- denormalized for link construction
 - `_links` (Links)
 
 ### New Endpoint
 
-**`GET /games/{id}/credits`** — Returns all credits for a game, unifying designers, artists, and additional GameCredit roles into a single response. Tagged under "People".
+**`GET /games/{id}/credits`** -- Returns all credits for a game, unifying designers, artists, and additional GameCredit roles into a single response. Tagged under "People".
 
 ### Game Schema Changes
 
