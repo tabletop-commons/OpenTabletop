@@ -10,13 +10,8 @@
 # Architecture Decision Records -- require steering committee review
 /docs/src/adr/ @tabletop-commons/steering-committee
 
-# Reference server
-/reference/ @tabletop-commons/server-maintainers
-
-# SDKs
-/sdks/rust/ @tabletop-commons/sdk-rust
-/sdks/python/ @tabletop-commons/sdk-python
-/sdks/javascript/ @tabletop-commons/sdk-javascript
+# Taxonomy and sample data
+/data/ @tabletop-commons/data-maintainers
 
 # CI/CD and infrastructure
 /.github/ @tabletop-commons/infra-maintainers

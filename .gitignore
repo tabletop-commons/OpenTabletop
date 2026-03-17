@@ -19,25 +19,8 @@ build/
 *~
 .DS_Store
 
-# Rust
-**/*.rs.bk
-Cargo.lock
-!reference/server-rust/Cargo.lock
-!sdks/rust/Cargo.lock
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-.eggs/
-*.egg
-.venv/
-venv/
-
-# JavaScript/TypeScript
-node_modules/
-*.tsbuildinfo
+# Spec bundled output (also listed below, but keeping for clarity)
+# (No language-specific ignores needed -- this is a specification repository)
 
 # Spec bundled output
 spec/bundled/
