@@ -73,8 +73,8 @@ Key design decisions in the schema:
 The `data/samples/` directory contains demonstration records for *Spirit Island* and *Terraforming Mars*. A loader script is provided:
 
 ```sh
-# Install dependencies
-npm install yaml pg
+# From the spec repository root (where package.json lives):
+npm install
 
 # Load into your database
 node scripts/load-samples.js --connection "postgresql://localhost/opentabletop"
