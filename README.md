@@ -3,15 +3,14 @@
 [![Build & Deploy Docs](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/build-docs.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/build-docs.yml)
 [![Validate OpenAPI Spec](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/validate-openapi.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/validate-openapi.yml)
 [![ADR Check](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/adr-check.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/adr-check.yml)
-[![Build & Push Container](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/container.yml/badge.svg)](https://github.com/tabletop-commons/OpenTabletop/actions/workflows/container.yml)
 [![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://tabletop-commons.github.io/OpenTabletop/)
 [![License: Apache 2.0](https://img.shields.io/badge/code-Apache%202.0-blue)](LICENSE)
 [![License: CC-BY-4.0](https://img.shields.io/badge/spec-CC--BY--4.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/)
 [![OpenAPI 3.1](https://img.shields.io/badge/OpenAPI-3.1-green)](spec/openapi.yaml)
 
-**The open standard for board game data.**
+**An open-source API specification and data standard for structured, queryable board game data.**
 
-Board games deserve what MusicBrainz built for music and TMDb built for film: a community-driven, standardized API that any application can build on. OpenTabletop is that standard.
+Board games deserve what MusicBrainz built for music and TMDb built for film: a community-driven, standardized API that any application can build on. OpenTabletop is that standard -- an OpenAPI specification, controlled vocabularies, and sample data that anyone can use to build their own conforming implementation.
 
 ## The Problem
 
@@ -62,9 +61,13 @@ The combination of Branch & Claw + Jagged Earth has emergent effects that differ
 
 ```
 spec/           OpenAPI 3.1 specification (source of truth)
-docs/           mdbook documentation with mermaid diagrams
-reference/      Reference server implementation (Rust/Axum)
-sdks/           Client SDKs (Rust, Python, JavaScript/TypeScript)
+data/
+  taxonomy/     Controlled vocabularies (mechanics, categories, themes)
+  mappings/     BGG bridge mappings for migration
+  samples/      Sample game data conforming to the schemas
+docs/           mdbook documentation, ADRs, and pillar guides
+tools/          Taxonomy viewer and utilities
+scripts/        Spec bundling and ADR validation
 ```
 
 ## Quick Start
@@ -90,10 +93,10 @@ npx @stoplight/spectral-cli lint spec/openapi.yaml
 
 ## Architecture
 
-- **Spec-first**: The OpenAPI specification is written before any implementation
+- **Spec-first**: The OpenAPI specification is the source of truth -- implementations conform to it
 - **ADR-driven**: Every architectural decision is recorded in `docs/src/adr/`
-- **Cloud-native**: 12-factor, container-first, Kubernetes-ready
-- **Multi-language**: Reference server in Rust; SDKs in Rust, Python, JavaScript/TypeScript
+- **Standards-based**: OpenAPI 3.1, RFC 9457 errors, HAL-style links, keyset pagination
+- **Implementation-agnostic**: Build your server in any language; generate SDKs from the spec
 
 ## Contributing
 
@@ -101,7 +104,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to:
 
 - Propose spec changes via the RFC process
 - Submit data corrections
-- Contribute to reference implementations and SDKs
+- Contribute taxonomy data and sample records
 
 ## Governance
 
@@ -109,5 +112,5 @@ OpenTabletop uses an RFC-based governance model. Spec changes require a formal R
 
 ## License
 
-- **Code** (reference implementation, SDKs, tooling): [Apache License 2.0](LICENSE)
-- **Specification** (OpenAPI spec, documentation): [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Tooling and scripts**: [Apache License 2.0](LICENSE)
+- **Specification, documentation, and data**: [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)

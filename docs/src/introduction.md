@@ -74,6 +74,6 @@ OpenTabletop is in the **specification phase**. The project is defining:
 3. Architecture Decision Records (ADRs) that capture key choices
 4. A governance model for community-driven evolution
 
-A reference implementation (Rust/Axum server with PostgreSQL) and SDKs (Rust, Python, JavaScript) will follow once the specification stabilizes.
+The project provides schemas, controlled vocabularies, sample data, and implementer guidance -- everything a developer needs to build a conforming server or client in the language of their choice.
 
 The specification is developed in the open under dual licensing: Apache 2.0 for code, CC-BY-4.0 for the specification and documentation. Contributions are welcome -- see the [Governance Model](./governance.md) and [Getting Started](./guides/getting-started.md) guide.

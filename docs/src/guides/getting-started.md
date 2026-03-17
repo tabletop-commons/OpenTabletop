@@ -1,13 +1,13 @@
 # Getting Started
 
-This guide walks through your first interactions with an OpenTabletop-conforming API. The examples use the reference implementation at `api.opentabletop.org`, but any conforming server exposes the same endpoints and accepts the same parameters -- only the base URL differs.
+This guide walks through your first interactions with any OpenTabletop-conforming API. The examples below use `{your-server}` as a placeholder -- substitute the base URL of whichever conforming server you are working with. Every conforming server exposes the same endpoints and accepts the same parameters.
 
 ## Base URL
 
-The reference implementation is available at:
+Point your requests at the `/v1` root of your chosen server:
 
 ```
-https://api.opentabletop.org/v1
+https://{your-server}/v1
 ```
 
 The specification requires that conforming implementations provide unauthenticated read-only access with rate limiting (default: 60 requests/minute by IP). See [ADR-0016](../adr/0016-api-key-auth-tiered-rate-limits.md).
@@ -17,7 +17,7 @@ The specification requires that conforming implementations provide unauthenticat
 Fetch a game by its slug:
 
 ```bash
-curl https://api.opentabletop.org/v1/games/spirit-island
+curl https://{your-server}/v1/games/spirit-island
 ```
 
 Response:
@@ -52,7 +52,7 @@ Response:
 The real power is in compound filtering. Find cooperative games for 4 players, under 90 minutes, medium complexity:
 
 ```bash
-curl "https://api.opentabletop.org/v1/games?\
+curl "https://{your-server}/v1/games?\
 players=4&\
 community_playtime_max=90&\
 weight_min=2.0&weight_max=3.5&\
@@ -67,10 +67,10 @@ Games carry alternate names in any language. Search works across all of them:
 
 ```bash
 # Search by Japanese name
-curl "https://api.opentabletop.org/v1/search?q=ブラス：バーミンガム"
+curl "https://{your-server}/v1/search?q=ブラス：バーミンガム"
 
 # Search by Korean name
-curl "https://api.opentabletop.org/v1/search?q=브라스:%20버밍엄"
+curl "https://{your-server}/v1/search?q=브라스:%20버밍엄"
 ```
 
 Both return the same *Brass: Birmingham* entity. The full-text search indexes all alternate names with language-appropriate tokenizers, so users can discover games in their own language regardless of what language the game was originally published in.
@@ -81,7 +81,7 @@ Add `effective=true` to filter against properties that include expansion modific
 
 ```bash
 # Games that support 6 players with at least one expansion
-curl "https://api.opentabletop.org/v1/games?\
+curl "https://{your-server}/v1/games?\
 players=6&\
 effective=true&\
 type=base_game"
@@ -92,7 +92,7 @@ type=base_game"
 See how a game's properties change with specific expansions:
 
 ```bash
-curl "https://api.opentabletop.org/v1/games/spirit-island/\
+curl "https://{your-server}/v1/games/spirit-island/\
 effective-properties?with=branch-and-claw,jagged-earth"
 ```
 
@@ -101,7 +101,7 @@ effective-properties?with=branch-and-claw,jagged-earth"
 For queries too complex for URL parameters, use `POST /games/search`:
 
 ```bash
-curl -X POST https://api.opentabletop.org/v1/games/search \
+curl -X POST https://{your-server}/v1/games/search \
   -H "Content-Type: application/json" \
   -d '{
     "filters": {
@@ -123,7 +123,7 @@ The specification defines tiered API key authentication ([ADR-0016](../adr/0016-
 
 ```bash
 curl -H "X-API-Key: your-api-key" \
-  https://api.opentabletop.org/v1/games
+  https://{your-server}/v1/games
 ```
 
 ## Pagination
@@ -148,7 +148,7 @@ All list endpoints use cursor-based pagination:
 Use the `next_cursor` value to fetch the next page:
 
 ```bash
-curl "https://api.opentabletop.org/v1/games?cursor=eyJpZCI6IjAxOTM4...&limit=25"
+curl "https://{your-server}/v1/games?cursor=eyJpZCI6IjAxOTM4...&limit=25"
 ```
 
 ## Next Steps

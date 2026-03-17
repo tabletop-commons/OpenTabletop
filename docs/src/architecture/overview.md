@@ -1,28 +1,19 @@
 # System Overview
 
-OpenTabletop is a specification-first project. The OpenAPI document is the canonical source of truth, and everything else -- the reference server, SDKs, documentation -- is derived from or validated against that specification. This page describes the overall system architecture.
+OpenTabletop is a specification-first project. The OpenAPI document is the canonical source of truth; documentation, tooling, and any conforming server or client are derived from or validated against that specification. This page describes the architectural patterns that implementers should follow when building against the spec.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart TD
     subgraph Specification
-        OAS["OpenAPI 3.2 Spec<br/><i>Source of Truth</i>"]
-    end
-
-    subgraph "Reference Implementation"
-        SERVER["Reference Server<br/><i>Rust / Axum</i>"]
-        DB["PostgreSQL<br/><i>Primary Data Store</i>"]
-        CACHE["Redis<br/><i>Cache Layer</i>"]
-        SERVER --> DB
-        SERVER --> CACHE
-    end
-
-    subgraph "Generated Artifacts"
-        SDK_RUST["Rust SDK<br/><i>opentabletop-rs</i>"]
-        SDK_PY["Python SDK<br/><i>opentabletop-py</i>"]
-        SDK_JS["JavaScript SDK<br/><i>opentabletop-js</i>"]
+        OAS["OpenAPI 3.1 Spec<br/><i>Source of Truth</i>"]
         DOCS["API Documentation<br/><i>Redoc / Swagger UI</i>"]
+    end
+
+    subgraph "Implementers"
+        SERVER["Conforming Servers"]
+        CLIENTS["Client Libraries<br/><i>generated or hand-written</i>"]
     end
 
     subgraph "Consumers"
@@ -32,58 +23,49 @@ flowchart TD
         THIRD["Third-Party<br/>Integrations"]
     end
 
-    OAS -->|generates| SDK_RUST
-    OAS -->|generates| SDK_PY
-    OAS -->|generates| SDK_JS
+    OAS -->|defines contract for| SERVER
     OAS -->|generates| DOCS
-    OAS -->|validates| SERVER
+    OAS -->|generates or informs| CLIENTS
 
-    SDK_RUST --> SERVER
-    SDK_PY --> SERVER
-    SDK_JS --> SERVER
-
-    WEB --> SDK_JS
-    MOBILE --> SDK_JS
-    DATA --> SDK_PY
-    THIRD --> SDK_RUST
+    WEB --> CLIENTS
+    MOBILE --> CLIENTS
+    DATA --> CLIENTS
+    THIRD --> CLIENTS
+    CLIENTS --> SERVER
 
     style OAS fill:#7b1fa2,color:#fff
     style SERVER fill:#1976d2,color:#fff
-    style DB fill:#388e3c,color:#fff
-    style CACHE fill:#00796b,color:#fff
+    style CLIENTS fill:#00796b,color:#fff
 ```
 
-> **Note:** The diagram above shows the reference implementation. SDKs work with any server that conforms to the OpenAPI specification -- the reference server is one such implementation, not a central service.
+> **Note:** The specification is the only artifact this project ships. Servers, clients, and tooling are built by implementers against the spec.
 
 ## Spec-First Design
 
-The specification is written before any implementation code. The workflow:
+The specification is written before any implementation code. The recommended workflow for implementers:
 
-1. **Design the API** by authoring the OpenAPI document. Endpoints, schemas, examples, and constraints are defined in YAML.
-2. **Generate artifacts** from the spec: SDKs, documentation, mock servers, and contract tests.
-3. **Implement the server** to satisfy the contract. The reference server is validated against the spec using contract testing -- if the server returns a response that does not match the spec schema, the test fails.
-4. **Evolve the spec** through the RFC process. Changes to the spec drive changes to the implementation, not the other way around.
+1. **Read the spec.** Endpoints, schemas, examples, and constraints are defined in the OpenAPI document.
+2. **Generate artifacts** from the spec: client libraries, documentation, mock servers, and contract tests.
+3. **Implement the server** to satisfy the contract. A conforming server should be validated against the spec using contract testing -- if the server returns a response that does not match the spec schema, the test fails.
+4. **Track spec evolution.** Changes to the spec are driven through the RFC process. Implementations follow the spec, not the other way around.
 
-This ensures the specification is always correct and complete. The implementation cannot drift from the contract because the contract is tested continuously.
+This ensures the specification remains the single source of truth. Implementations cannot drift from the contract when the contract is tested continuously.
 
-## Reference Server
+## Implementation Guidance
 
-The reference server is a Rust application built on [Axum](https://github.com/tokio-rs/axum), a modern async web framework. It is the official, maintained implementation of the OpenTabletop specification.
+The specification does not mandate a particular language or framework, but the data model and query patterns impose certain architectural constraints. The following recommendations are drawn from the project's ADRs and reflect the patterns best suited to the spec's requirements.
 
-**Why Rust:**
-- Performance: The filtering engine must evaluate complex multi-dimensional queries across large datasets. Rust's zero-cost abstractions and lack of garbage collection pauses make it ideal for consistent, low-latency responses.
-- Correctness: Rust's type system catches entire classes of bugs at compile time. For a specification-grade implementation, correctness is paramount.
-- Memory safety: No buffer overflows, no use-after-free, no data races. Critical for a public-facing API server.
-- Ecosystem: Axum, SQLx (async PostgreSQL), Tower (middleware), Tokio (async runtime) form a mature, production-ready stack.
+### Server Technology
 
-**Why Axum specifically:**
-- Built on Tower and Hyper, the most battle-tested HTTP stack in the Rust ecosystem.
-- Ergonomic handler types with compile-time route checking.
-- Native support for OpenTelemetry, graceful shutdown, and middleware composition.
+A conforming server must evaluate complex multi-dimensional filter queries across large datasets. Implementers should choose a stack that provides:
 
-## Data Store
+- **Low-latency query evaluation.** The filtering engine composes up to six dimensions (player count, play time, weight, mechanics, themes, game mode). Compiled languages or JIT runtimes with efficient memory management are well suited.
+- **Async I/O.** Typical requests fan out to a database and optionally a cache layer. An async runtime avoids blocking threads while waiting on I/O.
+- **OpenTelemetry support.** The spec recommends structured traces, metrics, and logs (see [Cloud-Native Design](./cloud-native.md)).
 
-**PostgreSQL** is the primary data store. The data model maps directly to relational tables:
+### Data Store
+
+**PostgreSQL** is the recommended primary data store. The data model maps naturally to relational tables:
 
 - `games` table with indexed columns for every filterable field.
 - `game_relationships` table with foreign keys to `games`.
@@ -98,23 +80,13 @@ The reference server is a Rust application built on [Axum](https://github.com/to
 - JSONB columns provide flexibility for semi-structured data (expansion combination metadata, export manifests) without sacrificing query performance.
 - PostgreSQL is free, open source, and the most widely deployed relational database in the world.
 
-**Redis** provides an optional caching layer for:
+**Redis** is a recommended optional caching layer for:
 - Expensive effective-mode queries that are frequently repeated.
 - Export manifests.
 - Rate limiting counters.
 
-Redis is not required. The reference server operates correctly without it, at the cost of higher latency for cache-eligible queries.
+Redis is not required. A conforming server operates correctly without it, at the cost of higher latency for cache-eligible queries.
 
-## SDKs
+### Client Libraries
 
-Generated SDKs provide idiomatic client libraries for the three most common consumer languages:
-
-| SDK | Language | Package | Generator |
-|-----|----------|---------|-----------|
-| `opentabletop-rs` | Rust | crates.io | openapi-generator + manual refinement |
-| `opentabletop-py` | Python | PyPI | openapi-generator + manual refinement |
-| `opentabletop-js` | JavaScript/TypeScript | npm | openapi-generator + manual refinement |
-
-SDKs are generated from the OpenAPI spec and then manually refined for ergonomics. The generation step ensures completeness (every endpoint and schema is covered); the manual refinement adds idiomatic patterns (builder APIs in Rust, async/await in Python, TypeScript types in JS).
-
-Each SDK version declares which specification version it supports via a `spec-compatibility` metadata field. See [ADR-0005](../adr/0005-semantic-versioning.md).
+Implementers can generate client libraries from the OpenAPI spec using tools like [openapi-generator](https://openapi-generator.tech/) or [openapi-typescript](https://github.com/openapi-ts/openapi-typescript). The generation step ensures completeness (every endpoint and schema is covered); manual refinement adds idiomatic patterns for the target language.

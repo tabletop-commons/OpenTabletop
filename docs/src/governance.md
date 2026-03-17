@@ -30,16 +30,15 @@ flowchart LR
     A[RFC Proposal] --> B[GitHub Discussion]
     B --> C{Community Review\n7 days minimum}
     C --> D[Steering Committee Vote]
-    D -->|Accepted| E[Implementation PR]
+    D -->|Accepted| E[Spec + Docs PR]
     D -->|Rejected| F[Closed with rationale]
-    E --> G[Reference impl + SDK update]
-    G --> H[Merged]
+    E --> G[Merged]
 ```
 
 1. **Propose**: Open a GitHub Discussion using the RFC template
 2. **Discuss**: Minimum 7-day community review period
 3. **Vote**: Steering committee (or BDFL) votes
-4. **Implement**: Accepted RFCs require a PR with spec change, reference implementation update, and at least one SDK update (ADR-0031)
+4. **Implement**: Accepted RFCs require a PR with the spec change and updated documentation
 
 ### Architecture Decisions (ADRs)
 
