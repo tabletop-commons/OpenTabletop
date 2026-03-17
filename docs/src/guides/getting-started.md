@@ -1,6 +1,13 @@
 # Getting Started
 
-This guide walks through your first interactions with any OpenTabletop-conforming API. The examples below use `{your-server}` as a placeholder -- substitute the base URL of whichever conforming server you are working with. Every conforming server exposes the same endpoints and accepts the same parameters.
+There are two ways to use OpenTabletop:
+
+- **Building a server or app?** Start with the [Implementer's Guide](./implementing.md) -- it walks you through database setup, loading sample data, and implementing endpoints step by step.
+- **Using an existing API?** Read on. This guide shows you how to query any OpenTabletop-conforming server.
+
+---
+
+The examples below use `{your-server}` as a placeholder -- substitute the base URL of whichever conforming server you are working with. Every conforming server exposes the same endpoints and accepts the same parameters.
 
 ## Base URL
 
@@ -151,8 +158,20 @@ Use the `next_cursor` value to fetch the next page:
 curl "https://{your-server}/v1/games?cursor=eyJpZCI6IjAxOTM4...&limit=25"
 ```
 
+## Exploring the Spec
+
+Want to see every endpoint and schema interactively? Bundle the spec and preview it:
+
+```sh
+./scripts/bundle-spec.sh
+npx @redocly/cli preview-docs spec/bundled/openapi.yaml
+```
+
+This opens a browsable API reference in your browser -- useful for understanding the full data model before building against it.
+
 ## Next Steps
 
-- [Filter Dimensions](../pillars/filtering/dimensions.md) -- Full reference for all 6 filter dimensions
+- **Building a server?** [Implementer's Guide](./implementing.md) -- Database schema, sample data loader, endpoint walkthrough
+- [Filter Dimensions](../pillars/filtering/dimensions.md) -- Full reference for all filtering dimensions
 - [Expansion Model](../pillars/data-model/property-deltas.md) -- How combinatorial expansion effects work
 - [Data Export](../pillars/statistics/export.md) -- Bulk data access for analysis
