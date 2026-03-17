@@ -1,0 +1,74 @@
+# Spirit Island -- Expansion Family
+# Demonstrates: expansion, standalone_expansion, and promo entity types
+
+- id: "01912f4c-8a2b-7c3d-9e4f-0a1b2c3d4e5f"
+  slug: "spirit-island-branch-and-claw"
+  name: "Spirit Island: Branch & Claw"
+  type: "expansion"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2017
+  description_short: "Adds Events, new spirits, and the Beast/Disease/Wilds tokens."
+  min_players: 1
+  max_players: 4
+  weight: 4.01
+  average_rating: 8.52
+  rating_count: 8420
+
+- id: "01912f4c-9b3c-7d4e-af50-1b2c3d4e5f60"
+  slug: "spirit-island-jagged-earth"
+  name: "Spirit Island: Jagged Earth"
+  type: "expansion"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2020
+  description_short: "Massive expansion: 10 new spirits, new adversaries, and 5-6 player support."
+  min_players: 1
+  max_players: 6
+  weight: 4.12
+  average_rating: 8.71
+  rating_count: 5840
+
+- id: "01912f4c-ac4d-7e5f-b061-2c3d4e5f6071"
+  slug: "spirit-island-nature-incarnate"
+  name: "Spirit Island: Nature Incarnate"
+  type: "expansion"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2023
+  description_short: "8 new spirits, new aspects, and incarna tokens for spirit evolution."
+  min_players: 1
+  max_players: 6
+  weight: 4.18
+  average_rating: 8.65
+  rating_count: 2150
+
+- id: "01912f4c-bd5e-7f60-c172-3d4e5f607182"
+  slug: "spirit-island-horizons"
+  name: "Horizons of Spirit Island"
+  type: "standalone_expansion"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2022
+  description_short: "Standalone introductory version with 5 new spirits. Integrates with the full game."
+  min_players: 1
+  max_players: 3
+  weight: 2.84
+  average_rating: 7.89
+  rating_count: 3210
+
+- id: "01912f4c-ce6f-7071-d283-4e5f60718293"
+  slug: "spirit-island-promo-pack-1"
+  name: "Spirit Island: Promo Pack 1"
+  type: "promo"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2018
+  description_short: "Promotional spirits and scenario."
+  average_rating: 7.42
+  rating_count: 890
+
+- id: "01912f4c-df70-7182-e394-5f6071829304"
+  slug: "spirit-island-promo-pack-2"
+  name: "Spirit Island: Promo Pack 2"
+  type: "promo"
+  parent_game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+  year_published: 2020
+  description_short: "Additional promotional spirits."
+  average_rating: 7.38
+  rating_count: 620

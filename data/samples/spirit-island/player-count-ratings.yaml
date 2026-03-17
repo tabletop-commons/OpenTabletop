@@ -1,0 +1,25 @@
+# Spirit Island -- Per-Player-Count Community Ratings
+# Uses the ADR-0043 numeric 1-5 scale (not the legacy BGG three-tier model)
+
+game_id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+ratings:
+  - player_count: 1
+    average_rating: 4.2
+    rating_count: 3840
+    rating_stddev: 0.9
+  - player_count: 2
+    average_rating: 4.7
+    rating_count: 5210
+    rating_stddev: 0.5
+  - player_count: 3
+    average_rating: 4.1
+    rating_count: 3620
+    rating_stddev: 0.8
+  - player_count: 4
+    average_rating: 3.4
+    rating_count: 2890
+    rating_stddev: 1.1
+
+# Derived fields (implementation-computed from ratings above)
+top_player_counts: [2]        # Counts with average_rating >= 4.0 threshold
+recommended_player_counts: [1, 2, 3]  # Counts with average_rating >= 3.0 threshold
