@@ -77,6 +77,8 @@ EXPOSE 8080
 CMD ["dist/server.js"]
 ```
 
+Replace the Node.js images above with the latest stable version for your language (`rust:latest`, `golang:latest`, `python:3-slim`, etc.). Pin to a major version tag rather than a specific patch to keep builds reproducible without going stale.
+
 Key requirements:
 - **Distroless base** ([ADR-0021](../adr/0021-distroless-container-images.md)) -- No shell, no package manager, minimal attack surface. Target < 50MB final image.
 - **Health endpoints** -- Expose `/healthz` (liveness: "process is alive") and `/readyz` (readiness: "can serve traffic, database connected").
