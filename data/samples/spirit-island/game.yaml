@@ -1,0 +1,96 @@
+# Spirit Island -- Base Game
+# Cooperative strategy game by R. Eric Reuss (Greater Than Games, 2017)
+# Demonstrates: cooperative game, rich expansion family, high weight, solo-friendly
+
+id: "01912f4c-7e3a-7b1a-8c5d-9f0e1a2b3c4d"
+slug: "spirit-island"
+name: "Spirit Island"
+sort_name: "spirit island"
+type: "base_game"
+year_published: 2017
+description: >-
+  In the most distant reaches of the world, magic still exists, and spirits
+  still inhabit the land. Players take on the roles of island spirits working
+  together to drive away colonizing invaders through unique elemental powers
+  and strategic card play. Each spirit has its own strengths, weaknesses, and
+  complexity level.
+description_short: >-
+  Cooperative strategy game where 1-4 players defend an island from colonizers
+  using unique elemental spirit powers.
+
+# Player count
+min_players: 1
+max_players: 4
+
+# Playtime (dual model -- publisher vs community)
+min_playtime_minutes: 90
+max_playtime_minutes: 120
+community_playtime_min_minutes: 75
+community_playtime_max_minutes: 150
+community_playtime_median_minutes: 105
+
+# Age
+min_age: 13
+community_suggested_age: 14
+
+# Ratings
+average_rating: 8.34
+bayes_rating: 8.21
+rating_count: 28456
+rating_stddev: 1.12
+rating_confidence: 0.91
+rating_distribution: [42, 68, 124, 310, 620, 1240, 3100, 7800, 9200, 5952]
+
+# Weight
+weight: 3.86
+weight_votes: 5127
+
+# Community signals
+owner_count: 42150
+wishlist_count: 8420
+total_plays: 187340
+rank_overall: 14
+
+# Classification
+mode: "cooperative"
+mechanics:
+  - "hand-management"
+  - "cooperative"
+  - "variable-player-powers"
+  - "action-points"
+  - "area-control"
+  - "modular-board"
+categories:
+  - "strategy"
+  - "cooperative"
+  - "thematic"
+themes:
+  - "fantasy"
+  - "nature"
+
+# External identifiers
+identifiers:
+  - source: "bgg"
+    external_id: "162886"
+  - source: "bga"
+    external_id: "spiritisland"
+
+# Metadata
+funding_source: null
+language_dependence: "moderate"
+status: "active"
+created_at: "2025-06-15T10:30:00Z"
+updated_at: "2026-02-20T14:15:00Z"
+
+_links:
+  self:
+    href: "/games/spirit-island"
+  expansions:
+    href: "/games/spirit-island/expansions"
+    title: "6 expansions"
+  effective_properties:
+    href: "/games/spirit-island/effective-properties"
+  player_count_ratings:
+    href: "/games/spirit-island/player-count-ratings"
+  history:
+    href: "/games/spirit-island/history"

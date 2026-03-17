@@ -1,0 +1,34 @@
+# Terraforming Mars -- Per-Player-Count Community Ratings
+# Demonstrates a polarizing player count profile: strong at 3, divisive at 1 and 5
+
+game_id: "01923a5b-8c4d-7e6f-9071-a1b2c3d4e5f6"
+ratings:
+  - player_count: 1
+    average_rating: 2.1
+    rating_count: 4210
+    rating_stddev: 1.4
+  - player_count: 2
+    average_rating: 4.2
+    rating_count: 12450
+    rating_stddev: 0.7
+  - player_count: 3
+    average_rating: 4.7
+    rating_count: 14820
+    rating_stddev: 0.5
+  - player_count: 4
+    average_rating: 3.6
+    rating_count: 9870
+    rating_stddev: 1.0
+  - player_count: 5
+    average_rating: 2.3
+    rating_count: 3420
+    rating_stddev: 1.3
+
+# Derived fields
+top_player_counts: [2, 3]
+recommended_player_counts: [2, 3, 4]
+
+# Note: The solo mode (1p) and 5p both show high stddev, indicating
+# polarized opinions. Solo is divisive because the official solo variant
+# is a timed puzzle quite different from the multiplayer experience.
+# 5p is divisive due to game length concerns (3+ hours common).
