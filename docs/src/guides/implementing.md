@@ -68,6 +68,18 @@ Key design decisions in the schema:
 - **`expansion_combinations` table** -- Explicit tier-1 records for the three-tier resolution model
 - **Generated `tsvector` column** -- Full-text search across name and description (ADR-0027)
 
+### Data Model Checklist: Database
+
+- [ ] Schema matches [ER diagram](../pillars/data-model/overview.md) — all entities and join tables present
+- [ ] [UUIDv7](../pillars/data-model/identifiers.md) primary keys, slug unique secondary keys
+- [ ] [Entity types](../pillars/data-model/entity-type-criteria.md) supported: base_game, expansion, standalone_expansion, promo, accessory, fan_expansion
+- [ ] [Dual playtime](../pillars/data-model/playtime.md) columns: both publisher-stated and community-reported
+- [ ] [Rating](../pillars/data-model/rating-model.md) columns: average_rating, rating_count, rating_distribution, rating_stddev
+- [ ] [Weight](../pillars/data-model/weight-model.md) columns: weight + weight_votes
+- [ ] [Taxonomy](../pillars/data-model/taxonomy.md) join tables: game_mechanics, game_categories, game_themes
+- [ ] [Relationships](../pillars/data-model/relationships.md) table: typed directed edges with ordinal
+- [ ] Full-text search vector column with GIN index
+
 ## Step 3: Load Sample Data
 
 The `data/samples/` directory contains demonstration records for *Spirit Island* and *Terraforming Mars*. A loader script is provided:
@@ -106,6 +118,16 @@ Start with the read-only endpoints that don't involve complex logic:
 
 All list endpoints should return paginated responses with `_links` for navigation (ADR-0018) and support the `?include` parameter for embedding related resources (ADR-0017).
 
+### Data Model Checklist: Core Endpoints
+
+- [ ] [Game entity](../pillars/data-model/games.md) returns all required fields (id, slug, name, type) plus optional fields
+- [ ] [Identifier lookup](../pillars/data-model/identifiers.md): both UUID and slug resolve to the same entity
+- [ ] [Taxonomy endpoints](../pillars/data-model/taxonomy.md): mechanics, categories, themes return canonical slugs
+- [ ] [Relationships](../pillars/data-model/relationships.md): typed edges queryable (expands, reimplements, integrates_with)
+- [ ] [Age fields](../pillars/data-model/age-recommendation.md): min_age (publisher) + community_suggested_age
+- [ ] `_links` include self, expansions, effective_properties, player_count_ratings, relationships
+- [ ] 404 returns [RFC 9457](../adr/0015-rfc9457-error-responses.md) Problem Details format
+
 ## Step 5: Implement the Hard Parts
 
 ### Compound Filtering
@@ -140,6 +162,15 @@ The `GET /export/games` endpoint streams JSON Lines or CSV. Key concerns:
 
 See [Data Export](../pillars/statistics/export.md) for the full specification.
 
+### Data Model Checklist: Advanced Features
+
+- [ ] [Three-tier expansion resolution](../pillars/data-model/property-deltas.md): explicit → computed → base_only with `combination_source` in response
+- [ ] [Player count ratings](../pillars/data-model/player-count.md): per-count 1-5 numeric scale (not legacy three-tier)
+- [ ] [Experience-bucketed playtime](../pillars/data-model/playtime.md): four levels (first_play, learning, experienced, expert) with multipliers
+- [ ] [Compound filtering](../pillars/filtering/overview.md): 9 dimensions, AND cross-dimension, OR within-dimension
+- [ ] [Effective mode](../pillars/filtering/effective-mode.md): `effective=true` filters against expansion-modified properties
+- [ ] [Rating confidence](../pillars/data-model/rating-model.md): confidence score (0.0-1.0) exposed in Game entity
+
 ## Step 6: Generate Client SDKs
 
 Any OpenAPI-compatible code generator can produce client libraries from the spec:
@@ -162,6 +193,13 @@ To verify your implementation conforms to the spec:
 6. **Sample data round-trip** -- Load the sample data, query it through your API, and verify the response shapes match the spec examples
 
 A formal conformance test suite is a future goal (see [ADR-0045](../adr/0045-specification-only-repository.md)).
+
+### Data Model Checklist: Conformance
+
+- [ ] [Data provenance](../pillars/data-model/data-provenance.md): input contracts documented, voter context captured
+- [ ] All responses match schemas in `spec/schemas/`
+- [ ] [Keyset pagination](../adr/0012-keyset-pagination.md) on all list endpoints
+- [ ] [HAL-style _links](../adr/0018-hal-style-links.md) on all entity responses
 
 ## Recommended Architecture
 
