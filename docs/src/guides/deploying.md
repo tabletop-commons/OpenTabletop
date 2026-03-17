@@ -307,6 +307,75 @@ Monitor slow queries with `pg_stat_statements` and run `EXPLAIN ANALYZE` on your
 - **Test restores monthly** -- a backup you have not restored is not a backup
 - Managed services (AWS RDS, Cloud SQL, Supabase) handle this automatically
 
+## Materialization Jobs
+
+The Game entity's aggregate fields (`average_rating`, `bayes_rating`, `rank_overall`, etc.) are **materialized** from raw input data -- not computed on every API request. See [Materialization](../pillars/data-model/materialization.md) for the full architectural rationale. In production, a scheduled job performs this materialization.
+
+### Execution Order
+
+The materialization must run in dependency order:
+
+1. **Per-game aggregates first** -- `average_rating`, `rating_count`, `rating_distribution`, `rating_stddev`, `weight`, `weight_votes`, `community_playtime_*`, `community_suggested_age`, `owner_count`, `wishlist_count`, `total_plays`, `top_player_counts`, `recommended_player_counts`, experience multipliers
+2. **Global parameters second** -- Compute the global mean rating and Dirichlet prior parameters from the freshly-updated per-game averages
+3. **Bayesian ratings third** -- `bayes_rating` and `rating_confidence` depend on the global parameters from step 2
+4. **Rankings last** -- `rank_overall` sorts all games by `bayes_rating`, which must be current before ranking
+
+Steps 1-3 can be parallelized per-game. Step 4 is a single global sort.
+
+### Idempotency
+
+The materialization job must be **idempotent** -- safe to re-run at any time without producing incorrect results. Each run reads the current Tier 1 data and overwrites Tier 2 fields. Running the job twice with no new votes produces identical output. This means you can safely retry on failure, run manually for debugging, or trigger an extra run after a bulk data import.
+
+### Kubernetes CronJob
+
+Schedule the materialization as a Kubernetes CronJob that runs daily at a low-traffic hour:
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: opentabletop-materialize
+spec:
+  schedule: "0 4 * * *"   # Daily at 04:00 UTC
+  concurrencyPolicy: Forbid  # Never run two at once
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600  # Kill if stuck for 1 hour
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: materialize
+              image: ghcr.io/your-org/opentabletop:abc1234
+              command: ["node", "dist/jobs/materialize.js"]
+              envFrom:
+                - configMapRef:
+                    name: opentabletop-config
+                - secretRef:
+                    name: opentabletop-secrets
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+                limits:
+                  cpu: "2"
+                  memory: 1Gi
+```
+
+Key settings:
+- **`concurrencyPolicy: Forbid`** prevents overlapping runs if a previous job is still in progress.
+- **`activeDeadlineSeconds`** kills a stuck job before the next scheduled run.
+- **`backoffLimit: 2`** retries on transient failures (safe because the job is idempotent).
+
+Replace the `command` with your implementation's materialization entrypoint (e.g., `cargo run --bin materialize` for Rust, `python -m opentabletop.materialize` for Python).
+
+### Manual Trigger
+
+The demo API exposes `POST /v1/admin/materialize` for manual triggering -- useful after bulk data imports or during development. This endpoint runs the same logic as the cron job. In production, protect it with admin-only authentication.
+
 ## Observability
 
 Instrument your server with OpenTelemetry ([ADR-0023](../adr/0023-opentelemetry-observability.md)). The three signals:
