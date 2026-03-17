@@ -10,7 +10,7 @@
 
 **An open-source API specification and data standard for structured, queryable board game data.**
 
-Board games deserve what MusicBrainz built for music and TMDb built for film: a community-driven, standardized API that any application can build on. OpenTabletop is that standard -- an OpenAPI specification, controlled vocabularies, and sample data that anyone can use to build their own conforming implementation.
+Board games deserve what MusicBrainz built for music and TMDb built for film: a community-driven, standardized way to describe and query game data. OpenTabletop is that standard. It defines the data model, API contract, and controlled vocabularies -- not a database, but the blueprint that any database can implement. Think of it like SQL defines a query language while PostgreSQL and MySQL implement it, or how ActivityPub defines a federation protocol while Mastodon and Lemmy implement it. OpenTabletop defines the specification; anyone can build a conforming server with their own data.
 
 ## The Problem
 
@@ -72,24 +72,23 @@ scripts/        Spec bundling and ADR validation
 
 ## Quick Start
 
-**Browse the documentation:**
+**Explore the spec interactively:**
 
 ```sh
-# Build and serve docs locally
-mdbook serve docs/
-```
-
-**Validate the spec:**
-
-```sh
-npx @stoplight/spectral-cli lint spec/openapi.yaml
-```
-
-**Bundle the spec into a single file:**
-
-```sh
+# Bundle and preview in your browser
 ./scripts/bundle-spec.sh
+npx @redocly/cli preview-docs spec/bundled/openapi.yaml
 ```
+
+**Generate a client SDK:**
+
+```sh
+# Python, TypeScript, Rust, Go, Java, and 50+ other languages
+npx @openapitools/openapi-generator-cli generate \
+    -i spec/bundled/openapi.yaml -g python -o my-sdk/
+```
+
+**Build a conforming server:** See the [Implementer's Guide](docs/src/guides/implementing.md) for the full walkthrough -- database schema, sample data loader, endpoint implementation, and conformance validation.
 
 ## Architecture
 

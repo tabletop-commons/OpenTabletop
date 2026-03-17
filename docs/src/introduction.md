@@ -65,6 +65,26 @@ The `effective: true` flag means the search considers expansion combinations. Ti
 
 No other board game API can answer this query today.
 
+## Where OpenTabletop Fits
+
+OpenTabletop is a **specification**, not a database. This is an important distinction. MusicBrainz is both a standard *and* a hosted database -- it defines what music metadata looks like and operates the canonical instance. OpenTabletop defines only the standard. Anyone can build and host a conforming implementation with their own data, their own community, and their own infrastructure.
+
+This follows a pattern that has worked across the software industry:
+
+| Standard | Domain | What it defines | Who implements it |
+|----------|--------|-----------------|-------------------|
+| POSIX | Operating systems | System call interface | Linux, macOS, FreeBSD |
+| SQL | Databases | Query language | PostgreSQL, MySQL, SQLite |
+| ActivityPub | Social media | Federation protocol | Mastodon, Lemmy, Pixelfed |
+| Schema.org | Web data | Structured vocabulary | Google, Bing, search engines |
+| FHIR | Healthcare | Health record format | Hospital systems worldwide |
+| iCalendar | Scheduling | Event data format | Google Calendar, Outlook, Apple |
+| **OpenTabletop** | **Board games** | **Data model + API contract** | **Any board game platform** |
+
+The pattern is always the same: define the interface, let implementations compete on quality. The standard creates interoperability -- an app built against one conforming server works against any other. The implementations create value -- different communities can curate their own data, optimize for their own audience, and still speak the same language.
+
+This is why the project ships schemas, vocabularies, and sample data rather than a running server. The specification *is* the product. A Japanese board game community, a German hobbyist database, a university research project, and a commercial collection tracker can all implement the same spec and produce interoperable data. The standard is the commons; the implementations are the marketplace.
+
 ## Project Status
 
 OpenTabletop is in the **specification phase**. The project is defining:
