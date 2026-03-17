@@ -20,6 +20,7 @@
   - [Age Recommendation Model](./pillars/data-model/age-recommendation.md)
   - [Identifiers](./pillars/data-model/identifiers.md)
   - [Data Provenance & Bias](./pillars/data-model/data-provenance.md)
+  - [Materialization](./pillars/data-model/materialization.md)
 - [Pillar 2: Filtering & Windowing](./pillars/filtering/overview.md)
   - [Filter Dimensions](./pillars/filtering/dimensions.md)
   - [Dimension Composition](./pillars/filtering/composition.md)
