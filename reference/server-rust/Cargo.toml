@@ -26,8 +26,8 @@ dotenvy = "0.15"
 # Observability
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
-opentelemetry = "0.27"
-opentelemetry-otlp = "0.27"
+opentelemetry = "0.31"
+opentelemetry-otlp = "0.31"
 
 # Utilities
 uuid = { version = "1", features = ["v7", "serde"] }
@@ -36,5 +36,5 @@ thiserror = "2"
 url = "2"
 
 [dev-dependencies]
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.13", features = ["json"] }
 tokio-test = "0.4"
