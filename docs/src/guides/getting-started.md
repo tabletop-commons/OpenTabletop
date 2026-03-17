@@ -59,13 +59,13 @@ Response:
 The real power is in compound filtering. Find cooperative games for 4 players, under 90 minutes, medium complexity:
 
 ```bash
-curl "https://{your-server}/v1/games?\
-players=4&\
-community_playtime_max=90&\
-weight_min=2.0&weight_max=3.5&\
-mode=cooperative&\
-sort=bayes_rating&order=desc&\
-limit=10"
+curl "https://{your-server}/v1/games? \
+    players=4& \
+    community_playtime_max=90& \
+    weight_min=2.0&weight_max=3.5& \
+    mode=cooperative& \
+    sort=bayes_rating&order=desc& \
+    limit=10"
 ```
 
 ## Searching in Other Languages
@@ -88,10 +88,10 @@ Add `effective=true` to filter against properties that include expansion modific
 
 ```bash
 # Games that support 6 players with at least one expansion
-curl "https://{your-server}/v1/games?\
-players=6&\
-effective=true&\
-type=base_game"
+curl "https://{your-server}/v1/games? \
+    players=6& \
+    effective=true& \
+    type=base_game"
 ```
 
 ## Effective Properties
@@ -99,8 +99,8 @@ type=base_game"
 See how a game's properties change with specific expansions:
 
 ```bash
-curl "https://{your-server}/v1/games/spirit-island/\
-effective-properties?with=branch-and-claw,jagged-earth"
+curl "https://{your-server}/v1/games/spirit-island/ \
+    effective-properties?with=branch-and-claw,jagged-earth"
 ```
 
 ## Complex Queries
