@@ -174,3 +174,7 @@ The ADRs in the [Infrastructure & Implementation Guidance](../adr/index.md) sect
 - **Caching** (ADR-0028) -- Cache-Control headers and ETags
 
 These are recommendations, not requirements. A conforming server built with Django and MySQL is just as valid as one built with Axum and PostgreSQL, provided it implements the API contract correctly.
+
+## Next: Deploying
+
+Once your server is built and passing conformance checks, see the [Deploying & Operating](./deploying.md) guide for container images, Kubernetes manifests, database operations, observability setup, and production checklists.

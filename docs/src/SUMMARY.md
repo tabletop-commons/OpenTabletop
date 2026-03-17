@@ -103,6 +103,7 @@
 
 - [Getting Started](./guides/getting-started.md)
 - [Implementing the Spec](./guides/implementing.md)
+- [Deploying & Operating](./guides/deploying.md)
 - [Migrating from BGG](./guides/migrating-from-bgg.md)
 
 # Governance
