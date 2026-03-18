@@ -1,6 +1,11 @@
 name: Validate OpenAPI Spec
 
 on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "spec/**"
   pull_request:
     paths:
       - "spec/**"
