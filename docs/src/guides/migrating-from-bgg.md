@@ -37,13 +37,12 @@ Route traffic through a gateway that sends requests to OpenTabletop for migrated
 | `name[@type='primary']` | `name` | Primary name |
 | `minplayers` | `min_players` | Same semantics |
 | `maxplayers` | `max_players` | Same semantics |
-| `poll[@name='suggested_numplayers']` | `GET /games/{id}/player-count-poll` | Structured as proper endpoint |
-| `minplaytime` | `min_playtime_minutes` | Publisher-stated |
-| `maxplaytime` | `max_playtime_minutes` | Publisher-stated |
-| (not available) | `community_playtime_median_minutes` | Community-reported -- new |
+| `poll[@name='suggested_numplayers']` | `GET /games/{id}/player-count-ratings` | Numeric 1-5 per-count ratings |
+| `minplaytime` | `min_playtime` | Publisher-stated |
+| `maxplaytime` | `max_playtime` | Publisher-stated |
+| (not available) | `community_min_playtime`, `community_max_playtime` | Community-reported -- new |
 | `statistics/ratings/averageweight` | `weight` | Same 1-5 scale |
-| `statistics/ratings/average` | `average_rating` | Same scale |
-| `statistics/ratings/bayesaverage` | `bayes_rating` | Bayesian average |
+| `statistics/ratings/average` | `rating` | Same scale |
 | `link[@type='boardgamemechanic']` | `?include=mechanics` | Embedded via include param |
 | `link[@type='boardgamecategory']` | `?include=categories` | Embedded via include param |
 | `link[@type='boardgameexpansion']` | `GET /games/{id}/relationships?type=expands` | Typed relationship query |
@@ -54,13 +53,13 @@ Route traffic through a gateway that sends requests to OpenTabletop for migrated
 BGG returns XML. Conforming OpenTabletop implementations return JSON with HAL-style `_links`.
 
 ### Polling vs Structured Data
-BGG embeds poll data inline in the thing response as XML. The OpenTabletop specification defines polls as dedicated endpoints with structured schemas -- each player count has explicit best/recommended/not-recommended vote counts.
+BGG embeds poll data inline in the thing response as XML. The OpenTabletop specification defines player count ratings as a dedicated endpoint with a numeric 1-5 scale per count -- each player count has an independent average rating, vote count, and standard deviation. This replaces BGG's three-tier Best/Recommended/Not Recommended model ([ADR-0043](../adr/0043-player-count-sentiment-model-improvements.md)).
 
 ### No Expansion-Aware Filtering
 BGG has no concept of filtering by expansion-modified properties. The specification's `effective=true` parameter is entirely new functionality.
 
 ### No Community Play Times
-BGG tracks play logs but doesn't expose aggregated community play times through the API. The specification defines `community_playtime_median_minutes` as a first-class field.
+BGG tracks play logs but doesn't expose aggregated community play times through the API. The specification defines `community_min_playtime` and `community_max_playtime` as first-class fields, plus experience-adjusted playtime via `GET /games/{id}/experience-playtime`.
 
 ### Rate Limiting
 BGG has undocumented rate limits that change without notice. The specification defines explicit tiered limits (60/min public, 600/min authenticated) with standard `X-RateLimit-*` headers.

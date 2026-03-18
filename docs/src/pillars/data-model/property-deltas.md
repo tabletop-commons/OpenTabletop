@@ -52,8 +52,8 @@ An `ExpansionCombination` records the *effective properties* when a specific set
 | `min_playtime` | integer | no | Effective minimum play time |
 | `max_playtime` | integer | no | Effective maximum play time |
 | `weight` | float | no | Effective complexity weight |
-| `best_at` | integer[] | no | Player counts where this combination is best |
-| `recommended_at` | integer[] | no | Player counts where this combination is recommended |
+| `top_at` | integer[] | no | Player counts with rating above high threshold for this combination |
+| `recommended_at` | integer[] | no | Player counts with rating above moderate threshold for this combination |
 | `min_age` | integer | no | Effective recommended minimum age |
 
 ## Three-Tier Resolution
@@ -100,7 +100,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 5 |
-| best_at | [4] |
+| top_at | [4] |
 | recommended_at | [3, 4, 5] |
 | weight | 3.45 |
 | min_playtime | 115 |
@@ -159,7 +159,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 7 |
-| best_at | [4] |
+| top_at | [4] |
 | recommended_at | [3, 4, 5, 6] |
 | weight | 3.44 |
 | min_playtime | 90 |
@@ -172,7 +172,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 7 |
-| best_at | [4] |
+| top_at | [4] |
 | recommended_at | [3, 4, 5] |
 | weight | 3.43 |
 | min_playtime | 70 |
@@ -185,7 +185,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 5 |
-| best_at | [3, 4] |
+| top_at | [3, 4] |
 | recommended_at | [2, 3, 4, 5] |
 | weight | 3.50 |
 | min_playtime | 75 |
@@ -198,7 +198,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 7 |
-| best_at | [4, 5] |
+| top_at | [4, 5] |
 | recommended_at | [3, 4, 5, 6] |
 | weight | 3.46 |
 | min_playtime | 70 |
@@ -210,7 +210,7 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 7 |
-| best_at | [3, 4] |
+| top_at | [3, 4] |
 | recommended_at | [2, 3, 4, 5, 6] |
 | weight | 3.52 |
 | min_playtime | 75 |
@@ -222,13 +222,13 @@ Here is the complete property delta data for *Scythe* and its expansions:
 |----------|-------|
 | min_players | 1 |
 | max_players | 7 |
-| best_at | [3, 4, 5] |
+| top_at | [3, 4, 5] |
 | recommended_at | [2, 3, 4, 5, 6] |
 | weight | 3.55 |
 | min_playtime | 70 |
 | max_playtime | 150 |
 
-Notice how multi-expansion combinations produce different results than summing individual deltas. The `best_at` list with *Fenris* includes 3 players -- something no individual expansion achieves, because the campaign structure is particularly engaging at smaller counts. *The Wind Gambit's* reduced min_playtime of 70 minutes persists through combinations -- airship abilities that accelerate the endgame work regardless of other expansions present. And the weight with all major expansions reaches 3.55, above any individual expansion's weight, reflecting the cumulative cognitive load of managing factions, airships, and campaign modules simultaneously. These non-linear effects are why explicit `ExpansionCombination` records exist.
+Notice how multi-expansion combinations produce different results than summing individual deltas. The `top_at` list with *Fenris* includes 3 players -- something no individual expansion achieves, because the campaign structure is particularly engaging at smaller counts. *The Wind Gambit's* reduced min_playtime of 70 minutes persists through combinations -- airship abilities that accelerate the endgame work regardless of other expansions present. And the weight with all major expansions reaches 3.55, above any individual expansion's weight, reflecting the cumulative cognitive load of managing factions, airships, and campaign modules simultaneously. These non-linear effects are why explicit `ExpansionCombination` records exist.
 
 ### Resolution in Action
 

@@ -85,7 +85,7 @@ Use any SQL-native migration runner (golang-migrate, Flyway, dbmate, or plain `p
 - [ ] [UUIDv7](../pillars/data-model/identifiers.md) primary keys, slug unique secondary keys
 - [ ] [Entity types](../pillars/data-model/entity-type-criteria.md) supported: base_game, expansion, standalone_expansion, promo, accessory, fan_expansion
 - [ ] [Dual playtime](../pillars/data-model/playtime.md) columns: both publisher-stated and community-reported
-- [ ] [Rating](../pillars/data-model/rating-model.md) columns: average_rating, rating_count, rating_distribution, rating_stddev
+- [ ] [Rating](../pillars/data-model/rating-model.md) columns: rating, rating_votes, rating_distribution, rating_stddev, rating_confidence
 - [ ] [Weight](../pillars/data-model/weight-model.md) columns: weight + weight_votes
 - [ ] [Taxonomy](../pillars/data-model/taxonomy.md) join tables: game_mechanics, game_categories, game_themes
 - [ ] [Relationships](../pillars/data-model/relationships.md) table: typed directed edges with ordinal
@@ -93,7 +93,7 @@ Use any SQL-native migration runner (golang-migrate, Flyway, dbmate, or plain `p
 
 ## Step 3: Set Up Local Development
 
-Before writing any application code, get a local development stack running. A `docker-compose.yml` with PostgreSQL and Redis gives you a reproducible environment that mirrors production:
+Before writing any application code, get a local development stack running. A `docker-compose.yml` with PostgreSQL gives you a reproducible environment that mirrors production:
 
 ```yaml
 # docker-compose.yml
@@ -108,12 +108,8 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./data/samples/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
-
-  redis:
-    image: redis:8-alpine
-    ports:
-      - "6379:6379"
+      - ./data/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./data/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
 
 volumes:
   pgdata:
@@ -165,7 +161,7 @@ The loader reads the YAML files, maps them to the schema from Step 2, and insert
 After loading, verify the data:
 
 ```sql
-SELECT name, type, weight, average_rating FROM games;
+SELECT name, type, weight, rating FROM games;
 SELECT g.name, pcr.player_count, pcr.average_rating
   FROM player_count_ratings pcr
   JOIN games g ON g.id = pcr.game_id
@@ -364,7 +360,7 @@ The `POST /v1/games/search` endpoint is the showcase feature. It accepts a `Sear
 8. **Metadata** -- `designer`, `publisher`, `category`, `year_min`, `year_max`
 9. **Corpus & Archetype** -- `corpus`, `corpus_rating_min` (aspirational)
 
-Example: "cooperative games, weight 2.5-3.5, best at exactly 4 players" requires joining across `games`, `game_mechanics`, and `player_count_ratings` in a single query.
+Example: "cooperative games, weight 2.5-3.5, highly rated at exactly 4 players" requires joining across `games`, `game_mechanics`, and `player_count_ratings` in a single query.
 
 ### Effective Mode on Search
 
@@ -404,7 +400,7 @@ See [Search Endpoint](../pillars/filtering/search-endpoint.md) and [Effective Mo
 
 ## Step 10: Add the Materialization Pipeline
 
-The Game entity's aggregate fields (`average_rating`, `bayes_rating`, `rank_overall`, etc.) are **materialized** from raw input data -- not computed on every API request. This separation of raw votes from computed aggregates is a deliberate architectural decision documented in [Materialization](../pillars/data-model/materialization.md).
+The Game entity's aggregate fields (`rating`, `rating_confidence`, `rank_overall`, etc.) are **materialized** from raw input data -- not computed on every API request. This separation of raw votes from computed aggregates is a deliberate architectural decision documented in [Materialization](../pillars/data-model/materialization.md).
 
 ### Raw Vote Tables
 
@@ -413,16 +409,19 @@ Add raw vote tables via SQL migration. These store the individual, immutable rec
 ```sql
 -- migrations/0001_raw_vote_tables.sql
 CREATE TABLE rating_votes (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    game_id     UUID NOT NULL REFERENCES games(id),
-    score       NUMERIC(3,1) NOT NULL CHECK (score BETWEEN 1.0 AND 10.0),
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+    id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    game_id          UUID NOT NULL REFERENCES games(id),
+    rating           INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 10),
+    declared_scale   VARCHAR(10),    -- Layer 1 vote context (rating-model.md)
+    play_count       INTEGER,        -- how many times voter has played this game
+    experience_level VARCHAR(50),    -- first_play, learning, experienced, expert
+    created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE weight_votes_raw (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     game_id     UUID NOT NULL REFERENCES games(id),
-    weight      NUMERIC(3,2) NOT NULL CHECK (weight BETWEEN 1.0 AND 5.0),
+    weight      NUMERIC(2,1) NOT NULL CHECK (weight >= 1.0 AND weight <= 5.0),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 ```
@@ -431,7 +430,9 @@ Raw records are append-only. A new rating vote is inserted; it does not update a
 
 ### Vote Submission Endpoint
 
-**`POST /v1/games/{id}/ratings`** -- Submit a raw rating vote. Accepts a numeric score (1.0-10.0), inserts it into `rating_votes`, and returns the created record. The submitted vote is not immediately reflected in the Game entity's aggregate fields -- it becomes visible after the next materialization run.
+**`POST /v1/games/{id}/ratings`** -- Submit a raw rating vote. Accepts a numeric rating (1-10) with optional vote context (declared scale preference, play count, experience level per [rating-model.md](../pillars/data-model/rating-model.md) Layer 1 input contract). Inserts into `rating_votes` and returns the created record. The submitted vote is not immediately reflected in the Game entity's aggregate fields -- it becomes visible after the next materialization run.
+
+**`POST /v1/games/{id}/weight`** -- Submit a raw weight vote. Accepts a numeric weight (1.0-5.0 per [weight-model.md](../pillars/data-model/weight-model.md)). Inserts into `weight_votes_raw`.
 
 ### Materialization Endpoint
 
@@ -441,12 +442,14 @@ Raw records are append-only. A new rating vote is inserted; it does not update a
 
 The materialization must run in dependency order:
 
-1. **Per-game aggregates first** -- `average_rating`, `rating_count`, `rating_distribution`, `rating_stddev`, `weight`, `weight_votes`, experience multipliers, `top_player_counts`, `recommended_player_counts`
-2. **Global parameters second** -- Compute the global mean rating and Dirichlet prior parameters from the freshly-updated per-game averages
-3. **Bayesian ratings third** -- `bayes_rating` and `rating_confidence` depend on the global parameters from step 2
-4. **Rankings last** -- `rank_overall` sorts all games by `bayes_rating`, which must be current before ranking
+1. **Per-game aggregates first** -- `rating`, `rating_votes`, `rating_distribution`, `rating_stddev` from `rating_votes`; `weight`, `weight_votes` from `weight_votes_raw`
+2. **Global parameters second** -- Compute the global mean rating from the freshly-updated per-game averages
+3. **Rating confidence third** -- `rating_confidence` is the spec-level trust signal ([rating-model.md](../pillars/data-model/rating-model.md) Layer 3), computed from three factors: sample size, distribution shape (stddev), and deviation from global mean. This depends on steps 1 and 2.
+4. **Rankings fourth** -- `rank_overall` sorts all games by an implementation-chosen ranking method (the spec recommends Dirichlet-prior Bayesian scoring as Layer 4 guidance, but any method is valid)
+5. **Derived fields fifth** -- `top_player_counts`, `recommended_player_counts` from `player_count_ratings`; experience multipliers from play logs
+6. **Snapshots last** -- Write a `GameSnapshot` row capturing the freshly-computed aggregates for longitudinal trend analysis ([ADR-0036](../adr/0036-time-series-snapshots-and-trend-analysis.md))
 
-Steps 1-3 can be parallelized per-game. Step 4 is a single global sort.
+Steps 1-3 can be parallelized per-game. Steps 4 and 6 are global operations.
 
 The job must be **idempotent** -- safe to re-run at any time without producing incorrect results. Each run reads the current raw data and overwrites the materialized fields. Running the job twice with no new votes produces identical output.
 
@@ -456,12 +459,16 @@ See [Materialization](../pillars/data-model/materialization.md) for the full arc
 
 - [ ] [Materialization architecture](../pillars/data-model/materialization.md): raw input data (Tier 1) separated from materialized aggregates (Tier 2)
 - [ ] Raw vote tables: `rating_votes`, `weight_votes_raw` created via versioned migration
-- [ ] Vote submission endpoint accepts and stores individual votes
-- [ ] Materialization execution order: per-game -> global mean -> Bayesian -> rankings
+- [ ] Vote submission endpoints: rating votes (`POST /v1/games/{id}/ratings`) and weight votes (`POST /v1/games/{id}/weight`)
+- [ ] Rating votes capture [Layer 1 context](../pillars/data-model/rating-model.md): declared scale, play count, experience level
+- [ ] Materialization execution order: per-game aggregates -> global mean -> confidence -> rankings -> derived fields -> snapshots
 - [ ] Job is idempotent: re-running produces identical output
 - [ ] `updated_at` field on Game entity indicates when aggregates were last refreshed
-- [ ] [Bayesian rating](../pillars/data-model/rating-model.md): `bayes_rating` computed using Dirichlet prior from global parameters
-- [ ] [Ranking](../pillars/data-model/rating-model.md): `rank_overall` computed from sorted `bayes_rating`
+- [ ] [Rating confidence](../pillars/data-model/rating-model.md): `rating_confidence` (Layer 3, spec-level) computed from sample size, distribution shape, and deviation from global mean
+- [ ] [Ranking](../pillars/data-model/rating-model.md): `rank_overall` computed from implementation-chosen ranking method (Layer 4 recommends Dirichlet-prior Bayesian)
+- [ ] Weight materialized from `weight_votes_raw`
+- [ ] Derived fields: `top_player_counts`, `recommended_player_counts` from per-count ratings
+- [ ] [Snapshots](../adr/0036-time-series-snapshots-and-trend-analysis.md): `GameSnapshot` written as materialization side effect
 
 ## Step 11: Containerize
 
