@@ -27,4 +27,4 @@ jobs:
           node-version: "22"
 
       - name: Run Spectral lint
-        run: npx --yes @stoplight/spectral-cli lint spec/openapi.yaml --fail-severity warn
+        run: npx --yes @stoplight/spectral-cli lint spec/openapi.yaml --fail-severity error
