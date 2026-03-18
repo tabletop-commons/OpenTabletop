@@ -6,13 +6,13 @@ The guide is practical -- every section includes concrete examples you can adapt
 
 ## Local Development Stack
 
-Start with a local stack that mirrors production. This `docker-compose.yml` runs PostgreSQL, Redis (optional cache), and an OpenTelemetry collector:
+Start with a local stack that mirrors production. This `docker-compose.yml` runs PostgreSQL with schema auto-loaded on first startup:
 
 ```yaml
 # docker-compose.yml
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: opentabletop
       POSTGRES_USER: ot
@@ -21,13 +21,16 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./data/samples/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./data/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./data/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
 
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
+volumes:
+  pgdata:
+```
 
+For production observability, add an OpenTelemetry collector ([ADR-0023](../adr/0023-observability-structured-logging-opentelemetry.md)):
+
+```yaml
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
     ports:
@@ -36,9 +39,6 @@ services:
       - "8889:8889"   # Prometheus exporter
     volumes:
       - ./otel-config.yaml:/etc/otelcol-contrib/config.yaml
-
-volumes:
-  pgdata:
 ```
 
 Start it and load sample data:
@@ -290,7 +290,7 @@ The compound filtering workload (Pillar 2) drives these critical indexes:
 CREATE INDEX idx_game_mechanics_mechanic ON game_mechanics(mechanic_id);
 
 -- Compound sort (most common: rating desc with minimum vote count)
-CREATE INDEX idx_games_rating ON games(average_rating DESC, rating_count DESC);
+CREATE INDEX idx_games_rating ON games(rating DESC, rating_votes DESC);
 
 -- Full-text search (weighted: name > short desc > full desc)
 CREATE INDEX idx_games_search ON games USING GIN(search_vector);
@@ -309,16 +309,18 @@ Monitor slow queries with `pg_stat_statements` and run `EXPLAIN ANALYZE` on your
 
 ## Materialization Jobs
 
-The Game entity's aggregate fields (`average_rating`, `bayes_rating`, `rank_overall`, etc.) are **materialized** from raw input data -- not computed on every API request. See [Materialization](../pillars/data-model/materialization.md) for the full architectural rationale. In production, a scheduled job performs this materialization.
+The Game entity's aggregate fields (`rating`, `rating_confidence`, `rank_overall`, etc.) are **materialized** from raw input data -- not computed on every API request. See [Materialization](../pillars/data-model/materialization.md) for the full architectural rationale. In production, a scheduled job performs this materialization.
 
 ### Execution Order
 
 The materialization must run in dependency order:
 
-1. **Per-game aggregates first** -- `average_rating`, `rating_count`, `rating_distribution`, `rating_stddev`, `weight`, `weight_votes`, `community_playtime_*`, `community_suggested_age`, `owner_count`, `wishlist_count`, `total_plays`, `top_player_counts`, `recommended_player_counts`, experience multipliers
-2. **Global parameters second** -- Compute the global mean rating and Dirichlet prior parameters from the freshly-updated per-game averages
-3. **Bayesian ratings third** -- `bayes_rating` and `rating_confidence` depend on the global parameters from step 2
-4. **Rankings last** -- `rank_overall` sorts all games by `bayes_rating`, which must be current before ranking
+1. **Per-game aggregates first** -- `rating`, `rating_votes`, `rating_distribution`, `rating_stddev`, `weight`, `weight_votes`, `community_playtime_*`, `community_suggested_age`, `owner_count`, `wishlist_count`, `total_plays`, experience multipliers
+2. **Global parameters second** -- Compute the global mean rating from the freshly-updated per-game averages
+3. **Rating confidence third** -- `rating_confidence` is the spec-level trust signal ([rating-model.md](../pillars/data-model/rating-model.md) Layer 3), computed from sample size, distribution shape, and deviation from global mean
+4. **Rankings fourth** -- `rank_overall` computed using an implementation-chosen ranking method (Layer 4 recommends Dirichlet-prior Bayesian)
+5. **Derived fields fifth** -- `top_player_counts`, `recommended_player_counts` from per-count ratings
+6. **Snapshots last** -- Write `GameSnapshot` rows as a side effect of materialization ([ADR-0036](../adr/0036-time-series-snapshots-and-trend-analysis.md))
 
 Steps 1-3 can be parallelized per-game. Step 4 is a single global sort.
 

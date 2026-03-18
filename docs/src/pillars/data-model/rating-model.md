@@ -8,13 +8,14 @@ The [Game entity](./games.md) carries these rating fields:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `average_rating` | float (0-10) | Arithmetic mean of all user ratings |
-| `bayes_rating` | float (0-10) | Bayesian average that regresses toward the global mean |
-| `rating_count` | integer | Total number of user ratings |
+| `rating` | float (0-10) | Arithmetic mean of all user ratings |
+| `bayes_rating` | float (0-10) | Bayesian average that regresses toward the global mean (Layer 4 implementation recommendation) |
+| `rating_votes` | integer | Total number of user ratings |
 | `rating_distribution` | integer[10] | Histogram: count of votes at each 1-10 bucket ([ADR-0041](../../adr/0041-community-signals-and-aggregate-statistics.md)) |
 | `rating_stddev` | float | Standard deviation of the distribution |
+| `rating_confidence` | float (0-1) | Spec-level confidence score (Layer 3) |
 
-The `average_rating` and `rating_count` are the source data. The `bayes_rating` is a derived value that implementations may compute using their own parameters. The `rating_distribution` histogram exposes the full shape of voter opinion.
+The `rating` and `rating_votes` are the source data. The `bayes_rating` is a derived value that implementations may compute using their own parameters (Layer 4). The `rating_confidence` is the spec-level trust signal (Layer 3). The `rating_distribution` histogram exposes the full shape of voter opinion.
 
 ## BGG's Bayesian Average ("Geek Rating")
 
